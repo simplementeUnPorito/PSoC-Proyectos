@@ -1,0 +1,49 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="package_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Perimeter4SideOuter" />
+      <xs:enumeration value="Perimeter4SideInner" />
+      <xs:enumeration value="Perimeter2SideOuter" />
+      <xs:enumeration value="Grid" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="InnerPin">
+    <xs:complexType mixed="true">
+      <xs:attribute type="xs:string" name="ID" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ModulePackage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ExternalPin" maxOccurs="unbounded" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="InnerPin" maxOccurs="unbounded" minOccurs="0" />
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="Name" use="required"/>
+            <xs:attribute type="xs:string" name="ID" use="required"/>
+            <xs:attribute type="xs:string" name="Position" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="InternalPin" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="InnerPin" maxOccurs="unbounded" minOccurs="1" />
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="Name" use="required"/>
+            <xs:attribute type="xs:string" name="ID" use="required"/>
+            <xs:attribute type="xs:string" name="RequiredConnection" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="Name" use="required"/>
+      <xs:attribute type="xs:string" name="InnerPackage" use="required"/>
+      <xs:attribute type="package_type" name="PackageType" use="required"/>
+      <xs:attribute type="xs:positiveInteger" name="X" use="required"/>
+      <xs:attribute type="xs:positiveInteger" name="Y" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

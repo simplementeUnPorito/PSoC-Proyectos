@@ -1,0 +1,27 @@
+Last Modified Date & Time: 10/14/2024 18:09:56
+
+LCD: LCD.cydwr
+	cy_boot [v6.0] to [v6.10]
+	LIN_Dynamic [v5.0] to [v6.0]
+
+LCD(No funciona): LCD(No funciona).cydwr
+	cy_boot [v6.0] to [v6.10]
+	LIN_Dynamic [v5.0] to [v6.0]
+
+Micro1: Micro1.cydwr
+	cy_boot [v6.0] to [v6.10]
+	LIN_Dynamic [v5.0] to [v6.0]
+
+Micro1v2: Micro1v2.cydwr
+	cy_boot [v6.0] to [v6.10]
+	LIN_Dynamic [v5.0] to [v6.0]
+
+
+Last Modified Date & Time: 11/03/2024 20:07:18
+
+Micro1v2_Copy_01: TopDesign.cysch
+	arduino_message [v1.70] to [v1.71]
+	timerCompleted [v1.70] to [v1.71]
+	timerTeclado [v1.70] to [v1.71]
+
+

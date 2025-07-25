@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="us-ascii" ?>
+
+<xs:schema  elementFormDefault="qualified"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://cypress.com/xsd/cyrefpathdict"
+            targetNamespace="http://cypress.com/xsd/cyrefpathdict">
+
+
+  <xs:element name="ReferencedFiles">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="IncludeDirs" />
+        <xs:element ref="folder"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="IncludeDir" type="xs:string" />
+
+  <xs:element name="IncludeDirs">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="IncludeDir" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="file">
+    <xs:complexType>
+      <xs:attribute name="folderName" type="xs:string" use="optional"/>
+      <xs:attribute name="physicalFilePath" type="xs:string" use="required" />
+      <xs:attribute name="buildType" type="xs:string" use="required" />
+      <xs:attribute name="copyLocal" type="xs:boolean" use ="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="folder">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="file" />
+        <xs:element ref="folder"/>
+      </xs:sequence>
+      <xs:attribute name="fileName" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

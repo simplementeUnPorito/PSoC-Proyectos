@@ -1,0 +1,19 @@
+*.msi
+*.mp4
+# Carpetas de PSoC Creator
+**/codegentemp/
+**/CortexM3/Debug/
+**/Generated_Source/
+*.rpt
+*.dep
+*.log
+*.hex
+*.elf
+*.iic
+*.img
+*.map
+*.lst
+*.crf
+*.d
+*.o
+*.obj

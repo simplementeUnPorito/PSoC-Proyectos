@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="us-ascii" ?>
+
+<!-- N.B.  This list is ordered.  System libraries are dependent on all subsequent system libraries -->
+<searchPath version="1"
+            xmlns="http://cypress.com/xsd/cyprjmgmtsearchpath" 
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://cypress.com/xsd/cyprjmgmtsearchpath cyprjmgmtsearchpath.xsd">
+  <libraryPath path="lib"/>
+  
+ <!-- Update Library -->
+  <libraryPath path="psoc\\content\\cycomponentlibraryupdates">
+    <library name="CyComponentLibraryUpdates" type="LIBRARY"/>
+  </libraryPath>  
+  
+  <!-- Component Library -->
+  <libraryPath path="psoc\\content\\cycomponentlibrary">
+    <library name="CyComponentLibrary" type="LIBRARY"/>
+  </libraryPath>
+
+  <!-- Sample library with logic gates-->
+  <libraryPath path="psoc\\content\\cyprimitives">
+    <library name="CyPrimitives" type="LIBRARY"/>
+  </libraryPath>
+</searchPath>

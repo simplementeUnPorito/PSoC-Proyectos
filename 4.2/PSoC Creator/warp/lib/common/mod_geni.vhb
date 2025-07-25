@@ -1,0 +1,41 @@
+--
+
+--------------------------------------------------------------------------------
+-- Module generation package components
+
+--------------------------------------------------------------------------------
+
+use work.ultragenpkg_ii.all;
+
+PACKAGE int_arith is
+
+function "+" (a,b : integer) return integer;
+function "-" (a,b : integer) return integer;
+function "*" (a,b : integer) return integer;
+function "=" (a,b : integer) return boolean;
+function ">" (a,b : integer) return boolean;
+function "<" (a,b : integer) return boolean;
+function "/=" (a,b : integer) return boolean;
+function ">=" (a,b : integer) return boolean;
+function "<=" (a,b : integer) return boolean;
+
+attribute ultragen of "+" [integer,integer return integer] :
+                                        function is "add_ii";
+attribute ultragen of "-" [integer,integer return integer] :
+                                        function is "sub_ii";
+attribute ultragen of "*" [integer,integer return integer] :
+                                        function is "mul_ii";
+attribute ultragen of "=" [integer,integer return boolean] :
+                                        function is "cmp_ii";
+attribute ultragen of ">" [integer,integer return boolean] :
+                                        function is "cmp_ii";
+attribute ultragen of "<" [integer,integer return boolean] :
+                                        function is "cmp_ii";
+attribute ultragen of "/=" [integer,integer return boolean] :
+                                        function is "cmp_ii";
+attribute ultragen of ">=" [integer,integer return boolean] :
+                                        function is "cmp_ii";
+attribute ultragen of "<=" [integer,integer return boolean] :
+                                        function is "cmp_ii";
+
+end int_arith;

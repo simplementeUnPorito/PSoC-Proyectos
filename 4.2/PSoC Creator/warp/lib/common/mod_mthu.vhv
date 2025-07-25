@@ -1,0 +1,1345 @@
+--
+
+--------------------------------------------------------------------------------
+--
+-- Ultragen Component Package
+--
+--------------------------------------------------------------------------------
+package ultragenpkg_ub is
+
+    TYPE unsigned is array (natural range <>) of bit;
+
+    constant noWarning : boolean := false;
+    constant null_vect : unsigned (0 downto 1) := (others => '0');
+
+    function vectorize (a, size : natural) RETURN unsigned;
+    function resize (x : unsigned; size : natural) return unsigned;
+    function lsb1 (a : unsigned; maxsize : natural) return natural;
+    function lsb1 (a : integer; maxsize : natural) return natural;
+    function msb1 (a : unsigned; maxsize : natural) return natural;
+    function msb1 (a : integer; maxsize : natural) return natural;
+    function get_max (x : integer) return integer;
+    function bits_needed (val : natural) return natural;
+
+    component add_ub
+        generic (goal : goal_type := speed;
+                 IsAStatic : Boolean := false;
+                 IsBStatic : Boolean := false;
+                 lsbOne : natural;
+                 msbOne : natural);
+        port (aa,bb : in unsigned; ss : out unsigned);
+    end component;
+
+    component add_vv_ub
+
+        generic (goal : goal_type := speed);
+
+        port (a,b : in unsigned; s : out unsigned);
+    end component;
+
+    component add_vi_ub
+
+        generic (goal : goal_type := speed);
+
+        port (a : in unsigned; i : in integer; s : out unsigned);
+    end component;
+
+    component add_iv_ub
+
+        generic (goal : goal_type := speed);
+
+        port (i: in integer; b : in unsigned; s : out unsigned);
+    end component;
+
+    component sub_ub
+        generic (goal : goal_type := speed;
+                 IsAStatic : Boolean := false;
+                 IsBStatic : Boolean := false;
+                 lsbOne : natural;
+                 msbOne : natural);
+        port (aa,bb : in unsigned; ss : out unsigned);
+    end component;
+
+    component sub_vv_ub
+
+        generic (goal : goal_type := speed);
+
+        port (a,b : in unsigned; s : out unsigned);
+    end component;
+
+    component sub_vi_ub
+
+        generic (goal : goal_type := speed);
+
+        port (a : in unsigned; i : in integer; s : out unsigned);
+    end component;
+
+    component sub_iv_ub
+
+        generic (goal : goal_type := speed);
+
+        port (i: in integer; b : in unsigned; s : out unsigned);
+    end component;
+
+    component cmp_ub
+        generic (goal : goal_type := speed;
+
+                 IsAStatic : Boolean := false;
+                 IsBStatic : Boolean := false);
+        port (a,b : in unsigned; lt,lte,gt,gte,eq,neq: out Boolean);
+    end component;
+
+    component cmp_vv_ub
+
+        generic (goal : goal_type := speed);
+
+        port (a,b : in unsigned; lt,lte,gt,gte,eq,neq : out boolean);
+    end component;
+
+    component cmp_vi_ub
+
+        generic (goal : goal_type := speed);
+
+        port (a : in unsigned; i : in integer; lt,lte,gt,gte,eq,neq : out boolean);
+    end component;
+
+    component cmp_iv_ub
+
+        generic (goal : goal_type := speed);
+
+        port (i: in integer; b : in unsigned; lt,lte,gt,gte,eq,neq : out boolean);
+    end component;
+
+    component mul_ub
+        generic (goal : goal_type := speed;
+
+                 IsAStatic : Boolean := false;
+                 IsBStatic : Boolean := false;
+                 lsbOne : natural;
+                 msbOne : natural);
+        port (aa,bb : in unsigned; pp : out unsigned);
+    end component;
+
+    component mul_vv_ub
+
+        generic (goal : goal_type := speed);
+
+        port (a,b : in unsigned; p : out unsigned);
+    end component;
+
+    component mul_vi_ub
+
+        generic (goal : goal_type := speed);
+
+        port (a : in unsigned; i : in integer; p : out unsigned);
+    end component;
+
+    component mul_iv_ub
+
+        generic (goal : goal_type := speed);
+
+        port (i: in integer; b : in unsigned; p : out unsigned);
+    end component;
+end package ultragenpkg_ub;
+
+--------------------------------------------------------------------------------
+package body ultragenpkg_ub is
+
+    function vectorize (a, size : natural) return unsigned is
+        variable result : unsigned(size-1 downto 0) := (others => '0');
+        variable tmp : unsigned(size-1 downto 0) := (others => '0');
+        variable b : natural;
+        variable carry : bit;
+        variable newsize : integer := size;
+    begin
+        if (newsize > 32) then
+            newsize := 32;
+        end if;
+
+        if (a < 0) then
+            b := -a;
+        else
+            b := a;
+        end if;
+
+        if (newsize <= 31) then
+            for i in result'reverse_range loop
+                if ((b/(2**i)) mod 2) = 1 then
+                    result(i) := '1';
+                end if;
+            end loop;
+        end if;
+        if (newsize = 32) then
+            if ((b mod 2) = 1) then
+                result(result'low) := '1';
+            end if;
+            b := b/2;
+            for i in 0 to (newsize-2) loop
+                if ((b/(2**i)) mod 2) = 1 then
+                    result(i+1) := '1';
+                end if;
+            end loop;
+        end if;
+
+-- Do a 2's complement if a is less than 0.
+        if (a < 0) then
+            tmp := NOT result;
+            result(0) := NOT tmp(0);
+            carry := tmp(0);
+            for i in 1 to size-1 loop
+                result(i) := tmp(i) XOR carry;
+                carry := tmp(i) AND carry;
+            end loop;
+        end if;
+
+        return result;
+    end vectorize;
+
+    function resize (x : unsigned; size : natural) return unsigned is
+        variable a : unsigned ((x'length-1) downto 0) := x;
+        variable result : unsigned((size - 1) downto 0) := (others => '0');
+    begin
+        if (size < 1 ) then return null_vect; end if;
+        if a'length < size then
+
+            result((result'high) downto a'length) := (others => '0');
+
+            result((a'length - 1) downto 0) := a;
+        else
+            result := a((size-1) downto 0);
+        end if;
+        return result;
+    end resize;
+
+    -- Returns first least significant bit position less than maxsize
+    -- or return maxsize
+    function lsb1 (a : unsigned; maxsize : natural) return natural is
+        variable val : unsigned (a'length-1 downto 0) := a;
+        variable indx : natural := 0;
+    begin
+        for i in val'reverse_range loop
+            IF (indx >= maxsize) OR (val(i) = '1') then
+                return indx;
+            end IF;
+            indx := indx + 1;
+        end loop;
+        return maxsize;
+    end lsb1;
+
+    function lsb1 (a : integer; maxsize : natural) return natural is
+        variable indx : natural := 0;
+        variable v : integer := a;
+    begin
+        while (( indx <= 31 ) AND (indx <= maxsize)) loop
+            if (v mod 2) = 1 then
+                return indx;
+            end if;
+            v := v / 2;
+            indx := indx + 1;
+        end loop;
+        return maxsize;
+    end lsb1;
+
+    -- Returns first most significant bit position less than maxsize
+    -- or return maxsize
+    function msb1 (a : unsigned; maxsize : natural) return natural is
+        variable val : unsigned (a'length-1 downto 0) := a;
+        variable indx : natural := val'length-1;
+    begin
+        for i in val'range loop
+            IF ((indx < maxsize) AND (val(i) = '1')) then
+                return indx;
+            end IF;
+            indx := indx - 1;
+        end loop;
+        return maxsize;
+    end msb1;
+
+    function msb1 (a : integer; maxsize : natural) return natural is
+        variable indx : natural := 31;
+    begin
+        if (maxsize < indx) then
+            indx := maxsize;
+        end if;
+        if (indx = 31) then
+            indx := 30;
+            if ((a/2) mod (2**30)) = 1 then
+                return 31;
+            end if;
+        end if;
+        while ( indx >= 0 ) loop
+            if ((a / (2**indx)) mod 2) = 1 then
+                return indx;
+            end if;
+            indx := indx - 1;
+        end loop;
+        return maxsize;
+    end msb1;
+
+    function get_max (x : integer) return integer IS
+    begin
+        if (x'globally_static) then
+            return x ;
+        else
+            return x'high ;
+        end if ;
+    end get_max ;
+
+    function bits_needed (val : natural) return natural IS
+        variable tmp : natural := val;
+        variable sval : natural;
+    begin
+        if (val = 0) then
+            return 1 ;
+        end if ;
+        sval := 0;
+        while tmp > 0 loop
+            sval := sval + 1;
+            tmp := tmp / 2;
+        end loop;
+        return sval;
+    end bits_needed;
+end ultragenpkg_ub;
+
+--------------------------------------------------------------------------------
+--
+-- add
+--
+library cypress;
+use cypress.lpmpkg.all;
+use cypress.modcnstpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity add_ub is
+    generic (goal : goal_type := speed;
+             IsAStatic : Boolean := false;
+             IsBStatic : Boolean := false;
+             lsbOne : natural;
+             msbOne : natural);
+    port (aa,bb : in unsigned; ss : out unsigned);
+end add_ub;
+
+architecture module of add_ub is
+
+    signal a,b,s,c : Bit_Vector ((ss'length-1) downto 0);
+    signal zero : bit := '0';
+    signal one : bit := '1';
+
+begin
+
+    L0:if (aa'length /= ss'length) generate
+        a <= Bit_Vector(resize(aa,ss'length));
+    end generate;
+    L1:if (aa'length = ss'length) generate
+        a <= Bit_Vector(aa);
+    end generate;
+    L2:if (bb'length /= ss'length) generate
+        b <= Bit_Vector(resize(bb,ss'length));
+    end generate;
+    L3:if (bb'length = ss'length) generate
+        b <= Bit_Vector(bb);
+    end generate;
+
+    ss <= unsigned(s);
+
+    G0: if (NOT IsAStatic AND NOT IsBStatic) generate
+        U0: madd_sub generic map (ss'length,lpm_unsigned,lpm_add,goal)
+                        port map (a,b,zero,one,s,open,open);
+    end generate;
+
+    G1: if (NOT IsAStatic AND IsBStatic) generate
+        -- Const equal to 0 or too big
+        Z0: if (lsbOne >= ss'length) generate
+            s <= a;
+        end generate;
+        -- Const NOT equal to 0
+        Z1: if (lsbOne < ss'length) generate
+            A0: if (goal /= speed) generate
+                -- Constant NOT equal to one
+                G0: if (lsbOne /= 0) OR (msbOne /= 0) generate
+                    G0: for i in a'reverse_range generate
+                        G1: if (i = a'low) generate
+                            s(i) <= (a(i) XOR b(i));
+                            c(i) <= (a(i) AND b(i));
+                        end generate;
+                        G2: if (i /= a'low) generate
+                            s(i) <= (a(i) XOR b(i)) XOR c(i-1);
+                            c(i) <= (a(i) AND b(i)) OR
+                                    (a(i) AND c(i-1)) OR
+                                    (b(i) AND c(i-1));
+                        end generate;
+                    end generate;
+                end generate;
+                -- Const equal to 1
+                G1: if (lsbOne = 0) AND (msbOne = 0) generate
+                    U0: cinc generic map (ss'length) port map (a,s);
+                end generate;
+            end generate;
+
+            S0: if (goal = speed) generate
+                -- Const Not equal to 1
+                G0: if (lsbOne /= 0) OR (msbOne /= 0) generate
+                    U0: cadd generic map (ss'length,lsbOne,msbOne)
+                                port map (a,b,s);
+                end generate;
+
+                -- Const equal to 1
+                G1: if (lsbOne = 0) AND (msbOne = 0) generate
+                    U0: finc generic map (ss'length) port map (a,one,s);
+                end generate;
+            end generate;
+        end generate;
+    end generate;
+
+    G2: if (IsAStatic AND IsBStatic) generate
+        G0: for i in a'reverse_range generate
+            G1: if (i = a'low) generate
+                s(i) <= (a(i) XOR b(i));
+                c(i) <= (a(i) AND b(i));
+            end generate;
+            G2: if (i /= a'low) generate
+                s(i) <= (a(i) XOR b(i)) XOR c(i-1);
+                c(i) <= (a(i) AND b(i)) OR
+                        (a(i) AND c(i-1)) OR
+                        (b(i) AND c(i-1));
+            end generate;
+        end generate;
+    end generate;
+
+end module;
+library cypress;
+use cypress.lpmpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity add_vv_ub is
+
+    generic (goal : goal_type := speed);
+
+    port (a,b : in unsigned; s : out unsigned);
+end add_vv_ub;
+
+architecture module of add_vv_ub is
+
+    constant lsba : natural := lsb1(a,s'length);
+    constant msba : natural := msb1(a,s'length);
+    constant lsbb : natural := lsb1(b,s'length);
+    constant msbb : natural := msb1(b,s'length);
+
+begin
+
+    G0: if (a'globally_static AND b'globally_static) generate
+        A0: add_ub
+                generic map(goal, true, true, 0, 0)
+                port map(a, b, s);
+    end generate;
+
+    G1: if (NOT a'globally_static AND NOT b'globally_static) generate
+        A0: add_ub
+                generic map(goal, false, false, 0, 0)
+                port map(a, b, s);
+    end generate;
+
+    G2: if (NOT a'globally_static AND b'globally_static) generate
+        A0: add_ub
+                generic map(goal, false, true, lsbb, msbb)
+                port map(a, b, s);
+    end generate;
+
+    G3: if (a'globally_static AND NOT b'globally_static) generate
+        A0: add_ub
+                generic map(goal, false, true, lsba, msba)
+                port map(b, a, s);
+    end generate;
+end module;
+
+--
+-- add with integers
+--
+library cypress;
+use cypress.lpmpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity add_vi_ub is
+
+    generic (goal : goal_type := speed);
+
+    port (a : in unsigned; i : in integer; s : out unsigned);
+end add_vi_ub;
+
+architecture module of add_vi_ub is
+
+    constant lsba : natural := lsb1(a,s'length);
+    constant msba : natural := msb1(a,s'length);
+    constant lsbb : natural := lsb1(i,s'length);
+    constant msbb : natural := msb1(i,s'length);
+    signal b : unsigned (s'length-1 downto 0);
+
+begin
+
+    b <= vectorize(i,s'length);
+
+    G0: if (a'globally_static AND i'globally_static) generate
+        A0: add_ub
+                generic map(goal, true, true, 0, 0)
+                port map(a, b, s);
+    end generate;
+
+    G1: if (NOT a'globally_static AND NOT i'globally_static) generate
+        A0: add_ub
+                generic map(goal, false, false, 0, 0)
+                port map(a, b, s);
+    end generate;
+
+    G2: if (NOT a'globally_static AND i'globally_static) generate
+        A0: add_ub
+                generic map(goal, false, true, lsbb, msbb)
+                port map(a, b, s);
+    end generate;
+
+    G3: if (a'globally_static AND NOT i'globally_static) generate
+        A0: add_ub
+                generic map(goal, false, true, lsba, msba)
+                port map(b, a, s);
+    end generate;
+end module;
+library cypress;
+use cypress.lpmpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity add_iv_ub is
+
+    generic (goal : goal_type := speed);
+
+    port (i: in integer; b : in unsigned; s : out unsigned);
+end add_iv_ub;
+
+architecture module of add_iv_ub is
+
+    constant lsba : natural := lsb1(i,s'length);
+    constant msba : natural := msb1(i,s'length);
+    constant lsbb : natural := lsb1(b,s'length);
+    constant msbb : natural := msb1(b,s'length);
+    signal a : unsigned (s'length-1 downto 0);
+
+begin
+
+    a <= vectorize(i,s'length);
+
+    G0: if (i'globally_static AND b'globally_static) generate
+        A0: add_ub
+                generic map(goal, true, true, 0, 0)
+                port map(a, b, s);
+    end generate;
+
+    G1: if (NOT i'globally_static AND NOT b'globally_static) generate
+        A0: add_ub
+                generic map(goal, false, false, 0, 0)
+                port map(a, b, s);
+    end generate;
+
+    G2: if (NOT i'globally_static AND b'globally_static) generate
+        A0: add_ub
+                generic map(goal, false, true, lsbb, msbb)
+                port map(a, b, s);
+    end generate;
+
+    G3: if (i'globally_static AND NOT b'globally_static) generate
+        A0: add_ub
+                generic map(goal, false, true, lsba, msba)
+                port map(b, a, s);
+    end generate;
+end module;
+
+--
+-- sub
+--
+library cypress;
+use cypress.lpmpkg.all;
+use cypress.modcnstpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity sub_ub is
+    generic (goal : goal_type := speed;
+             IsAStatic : Boolean := false;
+             IsBStatic : Boolean := false;
+             lsbOne : natural;
+             msbOne : natural);
+    port (aa,bb : in unsigned; ss : out unsigned);
+end sub_ub;
+
+architecture module of sub_ub is
+
+    signal a,b,d,c : Bit_Vector ((ss'length-1) downto 0);
+    signal zero : bit := '0';
+    signal one : bit := '1';
+
+begin
+
+    L0:if (aa'length /= ss'length) generate
+        a <= Bit_Vector(resize(aa,ss'length));
+    end generate;
+    L1:if (aa'length = ss'length) generate
+        a <= Bit_Vector(aa);
+    end generate;
+    L2:if (bb'length /= ss'length) generate
+        b <= Bit_Vector(resize(bb,ss'length));
+    end generate;
+    L3:if (bb'length = ss'length) generate
+        b <= Bit_Vector(bb);
+    end generate;
+
+    ss <= unsigned(d);
+
+    G0: if (NOT IsAStatic AND NOT IsBStatic) generate
+        U0: madd_sub generic map (ss'length,lpm_unsigned,lpm_sub,goal)
+                        port map (a,b,one,zero,d,open,open);
+    end generate;
+
+    G1: if (NOT IsAStatic AND IsBStatic) generate
+        -- Const equal to 0 or too big
+        Z0: if (lsbOne >= ss'length) generate
+            d <= a;
+        end generate;
+        -- Const NOT equal to 0
+        Z1: if (lsbOne < ss'length) generate
+            A0: if (goal /= speed) generate
+                -- Constant NOT equal to one
+                G0: if (lsbOne /= 0) OR (msbOne /= 0) generate
+                    G0: for i in a'reverse_range generate
+                        G1: if (i = a'low) generate
+                            d(i) <= NOT (NOT a(i) XOR b(i));
+                            c(i) <= (NOT a(i) AND b(i));
+                        end generate;
+                        G2: if (i /= a'low) generate
+                            d(i) <=NOT(NOT a(i) XOR b(i)) XOR c(i-1);
+                            c(i) <= (NOT a(i) AND b(i)) OR
+                                    (NOT a(i) AND c(i-1)) OR
+                                        (b(i) AND c(i-1));
+                        end generate;
+                    end generate;
+                end generate;
+
+                -- Const equal to 1
+                G1: if (lsbOne = 0) AND (msbOne = 0) generate
+                    U0: cdec generic map (ss'length) port map (a,d);
+                end generate;
+            end generate;
+
+            S0: if (goal = speed) generate
+                -- Const Not equal to 1
+                G0: if (lsbOne /= 0) OR (msbOne /= 0) generate
+                    U0: csub generic map (ss'length,lsbOne,msbOne)
+                                port map (a,b,d);
+                end generate;
+
+                -- Const equal to 1
+                G1: if (lsbOne = 0) AND (msbOne = 0) generate
+                    U0: fdec generic map (ss'length) port map (a,one,d);
+                end generate;
+            end generate;
+        end generate;
+    end generate;
+
+    G2: if (IsAStatic AND IsBStatic) generate
+        G0: for i in a'reverse_range generate
+            G1: if (i = a'low) generate
+                d(i) <= NOT(NOT a(i) XOR b(i));
+                c(i) <= (NOT a(i) AND b(i));
+            end generate;
+            G2: if (i /= a'low) generate
+                d(i) <= NOT(NOT a(i) XOR b(i)) XOR c(i-1);
+                c(i) <= (NOT a(i) AND b(i)) OR
+                        (NOT a(i) AND c(i-1)) OR
+                            (b(i) AND c(i-1));
+            end generate;
+        end generate;
+    end generate;
+
+    G3: if (IsAStatic AND NOT IsBStatic) generate
+        A0: if (goal /= speed) generate
+            G0: for i in a'reverse_range generate
+                G1: if (i = a'low) generate
+                    d(i) <= NOT(NOT a(i) XOR b(i));
+                    c(i) <= (NOT a(i) AND b(i));
+                end generate;
+                G2: if (i /= a'low) generate
+                    d(i) <= NOT(NOT a(i) XOR b(i)) XOR c(i-1);
+                    c(i) <= (NOT a(i) AND b(i)) OR
+                            (NOT a(i) AND c(i-1)) OR
+                                (b(i) AND c(i-1));
+                end generate;
+            end generate;
+        end generate;
+        S0: if (goal = speed) generate
+            U0: csub generic map (ss'length,0,(ss'length-1))
+                        port map (a,b,d);
+        end generate;
+    end generate;
+end module;
+library cypress;
+use cypress.lpmpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity sub_vv_ub is
+
+    generic (goal : goal_type := speed);
+
+    port (a,b : in unsigned; s : out unsigned);
+end sub_vv_ub;
+
+architecture module of sub_vv_ub is
+
+    constant lsba : natural := lsb1(a,s'length);
+    constant msba : natural := msb1(a,s'length);
+    constant lsbb : natural := lsb1(b,s'length);
+    constant msbb : natural := msb1(b,s'length);
+
+begin
+
+    G0: if (a'globally_static AND b'globally_static) generate
+        A0: sub_ub
+                generic map(goal, true, true, 0, 0)
+                port map(a, b, s);
+    end generate;
+
+    G1: if (NOT a'globally_static AND NOT b'globally_static) generate
+        A0: sub_ub
+                generic map(goal, false, false, 0, 0)
+                port map(a, b, s);
+    end generate;
+
+    G2: if (NOT a'globally_static AND b'globally_static) generate
+        A0: sub_ub
+                generic map(goal, false, true, lsbb, msbb)
+                port map(a, b, s);
+    end generate;
+
+    G3: if (a'globally_static AND NOT b'globally_static) generate
+        A0: sub_ub
+                generic map(goal, true, false, lsba, msba)
+                port map(a, b, s);
+    end generate;
+end module;
+
+--
+-- sub with integers
+--
+library cypress;
+use cypress.lpmpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity sub_vi_ub is
+
+    generic (goal : goal_type := speed);
+
+    port (a : in unsigned; i : in integer; s : out unsigned);
+end sub_vi_ub;
+
+architecture module of sub_vi_ub is
+
+    constant lsba : natural := lsb1(a,s'length);
+    constant msba : natural := msb1(a,s'length);
+    constant lsbb : natural := lsb1(i,s'length);
+    constant msbb : natural := msb1(i,s'length);
+    signal b : unsigned (s'length-1 downto 0);
+
+begin
+
+    b <= vectorize(i,s'length);
+
+    G0: if (a'globally_static AND i'globally_static) generate
+        A0: sub_ub
+                generic map(goal, true, true, 0, 0)
+                port map(a, b, s);
+    end generate;
+
+    G1: if (NOT a'globally_static AND NOT i'globally_static) generate
+        A0: sub_ub
+                generic map(goal, false, false, 0, 0)
+                port map(a, b, s);
+    end generate;
+
+    G2: if (NOT a'globally_static AND i'globally_static) generate
+        A0: sub_ub
+                generic map(goal, false, true, lsbb, msbb)
+                port map(a, b, s);
+    end generate;
+
+    G3: if (a'globally_static AND NOT i'globally_static) generate
+        A0: sub_ub
+                generic map(goal, true, false, lsba, msba)
+                port map(a, b, s);
+    end generate;
+end module;
+library cypress;
+use cypress.lpmpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity sub_iv_ub is
+
+    generic (goal : goal_type := speed);
+
+    port (i: in integer; b : in unsigned; s : out unsigned);
+end sub_iv_ub;
+
+architecture module of sub_iv_ub is
+
+    constant lsba : natural := lsb1(i,s'length);
+    constant msba : natural := msb1(i,s'length);
+    constant lsbb : natural := lsb1(b,s'length);
+    constant msbb : natural := msb1(b,s'length);
+    signal a : unsigned (s'length-1 downto 0);
+
+begin
+
+    a <= vectorize(i,s'length);
+
+    G0: if (i'globally_static AND b'globally_static) generate
+        A0: sub_ub
+                generic map(goal, true, true, 0, 0)
+                port map(a, b, s);
+    end generate;
+
+    G1: if (NOT i'globally_static AND NOT b'globally_static) generate
+        A0: sub_ub
+                generic map(goal, false, false, 0, 0)
+                port map(a, b, s);
+    end generate;
+
+    G2: if (NOT i'globally_static AND b'globally_static) generate
+        A0: sub_ub
+                generic map(goal, false, true, lsbb, msbb)
+                port map(a, b, s);
+    end generate;
+
+    G3: if (i'globally_static AND NOT b'globally_static) generate
+        A0: sub_ub
+                generic map(goal, true, false, lsba, msba)
+                port map(a, b, s);
+    end generate;
+end module;
+
+--
+-- cmp
+--
+library cypress;
+use cypress.lpmpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity cmp_ub is
+    generic (goal : goal_type := speed;
+
+             IsAStatic : Boolean := false;
+             IsBStatic : Boolean := false);
+    port (a,b : in unsigned; lt,lte,gt,gte,eq,neq: out Boolean);
+end cmp_ub;
+
+architecture module of cmp_ub is
+
+    function max (a,b : natural) return natural is
+    begin
+        if (a < b) then return b; else return a; end if;
+    end max;
+
+    constant size : natural := max(a'length, b'length);
+    signal dataA,dataB,eqa,lta,gta : Bit_Vector ((size - 1) downto 0);
+
+    signal xlt,xlte,xgt,xgte,xeq,xneq : bit;
+
+begin
+
+    L0:if (a'length < b'length) generate
+        dataA <= Bit_Vector(resize(a,b'length));
+        dataB <= Bit_Vector(b);
+    end generate;
+    L1:if (a'length > b'length) generate
+        dataA <= Bit_Vector(a);
+        dataB <= Bit_Vector(resize(b,a'length));
+    end generate;
+    L2:if (a'length = b'length) generate
+        dataA <= Bit_Vector(a);
+        dataB <= Bit_Vector(b);
+    end generate;
+    GX: if (NOT IsAStatic AND NOT IsBStatic) generate
+        U0: mcompare generic map (dataA'length,lpm_unsigned,goal)
+                        port map (dataA,dataB,xlt,xeq,xgt,xgte,xlte,xneq);
+        lt <= true when xlt = '1' else false;
+        eq <= true when xeq = '1' else false;
+        gt <= true when xgt = '1' else false;
+        gte <= true when xgte = '1' else false;
+        lte <= true when xlte = '1' else false;
+        neq <= true when xneq = '1' else false;
+    end generate;
+
+    GK: if (IsAStatic OR IsBStatic) generate
+        G0: if ((eq'port_state_att = ps_connected) OR
+                (neq'port_state_att = ps_connected)) generate
+            eqa(size-1) <= NOT (dataA(size-1) XOR dataB(size-1));
+            G1: for h in (size-2) downto 0 generate
+                eqa(h) <= NOT (dataA(h) XOR dataB(h)) AND eqa(h+1);
+            end generate;
+        end generate;
+
+        G2: if ((lt'port_state_att = ps_connected) OR
+                (lte'port_state_att = ps_connected) OR
+                (gt'port_state_att = ps_connected) OR
+                (gte'port_state_att = ps_connected)) generate
+
+            lta(size-1) <= dataB(size-1) AND NOT
+                          (dataA(size-1) AND
+                           dataB(size-1));
+            gta(size-1) <= dataA(size-1) AND NOT
+                          (dataA(size-1) AND
+                           dataB(size-1));
+
+            G3: for h in (size-2) downto 0 generate
+            lta(h) <= ((dataB(h) AND NOT (dataA(h) AND dataB(h)))
+                                 AND NOT gta(h+1)) OR lta(h+1);
+            gta(h) <= ((dataA(h) AND NOT (dataA(h) AND dataB(h)))
+                                 AND NOT lta(h+1)) OR gta(h+1);
+            end generate;
+        end generate;
+
+        G4: if (lt'port_state_att = ps_connected) generate
+            lt <= true when (lta(0) = '1') else false;
+        end generate;
+        G5: if (lte'port_state_att = ps_connected) generate
+            lte <= true when (gta(0) = '0') else false;
+        end generate;
+        G6: if (gt'port_state_att = ps_connected) generate
+            gt <= true when (gta(0) = '1') else false;
+        end generate;
+        G7: if (gte'port_state_att = ps_connected) generate
+            gte <= true when (lta(0) = '0') else false;
+        end generate;
+        G8: if (eq'port_state_att = ps_connected) generate
+            eq <= true when (eqa(0) = '1') else false;
+        end generate;
+        G9: if (neq'port_state_att = ps_connected) generate
+            neq <= true when (eqa(0) = '0') else false;
+        end generate;
+    end generate;
+end module;
+library cypress;
+use cypress.lpmpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity cmp_vv_ub is
+
+    generic (goal : goal_type := speed);
+
+    port (a,b : in unsigned; lt,lte,gt,gte,eq,neq : out boolean);
+end cmp_vv_ub;
+
+architecture module of cmp_vv_ub is
+begin
+
+    G0: if (a'globally_static AND b'globally_static) generate
+        A0: cmp_ub
+
+                generic map(goal, true, true)
+
+                port map(a, b, lt,lte,gt,gte,eq,neq);
+    end generate;
+
+    G1: if (NOT a'globally_static AND NOT b'globally_static) generate
+        A0: cmp_ub
+
+                generic map(goal, false, false)
+
+                port map(a, b, lt,lte,gt,gte,eq,neq);
+    end generate;
+
+    G2: if (NOT a'globally_static AND b'globally_static) generate
+        A0: cmp_ub
+
+                generic map(goal, false, true)
+
+                port map(a, b, lt,lte,gt,gte,eq,neq);
+    end generate;
+
+    G3: if (a'globally_static AND NOT b'globally_static) generate
+        A0: cmp_ub
+
+                generic map(goal, true, false)
+
+                port map(a, b, lt,lte,gt,gte,eq,neq);
+    end generate;
+end module;
+
+--
+-- cmp with integers
+--
+library cypress;
+use cypress.lpmpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity cmp_vi_ub is
+
+    generic (goal : goal_type := speed);
+
+    port (a : in unsigned; i : in integer; lt,lte,gt,gte,eq,neq :out boolean);
+end cmp_vi_ub;
+
+architecture module of cmp_vi_ub is
+
+    constant x : integer := max(bits_needed(get_max(i)), a'length) ;
+    signal aa : unsigned (x-1 downto 0) ;
+    signal bb : unsigned (x-1 downto 0) ;
+
+begin
+
+    aa <= resize(a, x) ;
+    bb <= vectorize(i, x);
+
+    G0: if (a'globally_static AND i'globally_static) generate
+        A0: cmp_ub
+
+                generic map(goal, true, true)
+
+                port map(aa, bb, lt,lte,gt,gte,eq,neq);
+    end generate;
+
+    G1: if (NOT a'globally_static AND NOT i'globally_static) generate
+        A0: cmp_ub
+
+                generic map(goal, false, false)
+
+                port map(aa, bb, lt,lte,gt,gte,eq,neq);
+    end generate;
+
+    G2: if (NOT a'globally_static AND i'globally_static) generate
+        A0: cmp_ub
+
+                generic map(goal, false, true)
+
+                port map(aa, bb, lt,lte,gt,gte,eq,neq);
+    end generate;
+
+    G3: if (a'globally_static AND NOT i'globally_static) generate
+        A0: cmp_ub
+
+                generic map(goal, true, false)
+
+                port map(aa, bb, lt,lte,gt,gte,eq,neq);
+    end generate;
+end module;
+library cypress;
+use cypress.lpmpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity cmp_iv_ub is
+
+    generic (goal : goal_type := speed);
+
+    port (i: in integer; b : in unsigned; lt,lte,gt,gte,eq,neq : out boolean);
+end cmp_iv_ub;
+
+architecture module of cmp_iv_ub is
+
+    constant x : integer := max(bits_needed(get_max(i)), b'length) ;
+    signal aa : unsigned (x-1 downto 0) ;
+    signal bb : unsigned (x-1 downto 0) ;
+
+begin
+
+    aa <= vectorize(i, x);
+    bb <= resize(b, x) ;
+
+    G0: if (i'globally_static AND b'globally_static) generate
+        A0: cmp_ub
+
+                generic map(goal, true, true)
+
+                port map(aa, bb, lt,lte,gt,gte,eq,neq);
+    end generate;
+
+    G1: if (NOT i'globally_static AND NOT b'globally_static) generate
+        A0: cmp_ub
+
+                generic map(goal, false, false)
+
+                port map(aa, bb, lt,lte,gt,gte,eq,neq);
+    end generate;
+
+    G2: if (NOT i'globally_static AND b'globally_static) generate
+        A0: cmp_ub
+
+                generic map(goal, false, true)
+
+                port map(aa, bb, lt,lte,gt,gte,eq,neq);
+    end generate;
+
+    G3: if (i'globally_static AND NOT b'globally_static) generate
+        A0: cmp_ub
+
+                generic map(goal, true, false)
+
+                port map(aa, bb, lt,lte,gt,gte,eq,neq);
+    end generate;
+end module;
+
+--
+-- mul
+--
+library cypress;
+use cypress.lpmpkg.all;
+use cypress.modcnstpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity mul_ub is
+    generic (goal : goal_type := speed;
+
+             IsAStatic : Boolean := false;
+             IsBStatic : Boolean := false;
+             lsbOne : natural;
+             msbOne : natural);
+    port (aa,bb : in unsigned; pp : out unsigned);
+end mul_ub;
+
+architecture module of mul_ub is
+
+    signal nosum: Bit_Vector (-1 downto 0);
+    signal a : Bit_Vector ((aa'length-1) downto 0);
+    signal b : Bit_Vector ((bb'length-1) downto 0);
+    signal p : Bit_Vector ((aa'length+bb'length-1) downto 0);
+    signal tpp : Bit_Vector (pp'length-1 downto 0);
+
+begin
+
+    a <= Bit_Vector(aa);
+    b <= Bit_Vector(bb);
+
+    -- Size the output from the multiplier to match the module output
+    G1A: if (pp'length <= p'length) generate
+        tpp <= p(pp'length-1 downto 0);
+    end generate;
+    G1B: if (pp'length > p'length) generate
+        tpp(p'length-1 downto 0) <= p;
+        tpp(pp'length-1 downto p'length) <= (others => '0');
+    end generate;
+
+    pp <= unsigned(tpp);
+    G1: if (NOT IsAStatic AND NOT IsBStatic) generate
+        U0:mmult generic map(lpm_widthA => aa'length,
+                                lpm_widthB => bb'length,
+                                lpm_widthS => 0,
+                                lpm_widthP => p'length,
+
+                                lpm_representation => lpm_unsigned,
+
+                                lpm_hint => goal)
+                     port map (a,b,nosum,p);
+    end generate;
+    G2: if (NOT IsAStatic AND IsBStatic) generate
+        G0: if (lsbOne < aa'length) AND (lsbOne /= msbOne) generate
+            -- Constant not equal to zero and not a power of 2
+            U0:mmultc generic map(lpm_widthA => aa'length,
+                                lpm_widthB => bb'length,
+                                lpm_widthS => 0,
+                                lpm_widthP => p'length,
+
+                                lpm_representation => lpm_unsigned,
+
+                                lpm_hint => goal)
+                         port map (a,b,nosum,p);
+        end generate;
+
+        G1: if (lsbOne < aa'length) AND (lsbOne = msbOne) generate
+            -- Constant not equal to zero and is a power of 2
+
+            G2: for i in pp'reverse_range GENERATE
+                I0: if (i >= lsbOne) AND
+                    (i <= (lsbOne - 1 + aa'length)) generate
+                    p(i) <= a(i - lsbOne);
+                end generate;
+                I1: if NOT((i >= lsbOne) AND
+                    (i <= (lsbOne - 1 + aa'length))) generate
+                    p(i) <= '0';
+                end generate;
+            end generate;
+        end generate;
+
+        -- Const equal to 0 or too big
+        G2: if (lsbOne >= aa'length) generate
+            p <= (others => '0');
+        end generate;
+    end generate;
+
+    G3: if (IsAStatic AND IsBStatic) generate
+        U0:mmult generic map(lpm_widthA => aa'length,
+                                lpm_widthB => bb'length,
+                                lpm_widthS => 0,
+                                lpm_widthP => p'length,
+
+                                lpm_representation => lpm_unsigned,
+
+                                lpm_hint => goal)
+                     port map (a,b,nosum,p);
+
+    end generate;
+end module;
+library cypress;
+use cypress.lpmpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity mul_vv_ub is
+
+    generic (goal : goal_type := speed);
+
+    port (a,b : in unsigned; p : out unsigned);
+end mul_vv_ub;
+
+architecture module of mul_vv_ub is
+
+    constant lsba : natural := lsb1(a,a'length);
+    constant msba : natural := msb1(a,a'length);
+    constant lsbb : natural := lsb1(b,b'length);
+    constant msbb : natural := msb1(b,b'length);
+
+begin
+
+    G0: if (a'globally_static AND b'globally_static) generate
+        A0: mul_ub
+
+                generic map(goal, true, true, 0, 0)
+
+                port map(a, b, p);
+    end generate;
+
+    G1: if (NOT a'globally_static AND NOT b'globally_static) generate
+        A0: mul_ub
+
+                generic map(goal, false, false, 0, 0)
+
+                port map(a, b, p);
+    end generate;
+
+    G2: if (NOT a'globally_static AND b'globally_static) generate
+        A0: mul_ub
+
+                generic map(goal, false, true, lsbb, msbb)
+
+                port map(a, b, p);
+    end generate;
+
+    G3: if (a'globally_static AND NOT b'globally_static) generate
+        A0: mul_ub
+
+                generic map(goal, false, true, lsba, msba)
+
+                port map(b, a, p);
+    end generate;
+end module;
+
+--
+-- mul with integers
+--
+library cypress;
+use cypress.lpmpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity mul_vi_ub is
+
+    generic (goal : goal_type := speed);
+
+    port (a : in unsigned; i : in integer; p : out unsigned);
+end mul_vi_ub;
+
+architecture module of mul_vi_ub is
+    constant lsba : natural := lsb1(a,a'length);
+    constant msba : natural := msb1(a,a'length);
+    constant lsbb : natural := lsb1(i,p'length-a'length);
+    constant msbb : natural := msb1(i,p'length-a'length);
+    signal b : unsigned (p'length-a'length-1 downto 0);
+
+begin
+
+    b <= vectorize(i,p'length-a'length);
+
+    G0: if (a'globally_static AND i'globally_static) generate
+        A0: mul_ub
+
+                generic map(goal, true, true, 0, 0)
+
+                port map(a, b, p);
+    end generate;
+
+    G1: if (NOT a'globally_static AND NOT i'globally_static) generate
+        A0: mul_ub
+
+                generic map(goal, false, false, 0, 0)
+
+                port map(a, b, p);
+    end generate;
+
+    G2: if (NOT a'globally_static AND i'globally_static) generate
+        A0: mul_ub
+
+                generic map(goal, false, true, lsbb, msbb)
+
+                port map(a, b, p);
+    end generate;
+
+    G3: if (a'globally_static AND NOT i'globally_static) generate
+        A0: mul_ub
+
+                generic map(goal, false, true, lsba, msba)
+
+                port map(b, a, p);
+    end generate;
+end module;
+library cypress;
+use cypress.lpmpkg.all;
+use work.ultragenpkg_ub.all;
+
+entity mul_iv_ub is
+
+    generic (goal : goal_type := speed);
+
+    port (i: in integer; b : in unsigned; p : out unsigned);
+end mul_iv_ub;
+
+architecture module of mul_iv_ub is
+    constant lsba : natural := lsb1(i,p'length-b'length);
+    constant msba : natural := msb1(i,p'length-b'length);
+    constant lsbb : natural := lsb1(b,b'length);
+    constant msbb : natural := msb1(b,b'length);
+    signal a : unsigned (p'length-b'length-1 downto 0);
+
+begin
+
+    a <= vectorize(i,p'length-b'length);
+
+    G0: if (i'globally_static AND b'globally_static) generate
+        A0: mul_ub
+
+                generic map(goal, true, true, 0, 0)
+
+                port map(a, b, p);
+    end generate;
+
+    G1: if (NOT i'globally_static AND NOT b'globally_static) generate
+        A0: mul_ub
+
+                generic map(goal, false, false, 0, 0)
+
+                port map(a, b, p);
+    end generate;
+
+    G2: if (NOT i'globally_static AND b'globally_static) generate
+        A0: mul_ub
+
+                generic map(goal, false, true, lsbb, msbb)
+
+                port map(a, b, p);
+    end generate;
+
+    G3: if (i'globally_static AND NOT b'globally_static) generate
+        A0: mul_ub
+
+                generic map(goal, false, true, lsba, msba)
+
+                port map(b, a, p);
+    end generate;
+end module;

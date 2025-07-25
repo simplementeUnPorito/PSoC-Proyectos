@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_IPS_RegisterAttrCallback</Title>
+			<Shortcut>Cy_BLE_IPS_RegisterAttrCallback</Shortcut>
+			<Description>BLE IPS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_IPS_RegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>Cy_BLE_IPS_CallBack</Default>
+					<ToolTip>BLE IPS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_IPS_CallBack</Title>
+			<Shortcut>Cy_BLE_IPS_CallBack</Shortcut>
+			<Description>BLE CallBack function for Indoor Positioning service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_IPS_CallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>IPS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>IPS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CY_BLE_IPS_SERVER
+        case CY_BLE_EVT_IPSS_WRITE_CHAR:
+            break;
+
+    #endif /* CY_BLE_IPS_SERVER */
+
+    #ifdef CY_BLE_IPS_CLIENT
+        case CY_BLE_EVT_IPSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_IPSC_READ_MULTIPLE_CHAR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_IPSC_WRITE_CHAR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_IPSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_IPSC_WRITE_DESCR_RESPONSE:
+            break;
+		
+		case CY_BLE_EVT_IPSC_ERROR_RESPONSE:
+            break;
+			
+		case CY_BLE_EVT_IPSC_READ_BLOB_RSP:
+            break;
+    #endif /* CY_BLE_IPS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Project">
+    <xs:complexType>
+      <xs:sequence>
+        <!--Toolset name : ARM or GCC-->
+        <xs:element name="ToolsetName" type="xs:string" minOccurs="0"/>
+        <!--Device name as it is given in uVision device database -->
+        <xs:element name="Device" type="xs:string" />
+        <!--Include paths can be absolute and relative to created project file -->
+        <xs:element name="IncludePath" type="xs:string" minOccurs="0" maxOccurs="1" />
+        <xs:element name="ScatterFile" type="xs:string" minOccurs="0" maxOccurs="1" />
+        <!--Additional compiler options -->
+        <xs:element name="MiscControls" type="xs:string" minOccurs="0" maxOccurs="1" />
+        <!--Option to use MicroLib (0/1)-->
+        <xs:element name="useUlib" type="xs:byte" minOccurs="0" maxOccurs="1" />
+        <xs:element name="Groups" minOccurs="0" maxOccurs="1" >
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="1" maxOccurs="unbounded" name="Group">
+                <!--one or more groups contained in the target-->
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="GroupName" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="Files" minOccurs="0" maxOccurs="1">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <!--file description-->
+                          <xs:element minOccurs="1" maxOccurs="unbounded" name="File">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <!--filename without path-->
+                                <xs:element name="FileName" type="xs:string"/>
+                                <!--file type: 1 - C source; 2 - ASM source; 3 - obj; 4 - lib; 5 - header or text; 7 - custom; 8 - C++ source -->
+                                <xs:element name="FileType" type="xs:byte"/>
+                                <!--filename with path (absolute or relative to project)-->
+                                <xs:element name="FilePath" type="xs:string"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

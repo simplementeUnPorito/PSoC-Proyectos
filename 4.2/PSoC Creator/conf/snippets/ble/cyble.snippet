@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_Start</Title>
+			<Shortcut>CyBle_Start</Shortcut>
+			<Description>BLE Start function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_Start</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_AppCallback</Default>
+					<ToolTip>BLE Application CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_AppCallback</Title>
+			<Shortcut>CyBle_AppCallback</Shortcut>
+			<Description>BLE Application CallBack function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_AppCallback</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch( $eventCode$ )
+    {
+        /* Generic events */
+
+        case CYBLE_EVT_STACK_ON:
+            /* CyBle_GappStartAdvertisement( CYBLE_ADVERTISING_FAST ); */
+        break;
+
+        case CYBLE_EVT_TIMEOUT:
+        break;
+
+
+        /* GAP events */
+
+        case CYBLE_EVT_GAP_AUTH_REQ:
+        break;
+
+        case CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST:
+        break;
+
+        case CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST:
+        break;
+
+        case CYBLE_EVT_GAP_AUTH_COMPLETE:
+        break;
+
+        case CYBLE_EVT_GAP_AUTH_FAILED:
+        break;
+
+        case CYBLE_EVT_GAP_DEVICE_CONNECTED:
+        break;
+
+        case CYBLE_EVT_GAP_DEVICE_DISCONNECTED:
+            /* CyBle_GappStartAdvertisement(CYBLE_ADVERTISING_FAST); */
+        break;
+
+        case CYBLE_EVT_GAP_ENCRYPT_CHANGE:
+        break;
+
+        case CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE:
+        break;
+
+        case CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT:
+        break;
+
+        case CYBLE_EVT_GAP_NUMERIC_COMPARISON_REQUEST:
+        break;
+
+        case CYBLE_EVT_GAP_KEYPRESS_NOTIFICATION:
+        break;
+
+        case CYBLE_EVT_GAP_DATA_LENGTH_CHANGE:
+        break;
+
+        case CYBLE_EVT_GAP_ENHANCE_CONN_COMPLETE:
+        break;
+
+        case CYBLE_EVT_GAP_SMP_NEGOTIATED_AUTH_INFO:
+        break;
+
+
+        /* GAP Peripheral events */
+
+        case CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP:
+        break;
+
+
+        /* GAP Central events */
+
+        case CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT:
+        break;
+
+        case CYBLE_EVT_GAPC_SCAN_START_STOP:
+        break;
+
+        case CYBLE_EVT_GAPC_DIRECT_ADV_REPORT:
+        break;
+
+
+        /* GATT events */
+
+        case CYBLE_EVT_GATT_CONNECT_IND:
+        break;
+
+        case CYBLE_EVT_GATT_DISCONNECT_IND:
+        break;
+
+
+        /* GATT Client events */
+
+        case CYBLE_EVT_GATTC_ERROR_RSP:
+        break;
+
+        case CYBLE_EVT_GATTC_XCHNG_MTU_RSP:
+        break;
+
+        case CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP:
+        break;
+
+        case CYBLE_EVT_GATTC_READ_BY_TYPE_RSP:
+        break;
+
+        case CYBLE_EVT_GATTC_FIND_INFO_RSP:
+        break;
+
+        case CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP:
+        break;
+
+        case CYBLE_EVT_GATTC_READ_RSP:
+        break;
+
+        case CYBLE_EVT_GATTC_READ_BLOB_RSP:
+        break;
+
+        case CYBLE_EVT_GATTC_WRITE_RSP:
+        break;
+
+        case CYBLE_EVT_GATTC_EXEC_WRITE_RSP:
+        break;
+
+        case CYBLE_EVT_GATTC_HANDLE_VALUE_NTF:
+        break;
+
+        case CYBLE_EVT_GATTC_HANDLE_VALUE_IND:
+        break;
+
+        case CYBLE_EVT_GATTC_INDICATION:
+        break;
+
+        case CYBLE_EVT_GATTC_SRVC_DISCOVERY_FAILED:
+        break;
+
+        case CYBLE_EVT_GATTC_INCL_DISCOVERY_FAILED:
+        break;
+
+        case CYBLE_EVT_GATTC_CHAR_DISCOVERY_FAILED:
+        break;
+
+        case CYBLE_EVT_GATTC_DESCR_DISCOVERY_FAILED:
+        break;
+
+        case CYBLE_EVT_GATTC_SRVC_DUPLICATION:
+        break;
+
+        case CYBLE_EVT_GATTC_CHAR_DUPLICATION:
+        break;
+
+        case CYBLE_EVT_GATTC_DESCR_DUPLICATION:
+        break;
+
+        case CYBLE_EVT_GATTC_SRVC_DISCOVERY_COMPLETE:
+        break;
+
+        case CYBLE_EVT_GATTC_INCL_DISCOVERY_COMPLETE:
+        break;
+
+        case CYBLE_EVT_GATTC_CHAR_DISCOVERY_COMPLETE:
+        break;
+
+        case CYBLE_EVT_GATTC_DISCOVERY_COMPLETE:
+        break;
+
+
+        /* GATT Server events */
+
+        case CYBLE_EVT_GATTS_XCNHG_MTU_REQ:
+        break;
+
+        case CYBLE_EVT_GATTS_WRITE_REQ:
+        break;
+
+        case CYBLE_EVT_GATTS_WRITE_CMD_REQ:
+        break;
+
+        case CYBLE_EVT_GATTS_PREP_WRITE_REQ:
+        break;
+
+        case CYBLE_EVT_GATTS_EXEC_WRITE_REQ:
+        break;
+
+        case CYBLE_EVT_GATTS_HANDLE_VALUE_CNF:
+        break;
+
+        case CYBLE_EVT_GATTS_INDICATION_ENABLED:
+        break;
+
+        case CYBLE_EVT_GATTS_INDICATION_DISABLED:
+        break;
+
+        case CYBLE_EVT_GATTS_READ_CHAR_VAL_ACCESS_REQ:
+        break;
+
+
+        /* L2CAP events */
+
+        case CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ:
+        break;
+
+        case CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP:
+        break;
+
+
+        /* default catch-all case */
+
+        default:
+        break;
+    }
+}]]>
+            </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_PassRegisterAttrCallback</Title>
+			<Shortcut>CyBle_PassRegisterAttrCallback</Shortcut>
+			<Description>BLE PASS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_PassRegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_PassCallBack</Default>
+					<ToolTip>BLE PASS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_PassCallBack</Title>
+			<Shortcut>CyBle_PassCallBack</Shortcut>
+			<Description>BLE CallBack function for Location and Navigation service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_PassCallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>PASS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>PASS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CYBLE_PASS_SERVER
+        case CYBLE_EVT_PASSS_NOTIFICATION_ENABLED:
+            break;
+
+        case CYBLE_EVT_PASSS_NOTIFICATION_DISABLED:
+            break;
+
+        case CYBLE_EVT_PASSS_WRITE_CHAR:
+            break;
+    #endif /* CYBLE_PASS_SERVER */
+
+    #ifdef CYBLE_PASS_CLIENT
+        case CYBLE_EVT_PASSC_NOTIFICATION:
+            break;
+
+        case CYBLE_EVT_PASSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_PASSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_PASSC_WRITE_DESCR_RESPONSE:
+            break;
+    #endif /* CYBLE_PASS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

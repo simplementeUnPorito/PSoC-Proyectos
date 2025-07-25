@@ -1,0 +1,37 @@
+﻿<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ComponentNPS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Components" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Comp" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="Name" use="required"/>
+                      <xs:attribute type="xs:unsignedInt" name="Count" use="required"/>
+                      <xs:attribute type="xs:boolean" name="IsSurveyed" use="required"/>
+                      <xs:attribute type="xs:string" name="WebLink" use="required"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SurveyData" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:date" name="LastSurveyTime" use ="required"/>
+                <xs:attribute type="xs:unsignedByte" name="Category" use="required"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:unsignedInt" name="Version" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

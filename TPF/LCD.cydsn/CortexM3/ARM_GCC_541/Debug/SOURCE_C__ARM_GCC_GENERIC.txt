@@ -1,0 +1,1 @@
+'C:\PSoC Creator\TPF\LCD.cydsn\main.c' -o .o -T SOURCE_C__ARM_GCC_GENERIC -I 'C:\PSoC Creator\TPF\LCD.cydsn' -I 'C:\PSoC Creator\TPF\LCD.cydsn\Generated_Source\PSoC5' -f 'C:\PSoC Creator\TPF\LCD.cydsn\CortexM3\ARM_GCC_541\Debug\.deps\SOURCE_C__ARM_GCC_GENERIC.d'

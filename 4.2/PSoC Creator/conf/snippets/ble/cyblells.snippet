@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_LlsRegisterAttrCallback</Title>
+			<Shortcut>CyBle_LlsRegisterAttrCallback</Shortcut>
+			<Description>BLE LLS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_LlsRegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_LlsCallBack</Default>
+					<ToolTip>BLE LLS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_LlsCallBack</Title>
+			<Shortcut>CyBle_LlsCallBack</Shortcut>
+			<Description>BLE CallBack function for Link Loss service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_LlsCallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>LLS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>LLS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CYBLE_LLS_SERVER
+        case CYBLE_EVT_LLSS_WRITE_CHAR_REQ:
+            break;
+    #endif /* CYBLE_LLS_SERVER */
+
+    #ifdef CYBLE_LLS_CLIENT
+        case CYBLE_EVT_LLSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_LLSC_WRITE_CHAR_RESPONSE:
+            break;
+    #endif /* CYBLE_LLS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

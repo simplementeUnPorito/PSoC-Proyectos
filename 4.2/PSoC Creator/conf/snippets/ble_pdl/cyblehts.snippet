@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_HTS_RegisterAttrCallback</Title>
+			<Shortcut>Cy_BLE_HTS_RegisterAttrCallback</Shortcut>
+			<Description>BLE HTS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_HTS_RegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>Cy_BLE_HTS_CallBack</Default>
+					<ToolTip>BLE HTS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_HTS_CallBack</Title>
+			<Shortcut>Cy_BLE_HTS_CallBack</Shortcut>
+			<Description>BLE CallBack function for Health Thermometer service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_HTS_CallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>HTS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>HTS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CY_BLE_HTS_SERVER
+        case CY_BLE_EVT_HTSS_INDICATION_ENABLED:
+            break;
+
+        case CY_BLE_EVT_HTSS_INDICATION_DISABLED:
+            break;
+
+        case CY_BLE_EVT_HTSS_INDICATION_CONFIRMED:
+            break;
+
+        case CY_BLE_EVT_HTSS_NOTIFICATION_ENABLED:
+            break;
+
+        case CY_BLE_EVT_HTSS_NOTIFICATION_DISABLED:
+            break;
+
+        case CY_BLE_EVT_HTSS_WRITE_CHAR:
+            break;
+    #endif /* CY_BLE_HTS_SERVER */
+
+    #ifdef CY_BLE_HTS_CLIENT
+        case CY_BLE_EVT_HTSC_INDICATION:
+            break;
+
+        case CY_BLE_EVT_HTSC_NOTIFICATION:
+            break;
+
+        case CY_BLE_EVT_HTSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_HTSC_WRITE_CHAR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_HTSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_HTSC_WRITE_DESCR_RESPONSE:
+            break;
+    #endif /* CY_BLE_HTS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

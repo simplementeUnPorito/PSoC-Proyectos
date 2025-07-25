@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Name="ADC_SingleEndedMode">
+  <Version>2.30</Version>
+  <Keyword>ADC_DelSig</Keyword>
+  <Description>The ADC Single Ended mode design project contains an example for the use of the ADC_DelSig component in single ended mode. The input analog voltage fed to the ADC input terminal is converted to the corresponding digital value and this is displayed on the LCD module.
+  </Description>
+  <DeviceFilter>PSoC 3</DeviceFilter>
+  <DeviceFilter>PSoC 5LP</DeviceFilter>
+  <Document>ADC_SingleEndedMode.pdf</Document>
+  <MinToolVersion>4.2</MinToolVersion> 
+</Project>

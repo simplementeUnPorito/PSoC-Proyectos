@@ -1,0 +1,4 @@
+C:/Users/elias/OneDrive/Documents/Documentos/PSoC\ Creator/TaniaTriangulo/TaniaTriangulo.cydsn/CortexM3/ARM_GCC_541/Debug/ContBit.o : C:/Users/elias/OneDrive/Documents/Documentos/PSoC\ Creator/TaniaTriangulo/TaniaTriangulo.cydsn/ContBit.s 
+
+C:/Users/elias/OneDrive/Documents/Documentos/PSoC\ Creator/TaniaTriangulo/TaniaTriangulo.cydsn/ContBit.s : 
+

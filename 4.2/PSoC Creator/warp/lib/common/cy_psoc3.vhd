@@ -1,0 +1,1268 @@
+--
+
+--------------------------------------------------------------------------------
+-- PSoC3 Entities and Architectures
+--------------------------------------------------------------------------------
+
+--
+-- Single non-chainable data path element
+--
+library ieee;
+use ieee.std_logic_1164.all;
+library cypress;
+use cypress.rtlpkg.cy_psoc3_dp;
+use cypress.cypress.all;
+use cypress.psoc3pkg.all;
+entity cy_psoc3_dp8 is
+    generic(cy_dpconfig_a : std_logic_vector (207 downto 0) :=
+     X"0000_0000_0000_0000_0000_0000_0000_0000_FFFF_FFFF_0000_0000_0000";
+     d0_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     d1_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     a0_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     a1_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     ce0_sync : std_logic := '1';
+     cl0_sync : std_logic := '1';
+     z0_sync : std_logic := '1';
+     ff0_sync : std_logic := '1';
+     ce1_sync : std_logic := '1';
+     cl1_sync : std_logic := '1';
+     z1_sync : std_logic := '1';
+     ff1_sync : std_logic := '1';
+     ov_msb_sync : std_logic := '1';
+     co_msb_sync : std_logic := '1';
+     cmsb_sync : std_logic := '1';
+     so_sync : std_logic := '1';
+     f0_bus_sync : std_logic := '1';
+     f0_blk_sync : std_logic := '1';
+     f1_bus_sync : std_logic := '1';
+     f1_blk_sync : std_logic := '1');
+    port ( reset : in std_logic := '0';
+     clk : in std_logic;
+     cs_addr : in std_logic_vector (2 downto 0);
+     route_si : in std_logic;
+     route_ci : in std_logic;
+     f0_load : in std_logic;
+     f1_load : in std_logic;
+     d0_load : in std_logic;
+     d1_load : in std_logic;
+     ce0 : out std_logic;
+     cl0 : out std_logic;
+     z0 : out std_logic;
+     ff0 : out std_logic;
+     ce1 : out std_logic;
+     cl1 : out std_logic;
+     z1 : out std_logic;
+     ff1 : out std_logic;
+     ov_msb : out std_logic;
+     co_msb : out std_logic;
+     cmsb : out std_logic;
+     so : out std_logic;
+     f0_bus_stat : out std_logic;
+     f0_blk_stat : out std_logic;
+     f1_bus_stat : out std_logic;
+     f1_blk_stat : out std_logic;
+     ce0_reg : out std_logic;
+     cl0_reg : out std_logic;
+     z0_reg : out std_logic;
+     ff0_reg : out std_logic;
+     ce1_reg : out std_logic;
+     cl1_reg : out std_logic;
+     z1_reg : out std_logic;
+     ff1_reg : out std_logic;
+     ov_msb_reg : out std_logic;
+     co_msb_reg : out std_logic;
+     cmsb_reg : out std_logic;
+     so_reg : out std_logic;
+     f0_bus_stat_reg : out std_logic;
+     f0_blk_stat_reg : out std_logic;
+     f1_bus_stat_reg : out std_logic;
+     f1_blk_stat_reg : out std_logic);
+
+end cy_psoc3_dp8;
+
+architecture archPSOC3 of cy_psoc3_dp8 is
+begin
+        U0: cy_psoc3_dp
+            generic map (
+                cy_dpconfig => cy_dpconfig_a,
+                d0_init => d0_init_a,
+                d1_init => d1_init_a,
+                a0_init => a0_init_a,
+                a1_init => a1_init_a,
+                ce0_sync => ce0_sync,
+                cl0_sync => cl0_sync,
+                z0_sync => z0_sync,
+                ff0_sync => ff0_sync,
+                ce1_sync => ce1_sync,
+                cl1_sync => cl1_sync,
+                z1_sync => z1_sync,
+                ff1_sync => ff1_sync,
+                ov_msb_sync => ov_msb_sync,
+                co_msb_sync => co_msb_sync,
+                cmsb_sync => cmsb_sync,
+                so_sync => so_sync,
+                f0_bus_sync => f0_bus_sync,
+                f0_blk_sync => f0_blk_sync,
+                f1_bus_sync => f1_bus_sync,
+                f1_blk_sync => f1_blk_sync)
+            port map (
+                reset => reset,
+                clk => clk,
+                cs_addr => cs_addr,
+                route_si => route_si,
+                route_ci => route_ci,
+                f0_load => f0_load,
+                f1_load => f1_load,
+                d0_load => d0_load,
+                d1_load => d1_load,
+                ce0 => ce0,
+                cl0 => cl0,
+                z0 => z0,
+                ff0 => ff0,
+                ce1 => ce1,
+                cl1 => cl1,
+                z1 => z1,
+                ff1 => ff1,
+                ov_msb => ov_msb,
+                co_msb => co_msb,
+                cmsb => cmsb,
+                so => so,
+                f0_bus_stat => f0_bus_stat,
+                f0_blk_stat => f0_blk_stat,
+                f1_bus_stat => f1_bus_stat,
+                f1_blk_stat => f1_blk_stat,
+                ce0_reg => ce0_reg,
+                cl0_reg => cl0_reg,
+                z0_reg => z0_reg,
+                ff0_reg => ff0_reg,
+                ce1_reg => ce1_reg,
+                cl1_reg => cl1_reg,
+                z1_reg => z1_reg,
+                ff1_reg => ff1_reg,
+                ov_msb_reg => ov_msb_reg,
+                co_msb_reg => co_msb_reg,
+                cmsb_reg => cmsb_reg,
+                so_reg => so_reg,
+                f0_bus_stat_reg => f0_bus_stat_reg,
+                f0_blk_stat_reg => f0_blk_stat_reg,
+                f1_bus_stat_reg => f1_bus_stat_reg,
+                f1_blk_stat_reg => f1_blk_stat_reg,
+                ci => '0',
+                co => open,
+                sir => '0',
+                sor => open,
+                sil => '0',
+                sol => open,
+                msbi => '0',
+                msbo => open,
+                cei => "00",
+                ceo => open,
+                cli => "00",
+                clo => open,
+                zi => "00",
+                zo => open,
+                fi => "00",
+                fo => open,
+                cfbi => '0',
+                cfbo => open,
+                pi => "00000000",
+                po => open);
+end archPSOC3;
+
+--
+-- Two chained data path elements
+--
+library ieee;
+use ieee.std_logic_1164.all;
+library cypress;
+use cypress.rtlpkg.cy_psoc3_dp;
+use cypress.cypress.all;
+use cypress.psoc3pkg.all;
+entity cy_psoc3_dp16 is
+    generic(cy_dpconfig_a : std_logic_vector (207 downto 0) :=
+     X"0000_0000_0000_0000_0000_0000_0000_0000_FFFF_FFFF_0000_0000_0000";
+     d0_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     d1_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     a0_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     a1_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     cy_dpconfig_b : std_logic_vector (207 downto 0) :=
+     X"0000_0000_0000_0000_0000_0000_0000_0000_FFFF_FFFF_0000_0000_0000";
+     d0_init_b : std_logic_vector (7 downto 0) := (others => '0');
+     d1_init_b : std_logic_vector (7 downto 0) := (others => '0');
+     a0_init_b : std_logic_vector (7 downto 0) := (others => '0');
+     a1_init_b : std_logic_vector (7 downto 0) := (others => '0');
+     ce0_sync : std_logic_vector (1 downto 0) := (others => '1');
+     cl0_sync : std_logic_vector (1 downto 0) := (others => '1');
+     z0_sync : std_logic_vector (1 downto 0) := (others => '1');
+     ff0_sync : std_logic_vector (1 downto 0) := (others => '1');
+     ce1_sync : std_logic_vector (1 downto 0) := (others => '1');
+     cl1_sync : std_logic_vector (1 downto 0) := (others => '1');
+     z1_sync : std_logic_vector (1 downto 0) := (others => '1');
+     ff1_sync : std_logic_vector (1 downto 0) := (others => '1');
+     ov_msb_sync : std_logic_vector (1 downto 0) := (others => '1');
+     co_msb_sync : std_logic_vector (1 downto 0) := (others => '1');
+     cmsb_sync : std_logic_vector (1 downto 0) := (others => '1');
+     so_sync : std_logic_vector (1 downto 0) := (others => '1');
+     f0_bus_sync : std_logic_vector (1 downto 0) := (others => '1');
+     f0_blk_sync : std_logic_vector (1 downto 0) := (others => '1');
+     f1_bus_sync : std_logic_vector (1 downto 0) := (others => '1');
+     f1_blk_sync : std_logic_vector (1 downto 0) := (others => '1'));
+    port ( reset : in std_logic := '0';
+     clk : in std_logic;
+     cs_addr : in std_logic_vector (2 downto 0);
+     route_si : in std_logic;
+     route_ci : in std_logic;
+     f0_load : in std_logic;
+     f1_load : in std_logic;
+     d0_load : in std_logic;
+     d1_load : in std_logic;
+     ce0 : out std_logic_vector (1 downto 0);
+     cl0 : out std_logic_vector (1 downto 0);
+     z0 : out std_logic_vector (1 downto 0);
+     ff0 : out std_logic_vector (1 downto 0);
+     ce1 : out std_logic_vector (1 downto 0);
+     cl1 : out std_logic_vector (1 downto 0);
+     z1 : out std_logic_vector (1 downto 0);
+     ff1 : out std_logic_vector (1 downto 0);
+     ov_msb : out std_logic_vector (1 downto 0);
+     co_msb : out std_logic_vector (1 downto 0);
+     cmsb : out std_logic_vector (1 downto 0);
+     so : out std_logic_vector (1 downto 0);
+     f0_bus_stat : out std_logic_vector (1 downto 0);
+     f0_blk_stat : out std_logic_vector (1 downto 0);
+     f1_bus_stat : out std_logic_vector (1 downto 0);
+     f1_blk_stat : out std_logic_vector (1 downto 0);
+     ce0_reg : out std_logic_vector (1 downto 0);
+     cl0_reg : out std_logic_vector (1 downto 0);
+     z0_reg : out std_logic_vector (1 downto 0);
+     ff0_reg : out std_logic_vector (1 downto 0);
+     ce1_reg : out std_logic_vector (1 downto 0);
+     cl1_reg : out std_logic_vector (1 downto 0);
+     z1_reg : out std_logic_vector (1 downto 0);
+     ff1_reg : out std_logic_vector (1 downto 0);
+     ov_msb_reg : out std_logic_vector (1 downto 0);
+     co_msb_reg : out std_logic_vector (1 downto 0);
+     cmsb_reg : out std_logic_vector (1 downto 0);
+     so_reg : out std_logic_vector (1 downto 0);
+     f0_bus_stat_reg : out std_logic_vector (1 downto 0);
+     f0_blk_stat_reg : out std_logic_vector (1 downto 0);
+     f1_bus_stat_reg : out std_logic_vector (1 downto 0);
+     f1_blk_stat_reg : out std_logic_vector (1 downto 0));
+end cy_psoc3_dp16;
+
+architecture archPSOC3 of cy_psoc3_dp16 is
+    signal carry, sh_right, sh_left, msb, cfb : std_logic;
+    signal cmp_eq, cmp_lt, cmp_zero, cmp_ff, cap : std_logic_vector (1 downto 0);
+begin
+        U0: cy_psoc3_dp
+            generic map (
+                cy_dpconfig => cy_dpconfig_a,
+                d0_init => d0_init_a,
+                d1_init => d1_init_a,
+                a0_init => a0_init_a,
+                a1_init => a1_init_a,
+                ce0_sync => ce0_sync(0),
+                cl0_sync => cl0_sync(0),
+                z0_sync => z0_sync(0),
+                ff0_sync => ff0_sync(0),
+                ce1_sync => ce1_sync(0),
+                cl1_sync => cl1_sync(0),
+                z1_sync => z1_sync(0),
+                ff1_sync => ff1_sync(0),
+                ov_msb_sync => ov_msb_sync(0),
+                co_msb_sync => co_msb_sync(0),
+                cmsb_sync => cmsb_sync(0),
+                so_sync => so_sync(0),
+                f0_bus_sync => f0_bus_sync(0),
+                f0_blk_sync => f0_blk_sync(0),
+                f1_bus_sync => f1_bus_sync(0),
+                f1_blk_sync => f1_blk_sync(0))
+            port map (
+                reset => reset,
+                clk => clk,
+                cs_addr => cs_addr,
+                route_si => route_si,
+                route_ci => route_ci,
+                f0_load => f0_load,
+                f1_load => f1_load,
+                d0_load => d0_load,
+                d1_load => d1_load,
+                ce0 => ce0(0),
+                cl0 => cl0(0),
+                z0 => z0(0),
+                ff0 => ff0(0),
+                ce1 => ce1(0),
+                cl1 => cl1(0),
+                z1 => z1(0),
+                ff1 => ff1(0),
+                ov_msb => ov_msb(0),
+                co_msb => co_msb(0),
+                cmsb => cmsb(0),
+                so => so(0),
+                f0_bus_stat => f0_bus_stat(0),
+                f0_blk_stat => f0_blk_stat(0),
+                f1_bus_stat => f1_bus_stat(0),
+                f1_blk_stat => f1_blk_stat(0),
+                ce0_reg => ce0_reg(0),
+                cl0_reg => cl0_reg(0),
+                z0_reg => z0_reg(0),
+                ff0_reg => ff0_reg(0),
+                ce1_reg => ce1_reg(0),
+                cl1_reg => cl1_reg(0),
+                z1_reg => z1_reg(0),
+                ff1_reg => ff1_reg(0),
+                ov_msb_reg => ov_msb_reg(0),
+                co_msb_reg => co_msb_reg(0),
+                cmsb_reg => cmsb_reg(0),
+                so_reg => so_reg(0),
+                f0_bus_stat_reg => f0_bus_stat_reg(0),
+                f0_blk_stat_reg => f0_blk_stat_reg(0),
+                f1_bus_stat_reg => f1_bus_stat_reg(0),
+                f1_blk_stat_reg => f1_blk_stat_reg(0),
+                ci => '0',
+                co => carry,
+                sir => '0',
+                sor => open,
+                sil => sh_right,
+                sol => sh_left,
+                msbi => msb,
+                msbo => open,
+                cei => "00",
+                ceo => cmp_eq,
+                cli => "00",
+                clo => cmp_lt,
+                zi => "00",
+                zo => cmp_zero,
+                fi => "00",
+                fo => cmp_ff,
+                capi => "00",
+                capo => cap,
+                cfbi => '0',
+                cfbo => cfb,
+                pi => "00000000",
+                po => open);
+
+        U1: cy_psoc3_dp
+            generic map (
+                cy_dpconfig => cy_dpconfig_b,
+                d0_init => d0_init_b,
+                d1_init => d1_init_b,
+                a0_init => a0_init_b,
+                a1_init => a1_init_b,
+                ce0_sync => ce0_sync(1),
+                cl0_sync => cl0_sync(1),
+                z0_sync => z0_sync(1),
+                ff0_sync => ff0_sync(1),
+                ce1_sync => ce1_sync(1),
+                cl1_sync => cl1_sync(1),
+                z1_sync => z1_sync(1),
+                ff1_sync => ff1_sync(1),
+                ov_msb_sync => ov_msb_sync(1),
+                co_msb_sync => co_msb_sync(1),
+                cmsb_sync => cmsb_sync(1),
+                so_sync => so_sync(1),
+                f0_bus_sync => f0_bus_sync(1),
+                f0_blk_sync => f0_blk_sync(1),
+                f1_bus_sync => f1_bus_sync(1),
+                f1_blk_sync => f1_blk_sync(1))
+            port map (
+                reset => reset,
+                clk => clk,
+                cs_addr => cs_addr,
+                route_si => route_si,
+                route_ci => route_ci,
+                f0_load => f0_load,
+                f1_load => f1_load,
+                d0_load => d0_load,
+                d1_load => d1_load,
+                ce0 => ce0(1),
+                cl0 => cl0(1),
+                z0 => z0(1),
+                ff0 => ff0(1),
+                ce1 => ce1(1),
+                cl1 => cl1(1),
+                z1 => z1(1),
+                ff1 => ff1(1),
+                ov_msb => ov_msb(1),
+                co_msb => co_msb(1),
+                cmsb => cmsb(1),
+                so => so(1),
+                f0_bus_stat => f0_bus_stat(1),
+                f0_blk_stat => f0_blk_stat(1),
+                f1_bus_stat => f1_bus_stat(1),
+                f1_blk_stat => f1_blk_stat(1),
+                ce0_reg => ce0_reg(1),
+                cl0_reg => cl0_reg(1),
+                z0_reg => z0_reg(1),
+                ff0_reg => ff0_reg(1),
+                ce1_reg => ce1_reg(1),
+                cl1_reg => cl1_reg(1),
+                z1_reg => z1_reg(1),
+                ff1_reg => ff1_reg(1),
+                ov_msb_reg => ov_msb_reg(1),
+                co_msb_reg => co_msb_reg(1),
+                cmsb_reg => cmsb_reg(1),
+                so_reg => so_reg(1),
+                f0_bus_stat_reg => f0_bus_stat_reg(1),
+                f0_blk_stat_reg => f0_blk_stat_reg(1),
+                f1_bus_stat_reg => f1_bus_stat_reg(1),
+                f1_blk_stat_reg => f1_blk_stat_reg(1),
+                ci => carry,
+                co => open,
+                sir => sh_left,
+                sor => sh_right,
+                sil => '0',
+                sol => open,
+                msbi => '0',
+                msbo => msb,
+                cei => cmp_eq,
+                ceo => open,
+                cli => cmp_lt,
+                clo => open,
+                zi => cmp_zero,
+                zo => open,
+                fi => cmp_ff,
+                fo => open,
+                capi => cap,
+                capo => open,
+                cfbi => cfb,
+                cfbo => open,
+                pi => "00000000",
+                po => open);
+end archPSOC3;
+
+--
+-- Three chained data path elements
+--
+library ieee;
+use ieee.std_logic_1164.all;
+library cypress;
+use cypress.rtlpkg.cy_psoc3_dp;
+use cypress.cypress.all;
+use cypress.psoc3pkg.all;
+entity cy_psoc3_dp24 is
+    generic(cy_dpconfig_a : std_logic_vector (207 downto 0) :=
+     X"0000_0000_0000_0000_0000_0000_0000_0000_FFFF_FFFF_0000_0000_0000";
+     d0_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     d1_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     a0_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     a1_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     cy_dpconfig_b : std_logic_vector (207 downto 0) :=
+     X"0000_0000_0000_0000_0000_0000_0000_0000_FFFF_FFFF_0000_0000_0000";
+     d0_init_b : std_logic_vector (7 downto 0) := (others => '0');
+     d1_init_b : std_logic_vector (7 downto 0) := (others => '0');
+     a0_init_b : std_logic_vector (7 downto 0) := (others => '0');
+     a1_init_b : std_logic_vector (7 downto 0) := (others => '0');
+     cy_dpconfig_c : std_logic_vector (207 downto 0) :=
+     X"0000_0000_0000_0000_0000_0000_0000_0000_FFFF_FFFF_0000_0000_0000";
+     d0_init_c : std_logic_vector (7 downto 0) := (others => '0');
+     d1_init_c : std_logic_vector (7 downto 0) := (others => '0');
+     a0_init_c : std_logic_vector (7 downto 0) := (others => '0');
+     a1_init_c : std_logic_vector (7 downto 0) := (others => '0');
+     ce0_sync : std_logic_vector (2 downto 0) := (others => '1');
+     cl0_sync : std_logic_vector (2 downto 0) := (others => '1');
+     z0_sync : std_logic_vector (2 downto 0) := (others => '1');
+     ff0_sync : std_logic_vector (2 downto 0) := (others => '1');
+     ce1_sync : std_logic_vector (2 downto 0) := (others => '1');
+     cl1_sync : std_logic_vector (2 downto 0) := (others => '1');
+     z1_sync : std_logic_vector (2 downto 0) := (others => '1');
+     ff1_sync : std_logic_vector (2 downto 0) := (others => '1');
+     ov_msb_sync : std_logic_vector (2 downto 0) := (others => '1');
+     co_msb_sync : std_logic_vector (2 downto 0) := (others => '1');
+     cmsb_sync : std_logic_vector (2 downto 0) := (others => '1');
+     so_sync : std_logic_vector (2 downto 0) := (others => '1');
+     f0_bus_sync : std_logic_vector (2 downto 0) := (others => '1');
+     f0_blk_sync : std_logic_vector (2 downto 0) := (others => '1');
+     f1_bus_sync : std_logic_vector (2 downto 0) := (others => '1');
+     f1_blk_sync : std_logic_vector (2 downto 0) := (others => '1'));
+    port ( reset : in std_logic := '0';
+     clk : in std_logic;
+     cs_addr : in std_logic_vector (2 downto 0);
+     route_si : in std_logic;
+     route_ci : in std_logic;
+     f0_load : in std_logic;
+     f1_load : in std_logic;
+     d0_load : in std_logic;
+     d1_load : in std_logic;
+     ce0 : out std_logic_vector (2 downto 0);
+     cl0 : out std_logic_vector (2 downto 0);
+     z0 : out std_logic_vector (2 downto 0);
+     ff0 : out std_logic_vector (2 downto 0);
+     ce1 : out std_logic_vector (2 downto 0);
+     cl1 : out std_logic_vector (2 downto 0);
+     z1 : out std_logic_vector (2 downto 0);
+     ff1 : out std_logic_vector (2 downto 0);
+     ov_msb : out std_logic_vector (2 downto 0);
+     co_msb : out std_logic_vector (2 downto 0);
+     cmsb : out std_logic_vector (2 downto 0);
+     so : out std_logic_vector (2 downto 0);
+     f0_bus_stat : out std_logic_vector (2 downto 0);
+     f0_blk_stat : out std_logic_vector (2 downto 0);
+     f1_bus_stat : out std_logic_vector (2 downto 0);
+     f1_blk_stat : out std_logic_vector (2 downto 0);
+     ce0_reg : out std_logic_vector (2 downto 0);
+     cl0_reg : out std_logic_vector (2 downto 0);
+     z0_reg : out std_logic_vector (2 downto 0);
+     ff0_reg : out std_logic_vector (2 downto 0);
+     ce1_reg : out std_logic_vector (2 downto 0);
+     cl1_reg : out std_logic_vector (2 downto 0);
+     z1_reg : out std_logic_vector (2 downto 0);
+     ff1_reg : out std_logic_vector (2 downto 0);
+     ov_msb_reg : out std_logic_vector (2 downto 0);
+     co_msb_reg : out std_logic_vector (2 downto 0);
+     cmsb_reg : out std_logic_vector (2 downto 0);
+     so_reg : out std_logic_vector (2 downto 0);
+     f0_bus_stat_reg : out std_logic_vector (2 downto 0);
+     f0_blk_stat_reg : out std_logic_vector (2 downto 0);
+     f1_bus_stat_reg : out std_logic_vector (2 downto 0);
+     f1_blk_stat_reg : out std_logic_vector (2 downto 0));
+end cy_psoc3_dp24;
+
+architecture archPSOC3 of cy_psoc3_dp24 is
+    signal carry0, sh_right0, sh_left0, msb0, cfb0 : std_logic;
+    signal cmp_eq0, cmp_lt0, cmp_zero0, cmp_ff0, cap0 : std_logic_vector (1 downto 0);
+    signal carry1, sh_right1, sh_left1, msb1, cfb1 : std_logic;
+    signal cmp_eq1, cmp_lt1, cmp_zero1, cmp_ff1, cap1 : std_logic_vector (1 downto 0);
+begin
+        U0: cy_psoc3_dp
+            generic map (
+                cy_dpconfig => cy_dpconfig_a,
+                d0_init => d0_init_a,
+                d1_init => d1_init_a,
+                a0_init => a0_init_a,
+                a1_init => a1_init_a,
+                ce0_sync => ce0_sync(0),
+                cl0_sync => cl0_sync(0),
+                z0_sync => z0_sync(0),
+                ff0_sync => ff0_sync(0),
+                ce1_sync => ce1_sync(0),
+                cl1_sync => cl1_sync(0),
+                z1_sync => z1_sync(0),
+                ff1_sync => ff1_sync(0),
+                ov_msb_sync => ov_msb_sync(0),
+                co_msb_sync => co_msb_sync(0),
+                cmsb_sync => cmsb_sync(0),
+                so_sync => so_sync(0),
+                f0_bus_sync => f0_bus_sync(0),
+                f0_blk_sync => f0_blk_sync(0),
+                f1_bus_sync => f1_bus_sync(0),
+                f1_blk_sync => f1_blk_sync(0))
+            port map (
+                reset => reset,
+                clk => clk,
+                cs_addr => cs_addr,
+                route_si => route_si,
+                route_ci => route_ci,
+                f0_load => f0_load,
+                f1_load => f1_load,
+                d0_load => d0_load,
+                d1_load => d1_load,
+                ce0 => ce0(0),
+                cl0 => cl0(0),
+                z0 => z0(0),
+                ff0 => ff0(0),
+                ce1 => ce1(0),
+                cl1 => cl1(0),
+                z1 => z1(0),
+                ff1 => ff1(0),
+                ov_msb => ov_msb(0),
+                co_msb => co_msb(0),
+                cmsb => cmsb(0),
+                so => so(0),
+                f0_bus_stat => f0_bus_stat(0),
+                f0_blk_stat => f0_blk_stat(0),
+                f1_bus_stat => f1_bus_stat(0),
+                f1_blk_stat => f1_blk_stat(0),
+                ce0_reg => ce0_reg(0),
+                cl0_reg => cl0_reg(0),
+                z0_reg => z0_reg(0),
+                ff0_reg => ff0_reg(0),
+                ce1_reg => ce1_reg(0),
+                cl1_reg => cl1_reg(0),
+                z1_reg => z1_reg(0),
+                ff1_reg => ff1_reg(0),
+                ov_msb_reg => ov_msb_reg(0),
+                co_msb_reg => co_msb_reg(0),
+                cmsb_reg => cmsb_reg(0),
+                so_reg => so_reg(0),
+                f0_bus_stat_reg => f0_bus_stat_reg(0),
+                f0_blk_stat_reg => f0_blk_stat_reg(0),
+                f1_bus_stat_reg => f1_bus_stat_reg(0),
+                f1_blk_stat_reg => f1_blk_stat_reg(0),
+                ci => '0',
+                co => carry0,
+                sir => '0',
+                sor => open,
+                sil => sh_right0,
+                sol => sh_left0,
+                msbi => msb0,
+                msbo => open,
+                cei => "00",
+                ceo => cmp_eq0,
+                cli => "00",
+                clo => cmp_lt0,
+                zi => "00",
+                zo => cmp_zero0,
+                fi => "00",
+                fo => cmp_ff0,
+                capi => "00",
+                capo => cap0,
+                cfbi => '0',
+                cfbo => cfb0,
+                pi => "00000000",
+                po => open);
+
+        U1: cy_psoc3_dp
+            generic map (
+                cy_dpconfig => cy_dpconfig_b,
+                d0_init => d0_init_b,
+                d1_init => d1_init_b,
+                a0_init => a0_init_b,
+                a1_init => a1_init_b,
+                ce0_sync => ce0_sync(1),
+                cl0_sync => cl0_sync(1),
+                z0_sync => z0_sync(1),
+                ff0_sync => ff0_sync(1),
+                ce1_sync => ce1_sync(1),
+                cl1_sync => cl1_sync(1),
+                z1_sync => z1_sync(1),
+                ff1_sync => ff1_sync(1),
+                ov_msb_sync => ov_msb_sync(1),
+                co_msb_sync => co_msb_sync(1),
+                cmsb_sync => cmsb_sync(1),
+                so_sync => so_sync(1),
+                f0_bus_sync => f0_bus_sync(1),
+                f0_blk_sync => f0_blk_sync(1),
+                f1_bus_sync => f1_bus_sync(1),
+                f1_blk_sync => f1_blk_sync(1))
+            port map (
+                reset => reset,
+                clk => clk,
+                cs_addr => cs_addr,
+                route_si => route_si,
+                route_ci => route_ci,
+                f0_load => f0_load,
+                f1_load => f1_load,
+                d0_load => d0_load,
+                d1_load => d1_load,
+                ce0 => ce0(1),
+                cl0 => cl0(1),
+                z0 => z0(1),
+                ff0 => ff0(1),
+                ce1 => ce1(1),
+                cl1 => cl1(1),
+                z1 => z1(1),
+                ff1 => ff1(1),
+                ov_msb => ov_msb(1),
+                co_msb => co_msb(1),
+                cmsb => cmsb(1),
+                so => so(1),
+                f0_bus_stat => f0_bus_stat(1),
+                f0_blk_stat => f0_blk_stat(1),
+                f1_bus_stat => f1_bus_stat(1),
+                f1_blk_stat => f1_blk_stat(1),
+                ce0_reg => ce0_reg(1),
+                cl0_reg => cl0_reg(1),
+                z0_reg => z0_reg(1),
+                ff0_reg => ff0_reg(1),
+                ce1_reg => ce1_reg(1),
+                cl1_reg => cl1_reg(1),
+                z1_reg => z1_reg(1),
+                ff1_reg => ff1_reg(1),
+                ov_msb_reg => ov_msb_reg(1),
+                co_msb_reg => co_msb_reg(1),
+                cmsb_reg => cmsb_reg(1),
+                so_reg => so_reg(1),
+                f0_bus_stat_reg => f0_bus_stat_reg(1),
+                f0_blk_stat_reg => f0_blk_stat_reg(1),
+                f1_bus_stat_reg => f1_bus_stat_reg(1),
+                f1_blk_stat_reg => f1_blk_stat_reg(1),
+                ci => carry0,
+                co => carry1,
+                sir => sh_left0,
+                sor => sh_right0,
+                sil => sh_right1,
+                sol => sh_left1,
+                msbi => msb1,
+                msbo => msb0,
+                cei => cmp_eq0,
+                ceo => cmp_eq1,
+                cli => cmp_lt0,
+                clo => cmp_lt1,
+                zi => cmp_zero0,
+                zo => cmp_zero1,
+                fi => cmp_ff0,
+                fo => cmp_ff1,
+                capi => cap0,
+                capo => cap1,
+                cfbi => cfb0,
+                cfbo => cfb1,
+                pi => "00000000",
+                po => open);
+
+        U2: cy_psoc3_dp
+            generic map (
+                cy_dpconfig => cy_dpconfig_c,
+                d0_init => d0_init_c,
+                d1_init => d1_init_c,
+                a0_init => a0_init_c,
+                a1_init => a1_init_c,
+                ce0_sync => ce0_sync(2),
+                cl0_sync => cl0_sync(2),
+                z0_sync => z0_sync(2),
+                ff0_sync => ff0_sync(2),
+                ce1_sync => ce1_sync(2),
+                cl1_sync => cl1_sync(2),
+                z1_sync => z1_sync(2),
+                ff1_sync => ff1_sync(2),
+                ov_msb_sync => ov_msb_sync(2),
+                co_msb_sync => co_msb_sync(2),
+                cmsb_sync => cmsb_sync(2),
+                so_sync => so_sync(2),
+                f0_bus_sync => f0_bus_sync(2),
+                f0_blk_sync => f0_blk_sync(2),
+                f1_bus_sync => f1_bus_sync(2),
+                f1_blk_sync => f1_blk_sync(2))
+            port map (
+                reset => reset,
+                clk => clk,
+                cs_addr => cs_addr,
+                route_si => route_si,
+                route_ci => route_ci,
+                f0_load => f0_load,
+                f1_load => f1_load,
+                d0_load => d0_load,
+                d1_load => d1_load,
+                ce0 => ce0(2),
+                cl0 => cl0(2),
+                z0 => z0(2),
+                ff0 => ff0(2),
+                ce1 => ce1(2),
+                cl1 => cl1(2),
+                z1 => z1(2),
+                ff1 => ff1(2),
+                ov_msb => ov_msb(2),
+                co_msb => co_msb(2),
+                cmsb => cmsb(2),
+                so => so(2),
+                f0_bus_stat => f0_bus_stat(2),
+                f0_blk_stat => f0_blk_stat(2),
+                f1_bus_stat => f1_bus_stat(2),
+                f1_blk_stat => f1_blk_stat(2),
+                ce0_reg => ce0_reg(2),
+                cl0_reg => cl0_reg(2),
+                z0_reg => z0_reg(2),
+                ff0_reg => ff0_reg(2),
+                ce1_reg => ce1_reg(2),
+                cl1_reg => cl1_reg(2),
+                z1_reg => z1_reg(2),
+                ff1_reg => ff1_reg(2),
+                ov_msb_reg => ov_msb_reg(2),
+                co_msb_reg => co_msb_reg(2),
+                cmsb_reg => cmsb_reg(2),
+                so_reg => so_reg(2),
+                f0_bus_stat_reg => f0_bus_stat_reg(2),
+                f0_blk_stat_reg => f0_blk_stat_reg(2),
+                f1_bus_stat_reg => f1_bus_stat_reg(2),
+                f1_blk_stat_reg => f1_blk_stat_reg(2),
+                ci => carry1,
+                co => open,
+                sir => sh_left1,
+                sor => sh_right1,
+                sil => '0',
+                sol => open,
+                msbi => '0',
+                msbo => msb1,
+                cei => cmp_eq1,
+                ceo => open,
+                cli => cmp_lt1,
+                clo => open,
+                zi => cmp_zero1,
+                zo => open,
+                fi => cmp_ff1,
+                fo => open,
+                capi => cap1,
+                capo => open,
+                cfbi => cfb1,
+                cfbo => open,
+                pi => "00000000",
+                po => open);
+end archPSOC3;
+
+--
+-- Four chained data path elements
+--
+library ieee;
+use ieee.std_logic_1164.all;
+library cypress;
+use cypress.rtlpkg.cy_psoc3_dp;
+use cypress.cypress.all;
+use cypress.psoc3pkg.all;
+entity cy_psoc3_dp32 is
+    generic(cy_dpconfig_a : std_logic_vector (207 downto 0) :=
+     X"0000_0000_0000_0000_0000_0000_0000_0000_FFFF_FFFF_0000_0000_0000";
+     d0_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     d1_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     a0_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     a1_init_a : std_logic_vector (7 downto 0) := (others => '0');
+     cy_dpconfig_b : std_logic_vector (207 downto 0) :=
+     X"0000_0000_0000_0000_0000_0000_0000_0000_FFFF_FFFF_0000_0000_0000";
+     d0_init_b : std_logic_vector (7 downto 0) := (others => '0');
+     d1_init_b : std_logic_vector (7 downto 0) := (others => '0');
+     a0_init_b : std_logic_vector (7 downto 0) := (others => '0');
+     a1_init_b : std_logic_vector (7 downto 0) := (others => '0');
+     cy_dpconfig_c : std_logic_vector (207 downto 0) :=
+     X"0000_0000_0000_0000_0000_0000_0000_0000_FFFF_FFFF_0000_0000_0000";
+     d0_init_c : std_logic_vector (7 downto 0) := (others => '0');
+     d1_init_c : std_logic_vector (7 downto 0) := (others => '0');
+     a0_init_c : std_logic_vector (7 downto 0) := (others => '0');
+     a1_init_c : std_logic_vector (7 downto 0) := (others => '0');
+     cy_dpconfig_d : std_logic_vector (207 downto 0) :=
+     X"0000_0000_0000_0000_0000_0000_0000_0000_FFFF_FFFF_0000_0000_0000";
+     d0_init_d : std_logic_vector (7 downto 0) := (others => '0');
+     d1_init_d : std_logic_vector (7 downto 0) := (others => '0');
+     a0_init_d : std_logic_vector (7 downto 0) := (others => '0');
+     a1_init_d : std_logic_vector (7 downto 0) := (others => '0');
+     ce0_sync : std_logic_vector (3 downto 0) := (others => '1');
+     cl0_sync : std_logic_vector (3 downto 0) := (others => '1');
+     z0_sync : std_logic_vector (3 downto 0) := (others => '1');
+     ff0_sync : std_logic_vector (3 downto 0) := (others => '1');
+     ce1_sync : std_logic_vector (3 downto 0) := (others => '1');
+     cl1_sync : std_logic_vector (3 downto 0) := (others => '1');
+     z1_sync : std_logic_vector (3 downto 0) := (others => '1');
+     ff1_sync : std_logic_vector (3 downto 0) := (others => '1');
+     ov_msb_sync : std_logic_vector (3 downto 0) := (others => '1');
+     co_msb_sync : std_logic_vector (3 downto 0) := (others => '1');
+     cmsb_sync : std_logic_vector (3 downto 0) := (others => '1');
+     so_sync : std_logic_vector (3 downto 0) := (others => '1');
+     f0_bus_sync : std_logic_vector (3 downto 0) := (others => '1');
+     f0_blk_sync : std_logic_vector (3 downto 0) := (others => '1');
+     f1_bus_sync : std_logic_vector (3 downto 0) := (others => '1');
+     f1_blk_sync : std_logic_vector (3 downto 0) := (others => '1'));
+    port ( reset : in std_logic := '0';
+     clk : in std_logic;
+     cs_addr : in std_logic_vector (2 downto 0);
+     route_si : in std_logic;
+     route_ci : in std_logic;
+     f0_load : in std_logic;
+     f1_load : in std_logic;
+     d0_load : in std_logic;
+     d1_load : in std_logic;
+     ce0 : out std_logic_vector (3 downto 0);
+     cl0 : out std_logic_vector (3 downto 0);
+     z0 : out std_logic_vector (3 downto 0);
+     ff0 : out std_logic_vector (3 downto 0);
+     ce1 : out std_logic_vector (3 downto 0);
+     cl1 : out std_logic_vector (3 downto 0);
+     z1 : out std_logic_vector (3 downto 0);
+     ff1 : out std_logic_vector (3 downto 0);
+     ov_msb : out std_logic_vector (3 downto 0);
+     co_msb : out std_logic_vector (3 downto 0);
+     cmsb : out std_logic_vector (3 downto 0);
+     so : out std_logic_vector (3 downto 0);
+     f0_bus_stat : out std_logic_vector (3 downto 0);
+     f0_blk_stat : out std_logic_vector (3 downto 0);
+     f1_bus_stat : out std_logic_vector (3 downto 0);
+     f1_blk_stat : out std_logic_vector (3 downto 0);
+     ce0_reg : out std_logic_vector (3 downto 0);
+     cl0_reg : out std_logic_vector (3 downto 0);
+     z0_reg : out std_logic_vector (3 downto 0);
+     ff0_reg : out std_logic_vector (3 downto 0);
+     ce1_reg : out std_logic_vector (3 downto 0);
+     cl1_reg : out std_logic_vector (3 downto 0);
+     z1_reg : out std_logic_vector (3 downto 0);
+     ff1_reg : out std_logic_vector (3 downto 0);
+     ov_msb_reg : out std_logic_vector (3 downto 0);
+     co_msb_reg : out std_logic_vector (3 downto 0);
+     cmsb_reg : out std_logic_vector (3 downto 0);
+     so_reg : out std_logic_vector (3 downto 0);
+     f0_bus_stat_reg : out std_logic_vector (3 downto 0);
+     f0_blk_stat_reg : out std_logic_vector (3 downto 0);
+     f1_bus_stat_reg : out std_logic_vector (3 downto 0);
+     f1_blk_stat_reg : out std_logic_vector (3 downto 0));
+end cy_psoc3_dp32;
+
+architecture archPSOC3 of cy_psoc3_dp32 is
+    signal carry0, sh_right0, sh_left0, msb0, cfb0 : std_logic;
+    signal cmp_eq0, cmp_lt0, cmp_zero0, cmp_ff0, cap0 : std_logic_vector (1 downto 0);
+    signal carry1, sh_right1, sh_left1, msb1, cfb1 : std_logic;
+    signal cmp_eq1, cmp_lt1, cmp_zero1, cmp_ff1, cap1 : std_logic_vector (1 downto 0);
+    signal carry2, sh_right2, sh_left2, msb2, cfb2 : std_logic;
+    signal cmp_eq2, cmp_lt2, cmp_zero2, cmp_ff2, cap2 : std_logic_vector (1 downto 0);
+begin
+        U0: cy_psoc3_dp
+            generic map (
+                cy_dpconfig => cy_dpconfig_a,
+                d0_init => d0_init_a,
+                d1_init => d1_init_a,
+                a0_init => a0_init_a,
+                a1_init => a1_init_a,
+                ce0_sync => ce0_sync(0),
+                cl0_sync => cl0_sync(0),
+                z0_sync => z0_sync(0),
+                ff0_sync => ff0_sync(0),
+                ce1_sync => ce1_sync(0),
+                cl1_sync => cl1_sync(0),
+                z1_sync => z1_sync(0),
+                ff1_sync => ff1_sync(0),
+                ov_msb_sync => ov_msb_sync(0),
+                co_msb_sync => co_msb_sync(0),
+                cmsb_sync => cmsb_sync(0),
+                so_sync => so_sync(0),
+                f0_bus_sync => f0_bus_sync(0),
+                f0_blk_sync => f0_blk_sync(0),
+                f1_bus_sync => f1_bus_sync(0),
+                f1_blk_sync => f1_blk_sync(0))
+            port map (
+                reset => reset,
+                clk => clk,
+                cs_addr => cs_addr,
+                route_si => route_si,
+                route_ci => route_ci,
+                f0_load => f0_load,
+                f1_load => f1_load,
+                d0_load => d0_load,
+                d1_load => d1_load,
+                ce0 => ce0(0),
+                cl0 => cl0(0),
+                z0 => z0(0),
+                ff0 => ff0(0),
+                ce1 => ce1(0),
+                cl1 => cl1(0),
+                z1 => z1(0),
+                ff1 => ff1(0),
+                ov_msb => ov_msb(0),
+                co_msb => co_msb(0),
+                cmsb => cmsb(0),
+                so => so(0),
+                f0_bus_stat => f0_bus_stat(0),
+                f0_blk_stat => f0_blk_stat(0),
+                f1_bus_stat => f1_bus_stat(0),
+                f1_blk_stat => f1_blk_stat(0),
+                ce0_reg => ce0_reg(0),
+                cl0_reg => cl0_reg(0),
+                z0_reg => z0_reg(0),
+                ff0_reg => ff0_reg(0),
+                ce1_reg => ce1_reg(0),
+                cl1_reg => cl1_reg(0),
+                z1_reg => z1_reg(0),
+                ff1_reg => ff1_reg(0),
+                ov_msb_reg => ov_msb_reg(0),
+                co_msb_reg => co_msb_reg(0),
+                cmsb_reg => cmsb_reg(0),
+                so_reg => so_reg(0),
+                f0_bus_stat_reg => f0_bus_stat_reg(0),
+                f0_blk_stat_reg => f0_blk_stat_reg(0),
+                f1_bus_stat_reg => f1_bus_stat_reg(0),
+                f1_blk_stat_reg => f1_blk_stat_reg(0),
+                ci => '0',
+                co => carry0,
+                sir => '0',
+                sor => open,
+                sil => sh_right0,
+                sol => sh_left0,
+                msbi => msb0,
+                msbo => open,
+                cei => "00",
+                ceo => cmp_eq0,
+                cli => "00",
+                clo => cmp_lt0,
+                zi => "00",
+                zo => cmp_zero0,
+                fi => "00",
+                fo => cmp_ff0,
+                capi => "00",
+                capo => cap0,
+                cfbi => '0',
+                cfbo => cfb0,
+                pi => "00000000",
+                po => open);
+
+        U1: cy_psoc3_dp
+            generic map (
+                cy_dpconfig => cy_dpconfig_b,
+                d0_init => d0_init_b,
+                d1_init => d1_init_b,
+                a0_init => a0_init_b,
+                a1_init => a1_init_b,
+                ce0_sync => ce0_sync(1),
+                cl0_sync => cl0_sync(1),
+                z0_sync => z0_sync(1),
+                ff0_sync => ff0_sync(1),
+                ce1_sync => ce1_sync(1),
+                cl1_sync => cl1_sync(1),
+                z1_sync => z1_sync(1),
+                ff1_sync => ff1_sync(1),
+                ov_msb_sync => ov_msb_sync(1),
+                co_msb_sync => co_msb_sync(1),
+                cmsb_sync => cmsb_sync(1),
+                so_sync => so_sync(1),
+                f0_bus_sync => f0_bus_sync(1),
+                f0_blk_sync => f0_blk_sync(1),
+                f1_bus_sync => f1_bus_sync(1),
+                f1_blk_sync => f1_blk_sync(1))
+            port map (
+                reset => reset,
+                clk => clk,
+                cs_addr => cs_addr,
+                route_si => route_si,
+                route_ci => route_ci,
+                f0_load => f0_load,
+                f1_load => f1_load,
+                d0_load => d0_load,
+                d1_load => d1_load,
+                ce0 => ce0(1),
+                cl0 => cl0(1),
+                z0 => z0(1),
+                ff0 => ff0(1),
+                ce1 => ce1(1),
+                cl1 => cl1(1),
+                z1 => z1(1),
+                ff1 => ff1(1),
+                ov_msb => ov_msb(1),
+                co_msb => co_msb(1),
+                cmsb => cmsb(1),
+                so => so(1),
+                f0_bus_stat => f0_bus_stat(1),
+                f0_blk_stat => f0_blk_stat(1),
+                f1_bus_stat => f1_bus_stat(1),
+                f1_blk_stat => f1_blk_stat(1),
+                ce0_reg => ce0_reg(1),
+                cl0_reg => cl0_reg(1),
+                z0_reg => z0_reg(1),
+                ff0_reg => ff0_reg(1),
+                ce1_reg => ce1_reg(1),
+                cl1_reg => cl1_reg(1),
+                z1_reg => z1_reg(1),
+                ff1_reg => ff1_reg(1),
+                ov_msb_reg => ov_msb_reg(1),
+                co_msb_reg => co_msb_reg(1),
+                cmsb_reg => cmsb_reg(1),
+                so_reg => so_reg(1),
+                f0_bus_stat_reg => f0_bus_stat_reg(1),
+                f0_blk_stat_reg => f0_blk_stat_reg(1),
+                f1_bus_stat_reg => f1_bus_stat_reg(1),
+                f1_blk_stat_reg => f1_blk_stat_reg(1),
+                ci => carry0,
+                co => carry1,
+                sir => sh_left0,
+                sor => sh_right0,
+                sil => sh_right1,
+                sol => sh_left1,
+                msbi => msb1,
+                msbo => msb0,
+                cei => cmp_eq0,
+                ceo => cmp_eq1,
+                cli => cmp_lt0,
+                clo => cmp_lt1,
+                zi => cmp_zero0,
+                zo => cmp_zero1,
+                fi => cmp_ff0,
+                fo => cmp_ff1,
+                capi => cap0,
+                capo => cap1,
+                cfbi => cfb0,
+                cfbo => cfb1,
+                pi => "00000000",
+                po => open);
+
+        U2: cy_psoc3_dp
+            generic map (
+                cy_dpconfig => cy_dpconfig_c,
+                d0_init => d0_init_c,
+                d1_init => d1_init_c,
+                a0_init => a0_init_c,
+                a1_init => a1_init_c,
+                ce0_sync => ce0_sync(2),
+                cl0_sync => cl0_sync(2),
+                z0_sync => z0_sync(2),
+                ff0_sync => ff0_sync(2),
+                ce1_sync => ce1_sync(2),
+                cl1_sync => cl1_sync(2),
+                z1_sync => z1_sync(2),
+                ff1_sync => ff1_sync(2),
+                ov_msb_sync => ov_msb_sync(2),
+                co_msb_sync => co_msb_sync(2),
+                cmsb_sync => cmsb_sync(2),
+                so_sync => so_sync(2),
+                f0_bus_sync => f0_bus_sync(2),
+                f0_blk_sync => f0_blk_sync(2),
+                f1_bus_sync => f1_bus_sync(2),
+                f1_blk_sync => f1_blk_sync(2))
+            port map (
+                reset => reset,
+                clk => clk,
+                cs_addr => cs_addr,
+                route_si => route_si,
+                route_ci => route_ci,
+                f0_load => f0_load,
+                f1_load => f1_load,
+                d0_load => d0_load,
+                d1_load => d1_load,
+                ce0 => ce0(2),
+                cl0 => cl0(2),
+                z0 => z0(2),
+                ff0 => ff0(2),
+                ce1 => ce1(2),
+                cl1 => cl1(2),
+                z1 => z1(2),
+                ff1 => ff1(2),
+                ov_msb => ov_msb(2),
+                co_msb => co_msb(2),
+                cmsb => cmsb(2),
+                so => so(2),
+                f0_bus_stat => f0_bus_stat(2),
+                f0_blk_stat => f0_blk_stat(2),
+                f1_bus_stat => f1_bus_stat(2),
+                f1_blk_stat => f1_blk_stat(2),
+                ce0_reg => ce0_reg(2),
+                cl0_reg => cl0_reg(2),
+                z0_reg => z0_reg(2),
+                ff0_reg => ff0_reg(2),
+                ce1_reg => ce1_reg(2),
+                cl1_reg => cl1_reg(2),
+                z1_reg => z1_reg(2),
+                ff1_reg => ff1_reg(2),
+                ov_msb_reg => ov_msb_reg(2),
+                co_msb_reg => co_msb_reg(2),
+                cmsb_reg => cmsb_reg(2),
+                so_reg => so_reg(2),
+                f0_bus_stat_reg => f0_bus_stat_reg(2),
+                f0_blk_stat_reg => f0_blk_stat_reg(2),
+                f1_bus_stat_reg => f1_bus_stat_reg(2),
+                f1_blk_stat_reg => f1_blk_stat_reg(2),
+                ci => carry1,
+                co => carry2,
+                sir => sh_left1,
+                sor => sh_right1,
+                sil => sh_right2,
+                sol => sh_left2,
+                msbi => msb2,
+                msbo => msb1,
+                cei => cmp_eq1,
+                ceo => cmp_eq2,
+                cli => cmp_lt1,
+                clo => cmp_lt2,
+                zi => cmp_zero1,
+                zo => cmp_zero2,
+                fi => cmp_ff1,
+                fo => cmp_ff2,
+                capi => cap1,
+                capo => cap2,
+                cfbi => cfb1,
+                cfbo => cfb2,
+                pi => "00000000",
+                po => open);
+
+        U3: cy_psoc3_dp
+            generic map (
+                cy_dpconfig => cy_dpconfig_d,
+                d0_init => d0_init_d,
+                d1_init => d1_init_d,
+                a0_init => a0_init_d,
+                a1_init => a1_init_d,
+                ce0_sync => ce0_sync(3),
+                cl0_sync => cl0_sync(3),
+                z0_sync => z0_sync(3),
+                ff0_sync => ff0_sync(3),
+                ce1_sync => ce1_sync(3),
+                cl1_sync => cl1_sync(3),
+                z1_sync => z1_sync(3),
+                ff1_sync => ff1_sync(3),
+                ov_msb_sync => ov_msb_sync(3),
+                co_msb_sync => co_msb_sync(3),
+                cmsb_sync => cmsb_sync(3),
+                so_sync => so_sync(3),
+                f0_bus_sync => f0_bus_sync(3),
+                f0_blk_sync => f0_blk_sync(3),
+                f1_bus_sync => f1_bus_sync(3),
+                f1_blk_sync => f1_blk_sync(3))
+            port map (
+                reset => reset,
+                clk => clk,
+                cs_addr => cs_addr,
+                route_si => route_si,
+                route_ci => route_ci,
+                f0_load => f0_load,
+                f1_load => f1_load,
+                d0_load => d0_load,
+                d1_load => d1_load,
+                ce0 => ce0(3),
+                cl0 => cl0(3),
+                z0 => z0(3),
+                ff0 => ff0(3),
+                ce1 => ce1(3),
+                cl1 => cl1(3),
+                z1 => z1(3),
+                ff1 => ff1(3),
+                ov_msb => ov_msb(3),
+                co_msb => co_msb(3),
+                cmsb => cmsb(3),
+                so => so(3),
+                f0_bus_stat => f0_bus_stat(3),
+                f0_blk_stat => f0_blk_stat(3),
+                f1_bus_stat => f1_bus_stat(3),
+                f1_blk_stat => f1_blk_stat(3),
+                ce0_reg => ce0_reg(3),
+                cl0_reg => cl0_reg(3),
+                z0_reg => z0_reg(3),
+                ff0_reg => ff0_reg(3),
+                ce1_reg => ce1_reg(3),
+                cl1_reg => cl1_reg(3),
+                z1_reg => z1_reg(3),
+                ff1_reg => ff1_reg(3),
+                ov_msb_reg => ov_msb_reg(3),
+                co_msb_reg => co_msb_reg(3),
+                cmsb_reg => cmsb_reg(3),
+                so_reg => so_reg(3),
+                f0_bus_stat_reg => f0_bus_stat_reg(3),
+                f0_blk_stat_reg => f0_blk_stat_reg(3),
+                f1_bus_stat_reg => f1_bus_stat_reg(3),
+                f1_blk_stat_reg => f1_blk_stat_reg(3),
+                ci => carry2,
+                co => open,
+                sir => sh_left2,
+                sor => sh_right2,
+                sil => '0',
+                sol => open,
+                msbi => '0',
+                msbo => msb2,
+                cei => cmp_eq2,
+                ceo => open,
+                cli => cmp_lt2,
+                clo => open,
+                zi => cmp_zero2,
+                zo => open,
+                fi => cmp_ff2,
+                fo => open,
+                capi => cap2,
+                capo => open,
+                cfbi => cfb2,
+                cfbo => open,
+                pi => "00000000",
+                po => open);
+end archPSOC3;
+
+--
+-- Wrapper for the control register
+--
+library ieee;
+use ieee.std_logic_1164.all;
+library cypress;
+use cypress.rtlpkg.cy_psoc3_control;
+use cypress.cypress.all;
+use cypress.psoc3pkg.all;
+entity cy_psoc3_control_wrapper is
+    generic(cy_force_order : boolean := false);
+    port (control : out std_logic_vector (7 downto 0));
+end cy_psoc3_control_wrapper;
+
+architecture archPSOC3 of cy_psoc3_control_wrapper is
+    signal control_int : std_logic_vector (7 downto 0);
+    attribute synthesis_off of control_int : signal is true;
+begin
+    control <= control_int;
+    U0: cy_psoc3_control
+        generic map (cy_force_order => cy_force_order)
+        port map ( control => control_int);
+end archPSOC3;

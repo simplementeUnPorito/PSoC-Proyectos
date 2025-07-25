@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>PSoC Creator System Reference Guide</title>
+
+      <style type="text/css">
+
+        body {
+            margin-top: 25px;
+            margin-right: 100px;
+            margin-bottom: 25px;
+            margin-left: 100px;
+            overflow-y: scroll;
+            }
+
+        .Header {
+            color: black;
+            background-color: #C6D0DD;
+            font-size: 14pt;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-left: 5px;
+           }
+
+        .body {
+            font-size: 12pt;
+            font-weight: normal;
+            margin-top: 6px;
+            margin-left: 15px;
+            margin-bottom: 12px;
+            }
+
+        .DocTitle {
+            color: white;
+            background-color: rgb(9, 54, 122);
+            font-size: 18pt;
+            font-weight: bold;
+            padding: 5px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            }
+        
+        .collapsibleList{
+            list-style-type: none;
+            list-style:none;
+            padding-left:15px;
+            margin-left:10px;
+            }
+            
+        .collapsibleList li > input + * {
+             display: none;
+            }
+             
+        .collapsibleList li > input:checked + * {
+             display: block;
+            }
+
+        .collapsibleList li > input {
+             display: none;
+            }
+
+        .collapsibleList label {
+             cursor: pointer;
+            }
+      </style>
+
+  </head>
+  <body>
+      <div class="DocTitle">PSoC Creator System Reference Guide<br>
+                            Design-Wide Components</div>
+
+      <div>Design-wide components allow configuration of chip resources without using schematic instantiated 
+            PSoC Creator components. They are designed to give low-level access to chip resources that can be
+            used independent of schematic component configurations. &nbsp;
+
+      <div class="Header">cy_boot</div>
+
+      <div class="body">The <a href="http://www.cypress.com/go/comp_CY_BOOT">cy_boot component</a> provides the system functionality for a project
+                        to give better access to chip resources. The functions are not part of the component libraries but may be used by them. You
+                        can use the function calls to reliably perform needed chip functions.</div>
+
+      <li class="body"><a href="FILE:..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\cy_boot_v5_70\cy_boot_v5_70_psoc4.pdf">
+                        PSoC 4 System Reference Guide - cy_boot Component v5.70</a></li>
+
+      <li class="body"><a href="FILE:..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\cy_boot_v5_70\cy_boot_v5_70_psoc3-5.pdf">
+                        PSoC 3 / PSoC 5LP System Reference Guide - cy_boot Component v5.70</a> </li>
+
+     
+      <div>&nbsp;</div>
+      <div class="Header">cy_lfclk</div>
+      <div class="body">The <a href="http://www.cypress.com/go/comp_cy_lfclk">PSoC 4 Low-Frequency Clock (cy_lfclk)</a> 
+                        component provides the application interface to configure various low-frequency clocks available in PSoC 4. 
+                        The functions are not part of any component libraries but may be used by them. The component also provides 
+                        functions to configure watchdog timers present in the device. </div>
+      <li class="body"><a href="FILE:..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\cy_lfclk_v1_20\cy_lfclk_v1_20.pdf">cy_lfclk v1.20 datasheet</a></li>
+
+      <div>&nbsp;</div>
+      <div class="Header">cy_dmac</div>
+      <div class="body">The <a href="http://www.cypress.com/documentation/component-datasheets/psoc-4-direct-memory-access-dma-channel">PSoC 4 Direct Memory 
+                        Access (DMA) Controller (cy_dmac)</a> component transfers data to and from memory, components, and registers. These transfers occur 
+                        independent of the CPU and can transfer up to 65,536 data elements.<P>
+                        <b>Note: </b> See change section for information about cy_dmac.</div>
+      <li class="body"><a href="FILE:..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\cy_dmac_v1_10\cy_dmac_v1_10.pdf">cy_dmac v1.10 datasheet</a></li>
+      
+  </body>
+</html>

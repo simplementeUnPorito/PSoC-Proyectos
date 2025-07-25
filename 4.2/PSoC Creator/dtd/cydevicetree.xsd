@@ -1,0 +1,61 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="DeviceCatalog">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Marketing" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Family" maxOccurs="unbounded" minOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Series" maxOccurs="unbounded" minOccurs="1">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="Name" use="required"/>
+                            <xs:attribute type="xs:string" name="BlockDiagramPath" use="required"/>
+                            <xs:attribute type="xs:string" name="DefaultDevice" use="optional"/>
+                            <xs:attribute type="xs:string" name="AllowUserCustomization" use="optional"/>
+                            <xs:attribute type="xs:string" name="ComponentWhiteList" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="Name" use="required"/>
+                  <xs:attribute type="xs:string" name="LegacyName" use="optional"/>
+                  <xs:attribute type="xs:string" name="DefaultDevice" use="optional"/>
+                  <xs:attribute type="xs:string" name="ShyAwayFromShowingChildren" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+    
+        <xs:element name="Hardware" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Architecture" maxOccurs="unbounded" minOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="BaseDie" maxOccurs="unbounded" minOccurs="1">
+                      <xs:complexType>
+                        <xs:attribute type="xs:string" name="Name" use="required"/>
+                        <xs:attribute type="xs:string" name="MemberName" use="required"/>
+                        <xs:attribute type="xs:string" name="ArchMemberName" use="required"/>
+                        <xs:attribute type="xs:string" name="Processor" use="required"/>
+                        <xs:attribute type="xs:string" name="ArchDefFilePath" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="Name" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+	  </xs:sequence>
+	  <xs:attribute type="xs:string" name="DeviceFilePath" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

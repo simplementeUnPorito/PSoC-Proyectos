@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+    targetNamespace="http://cypress.com/xsd/cypindata_v1"
+    elementFormDefault="qualified"
+    xmlns="http://cypress.com/xsd/cypindata_v1"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <xs:element name="pindata">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="capabilities" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="capability" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="value" type="cLiteralInt" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pins">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="pin" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="number" type="xs:string" use="required" />
+                  <xs:attribute name="pinSide" type="SideType" use="required" />
+                  <xs:attribute name="padSide" type="SideType" use="required" />
+                  <xs:attribute name="portId" type="xs:nonNegativeInteger" />
+                  <xs:attribute name="pinId" type="xs:nonNegativeInteger" />
+                  <xs:attribute name="ioSupplyPin" type="xs:string" />
+                  <xs:attribute name="ioSupplyPinNo" type="xs:nonNegativeInteger" />
+                  <xs:attribute name="powerPadNames" type="list" />
+                  <xs:attribute name="isTrueTouch" type="xs:boolean" default="false" />
+                  <xs:attribute name="capabilities" type="cLiteralInt" use="required" />
+                  <xs:attribute name="relatedPinType" type="xs:string" />
+                  <xs:attribute name="fixedItemIdx" type="xs:nonNegativeInteger" />
+                  <xs:attribute name="pads" type="list" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:key name="pin_num_key">
+            <xs:selector xpath="pin "/>
+            <xs:field xpath="@number" />
+          </xs:key>
+          <xs:unique name="pin_num_unique">
+            <xs:selector xpath="pin" />
+            <xs:field xpath="@number" />
+          </xs:unique>
+          <xs:keyref name="iosupply_ref" refer="pin_num_key">
+           <xs:selector xpath="pin" />
+           <xs:field xpath="@ioSupplyPinNo" />
+          </xs:keyref>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="family" type="xs:string" use="required" />
+      <xs:attribute name="package" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:simpleType name="SideType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NONE" />
+      <xs:enumeration value="NORTH" />
+      <xs:enumeration value="EAST" />
+      <xs:enumeration value="SOUTH" />
+      <xs:enumeration value="WEST" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="cLiteralInt">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[-+]?([0-9]+|0[0-7]+|0[Xx][0-9A-Fa-f]+)" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="list">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[^;]+(;[^;]+)*" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

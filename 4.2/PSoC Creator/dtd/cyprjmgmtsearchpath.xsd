@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="us-ascii"?> 
+<xs:schema  elementFormDefault="qualified"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns="file://cypress.com/xsd/cyprjmgmtsearchpath"
+            targetNamespace="file://cypress.com/xsd/cyprjmgmtsearchpath">
+  <!--
+  
+  Introduction
+  =============
+  
+  CyDesigner search path schema. The schema is broken in to several 
+  sections. The sections include:
+  
+    - define attribute value types used throughout the schema.
+    - define XML elements for the various properties.
+    - define path elements and their property sets
+  
+  
+  Define Attribute Value Types
+  =============================
+  
+  Attribute values are unformatted strings. The unformatted string type
+  is built in the XML schema.
+    
+  Attribute value types are generally of the XML schema 'simpleType', and are 
+  derived from an existing simple type by restriction. Commonly used XML 
+  schema built in simpleTypes include integer, string, positiveInteger, 
+  nonNegativeInteger, etc. There are books and resources on the Internet that 
+  can familiarize you with XML schema built in types.
+  
+  You can also use the types defined in common/base/cycmbase/cyxsdtypes.xsd
+  as the basis for new types (e.g., CyBasic.ParseInteger parse-able integers).
+  -->
+
+  <xs:element name="searchPath">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="libraryPath"/>
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:integer" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="libraryPath">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="library"/>
+      </xs:sequence>
+      <xs:attribute name="path" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="library">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="type" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  
+</xs:schema>

@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="AlternateClocks">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Clock" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+
+              <xs:element name="ConfigFunc" maxOccurs="1" minOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Arg" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="paramVal" use="optional"/>
+                            <xs:attribute type="xs:int" name="paramNum" use="optional"/>
+                            <xs:attribute type="xs:int" name="formula" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="headerFile" use="required"/>
+                  <xs:attribute type="xs:string" name="name" use="required"/>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="ConfigStruct" maxOccurs="1" minOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Element" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="paramVal" use="optional"/>
+                            <xs:attribute type="xs:int" name="paramNum" use="optional"/>
+                            <xs:attribute type="xs:int" name="formula" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="headerFile" use="required"/>
+                  <xs:attribute type="xs:string" name="type" use="required"/>
+                  <xs:attribute type="xs:string" name="name" use="required"/>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="ParamHidden" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute type="xs:string" name="name" use="required"/>
+                  <xs:attribute type="xs:string" name="value" use="required"/>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="ParamDisplay" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute type="xs:string" name="name" use="required"/>
+                  <xs:attribute type="xs:string" name="value" use="required"/>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="ParamOption" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute type="xs:string" name="name" use="required"/>
+                  <xs:attribute type="xs:boolean" name="default" use="required"/>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="ParamRange" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute type="xs:string" name="name" use="required"/>
+                  <xs:attribute type="xs:double" name="min" use="required"/>
+                  <xs:attribute type="xs:double" name="max" use="required"/>
+                  <xs:attribute type="xs:double" name="default" use="required"/>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="ParamChoice" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Option" maxOccurs="unbounded" minOccurs="2">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="name" use="required"/>
+                            <xs:attribute type="xs:string" name="value" use="required"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="name" use="required"/>
+                  <xs:attribute type="xs:string" name="default" use="required"/>
+                </xs:complexType>
+              </xs:element>
+
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="name" use="required"/>
+            <xs:attribute type="xs:string" name="sourceName" use="required"/>
+            <xs:attribute type="xs:string" name="sourceResourceType" use="optional"/>
+            <xs:attribute type="xs:string" name="sourceCompType" use="optional"/>
+            <xs:attribute type="xs:int" name="frequencyParam" use="required"/>
+            <xs:attribute type="xs:int" name="frequencyUnitParam" use="required"/>
+            <xs:attribute type="xs:int" name="dividerParam" use="required"/>
+            <xs:attribute type="xs:int" name="accuracyPlusParam" use="required"/>
+            <xs:attribute type="xs:int" name="accuracyMinusParam" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

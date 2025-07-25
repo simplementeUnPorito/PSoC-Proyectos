@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema  elementFormDefault="qualified"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://cypress.com/xsd/cydwr"
+            targetNamespace="http://cypress.com/xsd/cydwr">
+
+  <xs:element name="DesignWideResources">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Group" type="GroupType"/>
+        <xs:element name="Data" type="DataType"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="GroupType">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="Group" type="GroupType"/>
+      <xs:element name="Data" type="DataType"/>
+    </xs:choice>
+    <xs:attribute name="key" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="DataType">
+    <xs:attribute name="key" type="xs:string" use="required"/>
+    <xs:attribute name="value" type="xs:string" use="required"/>
+  </xs:complexType>
+
+</xs:schema>

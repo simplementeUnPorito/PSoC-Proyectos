@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_AnsRegisterAttrCallback</Title>
+			<Shortcut>CyBle_AnsRegisterAttrCallback</Shortcut>
+			<Description>BLE ANS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_AnsRegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_AnsCallBack</Default>
+					<ToolTip>BLE ANS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_AnsCallBack</Title>
+			<Shortcut>CyBle_AnsCallBack</Shortcut>
+			<Description>BLE CallBack function for Alert Notification service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_AnsCallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>ANS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>ANS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CYBLE_ANS_SERVER
+        case CYBLE_EVT_ANSS_NOTIFICATION_ENABLED:
+            break;
+
+        case CYBLE_EVT_ANSS_NOTIFICATION_DISABLED:
+            break;
+
+        case CYBLE_EVT_ANSS_CHAR_WRITE:
+            break;
+    #endif /* CYBLE_ANS_SERVER */
+
+    #ifdef CYBLE_ANS_CLIENT
+        case CYBLE_EVT_ANSC_NOTIFICATION:
+            break;
+
+        case CYBLE_EVT_ANSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_ANSC_WRITE_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_ANSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_ANSC_WRITE_DESCR_RESPONSE:
+            break;
+    #endif /* CYBLE_ANS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

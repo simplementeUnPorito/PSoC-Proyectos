@@ -1,0 +1,675 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema  elementFormDefault="qualified"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://cypress.com/xsd/cysem"
+            targetNamespace="http://cypress.com/xsd/cysem">
+
+  <xs:element name="Document">
+    <xs:complexType>
+      <xs:sequence>
+        <!--Symbol Specific-->
+        <xs:element name="ParameterDefinitions" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <!--Sorted alphabetically by the parameter definition name.-->
+              <xs:element name="FormalParamDef" type="ParamDef" minOccurs="0" maxOccurs="unbounded"/>
+              <!--Sorted alphabetically by the parameter definition name.-->
+              <xs:element name="LocalParamDef" type="ParamDef" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--Symbol Specific-->
+        <xs:element name="EnumerationTypes" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EnumerationType" type="EnumerationType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--UDB Specific-->
+        <xs:element name="Inputs" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Input" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" use="required"/>
+                  <xs:attribute name="readonly" type="xs:boolean" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--UDB Specific-->
+        <xs:element name="Outputs" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Output" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Expression" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--UDB Specific-->
+        <xs:element name="Variables" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Variable" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Expression" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string" use="required"/>
+                  <xs:attribute name="type" type="VariableType" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--UDB Specific-->
+        <xs:element name="DataPaths" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DataPath" type="DataPath" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--UDB Specific-->
+        <xs:element name="ControlRegisters" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ControlRegister" type="ControlRegister" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--UDB Specific-->
+        <xs:element name="StatusRegisters" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="StatusRegister" type="StatusRegister" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--UDB Specific-->
+        <xs:element name="StatusIntRegisters" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="StatusIntRegister" type="StatusIntRegister" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--UDB Specific-->
+        <xs:element name="Count7s" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Count7" type="Count7" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--UDB Specific-->
+        <xs:element name="FsmStates" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="State" type="FsmState" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--UDB Specific-->
+        <xs:element name="FsmTransitions" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Transition" type="FsmTransition" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--Schematic/Schematic Macro Specific-->
+        <xs:element name="Instances" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <!--Sorted by the instance guid.-->
+              <xs:element name="Instance" type="Instance" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--Schematic/Schematic Macro Specific-->
+        <xs:element name="Signals" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <!--Sorted alphabetically by the signal name.-->
+              <xs:element name="Signal" type="Signal" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <!--Generic-->
+        <xs:element name="Properties" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Property" type="Property" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="release" type="xs:string" use="optional" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="FsmTransition">
+    <xs:sequence>
+      <xs:element name="StartState" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="id" type="xs:string" use="required"/>
+          <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="EndState" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="id" type="xs:string" use="required"/>
+          <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Expression" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="VariableAssignments" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="VariableAssignment" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="FsmState">
+    <xs:sequence>
+      <xs:element name="ResetCondition" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="VariableAssignments" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="VariableAssignment" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="displayOnSheet" type="xs:boolean" use="required"/>
+          <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="OutboundTransitionPriorityOrder" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Id" minOccurs="0" maxOccurs="unbounded" >
+              <xs:complexType>
+                <xs:attribute name="value" type="xs:string" use="required" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="encoding" type="xs:string" use="required"/>
+    <xs:attribute name="isStartState" type="xs:boolean" use="required"/>
+    <xs:attribute name="machineName" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="Count7">
+    <xs:sequence>
+      <xs:element name="Reset" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="Enabled" type="xs:string" minOccurs="1" maxOccurs="1" />
+      <xs:element name="Load" type="xs:string" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="componentName" type="xs:string" use="required"/>
+    <xs:attribute name="period" type="xs:string" use="required"/>
+    <xs:attribute name="terminalCount" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="StatusIntRegister">
+    <xs:sequence>
+      <xs:element name="Bit" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Expression" type="xs:string" minOccurs="1" maxOccurs="1" />
+          </xs:sequence>
+          <xs:attribute name="index" type="xs:unsignedInt" use="required"/>
+          <xs:attribute name="mode" type="StickyOrTransparent" use="required"/>
+          <xs:attribute name="mask" type="ZeroOrOne" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="componentName" type="xs:string" use="required"/>
+    <xs:attribute name="interrupt" type="xs:string" use="required"/>
+    <xs:attribute name="bitCount" type="xs:unsignedInt" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="StatusRegister">
+    <xs:sequence>
+      <xs:element name="Bit" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Expression" type="xs:string" minOccurs="1" maxOccurs="1" />
+          </xs:sequence>
+          <xs:attribute name="index" type="xs:unsignedInt" use="required"/>
+          <xs:attribute name="mode" type="StickyOrTransparent" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="componentName" type="xs:string" use="required"/>
+    <xs:attribute name="bitCount" type="xs:unsignedInt" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ControlRegister">
+    <xs:sequence>
+      <xs:element name="Bit" type="Bit" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="componentName" type="xs:string" use="required"/>
+    <xs:attribute name="bitCount" type="xs:unsignedInt" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="Bit">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="index" type="xs:unsignedInt" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="initialValue" type="ZeroOrOne" use="required"/>
+        <xs:attribute name="mode" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="EnumerationType">
+    <xs:sequence>
+      <xs:element name="Item" type="EnumItem"  minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="itemCount" type="xs:unsignedInt" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="EnumItem">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="value" type="xs:unsignedInt" use="required"/>
+        <xs:attribute name="displayName" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="DataPath">
+    <xs:sequence>
+      <xs:element name="Properties" type="DataPathProperties"  minOccurs="1" maxOccurs="1"/>
+      <xs:element name="DataPathInputs" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="DataPathInput" type="DataPathInput" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DataPathRegisters" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Register" type="DataPathRegister" minOccurs="6" maxOccurs="6"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DataPathOutputs" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="DataPathOutput" type="DataPathOutput" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DataPathInstructions" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="DataPathInstruction" type="DataPathInstruction" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="width" type="xs:unsignedInt" use="required"/>
+    <xs:attribute name="msbOffset" type="xs:unsignedInt" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="DataPathInstruction">
+    <xs:sequence>
+      <xs:element name="Comment" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="AluOperation" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Shift" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="ALU_out" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          </xs:sequence>
+          <xs:attribute name="functionLeftOperand" type="xs:string" use="required"/>
+          <xs:attribute name="functionOperator" type="xs:string" use="required"/>
+          <xs:attribute name="functionRightOperand" type="xs:string" use="optional"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RegisterWrites" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="writeA0" type="xs:string" use="required"/>
+          <xs:attribute name="writeA1" type="xs:string" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CompareOption1" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="value" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="address" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="DataPathOutput">
+    <xs:sequence>
+      <xs:element name="Selection" type="xs:string" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="index" type="xs:unsignedInt" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="DataPathRegister">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="name" type="DataPathRegisterName" use="required"/>
+        <xs:attribute name="load" type="xs:string" use="required"/>
+        <xs:attribute name="initialValue" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="DataPathRegisterName" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="A0" />
+      <xs:enumeration value="A1" />
+      <xs:enumeration value="D0" />
+      <xs:enumeration value="D1" />
+      <xs:enumeration value="F0" />
+      <xs:enumeration value="F1" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="DataPathInput">
+    <xs:sequence>
+      <xs:element name="Expression" type="xs:string" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="index" type="xs:unsignedInt" use="required"/>
+    <xs:attribute name="selection" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="DataPathProperties">
+    <xs:sequence>
+      <xs:element name="ShiftCommonConfiguration" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="shiftOut" type="LeftOrRight" use="required"/>
+          <xs:attribute name="defaultShiftIn" type="ZeroOrOne" use="required"/>
+          <xs:attribute name="arithmeticRight" type="EnabledOrDisabled" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ShiftConfigurationA" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="shiftDirection" type="ShiftDirection" use="required"/>
+          <xs:attribute name="shiftInSource" type="ShiftInSource" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ShiftConfigurationB" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="shiftDirection" type="ShiftDirection" use="required"/>
+          <xs:attribute name="shiftInSource" type="ShiftInSource" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ConfigurableComparatorInputs" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="configA" type="xs:string" use="required"/>
+          <xs:attribute name="configB" type="xs:string" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Masks" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Mask" type="Mask" minOccurs="3" maxOccurs="3"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="FIFOs" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="fifoSyncMode" type="FifoSyncMode" use="required"/>
+          <xs:attribute name="captureMode" type="OnOrOff" use="required"/>
+          <xs:attribute name="edgeMode" type="EdgeOrLevel" use="required"/>
+          <xs:attribute name="fastMode" type="FastMode" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Mask">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="enabled" type="xs:boolean" use="required"/>
+        <xs:attribute name="value" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="ZeroOrOne">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-1]"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="StickyOrTransparent">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Sticky" />
+      <xs:enumeration value="Transparent" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EnabledOrDisabled" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Enabled" />
+      <xs:enumeration value="Disabled" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LeftOrRight" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Left" />
+      <xs:enumeration value="Right" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OnOrOff" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="On" />
+      <xs:enumeration value="Off" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="EdgeOrLevel" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Edge" />
+      <xs:enumeration value="Level" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FastMode" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BUS_CLK" />
+      <xs:enumeration value="Datapath clock" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ShiftDirection" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Shift left" />
+      <xs:enumeration value="Shift right" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FifoSyncMode" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="No Sync" />
+      <xs:enumeration value="Single Sync" />
+      <xs:enumeration value="Double Sync" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ShiftInSource" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Default shift-in" />
+      <xs:enumeration value="Routed shift-in" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="Property">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="Instance">
+    <xs:sequence>
+      <!--Includes all formal parameters.-->
+      <!--Local parameters are not needed because they are not user editable (nor are they saved in the schematic).-->
+      <!--Sorted alphabetically by the parameter name.-->
+      <xs:element name="Parameter" type="Parameter"  minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="guid" type="xs:string" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <!--The name of the component. We cannot include library path information because this is stored in the project not the schematic.-->
+    <xs:attribute name="component" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ParamDef">
+    <xs:sequence>
+      <!--If the Value string does not contain a CDATA tag and it requires XML escaping it will be wrapped in 
+      a CDATA tag; otherwise, it will be XML escaped as needed. This is to assist in readability.-->
+      <xs:element name="Value" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+      <!--If the Description string does not contain a CDATA tag and it requires XML escaping it will be wrapped in 
+      a CDATA tag; otherwise, it will be XML escaped as needed. This is to assist in readability.-->
+      <xs:element name="Description" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+      <xs:element name="Validators" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Validator" type="Validator" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="count" type="xs:unsignedInt" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="displayName" type="xs:string" use="required"/>
+    <xs:attribute name="type" type="xs:string" use="required"/>
+    <xs:attribute name="builtin" type="xs:boolean" use="required"/>
+    <xs:attribute name="visible" type="xs:string" use="required"/>
+    <xs:attribute name="tab" type="xs:string" use="required"/>
+    <xs:attribute name="category" type="xs:string" use="required"/>
+    <xs:attribute name="checkRange" type="xs:boolean" use="required"/>
+    <xs:attribute name="displayOnHover" type="xs:string" use="required"/>
+    <xs:attribute name="hardware" type="xs:boolean" use="required"/>
+    <xs:attribute name="readonly" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="Validator">
+    <xs:sequence>
+      <xs:element name="Type" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+      <!--If the Expression string does not contain a CDATA tag and it requires XML escaping it will be wrapped in 
+      a CDATA tag; otherwise, it will be XML escaped as needed. This is to assist in readability.-->
+      <xs:element name="Expression" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+      <!--If the ErrorMessage string does not contain a CDATA tag and it requires XML escaping it will be wrapped in 
+      a CDATA tag; otherwise, it will be XML escaped as needed. This is to assist in readability.-->
+      <xs:element name="Message" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Parameter">
+    <xs:sequence>
+      <!--If the Value string does not contain a CDATA tag and it requires XML escaping it will be wrapped in 
+      a CDATA tag; otherwise, it will be XML escaped as needed. This is to assist in readability.-->
+      <xs:element name="Value" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+      <!--If the Expression string does not contain a CDATA tag and it requires XML escaping it will be wrapped in 
+      a CDATA tag; otherwise, it will be XML escaped as needed. This is to assist in readability.-->
+      <xs:element name="Expression" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="Signal">
+    <xs:sequence>
+      <!--Sorted alphabetically by the terminal name-->
+      <xs:element name="Terminal" type="Terminal"  minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="type" type="SignalType" use="required"/>
+    <xs:attribute name="terminalCount" type="xs:unsignedInt" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="SignalType" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Analog" />
+      <xs:enumeration value="Digital" />
+      <xs:enumeration value="External" />
+      <!--Undefined, Ex. a wire with no terminals.-->
+      <xs:enumeration value="" /> 
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="VariableType" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Combinatorial" />
+      <xs:enumeration value="Registered" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="Terminal">
+    <!--For instance terminals the name is in the format of InstanceName.TerminalName. All other types just 
+    have their TerminalName.-->
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="type" type="TerminalType" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="TerminalType" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Instance Analog InOut" />
+      <xs:enumeration value="Instance Digital Input" />
+      <xs:enumeration value="Instance Digital InOut" />
+      <xs:enumeration value="Instance Digital Output" />
+      <xs:enumeration value="Instance External InOut" />
+      <xs:enumeration value="Schematic Analog InOut" />
+      <xs:enumeration value="Schematic Digital Input" />
+      <xs:enumeration value="Schematic Digital InOut" />
+      <xs:enumeration value="Schematic Digital Output" />
+      <xs:enumeration value="Schematic External InOut" />
+      <xs:enumeration value="Symbol Analog InOut" />
+      <xs:enumeration value="Symbol Digital Input" />
+      <xs:enumeration value="Symbol Digital InOut" />
+      <xs:enumeration value="Symbol Digital Output" />
+      <xs:enumeration value="Symbol External InOut" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

@@ -1,0 +1,30 @@
+--
+
+--
+-- MROM
+--
+library cypress;
+use cypress.lpmpkg.all;
+entity mrom is
+    generic(lpm_width : positive := 1;
+     lpm_widthad : positive := 1;
+     lpm_numwords: natural := 1;
+     lpm_address_control : regis_type := LPM_REGISTERED;
+     lpm_outdata : regis_type := LPM_REGISTERED;
+     lpm_file : string := "";
+     lpm_hint : goal_type := SPEED);
+    port (address : in bit_vector(lpm_widthad-1 downto 0);
+     q : out x01z_vector(lpm_width-1 downto 0);
+     inclock : in bit := zero;
+     outclock : in bit := zero;
+     memenab : in bit := one;
+     outreg_AR : in bit := zero);
+end mrom;
+
+architecture archlpmbit of mrom is
+
+begin
+    assert (FALSE)
+        report "The mrom component is not intended for use in this device."
+        severity failure;
+end archlpmbit;

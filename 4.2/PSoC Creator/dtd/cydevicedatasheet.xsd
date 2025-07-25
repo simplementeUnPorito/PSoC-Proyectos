@@ -1,0 +1,61 @@
+﻿<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="bullet">
+    <xs:complexType mixed="true">
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="bullet" />
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="value" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Datasheet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Overview" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+              <xs:element ref="bullet" />
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="value" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ClockInfo" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+              <xs:element ref="bullet" />
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="value" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SystemClockFile" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:attribute type="xs:string" name="value" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="LocalClockFile" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:attribute type="xs:string" name="value" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TrmUrl" maxOccurs="unbounded" minOccurs="1">
+          <xs:complexType>
+            <xs:attribute type="xs:string" name="series" use="optional"/>
+            <xs:attribute type="xs:string" name="value" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TrmUrlRegisters" maxOccurs="unbounded" minOccurs="1">
+          <xs:complexType>
+            <xs:attribute type="xs:string" name="series" use="optional"/>
+            <xs:attribute type="xs:string" name="value" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CpuClockName" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:attribute type="xs:string" name="value" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

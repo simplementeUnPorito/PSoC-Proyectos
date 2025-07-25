@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Name="UART_Tx">
+  <Version>2.20</Version>
+  <Keyword>UART</Keyword>
+  <Description>The UART Tx design project contains an example for the use of the UART component. This example demonstrates the UART Transmission (Tx) mechanism. Data sent via the serial port is displayed on Hyperterminal and the LCD module.</Description>
+  <DeviceFilter>PSoC 3</DeviceFilter>
+  <DeviceFilter>PSoC 5LP</DeviceFilter>
+  <DeviceFilter>PSoC 4200</DeviceFilter>
+  <DeviceFilter>PSoC 4200 BLE</DeviceFilter>
+  <Document>UART_Tx.pdf</Document>
+  <MinToolVersion>4.2</MinToolVersion> 
+</Project>

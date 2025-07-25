@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_TPS_RegisterAttrCallback</Title>
+			<Shortcut>Cy_BLE_TPS_RegisterAttrCallback</Shortcut>
+			<Description>BLE TPS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_TPS_RegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>Cy_BLE_TPS_CallBack</Default>
+					<ToolTip>BLE TPS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_TPS_CallBack</Title>
+			<Shortcut>Cy_BLE_TPS_CallBack</Shortcut>
+			<Description>BLE CallBack function for Tx Power service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_TPS_CallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>TPS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>TPS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CY_BLE_TPS_SERVER
+        case CY_BLE_EVT_TPSS_NOTIFICATION_ENABLED:
+            break;
+
+        case CY_BLE_EVT_TPSS_NOTIFICATION_DISABLED:
+            break;
+    #endif /* CY_BLE_TPS_SERVER */
+
+    #ifdef CY_BLE_TPS_CLIENT
+        case CY_BLE_EVT_TPSC_NOTIFICATION:
+            break;
+
+        case CY_BLE_EVT_TPSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_TPSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_TPSC_WRITE_DESCR_RESPONSE:
+            break;
+    #endif /* CY_BLE_TPS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

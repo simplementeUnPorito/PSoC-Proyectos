@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_HtsRegisterAttrCallback</Title>
+			<Shortcut>CyBle_HtsRegisterAttrCallback</Shortcut>
+			<Description>BLE HTS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_HtsRegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_HtsCallBack</Default>
+					<ToolTip>BLE HTS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_HtsCallBack</Title>
+			<Shortcut>CyBle_HtsCallBack</Shortcut>
+			<Description>BLE CallBack function for Health Thermometer service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_HtsCallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>HTS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>HTS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CYBLE_HTS_SERVER
+        case CYBLE_EVT_HTSS_INDICATION_ENABLED:
+            break;
+
+        case CYBLE_EVT_HTSS_INDICATION_DISABLED:
+            break;
+
+        case CYBLE_EVT_HTSS_INDICATION_CONFIRMED:
+            break;
+
+        case CYBLE_EVT_HTSS_NOTIFICATION_ENABLED:
+            break;
+
+        case CYBLE_EVT_HTSS_NOTIFICATION_DISABLED:
+            break;
+
+        case CYBLE_EVT_HTSS_CHAR_WRITE:
+            break;
+    #endif /* CYBLE_HTS_SERVER */
+
+    #ifdef CYBLE_HTS_CLIENT
+        case CYBLE_EVT_HTSC_INDICATION:
+            break;
+
+        case CYBLE_EVT_HTSC_NOTIFICATION:
+            break;
+
+        case CYBLE_EVT_HTSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_HTSC_WRITE_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_HTSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_HTSC_WRITE_DESCR_RESPONSE:
+            break;
+    #endif /* CYBLE_HTS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

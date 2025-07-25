@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+    targetNamespace="http://cypress.com/xsd/cydevipblocks_v2"
+    elementFormDefault="qualified"
+    xmlns="http://cypress.com/xsd/cydevipblocks_v2"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <xs:element name="IpBlocks">
+    <xs:annotation>
+      <xs:documentation>The root element of the file.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="IpBlock" minOccurs="0" maxOccurs="unbounded">
+          <xs:annotation>
+            <xs:documentation>Contains information about a single type of IP block.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Parameters" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                  <xs:documentation>Contains the parameters of the IP block.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Parameter" minOccurs="0" maxOccurs="unbounded">
+                      <xs:annotation>
+                        <xs:documentation>Contains the parameters of the IP block.</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Type" use="required">
+              <xs:annotation>
+                <xs:documentation>The IP block name.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <!-- See 001-01004 for full naming details -->
+                  <xs:pattern value="[a-zA-Z][a-zA-Z0-9_]*" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="Inst" type="xs:nonNegativeInteger" use="required">
+              <xs:annotation>
+                <xs:documentation>The instance number of the IP block.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="Version" type="xs:nonNegativeInteger" use="required">
+              <xs:annotation>
+                <xs:documentation>The revision of the IP block used in the device.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+    <xs:unique name="uniqueIpName">
+      <xs:selector xpath="IpBlock" />
+      <xs:field xpath="@Type" />
+      <xs:field xpath="@Version" />
+    </xs:unique>
+  </xs:element>
+
+</xs:schema>

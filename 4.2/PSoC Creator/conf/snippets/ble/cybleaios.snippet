@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_AiosRegisterAttrCallback</Title>
+			<Shortcut>CyBle_AiosRegisterAttrCallback</Shortcut>
+			<Description>BLE AIOS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_AiosRegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_AiosCallBack</Default>
+					<ToolTip>BLE AIOS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_AiosCallBack</Title>
+			<Shortcut>CyBle_AiosCallBack</Shortcut>
+			<Description>BLE CallBack function for Automation IO service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_AiosCallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>AIOS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>AIOS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CYBLE_AIOS_SERVER
+        case CYBLE_EVT_AIOSS_NOTIFICATION_ENABLED:
+            break;
+		
+		case CYBLE_EVT_AIOSS_NOTIFICATION_DISABLED:
+            break;
+		
+		case CYBLE_EVT_AIOSS_INDICATION_ENABLED:
+            break;
+	    
+		case CYBLE_EVT_AIOSS_INDICATION_DISABLED:
+            break;
+
+		case CYBLE_EVT_AIOSS_INDICATION_CONFIRMED:
+            break;
+
+		case CYBLE_EVT_AIOSS_CHAR_WRITE:
+            break;
+
+		case CYBLE_EVT_AIOSS_DESCR_WRITE:
+            break;
+    #endif /* CYBLE_AIOS_SERVER */
+
+    #ifdef CYBLE_AIOS_CLIENT
+        case CYBLE_EVT_AIOSC_NOTIFICATION:
+            break;
+
+        case CYBLE_EVT_AIOSC_INDICATION:
+            break;
+
+        case CYBLE_EVT_AIOSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_AIOSC_WRITE_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_AIOSC_READ_DESCR_RESPONSE:
+            break;
+		
+		case CYBLE_EVT_AIOSC_WRITE_DESCR_RESPONSE:
+            break;
+			
+		case CYBLE_EVT_AIOSC_ERROR_RESPONSE:
+            break;
+    #endif /* CYBLE_AIOS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

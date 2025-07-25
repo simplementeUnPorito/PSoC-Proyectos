@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="us-ascii" ?> 
+<xs:schema id="cyxmlmanifest" 
+                  targetNamespace="http://cypress.com/xsd/cyxmlmanifest"
+                  elementFormDefault="qualified"
+                  xmlns="http://cypress.com/xsd/cyxmlmanifest"
+                  xmlns:mstns="http://cypress.com/xsd/cyxmlmanifest"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+</xs:schema>

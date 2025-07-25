@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<xs:schema elementFormDefault="qualified" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="Direction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INOUT" />
+      <xs:enumeration value="IN" />
+      <xs:enumeration value="OUT" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:group name="PermuteData">
+    <xs:choice>
+      <xs:element name="Input">
+        <xs:complexType>
+          <xs:attribute name="Name" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Output">
+        <xs:complexType>
+          <xs:attribute name="Name" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:group>
+
+  <xs:element name="ARRG">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Wires" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Wire" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute name="Name" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Terms" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Term" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute name="Name" type="xs:string" use="required" />
+                  <xs:attribute name="Block" type="xs:string" use="required" />
+                  <xs:attribute name="Index" type="xs:byte" use="required" />
+                  <xs:attribute name="Port" type="xs:string" use="required" />
+                  <xs:attribute name="Bit" type="xs:byte" use="optional" />
+                  <xs:attribute name="Direction" type="Direction" />
+                  <xs:attribute name="Wire" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="SIORefs" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SIORef" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute name="Name" type="xs:string" use="required" />
+                  <xs:attribute name="Block" type="xs:string" use="required" />
+                  <xs:attribute name="Index" type="xs:byte" use="required" />
+                  <xs:attribute name="Port" type="xs:string" use="required" />
+                  <xs:attribute name="Bit" type="xs:byte" use="optional" />
+                  <xs:attribute name="Direction" type="Direction" />
+                  <xs:attribute name="Wire" type="xs:string" use="required" />
+                  <xs:attribute name="SIO0" type="xs:string" use="required" />
+                  <xs:attribute name="SIO1" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Switches" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Switch" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:attribute name="Name" type="xs:string" use="required" />
+                  <xs:attribute name="Wire1" type="xs:string" use="required" />
+                  <xs:attribute name="Wire2" type="xs:string" use="required" />
+                  <xs:attribute name="CapabilityList" type="xs:string" use="optional" />
+                  <xs:attribute name="Tap1" type="xs:unsignedInt" use="optional" />
+                  <xs:attribute name="Tap2" type="xs:unsignedInt" use="optional" />
+                  <xs:attribute name="Reg" type="xs:string" use="optional" />
+                  <xs:attribute name="Bit" type="xs:string" use="optional" />
+                  <xs:attribute name="StatusReg" type="xs:string" use="optional" />
+                  <xs:attribute name="StatusBit" type="xs:string" use="optional" />
+                  <xs:attribute name="SetReg" type="xs:string" use="optional" />
+                  <xs:attribute name="SetBit" type="xs:string" use="optional" />
+                  <xs:attribute name="ClearReg" type="xs:string" use="optional" />
+                  <xs:attribute name="ClearBit" type="xs:string" use="optional" />
+                  <xs:attribute name="HwReg" type="xs:string" use="optional" />
+                  <xs:attribute name="HwBit" type="xs:string" use="optional" />
+                  <xs:attribute name="SarReg" type="xs:string" use="optional" />
+                  <xs:attribute name="SarBit" type="xs:string" use="optional" />
+                  <xs:attribute name="MuxVal" type="xs:string" use="optional" />
+                  <xs:attribute name="SeqControlled" type="xs:boolean" use="optional" />
+                  <xs:attribute name="R_on" type="xs:double" use="optional" />
+                  <xs:attribute name="R_off" type="xs:double" use="optional" />
+
+                  <xs:attribute name="DsiControl" type="xs:string" use="optional" />
+                  <xs:attribute name="FwControl" type="xs:string" use="optional" />
+                  <xs:attribute name="IsVirtual" type="xs:boolean" use="optional" />
+                  <xs:attribute name="SARSEQ_TYPE" type="xs:string" use="optional" />
+                  <xs:attribute name="SARSEQ_DIFFID" type="xs:string" use="optional" />
+                  <xs:attribute name="SARSEQ_PORTPIN" type="xs:string" use="optional" />
+                  <xs:attribute name="SARSEQ_MINUS_PORTPIN" type="xs:string" use="optional" />
+                  <xs:attribute name="SARSEQ_NEGSEL" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="Permutes" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Permute" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="1" maxOccurs="unbounded">
+                    <xs:group ref="PermuteData" />
+                  </xs:sequence>
+                  <xs:attribute name="Name" type="xs:string" use="required" />
+                  <xs:attribute name="Direction" type="Direction" use="required" />
+                  <!--xs:attribute name="Capacity" type="xs:byte" use="required" /-->
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Muxes" maxOccurs="1" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Mux" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="Arm">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:byte" use="required" />
+                        <xs:attribute name="HwValue" type="xs:byte" use="optional" />
+                        <xs:attribute name="R_on" type="xs:double" use="optional" />
+                        <xs:attribute name="R_off" type="xs:double" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Name" type="xs:string" use="required" />
+                  <xs:attribute name="Output" type="xs:string" use="required" />
+                  <xs:attribute name="Reg" type="xs:string" use="required" />
+                  <xs:attribute name="Bit" type="xs:byte" use="required" />
+                  <xs:attribute name="HwReg" type="xs:string" use="optional" />
+                  <xs:attribute name="HwBit" type="xs:byte" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Name" type="xs:string" use="optional" />
+      <xs:attribute name="version" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

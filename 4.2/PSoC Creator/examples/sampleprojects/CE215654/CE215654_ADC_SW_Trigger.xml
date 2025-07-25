@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<Project Name="CE215654_ADC_SW_Trigger" WorkspaceName="CE215654.cywrk">
+  <Version>1.11</Version>
+  <Keyword>ADC</Keyword>
+  <Keyword>scan</Keyword>
+  <Keyword>potentiometer</Keyword>
+  <Keyword Hidden="true">PDL_ADC</Keyword>
+  <Keyword Hidden="true">FM0-V48-S6E1A1</Keyword>
+  <Keyword Hidden="true">FM0-64L-S6E1C3</Keyword>
+  <Keyword Hidden="true">FM0</Keyword>
+  <Keyword Hidden="true">FM0+</Keyword>
+  <Description>
+  This application uses the ADC to control the green LED based on the voltage on a pin. The voltage on the pin is constantly read with a scan conversion in the ADC and the LED is toggled at the mid-point of the voltage range.
+  </Description>
+  <DeviceFilter>S6E1A1</DeviceFilter>
+  <DeviceFilter>S6E1C3</DeviceFilter>
+  <DeviceFilter>S6E1C1</DeviceFilter>
+  <Document>CE215654.pdf</Document>
+  <MinToolVersion>4.2.0.0</MinToolVersion>
+</Project>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified"
+    xmlns="http://cypress.com/xsd/cyp3timingtypes"
+    targetNamespace="http://cypress.com/xsd/cyp3timingtypes"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <xs:simpleType name="DefaultType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="default" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TempType">
+    <xs:union memberTypes="xs:decimal DefaultType" />
+  </xs:simpleType>
+
+  <xs:simpleType name="VoltType">
+    <xs:union memberTypes="xs:decimal DefaultType" />
+  </xs:simpleType>
+  
+  <xs:simpleType name="SpeedGradeType">
+    <xs:union memberTypes="xs:integer DefaultType" />
+  </xs:simpleType>
+
+  <xs:complexType name="DelayType">
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="value" type="xs:double" use="optional "/>
+    <xs:attribute name="min" type="xs:double" use="optional "/>
+    <xs:attribute name="max" type="xs:double" use="optional "/>
+    <xs:attribute name="scale" type="xs:boolean" use="optional" default="true" />
+  </xs:complexType>
+  
+</xs:schema>

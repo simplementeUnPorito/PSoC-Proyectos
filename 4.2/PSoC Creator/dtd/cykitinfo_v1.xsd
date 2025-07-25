@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="cykitinfo_v1"
+    targetNamespace="http://cypress.com/xsd/cykitinfo_v1"
+    elementFormDefault="qualified"
+    xmlns="http://cypress.com/xsd/cykitinfo_v1"
+    xmlns:mstns="http://cypress.com/xsd/cykitinfo_v1"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <xs:element name="KitInfo">
+    <xs:complexType>      
+      <xs:choice minOccurs="1" maxOccurs="1">        
+        <xs:element name="KitOnStartPage" type="KitOnStartPage"/>
+        <xs:element name="KitNotOnStartPage" type="KitNotOnStartPage"/>
+      </xs:choice>
+      <xs:attribute name="version" type="xs:string"/>      
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="KitNotOnStartPage">
+    <xs:attribute name="KitName" type="xs:string" use="optional"/>
+    <xs:attribute name="KitVersion" type="xs:string" use="optional"/>
+    <xs:attribute name="Product" type="xs:string" use="optional"/>
+    <xs:attribute name="ProductVersion" type="xs:string" use="optional"/>
+    <xs:attribute name="Documentation" type="xs:string" use="optional"/>      
+    <xs:attribute name="DefaultDependencies" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="KitOnStartPage">
+    <xs:attribute name="KitName" type="xs:string" use="required"/>
+    <xs:attribute name="KitVersion" type="xs:string" use="required"/>
+    <xs:attribute name="Product" type="xs:string" use="required"/>
+    <xs:attribute name="ProductVersion" type="xs:string" use="required"/>
+    <xs:attribute name="Documentation" type="xs:string" use="required"/>
+    <xs:attribute name="DefaultDependencies" type="xs:string" use="optional"/>
+  </xs:complexType>
+  
+</xs:schema>

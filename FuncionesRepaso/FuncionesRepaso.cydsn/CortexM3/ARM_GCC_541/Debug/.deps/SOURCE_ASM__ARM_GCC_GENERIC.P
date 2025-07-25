@@ -1,0 +1,8 @@
+C:/Users/Elias/OneDrive/UCA/8_Semestre/PSoC\ Creator/FuncionesRepaso/FuncionesRepaso.cydsn/CortexM3/ARM_GCC_541/Debug/itoa.o : C:/Users/Elias/OneDrive/UCA/8_Semestre/PSoC\ Creator/FuncionesRepaso/FuncionesRepaso.cydsn/itoa.s 
+
+C:/Users/Elias/OneDrive/UCA/8_Semestre/PSoC\ Creator/FuncionesRepaso/FuncionesRepaso.cydsn/itoa.s : 
+
+C:/Users/Elias/OneDrive/UCA/8_Semestre/PSoC\ Creator/FuncionesRepaso/FuncionesRepaso.cydsn/CortexM3/ARM_GCC_541/Debug/squeeze.o : C:/Users/Elias/OneDrive/UCA/8_Semestre/PSoC\ Creator/FuncionesRepaso/FuncionesRepaso.cydsn/squeeze.s 
+
+C:/Users/Elias/OneDrive/UCA/8_Semestre/PSoC\ Creator/FuncionesRepaso/FuncionesRepaso.cydsn/squeeze.s : 
+

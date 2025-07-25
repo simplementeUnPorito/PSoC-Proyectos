@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+		<Title>function</Title>
+			<Shortcut>function</Shortcut>
+			<Description>Creates a function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+			</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>rettype</ID>
+					<Default>uint8</Default>
+					<ToolTip>Return type</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>name</ID>
+					<Default>MyFunction</Default>
+					<ToolTip>Function Name</ToolTip>
+				    </Literal>
+				    <Literal>
+					<ID>argtype</ID>
+					<Default>uint8</Default>
+					<ToolTip>input type</ToolTip>
+				    </Literal>
+				    <Literal>
+					<ID>arg</ID>
+					<Default>myArg</Default>
+					<ToolTip>Input var</ToolTip>
+				    </Literal>
+				    <Literal>
+					<ID>desc</ID>
+					<Default>This is a helper function</Default>
+					<Tooltip>Describe this function</Tooltip>
+				    </Literal>
+				    <Literal>
+					<ID>retdesc</ID>
+					<Default>Calculation</Default>
+					<Tooltip>Describe the return value</Tooltip>
+				    </Literal>
+			</Declarations>
+			<Code Language="c">
+			    <![CDATA[
+/*****************************************************************************\
+ * Function:    $name$
+ * Input:       $arg$
+ * Returns:     $retdesc$
+ * Description: 
+ *     $desc$
+\*****************************************************************************/
+$rettype$ $name$($argtype$ $arg$)
+{
+    $rettype$ returnValue;
+    /* do something with $arg$ */
+    $end$
+    return returnValue;
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

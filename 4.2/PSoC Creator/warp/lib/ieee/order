@@ -1,0 +1,7 @@
+stdlogic.vhd	work
+num_std.vhd	work
+num_bit.vhd	work
+syntocyp.vhd	work
+synarith.vhd	work
+synsignd.vhd	work
+synusgnd.vhd	work

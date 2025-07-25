@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Name="Timer">
+  <Version>1.10</Version>
+  <Keyword>Timer</Keyword>
+  <Keyword>ISR</Keyword>
+  <Description>
+    This design project contains an example for the use of the Timer, ISR and clock components. The 16-bit UDB timer counts down on the positive edge of each clock, and captures the count value for the rising edge of a slower clock given as input. An interrupt is triggered on every terminal count, and the number of interrupts generated is displayed on the Character LCD. In addition, this simple example reads the timer Period, Capture, and Counter values and displays them on the LCD module.
+  </Description>
+  <DeviceFilter>PSoC 3</DeviceFilter>
+  <DeviceFilter>PSoC 5LP</DeviceFilter>
+  <Document>Timer.pdf</Document>
+  <MinToolVersion>4.2</MinToolVersion> 
+</Project>

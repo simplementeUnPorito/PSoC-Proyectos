@@ -1,0 +1,10 @@
+cpsoc3.vhd	stdlogic
+mod_cnst.vhd	stdlogic
+madd_sub.vhd	stdlogic
+mparity.vhd	stdlogic
+mmult.vhd	stdlogic
+cpsoc3.vhb	work
+mod_cnst.vhb	work
+madd_sub.vhb	work
+mparity.vhb	work
+mmult.vhd	work

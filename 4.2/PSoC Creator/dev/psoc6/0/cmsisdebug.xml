@@ -1,0 +1,131 @@
+
+        <debug Pname="CortexM4"  __ap="2" defaultResetSequence="ResetSystem"/>    <!-- Cortex-M4 is main CPU, hence default is full system reset -->
+        <debug Pname="CortexM0p" __ap="1" defaultResetSequence="ResetProcessor"/> <!-- Cortex-M0+ is auxiliary CPU, hence default is local CPU reset -->
+
+        <sequences>
+          <sequence name="DebugPortStart">
+
+            <block info="Read DP CTRL/STAT">
+              __var SW_DP_ABORT  = 0x0;
+              __var DP_CTRL_STAT = 0x4;
+              __var DP_SELECT    = 0x8;
+              __var powered_down = 0;
+              // Switch to DP Register Bank 0
+              WriteDP(DP_SELECT, __ap &lt;&lt; 24);     // Explicitly set APSEL to current AP selection
+            
+              // Read DP CTRL/STAT Register and check if CSYSPWRUPACK and CDBGPWRUPACK bits are set
+              powered_down = ((ReadDP(DP_CTRL_STAT) &amp; 0xA0000000) != 0xA0000000);
+            </block>
+            
+            <control if="powered_down">
+            
+              <block info="Power Up System &amp; Debug">
+                // Request Debug/System Power-Up
+                WriteDP(DP_CTRL_STAT, 0x50000000);
+              </block>
+              
+              <!-- Wait for Power-Up Request to be acknowledged -->
+              <control while="(ReadDP(DP_CTRL_STAT) &amp; 0xA0000000) != 0xA0000000" timeout="1000000" info="Wait for power acknowledged"/>
+              
+              
+              <!-- CDBGRSTREQ on PSoC6 behaves like Power-On Reset. Not desired when starting the Debug Port
+              
+              <block info="Debug Reset">
+                __errorcontrol = 1;
+                // Request Debug Reset
+                WriteDP(DP_CTRL_STAT, 0x54000000);
+                
+                // CDBGRSTREQ is equivalent to Power-On Reset and fully reboots the device.
+                // Depending on the user application the reboot can take up to 600ms.
+                DAP_Delay(600000);
+                __errorcontrol = 0;
+              </block>
+              -->
+              
+              <!-- Wait for Debug Reset to be acknowledged, don't issue error on timeout to deal with improperly connected Debug Reset -->
+              <!-- <control while="(ReadDP(DP_CTRL_STAT) &amp; 0xA8000000) != 0xA8000000" timeout="300000" info="Wait for Debug Reset Acknowledge"/> -->
+              
+              
+              <!-- JTAG Specific Part of sequence -->
+              <control if="(__protocol &amp; 0xFFFF) == 1">
+              
+                <block info="JTAG: Clear Sticky Bits">
+                  // Init AP Transfer Mode, Transaction Counter, and Lane Mask (Normal Transfer Mode, Include all Byte Lanes)
+                  // Additionally clear STICKYORUN, STICKYCMP, and STICKYERR bits by writing '1'
+                  WriteDP(DP_CTRL_STAT, 0x50000F32);
+                </block>
+                
+              </control>
+              
+              <!-- SWD Specific Part of sequence -->
+              <control if="(__protocol &amp; 0xFFFF) == 2">
+              
+                <block info="SWD: Init SWD &amp; Clear Sticky Bits">
+                  // Init AP Transfer Mode, Transaction Counter, and Lane Mask (Normal Transfer Mode, Include all Byte Lanes)
+                  WriteDP(DP_CTRL_STAT, 0x50000F00);
+                  
+                  // Clear WDATAERR, STICKYORUN, STICKYCMP, and STICKYERR bits of CTRL/STAT Register by write to ABORT register
+                  WriteDP(SW_DP_ABORT, 0x0000001E);
+                </block>
+              </control>
+              
+            </control>
+            
+          </sequence>
+
+          <!-- HW Reset causes a reboot of the device which also resets debug.
+               - Using this as a prereset is OK to potentially wake up the system from DeepSleep.
+               - Using this in the middle of the debug session will break the connection unless recovery
+                 from a connection loss is supported by the debug IDE.
+          -->
+          <sequence name="ResetHardware">
+            <block>
+              __var nReset      = 0x80;
+              __var canReadPins = 0;
+            
+              // Deassert nRESET line
+              canReadPins = (DAP_SWJ_Pins(0x00, nReset, 0) != 0xFFFFFFFF);
+            </block>
+            
+            <!-- Keep reset active for 50 ms -->
+            <control while="1" timeout="50000"/>
+            <control if="canReadPins">
+            
+              <!-- Assert nRESET line and wait max. 1s for recovery -->
+              <control while="(DAP_SWJ_Pins(nReset, nReset, 0) &amp; nReset) == 0" timeout="1000000"/>
+              
+            </control>
+            
+            <control if="!canReadPins">
+            
+              <block>
+                // Assert nRESET line
+                DAP_SWJ_Pins(nReset, nReset, 0);
+              </block>
+              
+              <!-- Wait 100ms for recovery if nRESET not readable -->
+              <control while="1" timeout="100000"/>
+              
+            </control>
+            
+            <block>
+              // Give the PSoC6 bootloader time to finish (can be up to 600ms)
+              DAP_Delay(600000);
+            </block>
+          </sequence>
+          
+          <!-- Cortex-M0+ Processor reset via PSoC6 CPU Sub-System Controller. Cortex-M0+ doesn't have VECTRESET. -->
+          <sequence name="ResetProcessor" Pname="CortexM0p">
+            <block>
+              __var CPUSS_CM0_CTL_Addr = 0x40210000;    // CM0+ Control Register
+              __var DHCSR_Addr = 0xE000EDF0;
+              
+              Write32(CPUSS_CM0_CTL_Addr, 0x05FA0000);  // Reset CM0+
+            </block>
+            
+            <!-- Reset Recovery: Wait for CPUSS_CM0_CTL to  bit to clear on read -->
+            <control while="(Read32(DHCSR_Addr) &amp; 0x02000000)" timeout="500000"/>
+          </sequence>
+          
+        </sequences>
+

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema version="1.5" id="ipcf" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+  <!-- Attribute group for the root element -->
+  <xs:attributeGroup name="rootAttributes">
+    <xs:attribute name="version" type="xs:string" use="required"/>
+    <xs:attribute name="name"    type="xs:string" use="required"/>
+    <xs:attribute name="oneShot" type="xs:boolean" use="optional"/>
+  </xs:attributeGroup>
+  
+  <!-- Attribute group for the "group" element -->
+  <xs:attributeGroup name="groupAttributes">
+    <xs:attribute name="name"            type="xs:string"  use="required"/>
+    <xs:attribute name="build"           type="xs:boolean" use="optional"/>
+    <xs:attribute name="relRoot"         type="xs:string"  use="optional"/>
+    <xs:attribute name="customBuildTool" type="xs:string"  use="optional"/>
+  </xs:attributeGroup>
+  
+  <!-- Attribute group for "heap" and "stack" elements -->
+  <xs:attributeGroup name="heapAndStackAttributes">
+    <xs:attribute name="id" type="xs:string"  use="optional"/>
+  </xs:attributeGroup>
+  
+  <!-- Attribute group for "customBuildTool" elements -->
+  <xs:attributeGroup name="customBuildToolAttributes">
+    <xs:attribute name="name"   type="xs:string"   use="required"/>
+    <xs:attribute name="atRoot" type="xs:boolean"  use="optional"/>  <!-- default="false" -->
+  </xs:attributeGroup>
+
+  <!-- Type for device element content -->
+  <xs:complexType name="deviceType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Type for include path content -->
+  <xs:complexType name="includePathType">
+    <xs:sequence>
+      <xs:element name="path" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Type for #defines content -->
+  <xs:complexType name="definesType">
+    <xs:sequence>
+      <xs:element name="define" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Type for linkerFile content -->
+  <xs:complexType name="linkerFileType">
+    <xs:sequence>
+      <xs:element name="override" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="path"     type="xs:string" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Type for preBuild and postBuild content -->
+  <xs:complexType name="buildActionType">
+    <xs:sequence>
+      <xs:element name="command" type="xs:string" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Type for customBuild paths -->
+  <xs:complexType name="customBuildPathsType">
+    <xs:sequence>
+      <xs:element name="path" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <!-- Type for customBuild content -->
+  <xs:complexType name="customBuildToolType">
+    <xs:sequence>
+      <xs:element name="fileExtensions" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="command" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="output" type="customBuildPathsType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="additionalInput" type="customBuildPathsType" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="customBuildToolAttributes"/>
+  </xs:complexType>
+  
+  <!-- Type for collection of custom build tools -->
+  <xs:complexType name="customBuildToolsType">
+    <xs:sequence>
+      <xs:element name="customBuildTool" type="customBuildToolType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <!-- Type for command line args taking an extra parameter -->
+  <xs:complexType name="argsType">
+    <xs:sequence>
+      <xs:element name="arg" type="xs:string" minOccurs="2" maxOccurs="2"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Type for "extraOptions" and "linkerExtraOptions" elements -->
+  <xs:complexType name="extraOptionsType">
+    <xs:sequence>
+      <xs:element name="args" type="argsType"  minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="arg"  type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Type for "heap" and "stack" elements -->
+  <xs:complexType name="heapAndStackType">
+    <xs:sequence>
+      <xs:element name="size" type="xs:string" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="heapAndStackAttributes"/>
+  </xs:complexType>
+  
+  <!-- Type for enclosing "heaps" type-->
+  <xs:complexType name="heapsType">
+    <xs:sequence>
+      <xs:element name="heap" type="heapAndStackType" minOccurs="1" maxOccurs="10"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Type for enclosing "stacks" type-->
+  <xs:complexType name="stacksType">
+    <xs:sequence>
+      <xs:element name="stack" type="heapAndStackType" minOccurs="1" maxOccurs="10"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Type for the file "path" element -->
+  <xs:complexType name="filePathType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="copyTo" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!-- Type for nested "group" elements -->
+  <xs:complexType name="groupType">
+    <xs:sequence>
+      <xs:element name="group" type="groupType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="path"  type="filePathType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="groupAttributes"/>
+  </xs:complexType>
+
+  
+  <!-- XML structure specification -->
+  <xs:element name="iarProjectConnection">
+    <xs:complexType>
+      <!-- elements -->
+      <xs:all>
+        <xs:element name="device"             type="deviceType"           minOccurs="0" maxOccurs="1"/>
+        <xs:element name="includePath"        type="includePathType"      minOccurs="0" maxOccurs="1"/>
+        <xs:element name="defines"            type="definesType"          minOccurs="0" maxOccurs="1"/>
+        <xs:element name="asmIncludePath"     type="includePathType"      minOccurs="0" maxOccurs="1"/>
+        <xs:element name="asmDefines"         type="definesType"          minOccurs="0" maxOccurs="1"/>
+        <xs:element name="linkerFile"         type="linkerFileType"       minOccurs="0" maxOccurs="1"/>
+        <xs:element name="preBuild"           type="buildActionType"      minOccurs="0" maxOccurs="1"/>
+        <xs:element name="postBuild"          type="buildActionType"      minOccurs="0" maxOccurs="1"/>
+        <xs:element name="extraOptions"       type="extraOptionsType"     minOccurs="0" maxOccurs="1"/>
+        <xs:element name="linkerExtraOptions" type="extraOptionsType"     minOccurs="0" maxOccurs="1"/>
+        <xs:element name="heaps"              type="heapsType"            minOccurs="0" maxOccurs="1"/>
+        <xs:element name="stacks"             type="stacksType"           minOccurs="0" maxOccurs="1"/>
+        <xs:element name="customBuildTools"   type="customBuildToolsType" minOccurs="0" maxOccurs="1"/>
+        <xs:element name="files" minOccurs="0" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <!-- Recursive group declaration -->
+              <xs:element name="group" type="groupType" minOccurs="0" maxOccurs="unbounded"/>
+              <!-- Top-level files -->
+              <xs:element name="path"  type="filePathType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="relRoot" type="xs:string"  use="optional"/>
+            <xs:attribute name="customBuildTool" type="xs:string"  use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+      <!-- root attributes -->
+      <xs:attributeGroup ref="rootAttributes"/>
+    </xs:complexType>
+  </xs:element>    
+</xs:schema>

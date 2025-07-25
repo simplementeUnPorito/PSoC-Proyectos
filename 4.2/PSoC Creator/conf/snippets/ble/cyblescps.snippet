@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_ScpsRegisterAttrCallback</Title>
+			<Shortcut>CyBle_ScpsRegisterAttrCallback</Shortcut>
+			<Description>BLE SCPS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_ScpsRegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_ScpsCallBack</Default>
+					<ToolTip>BLE SCPS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_ScpsCallBack</Title>
+			<Shortcut>CyBle_ScpsCallBack</Shortcut>
+			<Description>BLE CallBack function for Scan Parameters service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_ScpsCallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>SCPS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>SCPS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CYBLE_SCPS_SERVER
+        case CYBLE_EVT_SCPSS_NOTIFICATION_ENABLED:
+            break;
+
+        case CYBLE_EVT_SCPSS_NOTIFICATION_DISABLED:
+            break;
+
+        case CYBLE_EVT_SCPSS_SCAN_INT_WIN_CHAR_WRITE:
+            break;
+    #endif /* CYBLE_SCPS_SERVER */
+
+    #ifdef CYBLE_SCPS_CLIENT
+        case CYBLE_EVT_SCPSC_NOTIFICATION:
+            break;
+
+        case CYBLE_EVT_SCPSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_SCPSC_WRITE_DESCR_RESPONSE:
+            break;
+    #endif /* CYBLE_SCPS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

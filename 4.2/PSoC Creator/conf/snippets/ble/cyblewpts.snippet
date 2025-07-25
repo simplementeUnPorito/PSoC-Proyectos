@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_WptsRegisterAttrCallback</Title>
+			<Shortcut>CyBle_WptsRegisterAttrCallback</Shortcut>
+			<Description>BLE WPTS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_WptsRegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_WptsCallBack</Default>
+					<ToolTip>BLE WPTS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_WptsCallBack</Title>
+			<Shortcut>CyBle_WptsCallBack</Shortcut>
+			<Description>BLE CallBack function for Wireless Power Transfer service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_WptsCallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>WPTS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>WPTS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CYBLE_WPTS_SERVER
+        case CYBLE_EVT_WPTSS_INDICATION_ENABLED:
+            break;
+
+        case CYBLE_EVT_WPTSS_INDICATION_DISABLED:
+            break;
+
+        case CYBLE_EVT_WPTSS_INDICATION_CONFIRMED:
+            break;
+
+        case CYBLE_EVT_WPTSS_NOTIFICATION_ENABLED:
+            break;
+
+        case CYBLE_EVT_WPTSS_NOTIFICATION_DISABLED:
+            break;
+
+        case CYBLE_EVT_WPTSS_WRITE_CHAR:
+            break;
+    #endif /* CYBLE_WPTS_SERVER */
+
+    #ifdef CYBLE_WPTS_CLIENT
+        case CYBLE_EVT_WPTSC_INDICATION:
+            break;
+
+        case CYBLE_EVT_WPTSC_NOTIFICATION:
+            break;
+
+        case CYBLE_EVT_WPTSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_WPTSC_WRITE_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_WPTSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_WPTSC_WRITE_DESCR_RESPONSE:
+            break;
+    #endif /* CYBLE_WPTS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

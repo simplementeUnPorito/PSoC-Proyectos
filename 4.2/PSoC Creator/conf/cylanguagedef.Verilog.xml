@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<SyntaxLanguage Key="Verilog" LanguageDefinitionVersion="4.0" SyntaxLanguageTypeName="CyDesigner.Common.Editors.CyVlogDynamicOutliningLanguage, cyeditors" Secure="True">
+
+  <!-- String Properties -->
+  <Properties>
+    <Property Key="Creator" Value="Cypress Semiconductor" />
+    <Property Key="Copyright" Value="Copyright (c) 2006 Cypress Semiconductor.  All rights reserved." />
+  </Properties>
+
+  <!-- Triggers -->
+  <Triggers>
+    <AutoReplaceTrigger Key="AutoReplaceTrigger">
+      <AutoReplaceTriggerActivators>
+        <AutoReplaceTriggerActivator Character=" " />
+        <AutoReplaceTriggerActivator Character="&#x9;" />
+        <AutoReplaceTriggerActivator Character="&#xD;" />
+        <AutoReplaceTriggerActivator Character="." />
+        <AutoReplaceTriggerActivator Character="," />
+        <AutoReplaceTriggerActivator Character=":" />
+        <AutoReplaceTriggerActivator Character=";" />
+        <AutoReplaceTriggerActivator Character="=" />
+        <AutoReplaceTriggerActivator Character="(" />
+        <AutoReplaceTriggerActivator Character=")" />
+        <AutoReplaceTriggerActivator Character="[" />
+        <AutoReplaceTriggerActivator Character="]" />
+        <AutoReplaceTriggerActivator Character="{" />
+        <AutoReplaceTriggerActivator Character="}" />
+      </AutoReplaceTriggerActivators>
+      <AutoReplaceTriggerValidStates>
+        <AutoReplaceTriggerValidState State="DefaultState" />
+      </AutoReplaceTriggerValidStates>
+    </AutoReplaceTrigger>
+    <KeyPressTrigger Key="MemberListTrigger" Character=".">
+      <KeyPressTriggerValidStates>
+        <KeyPressTriggerValidState State="DefaultState" />
+      </KeyPressTriggerValidStates>
+    </KeyPressTrigger>
+  </Triggers>
+
+  <!-- Highlighting Styles -->
+  <Styles>
+    <!-- Optional Styles to Override Built-In Styles -->
+    <Style Key="CollapsibleTextStyle" Name="Collapsible Text" ForeColor="Gray" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="CodeSnippetFieldStyle" Name="Code Snippet Field" ForeColor="Default" BackColor="PowderBlue" Bold="False" Italic="False" Underline="False" />
+    <Style Key="CodeSnippetDependentFieldStyle" Name="Code Snippet Dependent Field" ForeColor="Default" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <!-- C Styles -->
+    <Style Key="ReservedWordStyle" ForeColor="Orange" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="NativeTypeStyle" ForeColor="Orange" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="NumberStyle" ForeColor="Orange" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="PreProcessorDirectiveKeywordStyle" Name="Pre-Processor Directive Keyword" ForeColor="Orange" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="PreProcessorDirectiveDefaultStyle" Name="Pre-Processor Directive Default" ForeColor="Orange" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="UserDefinedIdentifierStyle" ForeColor="Orange" BackColor="Default" Bold="True" Italic="False" Underline="False" />
+    <Style Key="Disabled" ForeColor="Orange" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <!-- Verilog Styles -->
+    <Style Key="VerilogStatementStyle" ForeColor="#804040" BackColor="Default" Bold="True" Italic="False" Underline="False" />
+    <Style Key="VerilogGlobalStyle" ForeColor="#A020F0" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="VerilogConstantStyle" ForeColor="Magenta" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="VerilogTickGroupStyle" ForeColor="blue" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="OperatorStyle" ForeColor="#6A5ACD" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="NumberStyle" ForeColor="Magenta" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="StringDelimiterStyle" ForeColor="Red" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="StringDefaultStyle" ForeColor="Red" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="CommentDelimiterStyle" ForeColor="Green" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="CommentURLStyle" ForeColor="Green" BackColor="Default" Bold="False" Italic="False" Underline="True" CursorName="Hand" CursorModifierKeys="AnyControl" />
+    <Style Key="CommentDefaultStyle" ForeColor="Green" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="Test" ForeColor="Yellow" BackColor="Default" Bold="True" Italic="False" Underline="False" />
+  </Styles>
+
+  <!-- Macros -->
+  <Macros>
+    <!-- URL -->
+    <Macro Key="URLMacro" Value="[hH][tT][tT][pP][sS]?:// [\w\-]+ (\. [\w\-]+)* (/ [\w\-./?%=&amp;]*)?" />
+  </Macros>
+
+  <!-- States -->
+  <States>
+    <!-- Code -->
+    <State Key="DefaultState">
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <!-- Verilog Constants -->
+        <RegexPatternGroup TokenKey="VerilogConstantToken" Style="VerilogConstantStyle" CaseSensitivity="Sensitive">
+          <RegexPattern Value="[A-Z] [A-Z0-9_]+[^a-zA-Z0-9]" />
+        </RegexPatternGroup>
+        <!-- Verilog TickGroup -->
+        <RegexPatternGroup TokenKey="VerilogTickGroupToken" Style="VerilogTickGroupStyle">
+          <RegexPattern Value="`[a-zA-Z] [a-zA-Z0-9_]+[^a-z]" />
+        </RegexPatternGroup>
+        <!-- Whitespace -->
+        <RegexPatternGroup TokenKey="WhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <!-- Line Terminators -->
+        <RegexPatternGroup TokenKey="LineTerminatorToken" PatternValue="{LineTerminatorMacro}" IsWhitespace="True" />
+        <!-- Brackets -->
+        <ExplicitPatternGroup Key="OpenParenthesisPatternGroup" TokenKey="OpenParenthesisToken" Style="OperatorStyle" PatternValue="(" EndBracket="CloseParenthesisPatternGroup" />
+        <ExplicitPatternGroup Key="CloseParenthesisPatternGroup" TokenKey="CloseParenthesisToken" Style="OperatorStyle" PatternValue=")" StartBracket="OpenParenthesisPatternGroup" />
+        <ExplicitPatternGroup Key="OpenCurlyBracePatternGroup" TokenKey="OpenCurlyBraceToken" Style="OperatorStyle" PatternValue="{" EndBracket="CloseCurlyBracePatternGroup" />
+        <ExplicitPatternGroup Key="CloseCurlyBracePatternGroup" TokenKey="CloseCurlyBraceToken" Style="OperatorStyle" PatternValue="}" StartBracket="OpenCurlyBracePatternGroup" />
+        <ExplicitPatternGroup Key="OpenSquareBracePatternGroup" TokenKey="OpenSquareBraceToken" Style="OperatorStyle" PatternValue="[" EndBracket="CloseSquareBracePatternGroup" />
+        <ExplicitPatternGroup Key="CloseSquareBracePatternGroup" TokenKey="CloseSquareBraceToken" Style="OperatorStyle" PatternValue="]" StartBracket="OpenSquareBracePatternGroup" />
+        <!-- Operators -->
+        <ExplicitPatternGroup TokenKey="OperatorToken" Style="OperatorStyle">
+          <ExplicitPatterns>
+            &amp; | ~ &lt; &gt; ! * # % @ + / = ? : ; , . ^ -
+         <!-- &|~><!)(*#%@+/=?:;}{,.\^\-\[\] -->
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <!-- Null -->
+        <ExplicitPatternGroup TokenKey="NullToken" Style="VerilogStatementStyle" PatternValue="null" LookAhead="{NonWordMacro}|\z" CaseSensitivity="Sensitive" />
+        <!-- Native Types -->
+        <ExplicitPatternGroup TokenKey="NativeTypeToken" Style="VerilogStatementStyle" LookAhead="{NonWordMacro}|\z" CaseSensitivity="Sensitive">
+          <ExplicitPatterns>
+            unsigned
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <!-- Booleans -->
+        <ExplicitPatternGroup TokenKey="BooleanToken" Style="VerilogStatementStyle" LookAhead="{NonWordMacro}|\z" CaseSensitivity="Sensitive">
+          <ExplicitPatterns>
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <!-- Reserved Words -->
+        <ExplicitPatternGroup TokenKey="ReservedWordToken" Style="VerilogStatementStyle" LookAhead="{NonWordMacro}|\z" CaseSensitivity="Sensitive">
+          <ExplicitPatterns>
+            always and assign attribute begin buf bufif0 bufif1
+            case casex casez cmos deassign default defparam disable
+            edge else end endattribute endcase endfunction endgenerate endmodule
+            endprimitive endspecify endtable endtask event for force
+            forever fork function generate genvar highz0 highz1 if ifnone initial inout
+            input integer join localparam medium module  large macromodule nand
+            negedge nmos nor not notif0 notif1 or output parameter pmos
+            posedge primitive pull0 pull1 pulldown pullup rcmos real
+            realtime reg release repeat rnmos rpmos rtran rtranif0
+            rtranif1 scalared signed small specify specparam strength
+            strong0 strong1 supply0 supply1 table task time tran tranif0
+            tranif1 tri tri0 tri1 triand trior trireg vectored
+            wait wand weak0 weak1 while wire wor xnor xor
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <!-- Global Words -->
+        <ExplicitPatternGroup TokenKey="ReservedWordToken2" Style="VerilogGlobalStyle" LookAhead="{NonWordMacro}|\z" CaseSensitivity="Sensitive">
+          <ExplicitPatterns>
+            `celldefine
+            `default_nettype
+            `define
+            `else
+            `elsif
+            `endcelldefine
+            `endif
+            `ifdef
+            `ifndef
+            `include
+            `line
+            `nounconnected_drive
+            `resetall
+            `timescale
+            `unconnected_drive
+            `undef
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <!-- Identifier -->
+        <RegexPatternGroup TokenKey="IdentifierToken" PatternValue="@? (_ | {AlphaMacro})({WordMacro})*" />
+
+
+        <!-- Verilog Number Patterns -->
+        <RegexPatternGroup TokenKey="RealNumberToken" Style="NumberStyle">
+          <RegexPattern Value="\d+ ' [bB] \s* [0-1_xXzZ?]+" />
+          <RegexPattern Value="\d+ ' [oO] \s* [0-7_xXzZ?]+" />
+          <RegexPattern Value="\d+ ' [dD] \s* [0-9_xXzZ?]+" />
+          <RegexPattern Value="\d+ ' [hH] \s* [0-9a-fA-F_xXzZ?]+" />
+        </RegexPatternGroup>
+
+        <!-- Verilog Numbers Only -->
+        <RegexPatternGroup TokenKey="VerilogNumberOnlyToken" Style="NumberStyle" PatternValue="[-+]?[0-9]*\.?[0-9]+" LookAhead="{NonWordMacro}|\z" LookBehind="{NonWordMacro}" />
+        <!-- Verilog Dollar Global -->
+        <RegexPatternGroup TokenKey="VerilogGlobalDollarToken" Style="VerilogGlobalStyle" PatternValue="\$ {WordMacro}+" LookAhead="{NonWordMacro}|\z" />
+      </PatternGroups>
+      <!-- Child States -->
+      <ChildStates>
+        <ChildState Key="CharacterState" />
+        <ChildState Key="StringState" />
+        <ChildState Key="CommentState" />
+        <ChildState Key="MultiLineCommentState" />
+      </ChildStates>
+    </State>
+
+    <!-- Characters -->
+    <State Key="CharacterState" TokenKey="CharacterDefaultToken" Style="StringDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="CharacterStartToken" Style="StringDelimiterStyle" PatternValue="'" />
+          <RegexPatternGroup Type="EndScope" TokenKey="CharacterEndToken" Style="StringDelimiterStyle" PatternValue="['\n]" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="CharacterEscapedCharacterToken" PatternValue="\\x {HexDigitMacro}{1,4}" />
+        <RegexPatternGroup TokenKey="CharacterEscapedCharacterToken" PatternValue="\\u {HexDigitMacro}{4,4}" />
+        <RegexPatternGroup TokenKey="CharacterEscapedCharacterToken" PatternValue="\\U {HexDigitMacro}{8,8}" />
+        <RegexPatternGroup TokenKey="CharacterEscapedCharacterToken" PatternValue="\\." />
+        <RegexPatternGroup TokenKey="CharacterWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="CharacterWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="CharacterDefaultToken" PatternValue="[^'\n]" />
+      </PatternGroups>
+    </State>
+
+    <!-- Strings -->
+    <State Key="StringState" TokenKey="StringDefaultToken" Style="StringDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="StringStartToken" Style="StringDelimiterStyle" PatternValue="&quot;" />
+          <RegexPatternGroup Type="EndScope" TokenKey="StringEndToken" Style="StringDelimiterStyle" PatternValue="[\&quot;\n]" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="StringEscapedCharacterToken" PatternValue="\\x {HexDigitMacro}{1,4}" />
+        <RegexPatternGroup TokenKey="StringEscapedCharacterToken" PatternValue="\\u {HexDigitMacro}{4,4}" />
+        <RegexPatternGroup TokenKey="StringEscapedCharacterToken" PatternValue="\\U {HexDigitMacro}{8,8}" />
+        <RegexPatternGroup TokenKey="StringEscapedCharacterToken" PatternValue="\\." />
+        <RegexPatternGroup TokenKey="StringWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="StringWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="StringDefaultToken" PatternValue="[^\&quot;\n]" />
+      </PatternGroups>
+    </State>
+
+    <!-- Comments -->
+    <State Key="CommentState" TokenKey="CommentDefaultToken" Style="CommentDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="CommentStartToken" Style="CommentDelimiterStyle" PatternValue="//" />
+          <RegexPatternGroup Type="EndScope" TokenKey="CommentEndToken" Style="CommentDelimiterStyle" PatternValue="{LineTerminatorMacro}" IsWhitespace="True" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="CommentDelimiterToken" Style="CommentDelimiterStyle" PatternValue="//" />
+        <RegexPatternGroup TokenKey="CommentWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="CommentURLToken" Style="CommentURLStyle" PatternValue="{URLMacro}" />
+        <RegexPatternGroup TokenKey="CommentLineTerminatorToken" PatternValue="{LineTerminatorMacro}" LookAhead="{LineTerminatorWhitespaceMacro}* // [^/]" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="CommentWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="CommentDefaultToken" PatternValue="{NonLineTerminatorMacro}" />
+      </PatternGroups>
+    </State>
+
+    <!-- MultiLine Comments -->
+    <State Key="MultiLineCommentState" TokenKey="MultiLineCommentDefaultToken" Style="CommentDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope BracketHighlight="True">
+          <ExplicitPatternGroup Type="StartScope" TokenKey="MultiLineCommentStartToken" Style="CommentDelimiterStyle" PatternValue="/*" />
+          <ExplicitPatternGroup Type="EndScope" TokenKey="MultiLineCommentEndToken" Style="CommentDelimiterStyle" PatternValue="*/" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="MultiLineCommentWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="MultiLineCommentLineTerminatorToken" PatternValue="{LineTerminatorMacro}" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="MultiLineCommentURLToken" Style="CommentURLStyle" PatternValue="{URLMacro}" />
+        <RegexPatternGroup TokenKey="MultiLineCommentWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="MultiLineCommentDefaultToken" PatternValue="[^*]" />
+      </PatternGroups>
+    </State>
+    
+  </States>
+  
+</SyntaxLanguage>

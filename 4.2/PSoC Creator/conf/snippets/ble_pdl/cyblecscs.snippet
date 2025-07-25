@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_CSCS_RegisterAttrCallback</Title>
+			<Shortcut>Cy_BLE_CSCS_RegisterAttrCallback</Shortcut>
+			<Description>BLE CSCS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_CSCS_RegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>Cy_BLE_CSCS_CallBack</Default>
+					<ToolTip>BLE CSCS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_CSCS_CallBack</Title>
+			<Shortcut>Cy_BLE_CSCS_CallBack</Shortcut>
+			<Description>BLE CallBack function for Cycling Speed and Cadence service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_CSCS_CallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>CSCS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>CSCS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CY_BLE_CSCS_SERVER
+        case CY_BLE_EVT_CSCSS_INDICATION_ENABLED:
+            break;
+
+        case CY_BLE_EVT_CSCSS_INDICATION_DISABLED:
+            break;
+
+        case CY_BLE_EVT_CSCSS_INDICATION_CONFIRMATION:
+            break;
+
+        case CY_BLE_EVT_CSCSS_NOTIFICATION_ENABLED:
+            break;
+
+        case CY_BLE_EVT_CSCSS_NOTIFICATION_DISABLED:
+            break;
+
+        case CY_BLE_EVT_CSCSS_WRITE_CHAR:
+            break;
+    #endif /* CY_BLE_CSCS_SERVER */
+
+    #ifdef CY_BLE_CSCS_CLIENT
+        case CY_BLE_EVT_CSCSC_INDICATION:
+            break;
+
+        case CY_BLE_EVT_CSCSC_NOTIFICATION:
+            break;
+
+        case CY_BLE_EVT_CSCSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_CSCSC_WRITE_CHAR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_CSCSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_CSCSC_WRITE_DESCR_RESPONSE:
+            break;
+    #endif /* CY_BLE_CSCS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

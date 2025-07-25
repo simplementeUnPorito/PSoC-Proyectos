@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<Project Name="CE216168_Base_Timer_PWM_Blinky" WorkspaceName="CE216168.cywrk">
+  <Version>1.11</Version>
+  <Keyword>Base</Keyword>
+  <Keyword>Timer</Keyword>
+  <Keyword>BT</Keyword>
+  <Keyword>PWM</Keyword>
+  <Keyword Hidden="true">PDL_BT</Keyword>
+  <Keyword Hidden="true">FM0-V48-S6E1A1</Keyword>
+  <Keyword Hidden="true">FM0-64L-S6E1C3</Keyword>
+  <Keyword Hidden="true">FM0</Keyword>
+  <Keyword Hidden="true">FM0+</Keyword>
+  <Description>
+  The firmware triggers scan conversions in the ADC to read the voltage across the potentiometer. It toggles an LED at the mid-point of the voltage range.application uses one of the Base Timers (BT) to blink an LED. The BT is configured to run in PWM mode with a 1/256 clock prescaler. The PWM generates interrupts that control the LED pin on both a duty value match (LED on) and underflow (LED off). The firmware sets the PWM period to one second and the duty cycle to 10%.
+  </Description>
+  <DeviceFilter>S6E1A1</DeviceFilter>
+  <DeviceFilter>S6E1C3</DeviceFilter>
+  <DeviceFilter>S6E1C1</DeviceFilter>
+  <Document>CE216168.pdf</Document>
+  <MinToolVersion>4.2.0.0</MinToolVersion>
+</Project>

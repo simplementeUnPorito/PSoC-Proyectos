@@ -1,0 +1,56 @@
+--
+PACKAGE table_bv IS
+
+    TYPE x01 IS ('x','0','1');
+    TYPE x01_vector IS ARRAY (NATURAL RANGE <>) OF x01;
+
+    TYPE x01_table IS ARRAY (NATURAL RANGE <>,NATURAL RANGE<>) OF x01;
+
+    FUNCTION ttf (
+        CONSTANT tt : x01_table;
+        ci : bit_vector
+    )
+    RETURN bit_vector;
+
+END table_bv;
+
+PACKAGE BODY table_bv IS
+
+    FUNCTION ttf (
+        CONSTANT tt : x01_table;
+        ci : bit_vector
+    )
+    RETURN bit_vector IS
+
+        VARIABLE tmpbool : BOOLEAN;
+        CONSTANT csi_lim : INTEGER := tt'LENGTH(2) - ci'LENGTH - 1;
+        VARIABLE tmpv : bit_vector(0 TO csi_lim) := (OTHERS=>'0');
+    BEGIN
+
+        FOR table_row IN tt'RANGE LOOP
+
+            tmpbool := TRUE;
+
+            FOR col IN ci'RANGE LOOP
+                tmpbool := tmpbool AND (
+
+                        (tt(table_row, col) = 'x')
+
+                    OR ((tt(table_row, col) = '1') AND (ci(col) = '1'))
+                    OR ((tt(table_row, col) = '0') AND (ci(col) = '0'))
+                );
+            END LOOP;
+
+            IF tmpbool THEN
+                FOR csi IN 0 TO csi_lim LOOP
+                    IF (tt(table_row, ci'LENGTH + csi) = '1') THEN
+                        tmpv(csi) := '1';
+                    END IF;
+                END LOOP;
+            END IF;
+        END LOOP;
+
+        RETURN tmpv;
+    END;
+
+END table_bv;

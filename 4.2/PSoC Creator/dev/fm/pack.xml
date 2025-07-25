@@ -1,0 +1,533 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package schemaVersion="1.0" noNamespaceSchemaLocation="PACK.xsd" xs="http://www.w3.org/2001/XMLSchema-instance">
+  <vendor>PDL</vendor>
+  <name>FM</name>
+  <description>Peripheral driver library for FM parts</description>
+  <url />
+  <releases>
+    <release version="1.0">Initial release</release>
+  </releases>
+  <components>
+    <component>
+      <files>
+        <file category="header" name="common\base_types.h" />
+        <file category="header" condition="FM0P" name="common\fm0p.h" />
+        <file category="header" condition="FM3" name="common\fm3.h" />
+        <file category="header" condition="FM4" name="common\fm4.h" />
+        <file category="header" name="common\iris_io.h" />
+        <file category="header" name="common\mcu.h" />
+        <file category="sourceC" condition="FM0P" name="common\system_fm0p.c" />
+        <file category="header" condition="FM0P" name="common\system_fm0p.h" />
+        <file category="sourceC" condition="FM3" name="common\system_fm3.c" />
+        <file category="header" condition="FM3" name="common\system_fm3.h" />
+        <file category="sourceC" condition="FM4" name="common\system_fm4.c" />
+        <file category="header" condition="FM4" name="common\system_fm4.h" />
+        
+        <file category="sourceC" condition="FM0P" name="driver\interrupts_fm0p.c" />
+        <file category="header" condition="FM0P" name="driver\interrupts_fm0p.h" />
+        <file category="sourceC" condition="FM3" name="driver\interrupts_fm3.c" />
+        <file category="header" condition="FM3" name="driver\interrupts_fm3.h" />
+        <file category="sourceC" condition="FM4" name="driver\interrupts_fm4.c" />
+        <file category="header" condition="FM4" name="driver\interrupts_fm4.h" />
+        <file category="sourceC" name="driver\pdl.c" />
+        <file category="header" name="driver\pdl.h" />
+        <file category="header" name="driver\pdl_header.h" />
+        <file category="sourceC" condition="fm_adc" name="driver\adc\adc.c" />
+        <file category="header" condition="fm_adc" name="driver\adc\adc.h" />
+        <file category="sourceC" condition="fm_bt" name="driver\bt\bt.c" />
+        <file category="header" condition="fm_bt" name="driver\bt\bt.h" />
+        <file category="sourceC" condition="fm_can" name="driver\can\can.c" />
+        <file category="header" condition="fm_can" name="driver\can\can.h" />
+        <file category="sourceC" condition="fm_can" name="driver\can\canfd.c" />
+        <file category="header" condition="fm_can" name="driver\can\canfd.h" />
+        <file category="sourceC" condition="fm_can" name="driver\can\can_pre.c" />
+        <file category="header" condition="fm_can" name="driver\can\can_pre.h" />
+        <file category="sourceC" condition="fm_clk" name="driver\clk\clk.c" />
+        <file category="header" condition="fm_clk" name="driver\clk\clk.h" />
+        <file category="sourceC" condition="fm_cr" name="driver\cr\cr.c" />
+        <file category="header" condition="fm_cr" name="driver\cr\cr.h" />
+        <file category="sourceC" condition="fm_crc" name="driver\crc\crc.c" />
+        <file category="header" condition="fm_crc" name="driver\crc\crc.h" />
+        <file category="sourceC" condition="fm_csv" name="driver\csv\csv.c" />
+        <file category="header" condition="fm_csv" name="driver\csv\csv.h" />
+        <file category="sourceC" condition="fm_dac" name="driver\dac\dac.c" />
+        <file category="header" condition="fm_dac" name="driver\dac\dac.h" />
+        <file category="sourceC" condition="fm_dma" name="driver\dma\dma.c" />
+        <file category="header" condition="fm_dma" name="driver\dma\dma.h" />
+        <file category="sourceC" condition="fm_dstc" name="driver\dstc\dstc.c" />
+        <file category="header" condition="fm_dstc" name="driver\dstc\dstc.h" />
+        <file category="sourceC" condition="fm_dt" name="driver\dt\dt.c" />
+        <file category="header" condition="fm_dt" name="driver\dt\dt.h" />
+        <file category="sourceC" condition="fm_extint" name="driver\exint\exint.c" />
+        <file category="header" condition="fm_extint" name="driver\exint\exint.h" />
+        <file category="sourceC" condition="fm_extif" name="driver\extif\extif.c" />
+        <file category="header" condition="fm_extif" name="driver\extif\extif.h" />
+        <file category="sourceC" condition="fm_dflash" name="driver\flash\dualflash.c" />
+        <file category="header" condition="fm_dflash" name="driver\flash\dualflash.h" />
+        <file category="sourceC" condition="fm_mflash" name="driver\flash\mainflash.c" />
+        <file category="header" condition="fm_mflash" name="driver\flash\mainflash.h" />
+        <file category="sourceC" condition="fm_wflash" name="driver\flash\workflash.c" />
+        <file category="header" condition="fm_wflash" name="driver\flash\workflash.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\fgpio.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af10xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af10xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af11xk.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af11xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af11xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af11xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af12xk.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af12xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af13xk.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af13xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af13xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af13xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af14xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af14xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af14xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af15xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af15xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af15xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af31xk.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af31xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af31xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af31xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af34xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af34xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af34xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af42xk.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9af42xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9afa3xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9afa3xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9afa3xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9afa4xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9afa4xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9afa4xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9afb4xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9afb4xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9afb4xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf10xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf10xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf11xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf11xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf11xs.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf11xt.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf12xj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf12xk.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf12xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf12xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf12xs.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf12xt.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf16xk.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf16xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf16xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf16xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf16xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf21xs.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf21xt.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf30xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf30xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf31xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf31xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf31xs.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf31xt.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf32xk.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf32xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf32xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf32xs.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf32xt.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf36xk.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf36xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf36xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf36xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf36xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf40xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf40xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf41xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf41xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf41xs.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf41xt.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf42xs.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf42xt.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf46xk.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf46xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf46xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf46xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf46xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf50xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf50xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf51xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf51xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf51xs.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf51xt.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf52xk.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf52xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf52xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf52xs.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf52xt.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf56xk.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf56xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf56xm.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf56xn.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf56xr.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf61xs.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bf61xt.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bfd1xs.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_mb9bfd1xt.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e0b1xe.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e100xf.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1a1xb.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1a1xc.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1b3xe.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1b3xf.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1b3xg.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1b7xe.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1b7xf.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1b7xg.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1b8xe.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1b8xf.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1b8xg.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1c1xb.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1c1xc.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1c1xd.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1c3xb.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1c3xc.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e1c3xd.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c1xh.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c1xj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c1xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c2xh.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c2xj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c2xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c3xh.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c3xj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c3xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c4xh.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c4xj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c4xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c5xh.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c5xj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2c5xl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2ccxh.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2ccxj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2ccxl.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2d3xg.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2d3xj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2d5xg.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2d5xj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2dfxg.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2dfxj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2dhxg.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2dhxj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2g2xh.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2g2xj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2g3xh.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2g3xj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2ghxh.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2ghxj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2gkxh.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2gkxj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2gmxh.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2gmxj.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2h1xe.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2h1xf.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2h1xg.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2h4xe.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2h4xf.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2h4xg.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2hexe.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2hexf.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2hexg.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2hgxe.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2hgxf.h" />
+        <file category="header" condition="fm_gpio" name="driver\gpio\gpio_s6e2hgxg.h" />
+        <file category="sourceC" condition="fm_hbif" name="driver\hbif\hbif.c" />
+        <file category="header" condition="fm_hbif" name="driver\hbif\hbif.h" />
+        <file category="sourceC" condition="fm_hsspi" name="driver\hsspi\hsspi.c" />
+        <file category="header" condition="fm_hsspi" name="driver\hsspi\hsspi.h" />
+        <file category="sourceC" condition="fm_i2cs" name="driver\i2cs\i2cs.c" />
+        <file category="header" condition="fm_i2cs" name="driver\i2cs\i2cs.h" />
+        <file category="sourceC" condition="fm_i2c" name="driver\i2s\i2s.c" />
+        <file category="header" condition="fm_i2c" name="driver\i2s\i2s.h" />
+        <file category="sourceC" condition="fm_i2sl" name="driver\i2sl\i2sl.c" />
+        <file category="header" condition="fm_i2sl" name="driver\i2sl\i2sl.h" />
+        <file category="sourceC" condition="fm_icc" name="driver\icc\icc.c" />
+        <file category="header" condition="fm_icc" name="driver\icc\icc.h" />
+        <file category="sourceC" condition="fm_lcd" name="driver\lcd\lcd.c" />
+        <file category="header" condition="fm_lcd" name="driver\lcd\lcd.h" />
+        <file category="sourceC" condition="fm_lpm" name="driver\lpm\lpm.c" />
+        <file category="header" condition="fm_lpm" name="driver\lpm\lpm.h" />
+        <file category="sourceC" condition="fm_lvd" name="driver\lvd\lvd.c" />
+        <file category="header" condition="fm_lvd" name="driver\lvd\lvd.h" />
+        <file category="sourceC" condition="fm_mfs" name="driver\mfs\mfs.c" />
+        <file category="header" condition="fm_mfs" name="driver\mfs\mfs.h" />
+        <file category="sourceC" condition="fm_mft" name="driver\mft\mft_adcmp.c" />
+        <file category="header" condition="fm_mft" name="driver\mft\mft_adcmp.h" />
+        <file category="sourceC" condition="fm_mft" name="driver\mft\mft_frt.c" />
+        <file category="header" condition="fm_mft" name="driver\mft\mft_frt.h" />
+        <file category="sourceC" condition="fm_mft" name="driver\mft\mft_icu.c" />
+        <file category="header" condition="fm_mft" name="driver\mft\mft_icu.h" />
+        <file category="sourceC" condition="fm_mft" name="driver\mft\mft_ocu.c" />
+        <file category="header" condition="fm_mft" name="driver\mft\mft_ocu.h" />
+        <file category="sourceC" condition="fm_mft" name="driver\mft\mft_wfg.c" />
+        <file category="header" condition="fm_mft" name="driver\mft\mft_wfg.h" />
+        <file category="sourceC" condition="fm_pcrc" name="driver\pcrc\pcrc.c" />
+        <file category="header" condition="fm_pcrc" name="driver\pcrc\pcrc.h" />
+        <file category="sourceC" condition="fm_ppg" name="driver\ppg\ppg.c" />
+        <file category="header" condition="fm_ppg" name="driver\ppg\ppg.h" />
+        <file category="sourceC" condition="fm_qprc" name="driver\qprc\qprc.c" />
+        <file category="header" condition="fm_qprc" name="driver\qprc\qprc.h" />
+        <file category="sourceC" condition="fm_rc" name="driver\rc\rc.c" />
+        <file category="header" condition="fm_rc" name="driver\rc\rc.h" />
+        <file category="sourceC" condition="fm_reset" name="driver\reset\reset.c" />
+        <file category="header" condition="fm_reset" name="driver\reset\reset.h" />
+        <file category="sourceC" condition="fm_rtc" name="driver\rtc\rtc.c" />
+        <file category="header" condition="fm_rtc" name="driver\rtc\rtc.h" />
+        <file category="sourceC" condition="fm_sdif" name="driver\sdif\sdif.c" />
+        <file category="header" condition="fm_sdif" name="driver\sdif\sdif.h" />
+        <file category="sourceC" condition="fm_uid" name="driver\uid\uid.c" />
+        <file category="header" condition="fm_uid" name="driver\uid\uid.h" />
+        <file category="sourceC" condition="fm_vbat" name="driver\vbat\vbat.c" />
+        <file category="header" condition="fm_vbat" name="driver\vbat\vbat.h" />
+        <file category="sourceC" condition="fm_wc" name="driver\wc\wc.c" />
+        <file category="header" condition="fm_wc" name="driver\wc\wc.h" />
+        <file category="sourceC" condition="fm_wdg" name="driver\wdg\hwwdg.c" />
+        <file category="header" condition="fm_wdg" name="driver\wdg\hwwdg.h" />
+        <file category="sourceC" condition="fm_wdg" name="driver\wdg\swwdg.c" />
+        <file category="header" condition="fm_wdg" name="driver\wdg\swwdg.h" />
+        <file category="header" condition="fm_wdg" name="driver\wdg\wdg.h" />
+        
+        <file category="header" condition="none" name="utility\eeprom\at24cxx_config.h" />
+        <file category="header" condition="none" name="utility\eeprom\i2c_at24cxx.h" />
+        <file category="sourceC" condition="none" name="utility\eeprom\i2c_int_at24cxx.c" />
+        <file category="sourceC" condition="none" name="utility\eeprom\i2c_polling_at24cxx.c" />
+        <file category="sourceC" condition="none" name="utility\hyper_flash\s26kl512s.c" />
+        <file category="header" condition="none" name="utility\hyper_flash\s26kl512s.h" />
+        <file category="sourceC" condition="none" name="utility\i2s_codec\wm8731.c" />
+        <file category="header" condition="none" name="utility\i2s_codec\wm8731.h" />
+        <file category="sourceC" condition="none" name="utility\nand_flash\s34ml01g.c" />
+        <file category="header" condition="none" name="utility\nand_flash\s34ml01g.h" />
+        <file category="sourceC" condition="none" name="utility\printf_scanf\uart_io.c" />
+        <file category="header" condition="none" name="utility\printf_scanf\uart_io.h" />
+        <file category="sourceC" condition="none" name="utility\psram\sv6p1615.c" />
+        <file category="header" condition="none" name="utility\psram\sv6p1615.h" />
+        <file category="sourceC" condition="none" name="utility\qspi_flash\flashS25FL164K.c" />
+        <file category="header" condition="none" name="utility\qspi_flash\flashS25FL164K.h" />
+        <file category="sourceC" condition="none" name="utility\sdram\is42s16800.c" />
+        <file category="header" condition="none" name="utility\sdram\is42s16800.h" />
+        <file category="sourceC" condition="none" name="utility\sd_card\sd_card.c" />
+        <file category="header" condition="none" name="utility\sd_card\sd_card.h" />
+        <file category="sourceC" condition="none" name="utility\sd_card\sd_cmd.c" />
+        <file category="header" condition="none" name="utility\sd_card\sd_cmd.h" />
+        <file category="sourceC" condition="none" name="utility\seg_lcd\cl010\cl010.c" />
+        <file category="header" condition="none" name="utility\seg_lcd\cl010\cl010.h" />
+        <file category="header" condition="none" name="utility\seg_lcd\cl010\cl010_config.h" />
+        <file category="sourceC" condition="none" name="utility\seg_lcd\tsdh1188\tsdh1188.c" />
+        <file category="header" condition="none" name="utility\seg_lcd\tsdh1188\tsdh1188.h" />
+        <file category="header" condition="none" name="utility\seg_lcd\tsdh1188\tsdh1188_config.h" />
+
+        <file category="header" name="cmsis\include\arm_common_tables.h" />
+        <file category="header" name="cmsis\include\arm_const_structs.h" />
+        <file category="header" name="cmsis\include\arm_math.h" />
+        <file category="header" name="cmsis\include\core_cm0plus.h" />
+        <file category="header" name="cmsis\include\core_cmFunc.h" />
+        <file category="header" name="cmsis\include\core_cmInstr.h" />
+        <file category="header" name="cmsis\include\cmsis_gcc.h" />
+        <file category="header" name="cmsis\include\cmsis_armcc.h" />
+        
+        <file category="sourceAsm" condition="GCC S6E1B8" name="device\s6e1b8xg\project\make\startup_s6e1b8.s" />
+        <file category="linkerScript" condition="GCC S6E1B8" name="device\s6e1b8xg\project\make\S6E1B84_rom.ld" />
+        
+      </files>
+    </component>
+  </components>
+  <conditions>
+    <condition id="FM0P">
+      <description>Condition to specify architecture</description>
+      <accept condition="FM0P" />
+    </condition>
+    <condition id="FM3">
+      <description>Condition to specify architecture</description>
+      <accept condition="FM3" />
+    </condition>
+    <condition id="FM4">
+      <description>Condition to specify architecture</description>
+      <accept condition="FM4" />
+    </condition>
+    <condition id="MDK S6E1B8">
+      <description>Condition to specify compiler toolchain: ARM MDK Generic</description>
+      <require condition="ARM MDK Generic"/>
+      <require condition="S6E1B8"/>
+    </condition>
+    <condition id="GCC S6E1B8">
+      <description>Condition to specify compiler toolchain: ARM GCC Generic</description>
+      <require condition="ARM GCC Generic"/>
+      <require condition="S6E1B8"/>
+    </condition>
+    <condition id="IAR S6E1B8">
+      <description>Condition to specify compiler toolchain: ARM IAR Generic</description>
+      <require condition="ARM IAR Generic"/>
+      <require condition="S6E1B8"/>
+    </condition>
+    <condition id="fm_adc">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_adc" />
+    </condition>
+    <condition id="fm_bt">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_bt" />
+    </condition>
+    <condition id="fm_can">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_can" />
+    </condition>
+    <condition id="fm_clk">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_clk" />
+    </condition>
+    <condition id="fm_cr">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_cr" />
+    </condition>
+    <condition id="fm_crc">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_crc" />
+    </condition>
+    <condition id="fm_csv">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_csv" />
+    </condition>
+    <condition id="fm_dac">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_dac" />
+    </condition>
+    <condition id="fm_dma">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_dma" />
+    </condition>
+    <condition id="fm_dstc">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_dstc" />
+    </condition>
+    <condition id="fm_dt">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_dt" />
+    </condition>
+    <condition id="fm_exint">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_exint" />
+    </condition>
+    <condition id="fm_extif">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_extif" />
+    </condition>
+    <condition id="fm_dflash">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_dflash" />
+    </condition>
+    <condition id="fm_mflash">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_mflash" />
+    </condition>
+    <condition id="fm_wflash">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_wflash" />
+    </condition>
+    <condition id="fm_gpio">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_gpio" />
+    </condition>
+    <condition id="fm_hbif">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_hbif" />
+    </condition>
+    <condition id="fm_hsspi">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_hsspi" />
+    </condition>
+    <condition id="fm_i2cs">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_i2cs" />
+    </condition>
+    <condition id="fm_i2s">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_i2s" />
+    </condition>
+    <condition id="fm_i2sl">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_i2sl" />
+    </condition>
+    <condition id="fm_icc">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_icc" />
+    </condition>
+    <condition id="fm_lcd">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_lcd" />
+    </condition>
+    <condition id="fm_lpm">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_lpm" />
+    </condition>
+    <condition id="fm_lvd">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_lvd" />
+    </condition>
+    <condition id="fm_mfs">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_mfs" />
+    </condition>
+    <condition id="fm_mft">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_mft" />
+    </condition>
+    <condition id="fm_pcrc">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_pcrc" />
+    </condition>
+    <condition id="fm_ppg">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_ppg" />
+    </condition>
+    <condition id="fm_qprc">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_qprc" />
+    </condition>
+    <condition id="fm_rc">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_rc" />
+    </condition>
+    <condition id="fm_reset">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_reset" />
+    </condition>
+    <condition id="fm_rtc">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_rtc" />
+    </condition>
+    <condition id="fm_sdif">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_sdif" />
+    </condition>
+    <condition id="fm_uid">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_uid" />
+    </condition>
+    <condition id="fm_vbat">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_vbat" />
+    </condition>
+    <condition id="fm_wc">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_wc" />
+    </condition>
+    <condition id="fm_wdg">
+      <description>Condition to include PDL module</description>
+      <accept condition="fm_swwdg"/>
+      <accept condition="fm_hwwdg"/>
+    </condition>
+    <condition id="none">
+      <require condtion="none" />
+    </condition>
+  </conditions>
+</package>

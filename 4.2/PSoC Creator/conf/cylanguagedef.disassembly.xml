@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<SyntaxLanguage Key="disassembly" LanguageDefinitionVersion="4.0" Secure="True">
+
+  <!-- String Properties -->
+  <Properties>
+    <Property Key="Creator" Value="Cypress Semiconductor" />
+    <Property Key="Copyright" Value="Copyright (c) 2006 Cypress Semiconductor.  All rights reserved." />
+  </Properties>
+
+  <!-- Triggers -->
+  <Triggers>
+    <KeyPressTrigger Key="AssemblyTrigger" Character=" ">
+      <KeyPressTriggerValidStates>
+        <KeyPressTriggerValidState State="AssemblyState" />
+      </KeyPressTriggerValidStates>
+    </KeyPressTrigger>
+    <KeyPressTrigger Key="HeaderTrigger" Character=" ">
+      <KeyPressTriggerValidStates>
+        <KeyPressTriggerValidState State="HeaderState" />
+      </KeyPressTriggerValidStates>
+    </KeyPressTrigger>
+  </Triggers>
+  
+	<!-- Highlighting Styles -->	
+	<Styles>
+		<Style Key="DefaultStyle" Name="Text" ForeColor="Black" />
+		<Style Key="AssemblyStyle" ForeColor="Gray" />
+		<Style Key="HeaderStyle" ForeColor="Maroon" />
+	</Styles>
+
+	<!-- States -->
+	<States>
+		<!-- Code -->
+		<State Key="DefaultState">
+			<!-- Patterns Groups -->
+			<PatternGroups>
+				<RegexPatternGroup TokenKey="WhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+				<RegexPatternGroup TokenKey="LineTerminatorToken" PatternValue="{LineTerminatorMacro}" IsWhitespace="True" />
+				<RegexPatternGroup TokenKey="IdentifierToken" PatternValue="{AlphaMacro}({WordMacro})*" />
+			</PatternGroups>
+			<!-- Child States -->
+			<ChildStates>
+				<ChildState Key="AssemblyState" />
+				<ChildState Key="HeaderState" />
+			</ChildStates>
+		</State>
+
+    <!-- Assembly -->
+    <State Key="AssemblyState" TokenKey="AssemblyToken" Style="AssemblyStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="AssemblyStartToken" Style="AssemblyStyle" PatternValue="0x" />
+          <RegexPatternGroup Type="EndScope" TokenKey="AssemblyEndToken" Style="AssemblyStyle" PatternValue="{LineTerminatorMacro}" IsWhitespace="True" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="AssemblyDelimiterToken" Style="AssemblyStyle" PatternValue="0x" />
+        <RegexPatternGroup TokenKey="AssemblyWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="AssemblyLineTerminatorToken" PatternValue="{LineTerminatorMacro}" LookAhead="{LineTerminatorWhitespaceMacro}* 0x [^/]" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="AssemblyWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="AssemblyToken" PatternValue="{NonLineTerminatorMacro}" />
+      </PatternGroups>
+    </State>
+		
+		<!-- Header -->
+		<State Key="HeaderState" TokenKey="HeaderToken" Style="HeaderStyle">
+			<!-- Scopes -->
+			<Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="HeaderStartToken" Style="HeaderStyle" PatternValue="---" />
+          <RegexPatternGroup Type="EndScope" TokenKey="HeaderEndToken" Style="HeaderStyle" PatternValue="{LineTerminatorMacro}" IsWhitespace="True" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="HeaderDelimiterToken" Style="AssemblyStyle" PatternValue="---" />
+        <RegexPatternGroup TokenKey="HeaderWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="HeaderLineTerminatorToken" PatternValue="{LineTerminatorMacro}" LookAhead="{LineTerminatorWhitespaceMacro}* --- [^/]" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="HeaderWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="HeaderToken" PatternValue="{NonLineTerminatorMacro}" />
+      </PatternGroups>
+    </State>
+	</States>
+
+	<!-- Example Text -->
+	<ExampleText>
+		<![CDATA[
+      
+
+/*
+	Comment
+*/
+
+a { /* Comment */ color: /* Comment */ Red; }
+
+.TestClass {
+	color: Black;
+	background-color: White;
+	text-align: left;
+}
+		]]>
+	</ExampleText>
+	
+</SyntaxLanguage>

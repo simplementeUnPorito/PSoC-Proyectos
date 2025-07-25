@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<SyntaxLanguage Key="C" LanguageDefinitionVersion="4.0" SyntaxLanguageTypeName="CyDesigner.Common.Editors.CyCDynamicOutliningLanguage, cyeditors"  Secure="True">
+
+  <!-- String Properties -->
+  <Properties>
+    <Property Key="Creator" Value="Cypress Semiconductor" />
+    <Property Key="Copyright" Value="Copyright (c) 2006 Cypress Semiconductor.  All rights reserved." />
+  </Properties>
+
+  <!-- Triggers -->
+  <Triggers>
+    <AutoReplaceTrigger Key="AutoReplaceTrigger">
+      <AutoReplaceTriggerActivators>
+        <AutoReplaceTriggerActivator Character=" " />
+        <AutoReplaceTriggerActivator Character="&#x9;" />
+        <AutoReplaceTriggerActivator Character="&#xD;" />
+        <AutoReplaceTriggerActivator Character="." />
+        <AutoReplaceTriggerActivator Character="," />
+        <AutoReplaceTriggerActivator Character=":" />
+        <AutoReplaceTriggerActivator Character=";" />
+        <AutoReplaceTriggerActivator Character="=" />
+        <AutoReplaceTriggerActivator Character="(" />
+        <AutoReplaceTriggerActivator Character=")" />
+        <AutoReplaceTriggerActivator Character="[" />
+        <AutoReplaceTriggerActivator Character="]" />
+        <AutoReplaceTriggerActivator Character="{" />
+        <AutoReplaceTriggerActivator Character="}" />
+      </AutoReplaceTriggerActivators>
+      <AutoReplaceTriggerValidStates>
+        <AutoReplaceTriggerValidState State="DefaultState" />
+      </AutoReplaceTriggerValidStates>
+    </AutoReplaceTrigger>
+    
+    <KeyPressTrigger Key="ParamInfoTrigger" Character="(">
+      <KeyPressTriggerValidStates>
+        <KeyPressTriggerValidState State="DefaultState" />
+      </KeyPressTriggerValidStates>
+    </KeyPressTrigger>
+
+    <KeyPressTrigger Key="MemberListTrigger" Character=".">
+      <KeyPressTriggerValidStates>
+        <KeyPressTriggerValidState State="DefaultState" />
+      </KeyPressTriggerValidStates>
+    </KeyPressTrigger>
+
+  </Triggers>
+
+
+  <!-- Highlighting Styles -->
+  <Styles>
+    <!-- Optional Styles to Override Built-In Styles -->
+    <Style Key="CollapsibleTextStyle" Name="Collapsible Text" ForeColor="Gray" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="CodeSnippetFieldStyle" Name="Code Snippet Field" ForeColor="Default" BackColor="PowderBlue" Bold="False" Italic="False" Underline="False" />
+    <Style Key="CodeSnippetDependentFieldStyle" Name="Code Snippet Dependent Field" ForeColor="Default" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <!-- C Styles -->
+    <Style Key="ReservedWordStyle" ForeColor="Blue" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="NativeTypeStyle" ForeColor="Blue" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="OperatorStyle" ForeColor="Black" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="NumberStyle" ForeColor="Black" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="StringDelimiterStyle" ForeColor="Red" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="StringDefaultStyle" ForeColor="Red" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="CommentDelimiterStyle" ForeColor="Green" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="CommentURLStyle" ForeColor="Green" BackColor="Default" Bold="False" Italic="False" Underline="True" CursorName="Hand" CursorModifierKeys="AnyControl" />
+    <Style Key="CommentDefaultStyle" ForeColor="Green" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="PreProcessorDirectiveKeywordStyle" Name="Pre-Processor Directive Keyword" ForeColor="Blue" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="PreProcessorDirectiveDefaultStyle" Name="Pre-Processor Directive Default" ForeColor="Black" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <!--Style Key="UserDefinedIdentifierStyle" ForeColor="Navy" BackColor="Default" Bold="True" Italic="False" Underline="False" /-->
+    <Style Key="Disabled" ForeColor="Gray" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="UserDefinedTypeStyle" ForeColor="SteelBlue" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="MacroStyle" ForeColor="Purple" BackColor="Default" Bold="False" Italic="False" Underline="False" />
+    <Style Key="GlobalDefinitionStyle" ForeColor="Purple" BackColor="Default" Bold="True" Italic="false" Underline="False" />
+    <Style Key="ParameterStyle" ForeColor="Purple" BackColor="Default" Bold="True" Italic="false" Underline="False" />
+  </Styles>
+
+  <!-- Macros -->
+  <Macros>
+    <!-- URL -->
+    <Macro Key="URLMacro" Value="[hH][tT][tT][pP][sS]?:// [\w\-]+ (\. [\w\-]+)* (/ [\w\-./?%=&amp;]*)?" />
+    <Macro Key="PreProcessDirectiveEndLineMacro" Value="(?&lt;!\\)[\r\n\u2028\u2029]" />
+  </Macros>
+
+  <!-- States -->
+  <States>
+    <!-- Code -->
+    <State Key="DefaultState">
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <!-- Whitespace -->
+        <RegexPatternGroup TokenKey="WhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <!-- Line Terminators -->
+        <RegexPatternGroup TokenKey="LineTerminatorToken" PatternValue="{LineTerminatorMacro}" IsWhitespace="True" />
+        <!-- Brackets -->
+        <ExplicitPatternGroup Key="OpenParenthesisPatternGroup" TokenKey="OpenParenthesisToken" PatternValue="(" EndBracket="CloseParenthesisPatternGroup" />
+        <ExplicitPatternGroup Key="CloseParenthesisPatternGroup" TokenKey="CloseParenthesisToken" PatternValue=")" StartBracket="OpenParenthesisPatternGroup" />
+        <ExplicitPatternGroup Key="OpenCurlyBracePatternGroup" TokenKey="OpenCurlyBraceToken" PatternValue="{" EndBracket="CloseCurlyBracePatternGroup" />
+        <ExplicitPatternGroup Key="CloseCurlyBracePatternGroup" TokenKey="CloseCurlyBraceToken" PatternValue="}" StartBracket="OpenCurlyBracePatternGroup" />
+        <ExplicitPatternGroup Key="OpenSquareBracePatternGroup" TokenKey="OpenSquareBraceToken" PatternValue="[" EndBracket="CloseSquareBracePatternGroup" />
+        <ExplicitPatternGroup Key="CloseSquareBracePatternGroup" TokenKey="CloseSquareBraceToken" PatternValue="]" StartBracket="OpenSquareBracePatternGroup" />
+        <!-- Punctuation -->
+        <ExplicitPatternGroup TokenKey="PunctuationToken">
+          <ExplicitPatterns>
+            . , : ;
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <!-- Null -->
+        <ExplicitPatternGroup TokenKey="NullToken" Style="ReservedWordStyle" PatternValue="null" LookAhead="{NonWordMacro}|\z" CaseSensitivity="Sensitive" />
+        <!-- Types and keywords obtained from the C11 spec http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf -->
+        <!-- Native Types -->
+        <ExplicitPatternGroup TokenKey="NativeTypeToken" Style="NativeTypeStyle" LookAhead="{NonWordMacro}|\z" CaseSensitivity="Sensitive">
+          <ExplicitPatterns>
+            char
+            double
+            float
+            int
+            long
+            short
+            signed
+            unsigned
+            void
+            _Bool
+            _Complex
+            _Imaginary
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <!-- Reserved Words -->
+        <ExplicitPatternGroup TokenKey="ReservedWordToken" Style="ReservedWordStyle" LookAhead="{NonWordMacro}|\z" CaseSensitivity="Sensitive">
+          <ExplicitPatterns>
+            auto
+            break
+            case
+            const
+            continue
+            default
+            do
+            else
+            enum
+            extern
+            for
+            goto
+            if
+            inline
+            register
+            restrict
+            return
+            sizeof
+            static
+            struct
+            switch
+            typedef
+            union
+            volatile
+            while
+            _Alignas
+            _Alignof
+            _Atomic
+            _Generic
+            _Noreturn
+            _Static_assert
+            _Thread_local
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <!-- Identifier -->
+        <RegexPatternGroup TokenKey="IdentifierToken" PatternValue="@? (_ | {AlphaMacro})({WordMacro})*" />
+        <!-- Operators -->
+        <ExplicitPatternGroup TokenKey="OperatorToken" Style="OperatorStyle">
+          <ExplicitPatterns>
+            = ++ -- + - * / % == != !
+            &amp;&amp; ||
+            &amp; | ~ ^
+            &lt;&lt; &gt;&gt;
+            &lt;= &lt; &gt;= &gt;
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <!-- Numbers -->
+        <RegexPatternGroup TokenKey="RealNumberToken" Style="NumberStyle" LookAhead="{NonWordMacro}|\z">
+          <RegexPattern Value="{DigitMacro}* \. {DigitMacro}+ ([Ee] [\+\-]? {DigitMacro}+)? [FfDdMm]?" />
+          <RegexPattern Value="{DigitMacro}+ [Ee] [\+\-]? {DigitMacro}+ [FfDdMm]" />
+        </RegexPatternGroup>
+        <RegexPatternGroup TokenKey="IntegerNumberToken" Style="NumberStyle" PatternValue="{DigitMacro}+ (([Uu]? [Ll]?) | ([Ll]? [Uu]?))" LookAhead="{NonWordMacro}|\z" />
+        <RegexPatternGroup TokenKey="HexIntegerNumberToken" Style="NumberStyle" PatternValue="0 [xX] {HexDigitMacro}+ (([Uu]? [Ll]?) | ([Ll]? [Uu]?))" LookAhead="{NonWordMacro}|\z" />
+      </PatternGroups>
+      <!-- Child States -->
+      <ChildStates>
+        <ChildState Key="CharacterState" />
+        <ChildState Key="GlobalDefinitionState" />
+        <ChildState Key="ParameterState" />
+        <ChildState Key="StringState" />
+        <ChildState Key="DisabledCodeState" />
+        <ChildState Key="VerbatimStringState" />
+        <ChildState Key="CommentState" />
+        <ChildState Key="MultiLineCommentState" />
+        <ChildState Key="PreProcessorDirectiveState" />
+      </ChildStates>
+    </State>
+
+    <!-- Characters -->
+    <State Key="CharacterState" TokenKey="CharacterDefaultToken" Style="StringDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="CharacterStartToken" Style="StringDelimiterStyle" PatternValue="'" />
+          <RegexPatternGroup Type="EndScope" TokenKey="CharacterEndToken" Style="StringDelimiterStyle" PatternValue="['\n]" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="CharacterEscapedCharacterToken" PatternValue="\\x {HexDigitMacro}{1,4}" />
+        <RegexPatternGroup TokenKey="CharacterEscapedCharacterToken" PatternValue="\\u {HexDigitMacro}{4,4}" />
+        <RegexPatternGroup TokenKey="CharacterEscapedCharacterToken" PatternValue="\\U {HexDigitMacro}{8,8}" />
+        <RegexPatternGroup TokenKey="CharacterEscapedCharacterToken" PatternValue="\\." />
+        <RegexPatternGroup TokenKey="CharacterWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="CharacterWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="CharacterDefaultToken" PatternValue="[^'\n]" />
+      </PatternGroups>
+    </State>
+    
+    <!-- Global Definitions -->
+    <State Key="GlobalDefinitionState" TokenKey="GlobalDefinitionDefaultToken" Style="GlobalDefinitionStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="GlobalDefinitionStartToken" Style="GlobalDefinitionStyle" PatternValue="`@" />
+          <ExplicitPatternGroup Type="EndScope" TokenKey="GlobablDefinitionEndToken" Style="GlobalDefinitionStyle" PatternValue="`" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="GlobalDefinitionDefaultToken" PatternValue="`@\w+`" />
+      </PatternGroups>
+    </State>
+    
+    <!-- Parameter Definitions -->
+    <State Key="ParameterState" TokenKey="ParameterDefaultToken" Style="ParameterStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="ParameterStartToken" Style="ParameterStyle" PatternValue="`$" />
+          <ExplicitPatternGroup Type="EndScope" TokenKey="ParameterEndToken" Style="ParameterStyle" PatternValue="`" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="ParameterDefaultToken" PatternValue="`$\w+`" />
+      </PatternGroups>
+    </State>
+
+    <!-- Strings -->
+    <State Key="StringState" TokenKey="StringDefaultToken" Style="StringDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="StringStartToken" Style="StringDelimiterStyle" PatternValue="&quot;" />
+          <RegexPatternGroup Type="EndScope" TokenKey="StringEndToken" Style="StringDelimiterStyle" PatternValue="[\&quot;\n]" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="StringEscapedCharacterToken" PatternValue="\\x {HexDigitMacro}{1,4}" />
+        <RegexPatternGroup TokenKey="StringEscapedCharacterToken" PatternValue="\\u {HexDigitMacro}{4,4}" />
+        <RegexPatternGroup TokenKey="StringEscapedCharacterToken" PatternValue="\\U {HexDigitMacro}{8,8}" />
+        <RegexPatternGroup TokenKey="StringEscapedCharacterToken" PatternValue="\\." />
+        <RegexPatternGroup TokenKey="StringWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="StringWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="StringDefaultToken" PatternValue="[^\&quot;\n]" />
+      </PatternGroups>
+    </State>
+
+    <!-- Disabled Code -->
+    <State Key="DisabledCodeState" TokenKey="DisabledCodeDefaultToken" Style="Disabled">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="DisabledCodeStartToken" Style="Disabled" PatternValue="#if 0 /* begin disabled code */" />
+          <ExplicitPatternGroup Type="EndScope" TokenKey="DisabledCodeEndToken" Style="Disabled" PatternValue="#endif /* end disabled code */" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <ExplicitPatternGroup TokenKey="DisabledCodeEscapedQuoteToken" PatternValue="&quot;&quot;" />
+        <RegexPatternGroup TokenKey="DisabledCodeWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="DisabledCodeWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="DisabledCodeDefaultToken" PatternValue="[^#if 0 /* begin disabled code */]" />
+      </PatternGroups>
+    </State>
+
+    <!-- Verbatim Strings -->
+    <State Key="VerbatimStringState" TokenKey="VerbatimStringDefaultToken" Style="StringDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="VerbatimStringStartToken" Style="StringDelimiterStyle" PatternValue="@&quot;" />
+          <ExplicitPatternGroup Type="EndScope" TokenKey="VerbatimStringEndToken" Style="StringDelimiterStyle" PatternValue="&quot;" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <ExplicitPatternGroup TokenKey="VerbatimStringEscapedQuoteToken" PatternValue="&quot;&quot;" />
+        <RegexPatternGroup TokenKey="VerbatimStringWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="VerbatimStringWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="VerbatimStringDefaultToken" PatternValue="[^\&quot;]" />
+      </PatternGroups>
+    </State>
+   
+    <!-- Comments -->
+    <State Key="CommentState" TokenKey="CommentDefaultToken" Style="CommentDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="CommentStartToken" Style="CommentDelimiterStyle" PatternValue="//" />
+          <RegexPatternGroup Type="EndScope" TokenKey="CommentEndToken" Style="CommentDelimiterStyle" PatternValue="{LineTerminatorMacro}" IsWhitespace="True" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="CommentDelimiterToken" Style="CommentDelimiterStyle" PatternValue="//" />
+        <RegexPatternGroup TokenKey="CommentWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="CommentURLToken" Style="CommentURLStyle" PatternValue="{URLMacro}" />
+        <RegexPatternGroup TokenKey="CommentLineTerminatorToken" PatternValue="{LineTerminatorMacro}" LookAhead="{LineTerminatorWhitespaceMacro}* // [^/]" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="CommentWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="CommentDefaultToken" PatternValue="{NonLineTerminatorMacro}" />
+      </PatternGroups>
+    </State>
+
+    <!-- MultiLine Comments -->
+    <State Key="MultiLineCommentState" TokenKey="MultiLineCommentDefaultToken" Style="CommentDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope BracketHighlight="True">
+          <ExplicitPatternGroup Type="StartScope" TokenKey="MultiLineCommentStartToken" Style="CommentDelimiterStyle" PatternValue="/*" />
+          <ExplicitPatternGroup Type="EndScope" TokenKey="MultiLineCommentEndToken" Style="CommentDelimiterStyle" PatternValue="*/" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="MultiLineCommentWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="MultiLineCommentLineTerminatorToken" PatternValue="{LineTerminatorMacro}" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="MultiLineCommentURLToken" Style="CommentURLStyle" PatternValue="{URLMacro}" />
+        <RegexPatternGroup TokenKey="MultiLineCommentWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="MultiLineCommentDefaultToken" PatternValue="[^*]" />
+      </PatternGroups>
+    </State>
+    
+    <!-- Pre-Processor Directives -->
+    <State Key="PreProcessorDirectiveState" TokenKey="PreProcessorDirectiveDefaultToken" Style="PreProcessorDirectiveDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+           <RegexPatternGroup Type="StartScope" TokenKey="RegionPreProcessorDirectiveStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="#\s*include" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{PreProcessDirectiveEndLineMacro}" IsWhitespace="True" />
+        </Scope>
+        <Scope>
+          <RegexPatternGroup Type="StartScope" TokenKey="DefinePreProcessorDirectiveStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="#\s*define" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{PreProcessDirectiveEndLineMacro}" IsWhitespace="True" />
+        </Scope>
+        <Scope>
+          <RegexPatternGroup Type="StartScope" TokenKey="UndefPreProcessorDirectiveStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="#\s*undef" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{PreProcessDirectiveEndLineMacro}" IsWhitespace="True" />
+        </Scope>
+        <Scope>
+          <RegexPatternGroup Type="StartScope" TokenKey="IfPreProcessorDirectiveIfStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="#\s*if" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{PreProcessDirectiveEndLineMacro}" IsWhitespace="True" />
+        </Scope>
+        <Scope>
+          <RegexPatternGroup Type="StartScope" TokenKey="IfPreProcessorDirectiveIfDefStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="#\s*ifdef" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{PreProcessDirectiveEndLineMacro}" IsWhitespace="True" />
+        </Scope>
+        <Scope>
+          <RegexPatternGroup Type="StartScope" TokenKey="IfPreProcessorDirectiveIfNDefStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="#\s*ifndef" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{PreProcessDirectiveEndLineMacro}" IsWhitespace="True" />
+        </Scope>
+        <Scope>
+          <RegexPatternGroup Type="StartScope" TokenKey="IfPreProcessorDirectiveElIfStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="#\s*elif" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{PreProcessDirectiveEndLineMacro}" IsWhitespace="True" />
+        </Scope>
+        <Scope>
+          <RegexPatternGroup Type="StartScope" TokenKey="IfPreProcessorDirectiveElseStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="#\s*else" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{PreProcessDirectiveEndLineMacro}" IsWhitespace="True" />
+        </Scope>
+        <Scope>
+          <RegexPatternGroup Type="StartScope" TokenKey="IfPreProcessorDirectiveEndIfStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="#\s*endif" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{PreProcessDirectiveEndLineMacro}" IsWhitespace="True" />
+        </Scope>
+        <Scope>
+          <RegexPatternGroup Type="StartScope" TokenKey="LinePreProcessorDirectiveStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="#\s*line" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{PreProcessDirectiveEndLineMacro}" IsWhitespace="True" />
+        </Scope>
+        <Scope>
+          <RegexPatternGroup Type="StartScope" TokenKey="PragmaPreProcessorDirectiveStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="#\s*pragma" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{PreProcessDirectiveEndLineMacro}" IsWhitespace="True" />
+        </Scope>
+        <Scope>
+          <RegexPatternGroup Type="StartScope" TokenKey="ErrorPreProcessorDirectiveStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="#\s*error" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{PreProcessDirectiveEndLineMacro}" IsWhitespace="True" />
+        </Scope>
+        <Scope>
+          <RegexPatternGroup Type="StartScope" TokenKey="WarningPreProcessorDirectiveStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="#\s*warning" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{PreProcessDirectiveEndLineMacro}" IsWhitespace="True" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="PreProcessorDirectiveWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="PreProcessorDirectiveWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="PreProcessorDirectiveDefaultToken" PatternValue="{NonLineTerminatorMacro}" />
+      </PatternGroups>
+      <!-- Child States -->
+      <ChildStates>
+        <ChildState Key="PreProcessorDirectiveCommentState" />
+        <ChildState Key="MultiLineCommentState" />
+        <ChildState Key="PreProcessorDirectiveDefineState" />
+      </ChildStates>
+    </State>
+    
+    <!-- Pre-Processor Directive Comments -->
+    <State Key="PreProcessorDirectiveCommentState" TokenKey="CommentDefaultToken" Style="CommentDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="CommentStartToken" Style="CommentDelimiterStyle" PatternValue="//" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="CommentWhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <RegexPatternGroup TokenKey="CommentURLToken" Style="CommentURLStyle" PatternValue="{URLMacro}" />
+        <RegexPatternGroup TokenKey="CommentWordToken" PatternValue="\w+" />
+        <RegexPatternGroup TokenKey="CommentDefaultToken" PatternValue="{NonLineTerminatorMacro}" />
+      </PatternGroups>
+    </State>
+
+    <!-- Pre-Processor Directive Comments -->
+    <State Key="PreProcessorDirectiveDefineState" TokenKey="PreProcessorDirectiveDefineToken" Style="PreProcessorDirectiveKeywordStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="PreProcessorDirectiveDefineStartToken" Style="PreProcessorDirectiveKeywordStyle" PatternValue="defined" LookAhead="{NonWordMacro}" CaseSensitivity="Sensitive" />
+          <RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="." IsWhitespace="True" />
+          <!--RegexPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="{WhitespaceMacro}" IsWhitespace="True" /-->
+          <!--ExplicitPatternGroup Type="EndScope" TokenKey="PreProcessorDirectiveEndToken" Style="DefaultStyle" PatternValue="." /-->
+        </Scope>
+      </Scopes>
+    </State>
+  </States>
+  
+</SyntaxLanguage>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified"
+    xmlns="http://cypress.com/xsd/cyp3timingparams"
+    targetNamespace="http://cypress.com/xsd/cyp3timingparams"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:p3t="http://cypress.com/xsd/cyp3timingtypes"
+>
+
+  <xs:import namespace="http://cypress.com/xsd/cyp3timingtypes" schemaLocation="cyp3timingtypes.xsd" />
+  
+  <xs:element name="Timing_Parameters">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Condition" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Temperature" type="p3t:TempType" minOccurs="0" />
+              <xs:element name="DisplayTemperature" type="xs:string" minOccurs="0" />
+              <xs:element name="Voltage" type="p3t:VoltType" minOccurs="0" />
+              <xs:element name="InputVoltage" type="p3t:VoltType" minOccurs="0" />
+              <xs:element name="SpeedGrade" type="p3t:SpeedGradeType" minOccurs="0" />
+              <xs:choice>
+                <xs:element name="Block" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="Delay" type="p3t:DelayType" minOccurs="1" maxOccurs="unbounded" />
+                    </xs:sequence>
+                    <xs:attribute name="name" type="xs:string" />
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Scale" minOccurs="1" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:attribute name="base" type="xs:string" use="required" />
+                    <xs:attribute name="scalefactor" type="xs:decimal" use="required" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required" />
+            <xs:attribute name="displayname" type="xs:string" use="optional" />
+            <xs:attribute name="liberty" type="xs:string" />
+            <xs:attribute name="enableByDefault" type="xs:boolean" default="true" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="device" type="xs:string" use="required" />
+      <xs:attribute name="default" type="xs:string" use="required" />
+    </xs:complexType>
+    <xs:unique name="cond_name_unique">
+      <xs:selector xpath="Condition" />
+      <xs:field xpath="@name" />
+    </xs:unique>
+    <xs:key name="cond_name_key">
+      <xs:selector xpath="Condition" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <xs:keyref name="cond_base_ref" refer="cond_name_key">
+      <xs:selector xpath="Scale" />
+      <xs:field xpath="@base" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

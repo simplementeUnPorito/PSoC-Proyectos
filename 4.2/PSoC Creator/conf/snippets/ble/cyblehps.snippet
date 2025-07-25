@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_HpsRegisterAttrCallback</Title>
+			<Shortcut>CyBle_HpsRegisterAttrCallback</Shortcut>
+			<Description>BLE HPS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_HpsRegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_HpsCallBack</Default>
+					<ToolTip>BLE HPS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_HpsCallBack</Title>
+			<Shortcut>CyBle_HpsCallBack</Shortcut>
+			<Description>BLE CallBack function for HTTP Proxy service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_HpsCallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>HPS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>HPS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CYBLE_HPS_SERVER
+        case CYBLE_EVT_HPSS_NOTIFICATION_ENABLED:
+            break;
+		
+		case CYBLE_EVT_HPSS_NOTIFICATION_DISABLED:
+            break;
+
+		case CYBLE_EVT_HPSS_CHAR_WRITE:
+            break;
+
+
+    #endif /* CYBLE_HPS_SERVER */
+
+    #ifdef CYBLE_HPS_CLIENT
+        case CYBLE_EVT_HPSC_NOTIFICATION:
+            break;
+
+        case CYBLE_EVT_HPSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_HPSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_HPSC_WRITE_DESCR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_HPSC_WRITE_CHAR_RESPONSE:
+            break;
+		
+    #endif /* CYBLE_HPS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

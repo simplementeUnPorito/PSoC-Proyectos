@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_PLXS_RegisterAttrCallback</Title>
+			<Shortcut>Cy_BLE_PLXS_RegisterAttrCallback</Shortcut>
+			<Description>BLE PLXS_ register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_PLXS_RegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>Cy_BLE_PLXS_CallBack</Default>
+					<ToolTip>BLE PLXS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_PLXS_CallBack</Title>
+			<Shortcut>Cy_BLE_PLXS_CallBack</Shortcut>
+			<Description>BLE CallBack function for Pulse Oximeter service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_PLXS_CallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>PLXS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>PLXS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+	switch($eventCode$)
+	{
+	#ifdef CY_BLE_PLXS_SERVER
+		case CY_BLE_EVT_PLXSS_INDICATION_ENABLED:
+			break;
+			
+		case CY_BLE_EVT_PLXSS_INDICATION_DISABLED:
+			break;
+			
+		case CY_BLE_EVT_PLXSS_INDICATION_CONFIRMED:
+			break;
+			
+		case CY_BLE_EVT_PLXSS_NOTIFICATION_ENABLED:
+			break;
+			
+		case CY_BLE_EVT_PLXSS_NOTIFICATION_DISABLED:
+			break;
+			
+		case CY_BLE_EVT_PLXSS_WRITE_CHAR:
+		break;
+	#endif /* CY_BLE_PLXS_SERVER */
+
+	#ifdef CY_BLE_PLXS_CLIENT
+		case CY_BLE_EVT_PLXSC_INDICATION:
+			break;
+			
+		case CY_BLE_EVT_PLXSC_NOTIFICATION:
+			break;
+			
+		case CY_BLE_EVT_PLXSC_READ_CHAR_RESPONSE:
+			break;
+			
+		case CY_BLE_EVT_PLXSC_WRITE_CHAR_RESPONSE:
+			break;
+			
+		case CY_BLE_EVT_PLXSC_READ_DESCR_RESPONSE:
+			break;
+			
+		case CY_BLE_EVT_PLXSC_WRITE_DESCR_RESPONSE:
+			break;
+			
+		case CY_BLE_EVT_PLXSC_TIMEOUT:
+			break;
+	#endif /* CY_BLE_PLXS_CLIENT */
+	}
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

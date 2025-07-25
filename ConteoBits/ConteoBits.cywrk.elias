@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWrkspcCustomData" version="4">
+<CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
+<userData>
+<dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
+<TreeKeys>
+<v>Source</v>
+<v>Components</v>
+<v>Output</v>
+</TreeKeys>
+<TreeStates>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="ConteoBits\ConteoBits\Source Files\funciones.h">
+<ExpandedNodeIds>
+<v>ConteoBits</v>
+<v>ConteoBits\ConteoBits</v>
+<v>ConteoBits\ConteoBits\TopDesign</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\Pins</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\Analog</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\Clocks</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\Interrupts</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\DMA</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\System</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\Directives</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\Flash Security</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\EEPROM</v>
+<v>ConteoBits\ConteoBits\Header Files</v>
+<v>ConteoBits\ConteoBits\Header Files\cyapicallbacks.h</v>
+<v>ConteoBits\ConteoBits\Source Files</v>
+<v>ConteoBits\ConteoBits\Source Files\ContarBits.s</v>
+<v>ConteoBits\ConteoBits\Source Files\funciones.c</v>
+<v>ConteoBits\ConteoBits\Source Files\funciones.h</v>
+<v>ConteoBits\ConteoBits\Source Files\main.c</v>
+<v>ConteoBits\ConteoBits\Generated_Source\PSoC5</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>ConteoBits</v>
+<v>ConteoBits\ConteoBits</v>
+<v>ConteoBits\ConteoBits\TopDesign</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\Pins</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\Analog</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\Clocks</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\Interrupts</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\DMA</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\System</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\Directives</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\Flash Security</v>
+<v>ConteoBits\ConteoBits\ConteoBits.cydwr\EEPROM</v>
+<v>ConteoBits\ConteoBits\Header Files</v>
+<v>ConteoBits\ConteoBits\Header Files\cyapicallbacks.h</v>
+<v>ConteoBits\ConteoBits\Source Files</v>
+<v>ConteoBits\ConteoBits\Source Files\ContarBits.s</v>
+<v>ConteoBits\ConteoBits\Source Files\funciones.c</v>
+<v>ConteoBits\ConteoBits\Source Files\funciones.h</v>
+<v>ConteoBits\ConteoBits\Source Files\main.c</v>
+<v>ConteoBits\ConteoBits\Generated_Source</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>ConteoBits</v>
+<v>ConteoBits\ConteoBits</v>
+<v>ConteoBits\ConteoBits\TopDesign</v>
+<v>ConteoBits\ConteoBits\TopDesign\TopDesign.cysch</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>ConteoBits</v>
+<v>ConteoBits\ConteoBits</v>
+<v>ConteoBits\ConteoBits\TopDesign</v>
+<v>ConteoBits\ConteoBits\TopDesign\TopDesign.cysch</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>ConteoBits</v>
+<v>ConteoBits\ConteoBits</v>
+<v>ConteoBits\ConteoBits\CortexM3</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\Cm3Start.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\ContarBits.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\CyDmac.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\CySpc.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\funciones.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\main.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\PC.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_BOOT.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_INT.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_IntClock.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_PM.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\ConteoBits.elf</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\ConteoBits.hex</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\ConteoBits.map</v>
+<v>ConteoBits\ConteoBits\ConteoBits.gpdsc</v>
+<v>ConteoBits\ConteoBits\ConteoBits.rpt</v>
+<v>ConteoBits\ConteoBits\ConteoBits_timing.html</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>ConteoBits</v>
+<v>ConteoBits\ConteoBits</v>
+<v>ConteoBits\ConteoBits\CortexM3</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\Cm3Start.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\ContarBits.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\CyDmac.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\CySpc.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\funciones.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\main.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\PC.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_BOOT.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_INT.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_IntClock.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_PM.lst</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\ConteoBits.elf</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\ConteoBits.hex</v>
+<v>ConteoBits\ConteoBits\CortexM3\ARM_GCC_541\Debug\ConteoBits.map</v>
+<v>ConteoBits\ConteoBits\ConteoBits.gpdsc</v>
+<v>ConteoBits\ConteoBits\ConteoBits.rpt</v>
+<v>ConteoBits\ConteoBits\ConteoBits_timing.html</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStates>
+<TreeKeysV2>
+<v>Datasheet</v>
+</TreeKeysV2>
+<TreeStatesV2>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>ConteoBits</v>
+<v>ConteoBits\ConteoBits</v>
+<v>ConteoBits\ConteoBits\PSoC 5LP Architecture TRM</v>
+<v>ConteoBits\ConteoBits\CY8C58LP Family Datasheet</v>
+<v>ConteoBits\ConteoBits\System Reference Guides</v>
+<v>ConteoBits\ConteoBits\System Reference Guides\cy_boot_v6_0</v>
+<v>ConteoBits\ConteoBits\cy_pins_v2_20</v>
+<v>ConteoBits\ConteoBits\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>ConteoBits\ConteoBits\UART_v2_50.pdf</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>ConteoBits</v>
+<v>ConteoBits\ConteoBits</v>
+<v>ConteoBits\ConteoBits\PSoC 5LP Architecture TRM</v>
+<v>ConteoBits\ConteoBits\CY8C58LP Family Datasheet</v>
+<v>ConteoBits\ConteoBits\System Reference Guides</v>
+<v>ConteoBits\ConteoBits\System Reference Guides\cy_boot_v6_0</v>
+<v>ConteoBits\ConteoBits\cy_pins_v2_20</v>
+<v>ConteoBits\ConteoBits\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>ConteoBits\ConteoBits\UART_v2_50.pdf</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStatesV2>
+</CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
+</dataGuid>
+</userData>
+</CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
+<Unloaded />
+<OpenDocs>
+<name v=".\ConteoBits.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\ConteoBits.cydsn\ConteoBits.cydwr" />
+<name v=".\ConteoBits.cydsn\ContarBits.s" />
+<name v=".\ConteoBits.cydsn\main.c" />
+<name v=".\ConteoBits.cydsn\funciones.h" />
+<name v=".\ConteoBits.cydsn\funciones.c" />
+</OpenDocs>
+<OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1098, 487" SelectedTabbedMdiWindow="bb590eec-b087-4044-96ec-1c30da4c969a"><DocumentWindow Key="C:\Users\elias\OneDrive\Documents\Documentos\PSoC Creator\ConteoBits\ConteoBits.cydsn\TopDesign\TopDesign.cysch" Guid="b470df83-7b50-4b8d-a926-9dce31c6e11d" /><DocumentWindow Key="C:\Users\elias\OneDrive\Documents\Documentos\PSoC Creator\ConteoBits\ConteoBits.cydsn\ConteoBits.cydwr" Guid="69cf764c-7ffb-4c1d-b972-a89f0059fc80" /><DocumentWindow Key="C:\Users\elias\OneDrive\Documents\Documentos\PSoC Creator\ConteoBits\ConteoBits.cydsn\ContarBits.s" Guid="69ab859f-0660-44df-a20f-dd3d79ff62a8" /><DocumentWindow Key="C:\Users\elias\OneDrive\Documents\Documentos\PSoC Creator\ConteoBits\ConteoBits.cydsn\main.c" Guid="bb590eec-b087-4044-96ec-1c30da4c969a" /><DocumentWindow Key="C:\Users\elias\OneDrive\Documents\Documentos\PSoC Creator\ConteoBits\ConteoBits.cydsn\funciones.h" Guid="ab0e1bcf-adec-4d8f-8327-0eb4fd0a789c" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="7fc9e867-6b67-4645-b6da-6879527565d3" /><DocumentWindow Key="C:\Users\elias\OneDrive\Documents\Documentos\PSoC Creator\ConteoBits\ConteoBits.cydsn\funciones.c" Guid="d6112a49-f0b0-4392-9e75-5e7b71a844d2" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+<config v="" />
+<AutoUpdate v="true" />
+</CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
+</CyXmlSerializer>

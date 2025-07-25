@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Welcome to PSoC Creator</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+<LINK href="start_page/styles.css" type=text/css rel=stylesheet>
+<LINK href="start_page/SpryTabbedPanels.css" type=text/css rel=stylesheet>
+<style type="text/css">
+<!--
+		#container {
+			float: left;
+			background: url(start_page/tab_bg.gif) top left repeat-y;
+			border-left: solid 1px #d0d0d0;
+			border-bottom: solid 1px #d0d0d0;
+		}
+
+		#container div {
+			float: left;
+		}
+
+		.TabbedPanels {
+			width: 500px;
+		}
+
+		.TabbedPanelsTab {
+			font-family: sans-serif;
+			font-size: 12px;
+		}
+
+		hr {
+			clear: left;
+		}
+
+		.TabbedPanels1 {
+			width: 500px;
+		}
+
+		.TabbedPanelsTab1 {
+			font-family: sans-serif;
+			font-size: 12px;
+		}
+-->
+</style>
+
+<script language="JavaScript" type="text/javascript" src="start_page/SpryTabbedPanels.js"></script>
+
+</HEAD>
+<body>
+<P class=Title>Welcome to PSoC<sup>&reg;</sup> Creator&trade;</P>
+
+<P class=BodyText>PSoC Creator provides a unique and powerful PSoC hardware/software co-design environment, with:</P>
+<ul>
+<li>State-of-the-art software development IDE <P>
+
+<li>Revolutionary graphical design editor<P>
+</ul>
+
+<P class=BodyText>Cypress provides training material via our web site, located at <a href="http://www.cypress.com/go/creatorstart/creatortraining" target="_new"> <b>PSoC Creator Training</b></a>. There are also tutorials and walkthroughs provided in the PSoC Creator Help, accessible from the <b>Help</b> menu. Plus, you can install various PSoC Kits, which contain tutorials and walkthroughs as well.</P>
+
+<P class=BodyText>The following section provides a general overview of creating an embedded design using PSoC Creator. The main steps are: Configure, Develop, Debug, and Reuse. Click on each tab below to learn more about each step.</P>
+
+<div id="container">
+
+<div class="VTabbedPanels" id="tp1">
+	<ul class="TabbedPanelsTabGroup">
+		<li class="TabbedPanelsTab" tabindex="0">Configure</li>
+		<li class="TabbedPanelsTab" tabindex="1">Develop</li>
+		<li class="TabbedPanelsTab" tabindex="2">Debug</li>
+		<li class="TabbedPanelsTab" tabindex="3">Reuse</li>
+	</ul>
+	<div class="TabbedPanelsContentGroup">
+
+		<div class="TabbedPanelsContent">
+<P class=ContentText>Unlike fixed function microcontrollers, PSoC allows you to choose the on-chip peripherals you need. Instead of settling for a part that has most of what you need and a lot of what you don't, with PSoC you simply configure the device with your chosen functionality. No more, no less.</P>
+
+<P class=ContentText>And the configuration process couldn't be easier. You choose peripherals from a catalog of pre-defined and pre-tested components and simply drag them into your design schematic. The components range from simple gates for glue logic, through complete implementations of digital and analog peripheral functions, up to sophisticated communications and applications solutions like USB and CapSense. Then choose your clock frequencies, connect peripheral I/O to pins, and you're done. The built-in configuration tools map your design into the device and calculate the clock setup and routing automatically.</P>
+ 
+<P class=ContentText>But this is not the complex hardware configuration process you've seen before. All components are parameterized so that the details of the implementation are abstracted away. You set up components in terms that are natural to their function; such as the baud rate for a UART, power and gain for an amplifier, or duty cycle of a PWM.</P>
+
+<P class=ContentText>You are about to see that, like no other platform available today, PSoC Creator and PSoC form a uniquely flexible combination to design and build your own system-on-chip in less time than it takes you to read the competitors' data sheets! </P>
+            </div>
+
+		<div class="TabbedPanelsContent">
+<P class=ContentText>An embedded device is only as good as the software controlling it. With those old-fashioned fixed function microcontrollers, that software can be really difficult to get right. There is assembler code that won't port to new architectures, memory maps that vary between devices, and peripherals with complex and confusing register sets. PSoC Creator avoids those problems by combining a C-based development flow with automatically generated software APIs for the components in your design.</P>
+
+<P class=ContentText>A C-based flow enables portability across both the PSoC3 and PSoC5 CPU architectures. We guarantee that our boot code and component APIs can be re-targeted to new devices, regardless of the CPU, with just a re-build of the application. We even provide free compilers with no restrictions on use, application size or the time you can use it.</P>
+
+<P class=ContentText>Our APIs make controlling your on-chip peripherals simple and fast. They are consistently named so you soon get used to using them and can often work with a new component without even opening the datasheet to check the software interface. You don't need to learn esoteric register names and write ugly macros to manipulate bit-fields. The APIs reduce coding errors and ensure correct interaction with the peripheral so the whole software development is faster, easier and less error prone.</P> 
+
+<P class=ContentText>Helping you write this code is a built-in modern software editor - providing popular features like keyword coloring, brace-matching, outlining, auto-commenting, auto-indenting, and code snippets - that combines with a powerful Workspace Editor to enable the rapid development of sophisticated applications for PSoC devices.</P>
+</div>
+
+		<div class="TabbedPanelsContent">
+<P class=ContentText>When it comes time to debug the application, PSoC Creator has all the modern features of a cross-debugger plus a unique peripheral debug window that shows you the status of the internals of your on-chip components. Other useful features include the "hover" function that shows you the type, address and value of any variable you hover over with the mouse and the ability to set (and remember) breakpoints in your code before even starting the debugger.</P>
+
+<P class=ContentText>Application control is provided by the usual set of execute and stepping functions and a comprehensive suite of windows adds unbeatable visibility into the device's state. In addition to the C and disassembly windows, there are registers and memory, call stack and locals, plus memory and watch windows. All windows can be moved around to create the perfect setup for you and data can be viewed in any desired format and edited in-place.</P>
+
+<P class=ContentText>Host-to-device connectivity is provided by our MiniProg3 programmer/debugger, which connects the PC's USB port to the device JTAG interface. A MiniProg3 is included in every evaluation, development or solution-focused kit we provide and more can be purchased separately. MiniProg3 and every PSoC3 and PSoC5 family support 5-pin JTAG plus the less intrusive 2-pin serial wire option. A compatible set of on-chip instruction and data breakpoint resources ensure a consistent debugging experience regardless of the target CPU architecture.</P>
+</div>
+		<div class="TabbedPanelsContent">
+<P class=ContentText>Central to the principles behind PSoC Creator is design reuse. The encapsulation of a working design into a reusable component makes it quick and easy to create future designs with fewer errors and less cluttered schematics.</P>
+
+<P class=ContentText>All IDEs may support software libraries - be they from the compiler vendor, a third-party, or developed in-house - but a PSoC Creator library can also include hardware configurations. All those board layouts you've made in the past and have carefully integrated into a PSoC device to save money, footprint and time can now be safely stored in a library of your own components to reuse as often as you like in your future designs.</P>
+
+<P class=ContentText>Creating your own components is as easy as drawing the design and having the tool generate a symbol to represent it. Place this component into a library and you're ready for reuse. Any design project that references the library will see the new component in the catalog and use it just like you would any other.</P>
+
+<P class=ContentText>The components you create are full peers of the components we supply with the tool. You can extend them beyond simple schematics by adding your own software API code or using a parameter to give the end-user control over the component setup without opening up the implementation. By leveraging design reuse within PSoC Creator you can quickly build your libraries of designs so that, with each new project you take on, the focus is always on the innovation, not the legacy functionality.</P>
+</div>
+	</div>
+</div>
+<script language="JavaScript" type="text/javascript">
+var tp1 = new Spry.Widget.TabbedPanels("tp1", { defaultTab: 0 });
+</script>
+</div>
+</body>
+</HTML>

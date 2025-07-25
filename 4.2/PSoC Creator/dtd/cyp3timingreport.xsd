@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://cypress.com/xsd/cyp3timingreport"
+    targetNamespace="http://cypress.com/xsd/cyp3timingreport"
+    xmlns:p3t="http://cypress.com/xsd/cyp3timingtypes"
+>
+  
+  <xs:import namespace="http://cypress.com/xsd/cyp3timingtypes" schemaLocation="cyp3timingtypes.xsd" />
+  
+  <xs:group name="nestedTable">
+    <xs:sequence>
+      <xs:element name="table" type="tableType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:group>
+  
+  <xs:complexType name="tableType">
+    <xs:sequence>
+      <xs:element name="columns">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="col">
+              <xs:complexType>
+                <xs:attribute name="name" type="xs:string" use="required" />
+                <xs:attribute name="displayName" type="xs:string" use="required" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element maxOccurs="unbounded" name="row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="td" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:group ref="nestedTable" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="type" type="xs:string" use="required" />
+  </xs:complexType>
+  
+  <xs:complexType name="sectionType">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" minOccurs="0" />
+      <xs:choice maxOccurs="unbounded" >
+        <xs:group ref="nestedTable" />
+        <xs:group ref="nestedSection" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+  </xs:complexType>
+  
+  <xs:group name="nestedSection">
+    <xs:sequence>
+      <xs:element name="section" type="sectionType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:group>
+  
+  <xs:element name="stareport">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Project" type="xs:string" />
+        <xs:element name="BuildTime" type="xs:dateTime" />
+        <xs:element name="Device" type="xs:string" />
+        <xs:element name="DeviceRev" type="xs:string" />
+        <xs:element name="Condition">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Temperature" type="p3t:TempType" />
+              <xs:element name="Voltage" type="p3t:VoltType" />
+              <xs:element name="SpeedGrade" type="p3t:SpeedGradeType" />
+              <xs:any minOccurs="0" maxOccurs="unbounded" /> <!-- Allow device-specific parameters -->
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:group ref="nestedSection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

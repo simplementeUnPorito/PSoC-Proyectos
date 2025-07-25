@@ -1,0 +1,32 @@
+--
+
+--
+-- MRAM_DQ
+--
+library cypress;
+use cypress.lpmpkg.all;
+entity mram_dq is
+    generic(lpm_width : positive := 1;
+     lpm_widthad : positive := 1;
+     lpm_numwords: natural := 1;
+     lpm_indata : regis_type := LPM_REGISTERED;
+     lpm_address_control : regis_type := LPM_REGISTERED;
+     lpm_outdata : regis_type := LPM_REGISTERED;
+     lpm_file : string := "";
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0);
+     address : in bit_vector(lpm_widthad-1 downto 0);
+     q : out bit_vector(lpm_width-1 downto 0);
+     inclock : in bit := zero;
+     outclock : in bit := zero;
+     we : in bit;
+     outreg_ar : in bit := zero);
+end mram_dq;
+
+architecture archlpmbit of Mram_dq is
+
+begin
+    assert (FALSE)
+        report "The MRAM_DQ component is not intended for use in this device."
+        severity error;
+end archlpmbit;

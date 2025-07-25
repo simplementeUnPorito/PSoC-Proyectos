@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_EssRegisterAttrCallback</Title>
+			<Shortcut>CyBle_EssRegisterAttrCallback</Shortcut>
+			<Description>BLE ESS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_EssRegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_EssCallBack</Default>
+					<ToolTip>BLE ESS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_EssCallBack</Title>
+			<Shortcut>CyBle_EssCallBack</Shortcut>
+			<Description>BLE CallBack function for Environmental Sensing service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_EssCallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>ESS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>ESS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CYBLE_ESS_SERVER
+        case CYBLE_EVT_ESSS_INDICATION_ENABLED:
+            break;
+
+        case CYBLE_EVT_ESSS_INDICATION_DISABLED:
+            break;
+
+        case CYBLE_EVT_ESSS_INDICATION_CONFIRMATION:
+            break;
+
+        case CYBLE_EVT_ESSS_NOTIFICATION_ENABLED:
+            break;
+
+        case CYBLE_EVT_ESSS_NOTIFICATION_DISABLED:
+            break;
+
+        case CYBLE_EVT_ESSS_CHAR_WRITE:
+            break;
+
+        case CYBLE_EVT_ESSS_DESCR_WRITE:
+            break;
+    #endif /* CYBLE_ESS_SERVER */
+
+    #ifdef CYBLE_ESS_CLIENT
+        case CYBLE_EVT_ESSC_INDICATION:
+            break;
+
+        case CYBLE_EVT_ESSC_NOTIFICATION:
+            break;
+
+        case CYBLE_EVT_ESSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_ESSC_WRITE_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_ESSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_ESSC_WRITE_DESCR_RESPONSE:
+            break;
+    #endif /* CYBLE_ESS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

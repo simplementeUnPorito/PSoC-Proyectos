@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_LnsRegisterAttrCallback</Title>
+			<Shortcut>CyBle_LnsRegisterAttrCallback</Shortcut>
+			<Description>BLE LNS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_LnsRegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_LnsCallBack</Default>
+					<ToolTip>BLE LNS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_LnsCallBack</Title>
+			<Shortcut>CyBle_LnsCallBack</Shortcut>
+			<Description>BLE CallBack function for Location and Navigation service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_LnsCallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>LNS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>LNS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CYBLE_LNS_SERVER
+        case CYBLE_EVT_LNSS_INDICATION_ENABLED:
+            break;
+
+        case CYBLE_EVT_LNSS_INDICATION_DISABLED:
+            break;
+
+        case CYBLE_EVT_LNSS_INDICATION_CONFIRMED:
+            break;
+
+        case CYBLE_EVT_LNSS_NOTIFICATION_ENABLED:
+            break;
+
+        case CYBLE_EVT_LNSS_NOTIFICATION_DISABLED:
+            break;
+
+        case CYBLE_EVT_LNSS_WRITE_CHAR:
+            break;
+    #endif /* CYBLE_LNS_SERVER */
+
+    #ifdef CYBLE_LNS_CLIENT
+        case CYBLE_EVT_LNSC_INDICATION:
+            break;
+
+        case CYBLE_EVT_LNSC_NOTIFICATION:
+            break;
+
+        case CYBLE_EVT_LNSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_LNSC_WRITE_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_LNSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_LNSC_WRITE_DESCR_RESPONSE:
+            break;
+    #endif /* CYBLE_LNS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

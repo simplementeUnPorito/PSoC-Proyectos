@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<Project Name="CE216197_GPIO_LED_Toggle" WorkspaceName="CE216197.cywrk">
+  <Version>1.11</Version>
+  <Keyword>GPIO</Keyword>
+  <Keyword>Pin</Keyword>
+  <Keyword>LED</Keyword>
+  <Keyword>Switch</Keyword>
+  <Keyword>Button</Keyword> 
+  <Keyword Hidden="true">PDL_GPIO</Keyword>
+  <Keyword Hidden="true">FM0-64L-S6E1C3</Keyword>
+  <Keyword Hidden="true">FM0-V48-S6E1A1</Keyword>
+  <Keyword Hidden="true">FM0</Keyword>
+  <Keyword Hidden="true">FM0+</Keyword>
+  <Description>This application toggles an LED when a user switch is pressed. This demonstrates the use of GPIO for input and output and shows how to read the state of an output pin.
+  </Description>
+  <DeviceFilter>S6E1C3</DeviceFilter>
+  <DeviceFilter>S6E1C1</DeviceFilter>
+  <DeviceFilter>S6E1A1</DeviceFilter>
+  <Document>CE216197.pdf</Document>
+  <MinToolVersion>4.2.0.0</MinToolVersion>
+</Project>

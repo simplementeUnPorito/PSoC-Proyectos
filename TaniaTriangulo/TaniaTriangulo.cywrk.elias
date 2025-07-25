@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWrkspcCustomData" version="4">
+<CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
+<userData>
+<dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
+<TreeKeys>
+<v>Source</v>
+<v>Components</v>
+<v>Output</v>
+</TreeKeys>
+<TreeStates>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="TaniaTriangulo\TaniaTriangulo\Source Files\main.c">
+<ExpandedNodeIds>
+<v>TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo\TopDesign</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\Pins</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\Analog</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\Clocks</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\Interrupts</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\DMA</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\System</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\Directives</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\Flash Security</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\EEPROM</v>
+<v>TaniaTriangulo\TaniaTriangulo\Header Files</v>
+<v>TaniaTriangulo\TaniaTriangulo\Header Files\cyapicallbacks.h</v>
+<v>TaniaTriangulo\TaniaTriangulo\Source Files</v>
+<v>TaniaTriangulo\TaniaTriangulo\Source Files\ContBit.s</v>
+<v>TaniaTriangulo\TaniaTriangulo\Source Files\main.c</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo\TopDesign</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\Pins</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\Analog</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\Clocks</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\Interrupts</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\DMA</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\System</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\Directives</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\Flash Security</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.cydwr\EEPROM</v>
+<v>TaniaTriangulo\TaniaTriangulo\Header Files</v>
+<v>TaniaTriangulo\TaniaTriangulo\Header Files\cyapicallbacks.h</v>
+<v>TaniaTriangulo\TaniaTriangulo\Source Files</v>
+<v>TaniaTriangulo\TaniaTriangulo\Source Files\ContBit.s</v>
+<v>TaniaTriangulo\TaniaTriangulo\Source Files\main.c</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\cy_boot</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\Em_EEPROM_Dynamic</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\PC</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\PC_IntClock</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\cycodeshareexport.ld</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\cycodeshareimport.ld</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\cycodeshareimport.scat</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\cydevice.h</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\cydevice_trm.h</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\cydevicegnu.inc</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\cydevicegnu_trm.inc</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\cydeviceiar.inc</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\cydeviceiar_trm.inc</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\cydevicerv.inc</v>
+<v>TaniaTriangulo\TaniaTriangulo\Generated_Source\PSoC5\cydevicerv_trm.inc</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo\TopDesign</v>
+<v>TaniaTriangulo\TaniaTriangulo\TopDesign\TopDesign.cysch</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo\TopDesign</v>
+<v>TaniaTriangulo\TaniaTriangulo\TopDesign\TopDesign.cysch</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\Cm3Start.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\ContBit.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\CyDmac.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\CySpc.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\main.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\PC.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_BOOT.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_INT.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_IntClock.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_PM.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\TaniaTriangulo.elf</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\TaniaTriangulo.hex</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\TaniaTriangulo.map</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.gpdsc</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.rpt</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo_timing.html</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\Cm3Start.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\ContBit.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\CyDmac.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\CySpc.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\main.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\PC.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_BOOT.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_INT.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_IntClock.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\Listing Files\PC_PM.lst</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\TaniaTriangulo.elf</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\TaniaTriangulo.hex</v>
+<v>TaniaTriangulo\TaniaTriangulo\CortexM3\ARM_GCC_541\Debug\TaniaTriangulo.map</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.gpdsc</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo.rpt</v>
+<v>TaniaTriangulo\TaniaTriangulo\TaniaTriangulo_timing.html</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStates>
+<TreeKeysV2>
+<v>Datasheet</v>
+</TreeKeysV2>
+<TreeStatesV2>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo\PSoC 5LP Architecture TRM</v>
+<v>TaniaTriangulo\TaniaTriangulo\CY8C58LP Family Datasheet</v>
+<v>TaniaTriangulo\TaniaTriangulo\System Reference Guides</v>
+<v>TaniaTriangulo\TaniaTriangulo\System Reference Guides\cy_boot_v6_0</v>
+<v>TaniaTriangulo\TaniaTriangulo\cy_pins_v2_20</v>
+<v>TaniaTriangulo\TaniaTriangulo\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>TaniaTriangulo\TaniaTriangulo\UART_v2_50.pdf</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo</v>
+<v>TaniaTriangulo\TaniaTriangulo\PSoC 5LP Architecture TRM</v>
+<v>TaniaTriangulo\TaniaTriangulo\CY8C58LP Family Datasheet</v>
+<v>TaniaTriangulo\TaniaTriangulo\System Reference Guides</v>
+<v>TaniaTriangulo\TaniaTriangulo\System Reference Guides\cy_boot_v6_0</v>
+<v>TaniaTriangulo\TaniaTriangulo\cy_pins_v2_20</v>
+<v>TaniaTriangulo\TaniaTriangulo\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>TaniaTriangulo\TaniaTriangulo\UART_v2_50.pdf</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStatesV2>
+</CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
+</dataGuid>
+</userData>
+</CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
+<Unloaded />
+<OpenDocs>
+<name v=".\TaniaTriangulo.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\TaniaTriangulo.cydsn\TaniaTriangulo.cydwr" />
+<name v=".\TaniaTriangulo.cydsn\main.c" />
+<name v=".\TaniaTriangulo.cydsn\ContBit.s" />
+</OpenDocs>
+<OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1098, 487" SelectedTabbedMdiWindow="d5bb9dbb-6dda-45d9-92c2-5039a77daa39"><DocumentWindow Key="C:\Users\elias\OneDrive\Documents\Documentos\PSoC Creator\TaniaTriangulo\TaniaTriangulo.cydsn\TopDesign\TopDesign.cysch" Guid="4776cf10-17cb-4ef1-a4b9-433507f2f23a" /><DocumentWindow Key="C:\Users\elias\OneDrive\Documents\Documentos\PSoC Creator\TaniaTriangulo\TaniaTriangulo.cydsn\TaniaTriangulo.cydwr" Guid="3c60f34c-7bae-49cb-b479-9ee5dd7dc3c6" /><DocumentWindow Key="C:\Users\elias\OneDrive\Documents\Documentos\PSoC Creator\TaniaTriangulo\TaniaTriangulo.cydsn\main.c" Guid="d5bb9dbb-6dda-45d9-92c2-5039a77daa39" /><DocumentWindow Key="C:\Users\elias\OneDrive\Documents\Documentos\PSoC Creator\TaniaTriangulo\TaniaTriangulo.cydsn\ContBit.s" Guid="34e13d6a-210a-49b8-a447-741aecdc96ba" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="7fc9e867-6b67-4645-b6da-6879527565d3" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+<config v="" />
+<AutoUpdate v="true" />
+</CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
+</CyXmlSerializer>

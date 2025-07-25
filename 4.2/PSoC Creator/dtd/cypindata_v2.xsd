@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+    targetNamespace="http://cypress.com/xsd/cypindata_v2"
+    elementFormDefault="qualified"
+    xmlns="http://cypress.com/xsd/cypindata_v2"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <xs:element name="pindata">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="capabilities" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="capability" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="value" type="cLiteralInt" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="pins">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="pin" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="pad" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:choice minOccurs="0" maxOccurs="unbounded">
+                          <xs:element name="ffbterm">
+                            <xs:complexType>
+                              <xs:attribute name="ffbtype" type="xs:string" use="required" />
+                              <xs:attribute name="ffbid" type="xs:nonNegativeInteger" use="required" />
+                              <xs:attribute name="term" type="xs:string" use="required" />
+                              <!-- The wire attribute is only used for bus terminals -->
+                              <xs:attribute name="wire" type="xs:nonNegativeInteger" use="optional" />
+                              <!-- The alternative is used for sets of pins like the PSoC 3/5 I2C -->
+                              <xs:attribute name="alternative" type="xs:nonNegativeInteger" use="optional" default="0" />
+                              <xs:attribute name="required" type="xs:boolean" use="optional" default="true" />
+                              <xs:attribute name="resource" type="xs:string" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="function">
+                            <xs:complexType>
+                              <xs:attribute name="name" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:choice>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                        <xs:attribute name="number" type="xs:string" use="required" />
+                        <xs:attribute name="type" type="xs:string" />
+                        <xs:attribute name="portId" type="xs:nonNegativeInteger" />
+                        <xs:attribute name="pinId" type="xs:nonNegativeInteger" />
+                        <xs:attribute name="ioSupplyPin" type="xs:string" />
+                        <xs:attribute name="powerPadNames" type="list" />
+                        <xs:attribute name="dedicatedPadNames" type="list" />
+                        <xs:attribute name="capabilities" type="cLiteralInt" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="number" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="device" type="xs:string" use="required" />
+      <xs:attribute name="package" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:simpleType name="cLiteralInt">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[-+]?([0-9]+|0[0-7]+|0[Xx][0-9A-Fa-f]+)" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="list">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[^;]+(;[^;]+)*" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

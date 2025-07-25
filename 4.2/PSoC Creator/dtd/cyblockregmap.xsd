@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://cypress.com/xsd/cyblockregmap" xmlns:NS="http://cypress.com/xsd/cyblockregmap" targetNamespace="http://cypress.com/xsd/cyblockregmap">
+  <!-- include standard shared XSD type definitions in our namespace. -->
+  <xs:redefine schemaLocation="cyxsdtypes.xsd">
+    <xs:simpleType name="cyIdentifierName">
+      <xs:restriction base="cyIdentifierName" />
+    </xs:simpleType>
+    <xs:simpleType name="cyParsableInteger">
+      <xs:restriction base="cyParsableInteger" />
+    </xs:simpleType>
+  </xs:redefine>
+  <!-- define the root object in a block-register map -->
+  <xs:element name="blockRegMap">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="block" />
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:nonNegativeInteger" use="required" />
+    </xs:complexType>
+  </xs:element>
+  <!-- define an instance of a block -->
+  <xs:element name="block">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="Data" />
+      </xs:sequence>
+      <xs:attribute name="unique_name_space" use="optional" type="xs:boolean" />
+      <xs:attribute name="basename" use="optional" type="cyIdentifierName" />
+      <xs:attribute name="name" use="required" type="cyIdentifierName" />
+      <xs:attribute name="desc" use="optional" type="xs:string" />
+      <xs:attribute name="BASE" type="cyParsableInteger" />
+      <xs:attribute name="SIZE" type="cyParsableInteger" />
+      <xs:attribute name="visible" type="xs:string" />
+      <xs:attribute name="hidden" type="xs:string" />
+      <xs:attribute name="generate_name" use="optional" type="xs:boolean" />
+      <xs:attribute name="psoc_creator" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <!-- define an instance of a register -->
+  <xs:element name="register">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="field" />
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:string" />
+      <xs:attribute name="address" use="required" type="cyParsableInteger" />
+      <xs:attribute name="bitWidth" use="required" type="cyParsableInteger" />
+      <xs:attribute name="desc" use="optional" type="xs:string" />
+      <xs:attribute name="hidden" type="xs:string" />
+      <xs:attribute name="psoc_creator" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <!-- define an instance of a field -->
+  <xs:element name="field">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="value" />
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:string" />
+      <xs:attribute name="from" use="required" type="xs:nonNegativeInteger" />
+      <xs:attribute name="to" use="required" type="xs:nonNegativeInteger" />
+      <xs:attribute name="desc" use="optional" type="xs:string" />
+      <xs:attribute name="resetVal" type="xs:string" />
+      <xs:attribute name="access" type="xs:string" />
+      <xs:attribute name="hidden" type="xs:string" />
+      <xs:attribute name="psoc_creator" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <!-- define an instance of a field value -->
+  <xs:element name="value">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:string" />
+      <xs:attribute name="value" use="required" type="cyParsableInteger" />
+      <xs:attribute name="desc" use="optional" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="memory">
+    <xs:complexType>
+      <xs:all minOccurs="0" maxOccurs="1" />
+      <xs:attribute name="name" use="required" type="cyIdentifierName" />
+      <xs:attribute name="BASE" use="required" type="cyParsableInteger" />
+      <xs:attribute name="bitWidth" use="required" type="cyParsableInteger" />
+      <xs:attribute name="desc" use="optional" type="xs:string" />
+      <xs:attribute name="SIZE" type="cyParsableInteger" use="required" />
+      <xs:attribute name="hidden" type="xs:string" />
+      <xs:attribute name="psoc_creator" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="Data">
+    <xs:choice>
+      <xs:element ref="block" />
+      <xs:element ref="memory" />
+      <xs:element ref="register" />
+    </xs:choice>
+  </xs:group>
+</xs:schema>

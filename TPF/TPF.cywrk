@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_2867d519-54d2-4c01-9830-c51cb08bc3dd type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWorkspaceSerialize" version="5" xml_contents_version="3" name="TPF" persistent="TPF.cywrk" platform="NOT_USED">
+<current_project name=".\Micro1v5.5.cydsn\Micro1v5.5.cyprj" />
+<wrkspc_folders />
+<files />
+<projects>
+<v>.\LCD(No funciona).cydsn\LCD(No funciona).cyprj</v>
+<v>.\LCD.cydsn\LCD.cyprj</v>
+<v>.\Micro1v2.cydsn\Micro1v2.cyprj</v>
+<v>.\Micro1v2.5bug.cydsn\Micro1v2.5bug.cyprj</v>
+<v>.\Micro1v3.cydsn\Micro1v3.cyprj</v>
+<v>C:\Users\elias\OneDrive\Documents\Documentos\PSoC Creator\TPF\ControladorArduino.cydsn\ControladorArduino.cyprj</v>
+<v>.\ADCServo.cydsn\ADCServo.cyprj</v>
+<v>.\ADCServoList.cydsn\ADCServoList.cyprj</v>
+<v>.\Micro1v4.cydsn\Micro1v4.cyprj</v>
+<v>.\Micro1v5.cydsn\Micro1v5.cyprj</v>
+<v>.\Micro1v6.cydsn\Micro1v6.cyprj</v>
+<v>.\Micro1v5.5.cydsn\Micro1v5.5.cyprj</v>
+</projects>
+<workspace_id v="45cac4f4-8b7c-4aa6-92e5-71b2a6e0cae2" />
+<WriteAppVersionLastSavedWith v="4.4.0.80" />
+<WriteAppMarketingVersionLastSavedWith v="4.4" />
+<CyGuid_dcbd9771-0334-43dc-9cc3-fe99dc3c5316 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWorkspaceSerialize+CyPrjDependencyList" version="4">
+<wrkspc_dependencies />
+</CyGuid_dcbd9771-0334-43dc-9cc3-fe99dc3c5316>
+<CyGuid_63b68103-67f5-4406-8da6-5c8625765b82 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWorkspaceSerialize+CyIgnoredSystemDepsList" version="1">
+<wrkspc_dependencies />
+</CyGuid_63b68103-67f5-4406-8da6-5c8625765b82>
+</CyGuid_2867d519-54d2-4c01-9830-c51cb08bc3dd>
+</CyXmlSerializer>

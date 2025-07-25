@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<xs:schema elementFormDefault="qualified" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+  <!-- CyDictionary -->
+  <xs:simpleType name="CyDictionaryKeyType">
+    <xs:union memberTypes="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="CyDictionaryValueType">
+    <xs:union memberTypes="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="CyDictionaryType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="CyDictItem" />
+    </xs:sequence>
+    <xs:attribute name="keyType" type="CyDictionaryKeyType" use="required" />
+    <xs:attribute name="valueType" type="CyDictionaryValueType" use="required" />
+  </xs:complexType>
+  <xs:element name="CyDictionary" type="CyDictionaryType"/>
+
+  <!-- CyDictItem -->
+  <xs:simpleType name="CyDictItemKeyType">
+    <xs:union memberTypes="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="CyDictItemValueType">
+    <xs:union memberTypes="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="CyDictItemType">
+    <xs:attribute name="key" type="xs:string" use="required" />
+    <xs:attribute name="value" type="xs:string" use="required" />
+    <xs:attribute name="keyType" type="CyDictItemKeyType" use="optional"/>
+    <xs:attribute name="valueType" type="CyDictItemValueType" use="optional"/>
+  </xs:complexType>
+  <xs:element name="CyDictItem" type="CyDictItemType" />
+  
+</xs:schema>

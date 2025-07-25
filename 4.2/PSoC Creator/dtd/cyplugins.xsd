@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<xs:schema 
+  elementFormDefault="qualified" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns="http://cypress.com/xsd/cyplugins" 
+  targetNamespace="http://cypress.com/xsd/cyplugins">
+
+  <xs:element name="plugins">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" ref="plugin" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="plugin">
+    <xs:complexType>
+      <xs:attribute name="assembly" type="xs:string" use="required" />
+      <xs:attribute name="classname" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

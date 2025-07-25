@@ -1,0 +1,40 @@
+<html>
+<head>
+<title></title>
+<script type="text/javascript">
+img = new Image()
+setTimeout(check,100)
+
+function loadRemote() {
+  if(img.complete) {
+    if(img.width == 200) {
+      var rand=Math.random()
+      document.getElementById("i1").src="http://www.cypress.com/go/creatorstart"
+      setTimeout(check, 43200000);             // 12 hours
+    } else {
+      document.getElementById("i1").src="psoc_creator_no_connect.html"
+      setTimeout(check, 300000);               // 5 minutes
+    }
+  } else {
+      document.getElementById("i1").src="psoc_creator_no_connect.html"
+      setTimeout(check, 300000);               // 5 minutes
+  }
+}
+
+function check() {
+  if(navigator.onLine) {
+    var rand=Math.random()
+    img.src="http://www.cypress.com/psocCreatorInternetTestImage.gif?rand=?rand=" + rand
+    setTimeout(loadRemote, 5000)          // 5 seconds
+  }
+  else {
+    setTimeout(check, 300000)             // 5 minutes
+  }
+}
+
+</script>
+</head>
+<body style="margin:0px; border:none; overflow:hidden;">
+	<iframe id='i1' src="detect_internet.html" width="100%" height="100%" frameborder="0"></iframe>
+</body>
+</html>

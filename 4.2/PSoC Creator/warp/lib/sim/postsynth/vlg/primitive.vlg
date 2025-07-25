@@ -1,0 +1,5161 @@
+`timescale 1ps/1ps
+module c39kcf (din, dout, enr, enw, ckr, ckw, mrb, efb, hfb, pafeb);
+
+    parameter [45:0] cfgbits = 46'b0;
+    parameter xcmfClockWthCy = 100;
+    parameter xcmfClockWthHi = 100;
+    parameter xcmfClockWthLo = 100;
+    parameter xcmfDinAtClkWrSetup = 100;
+    parameter xcmfDinAtClkWrHold = 100;
+    parameter xcmfEnxAtClockSetup = 100;
+    parameter xcmfEnxAtClockHold = 100;
+    parameter xcmfEfbInAtClkRdSetup = 100;
+    parameter xcmfEfbInAtClkRdHold = 100;
+    parameter xcmfHfbInAtClkRdSetup = 100;
+    parameter xcmfHfbInAtClkRdHold = 100;
+    parameter xcmfEfbInAtClkWrSetup = 100;
+    parameter xcmfEfbInAtClkWrHold = 100;
+    parameter xcmfHfbInAtClkWrSetup = 100;
+    parameter xcmfHfbInAtClkWrHold = 100;
+    parameter xcmfMrbWthLo = 100;
+    parameter xcmfMrbRcr = 100;
+    parameter xcmfRdWrSkewEfb = 100;
+    parameter xcmfRdWrSkewHfb = 100;
+    parameter xcmfRdWrSkewPafeb = 100;
+    parameter xcmfDoutRegReWthHi = 100;
+    parameter xcmfDoutRegReRcr = 100;
+    parameter xcmfClkWr2FlagOut = 100;
+    parameter xcmfClkRd2FlagOut = 100;
+    parameter xcmfMrb2Output = 100;
+    parameter xcmfClock2Dout = 100;
+    parameter xcmfReset2Dout = 100;
+
+    input [7:0] din;
+    inout [7:0] dout;
+    input enr;
+    input enw;
+    input ckr;
+    input ckw;
+    input mrb;
+    inout efb;
+    inout hfb;
+    output pafeb;
+
+    reg [7:0] VHDL2V_dout;
+    reg VHDL2V_efb;
+    reg VHDL2V_hfb;
+    wire[7:0] dout;
+    tri1 mrb;
+    wire efb;
+    wire hfb;
+    reg pafeb;
+    reg [7:0] memdata;
+
+    reg full;
+    reg empt;
+    reg half;
+    reg pafl;
+    reg paem;
+
+    wire wpafl = pafl;
+    wire wpaem = paem;
+
+    reg [7:0] dtmp;
+    reg [7:0] dslice;
+    reg [7:0] mslice;
+    reg [7:0] dierr;
+    reg [7:0] doerr;
+
+    time ckredge;
+    time ckwedge;
+    time mrbedge;
+
+    integer wadd;
+    integer radd;
+    integer idx;
+    integer top;
+
+    reg [7:0] mem [511:0];
+    parameter unk = " Setting output unknown.";
+    reg ckrerr;
+    parameter read_high =
+ {"Read clock high width violation:", unk};
+    parameter read_low =
+ {"Read clock low width violation:", unk};
+    parameter read_cycle =
+ {"Read clock cycle width violation:", unk};
+    reg ckwerr;
+    parameter write_high =
+ {"Write clock high width violation:", unk};
+    parameter write_low =
+ {"Write clock low width violation:", unk};
+    parameter write_cycle =
+ {"Write clock cycle width violation:", unk};
+    reg wdserr;
+    parameter writedata_setup =
+ {"Write data setup violation:", unk};
+    reg wdherr;
+    parameter writedata_hold =
+ {"Write data hold violation:", unk};
+    reg enrserr;
+    parameter readen_setup =
+ {"Read enable setup violation:", unk};
+    reg enrherr;
+    parameter readen_hold =
+ {"Read enable hold violation:", unk};
+    reg enwserr;
+    parameter writeen_setup =
+ {"Write enable setup violation:", unk};
+    reg enwherr;
+    parameter writeen_hold =
+ {"Write enable hold violation:", unk};
+    reg rrcverr;
+    parameter readreset_rcvry =
+ {"Read reset recovery violation:", unk};
+    reg wrcverr;
+    parameter writereset_rcvry =
+ {"Write reset recovery violation:", unk};
+    reg mrberr;
+    parameter reset_width =
+ {"Reset width violation:", unk};
+    parameter write2read_skew1 =
+ "Write to read skew insufficient for current cycle empty/full update.";
+    parameter write2read_skew2 =
+ "Write to read skew insufficient for current cycle almost empty update";
+    parameter read2write_skew2 =
+ "Read to write skew insufficient for current cycle half full update.";
+    parameter read2write_skew3 =
+ "Read to write skew insufficient for current cycle almost full update.";
+    reg refserr;
+    parameter refflag_setup =
+ "Read clock to E/F flag setup violation.";
+    reg refherr;
+    parameter refflag_hold =
+ "E/F flag to read clock hold violation.";
+    reg rhfserr;
+    parameter rhfflag_setup =
+ "Read clock to H/F flag setup violation.";
+    reg rhfherr;
+    parameter rhfflag_hold =
+ "H/F flag to read clock hold violation.";
+    reg wefserr;
+    parameter wefflag_setup =
+ "Write clock to E/F flag setup violation.";
+    reg wefherr;
+    parameter wefflag_hold =
+ "E/F flag to write clock hold violation.";
+    reg whfserr;
+    parameter whfflag_setup =
+ "Write clock to H/F flag setup violation.";
+    reg whfherr;
+    parameter whfflag_hold =
+ "H/F flag to write clock hold violation.";
+
+    initial
+    begin
+ top = 0;
+ idx = 0;
+ radd = 0;
+ wadd = 0;
+ paem = 1'b0;
+ pafl = 1'b1;
+ half = 1'b0;
+ empt = 1'b0;
+ full = 1'b1;
+ VHDL2V_hfb <= 1'bZ;
+ VHDL2V_efb <= 1'bZ;
+    end
+
+    always @(posedge ckr) ckredge = $time;
+    always @(posedge ckw) ckwedge = $time;
+    always @(mrb) mrbedge = $time;
+
+
+    always @(ckr)
+    begin : p1
+ time clkhi;
+ time clklo;
+ if (ckr == 1'b 0)
+ begin
+     if (clkhi != 0 & $time-clkhi < xcmfClockWthHi)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", read_high);
+  $display("Time: ", $time);
+  ckrerr <= 1'b 1;
+  ckrerr <= #(1000) 1'b 0;
+     end
+     clklo = $time;
+ end
+ else if (ckr == 1'b 1 )
+ begin
+     if (clklo != 0 & $time-clklo < xcmfClockWthLo)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", read_low);
+  $display("Time: ", $time);
+  ckrerr <= 1'b 1;
+  ckrerr <= #(1000) 1'b 0;
+     end
+     if (clkhi != 0 & $time-clkhi < xcmfClockWthCy)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", read_cycle);
+  $display("Time: ", $time);
+  ckrerr <= 1'b 1;
+  ckrerr <= #(1000) 1'b 0;
+     end
+     clkhi = $time;
+ end
+    end
+
+
+    always @(ckw)
+    begin : p2
+ time clkhi;
+ time clklo;
+ if (ckw == 1'b 0)
+ begin
+     if (clkhi != 0 & $time-clkhi < xcmfClockWthHi)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", write_high);
+  $display("Time: ", $time);
+  ckwerr <= 1'b 1;
+  ckwerr <= #(1000) 1'b 0;
+     end
+     clklo = $time;
+ end
+ else if (ckw == 1'b 1 )
+ begin
+     if (clklo != 0 & $time-clklo < xcmfClockWthLo)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", write_low);
+  $display("Time: ", $time);
+  ckwerr <= 1'b 1;
+  ckwerr <= #(1000) 1'b 0;
+     end
+     if (clkhi != 0 & $time-clkhi < xcmfClockWthCy)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", write_cycle);
+  $display("Time: ", $time);
+  ckwerr <= 1'b 1;
+  ckwerr <= #(1000) 1'b 0;
+     end
+     clkhi = $time;
+ end
+    end
+
+
+    wire d_dckw;
+    time d_dckwedge;
+    parameter DataSetup =(xcmfDinAtClkWrSetup < 0) ? -xcmfDinAtClkWrSetup :0;
+    parameter wDataSetup = xcmfDinAtClkWrSetup + DataSetup;
+    assign #(DataSetup) d_dckw = ckw;
+    always @(posedge d_dckw) d_dckwedge = $time;
+
+    always @(din or d_dckwedge)
+    begin : p3a
+ time din_ev;
+ if (d_dckwedge == $time)
+     if (din_ev != 0 & $time-din_ev < wDataSetup)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", writedata_setup);
+  $display("Time: ", $time);
+  wdserr <= 1'b 1;
+  wdserr <= #(1000) 1'b 0;
+     end
+ else
+     din_ev = $time;
+    end
+
+
+    wire [7:0] ddin;
+    parameter DataHold =(xcmfDinAtClkWrHold < 0) ? -xcmfDinAtClkWrHold : 0;
+    parameter wDataHold = xcmfDinAtClkWrHold + DataHold;
+    assign #(DataHold) ddin = din;
+
+    always @(ddin or ckwedge)
+    begin : p3b
+ time clk_ev;
+ if (ckwedge == $time)
+     clk_ev = $time;
+ else
+     if (clk_ev != 0 & $time-clk_ev < wDataHold)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", writedata_hold);
+  $display("Time: ", $time);
+  wdherr <= 1'b 1;
+  wdherr <= #(1000) 1'b 0;
+     end
+    end
+
+
+    wire e_dckr;
+    time e_dckredge;
+    parameter EnSetup =(xcmfEnxAtClockSetup < 0) ? -xcmfEnxAtClockSetup :0;
+    parameter rEnSetup = xcmfEnxAtClockSetup + EnSetup;
+    assign #(EnSetup) e_dckr = ckr;
+    always @(posedge e_dckr) e_dckredge = $time;
+
+    always @(enr or e_dckredge)
+    begin : p4a
+ time enr_ev;
+ if (e_dckredge == $time)
+     if (enr_ev != 0 & $time - enr_ev < rEnSetup)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", readen_setup);
+  $display("Time: ", $time);
+  enrserr <= 1'b 1;
+  enrserr <= #(1000) 1'b 0;
+     end
+ else
+     enr_ev = $time;
+    end
+
+
+    wire denr;
+    parameter EnHold =(xcmfEnxAtClockHold < 0) ? -xcmfEnxAtClockHold : 0;
+    parameter rEnHold = xcmfEnxAtClockHold + EnHold;
+    assign #(EnHold) denr = enr;
+
+    always @(denr or ckredge)
+    begin : p4b
+ time clk_ev;
+ if (ckredge == $time)
+     clk_ev = $time;
+ else
+     if (clk_ev != 0 & $time - clk_ev < rEnHold)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", readen_hold);
+  $display("Time: ", $time);
+  enrherr <= 1'b 1;
+  enrherr <= #(1000) 1'b 0;
+     end
+    end
+
+
+    wire e_dckw;
+    time e_dckwedge;
+    assign #(EnSetup) e_dckw = ckw;
+    always @(posedge e_dckw) e_dckwedge = $time;
+
+    always @(enw or e_dckwedge)
+    begin : p5a
+ time enw_ev;
+ if (e_dckwedge == $time)
+     if (enw_ev != 0 & $time - enw_ev < rEnSetup)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", writeen_setup);
+  $display("Time: ", $time);
+  enwserr <= 1'b 1;
+  enwserr <= #(1000) 1'b 0;
+     end
+ else
+     enw_ev = $time;
+    end
+
+
+    wire denw;
+    assign #(EnHold) denw = enw;
+
+    always @(denw or ckwedge)
+    begin : p5b
+ time clk_ev;
+ if (ckwedge == $time)
+     clk_ev = $time;
+ else
+     if (clk_ev != 0 & $time - clk_ev < rEnHold)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", writeen_hold);
+  $display("Time: ", $time);
+  enwherr <= 1'b 1;
+  enwherr <= #(1000) 1'b 0;
+     end
+    end
+
+
+    always @(mrb)
+    begin : p6
+ time mrblo;
+ if (mrb == 1'b 0)
+ begin
+     mrblo = $time;
+ end
+ else
+ begin
+     if (mrblo != 0 & $time - mrblo < xcmfMrbWthLo)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", reset_width);
+  $display("Time: ", $time);
+  mrberr <= 1'b 1;
+  mrberr <= #(1000) 1'b 0;
+     end
+ end
+    end
+
+
+    always @(mrbedge or ckredge)
+    begin : p7
+ time mrblastev;
+ time ckrlastev;
+ if (mrbedge == $time)
+ begin
+     mrblastev = $time;
+ end
+ if (mrb == 1'b 1 & ckredge == $time)
+ begin
+     if (mrblastev != 0 & $time - mrblastev < xcmfMrbRcr)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", readreset_rcvry);
+  $display("Time: ", $time);
+  rrcverr <= 1'b 1;
+  rrcverr <= #(1000) 1'b 0;
+     end
+     ckrlastev = $time;
+ end
+    end
+
+
+    always @(mrbedge or ckwedge)
+    begin : p8
+ time mrblastev;
+ time ckwlastev;
+ if (mrb == $time)
+ begin
+     mrblastev = $time;
+ end
+ if (mrb == 1'b 1 & ckwedge == $time)
+ begin
+     if (mrblastev != 0 & $time - mrblastev < xcmfMrbRcr)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", writereset_rcvry);
+  $display("Time: ", $time);
+  wrcverr <= 1'b 1;
+  wrcverr <= #(1000) 1'b 0;
+     end
+     ckwlastev = $time;
+ end
+    end
+
+
+    wire f_dckr;
+    time f_dckredge;
+    parameter fflgSetupR =(xcmfEfbInAtClkRdSetup < 0) ?
+        -xcmfEfbInAtClkRdSetup :0;
+    parameter rfflgSetupR = xcmfEfbInAtClkRdSetup + fflgSetupR;
+    assign #(fflgSetupR) f_dckr = ckr;
+    always @(posedge f_dckr) f_dckredge = $time;
+
+    always @(f_dckredge or efb)
+    begin : p9a
+ time efb_ev;
+ if (cfgbits[1:0] == 2'b10)
+ if (f_dckredge == $time)
+     if (efb_ev != 0 & $time - efb_ev < rfflgSetupR)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", refflag_setup);
+  $display("Time: ", $time);
+  refserr <= 1'b 1;
+  refserr <= #(1000) 1'b 0;
+     end
+ else
+     efb_ev = $time;
+    end
+
+
+    wire h_dckr;
+    time h_dckredge;
+    parameter hflgSetupR =(xcmfHfbInAtClkRdSetup < 0) ?
+        -xcmfHfbInAtClkRdSetup :0;
+    parameter rhflgSetupR = xcmfHfbInAtClkRdSetup + hflgSetupR;
+    assign #(hflgSetupR) h_dckr = ckr;
+    always @(posedge h_dckr) h_dckredge = $time;
+
+    always @(h_dckredge or hfb)
+    begin : p9b
+ time hfb_ev;
+ if (cfgbits[1:0] == 2'b10)
+ if (h_dckredge == $time)
+     if (hfb_ev != 0 & $time - hfb_ev < rhflgSetupR)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", rhfflag_setup);
+  $display("Time: ", $time);
+  rhfserr <= 1'b 1;
+  rhfserr <= #(1000) 1'b 0;
+     end
+ else
+     hfb_ev = $time;
+    end
+
+
+    wire r_efb;
+    parameter fflgHoldR = (xcmfEfbInAtClkRdHold < 0) ?
+        -xcmfEfbInAtClkRdHold : 0;
+    parameter rfflgHoldR = xcmfEfbInAtClkRdHold + fflgHoldR;
+    assign #(fflgHoldR) r_efb = efb;
+
+    always @(r_efb or ckredge)
+    begin : p9c
+ time clk_ev;
+ if (cfgbits[1:0] == 2'b10)
+ if (ckredge == $time)
+     clk_ev = $time;
+ else
+     if (clk_ev != 0 & $time - clk_ev < rfflgHoldR)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", refflag_hold);
+  $display("Time: ", $time);
+  refherr <= 1'b 1;
+  refherr <= #(1000) 1'b 0;
+     end
+    end
+
+
+    wire r_hfb;
+    parameter hflgHoldR = (xcmfHfbInAtClkRdHold < 0) ?
+        -xcmfHfbInAtClkRdHold : 0;
+    parameter rhflgHoldR = xcmfHfbInAtClkRdHold + hflgHoldR;
+    assign #(hflgHoldR) r_hfb = hfb;
+
+    always @(r_hfb or ckredge)
+    begin : p9d
+ time clk_ev;
+ if (cfgbits[1:0] == 2'b10)
+ if (ckredge == $time)
+     clk_ev = $time;
+ else
+     if (clk_ev != 0 & $time - clk_ev < rhflgHoldR)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", rhfflag_hold);
+  $display("Time: ", $time);
+  rhfherr <= 1'b 1;
+  rhfherr <= #(1000) 1'b 0;
+     end
+    end
+
+
+    wire f_dckw;
+    time f_dckwedge;
+    parameter fflgSetupW =(xcmfEfbInAtClkWrSetup < 0) ?
+        -xcmfEfbInAtClkWrSetup :0;
+    parameter rfflgSetupW = xcmfEfbInAtClkWrSetup + fflgSetupW;
+    assign #(fflgSetupW) f_dckw = ckw;
+    always @(posedge f_dckw) f_dckwedge = $time;
+
+    always @(f_dckwedge or efb)
+    begin : p10a
+ time efb_ev;
+ if (cfgbits[1:0] == 2'b10)
+ if (f_dckwedge == $time)
+     if (efb_ev != 0 & $time - efb_ev < rfflgSetupW)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", wefflag_setup);
+  $display("Time: ", $time);
+  wefserr <= 1'b 1;
+  wefserr <= #(1000) 1'b 0;
+     end
+ else
+     efb_ev = $time;
+    end
+
+
+    wire h_dckw;
+    time h_dckwedge;
+    parameter hflgSetupW =(xcmfHfbInAtClkWrSetup < 0) ?
+        -xcmfHfbInAtClkWrSetup :0;
+    parameter rhflgSetupW = xcmfHfbInAtClkWrSetup + hflgSetupW;
+    assign #(hflgSetupW) h_dckw = ckw;
+    always @(posedge h_dckw) h_dckwedge = $time;
+
+    always @(h_dckwedge or hfb)
+    begin : p10b
+ time hfb_ev;
+ if (cfgbits[1:0] == 2'b10)
+ if (h_dckwedge == $time)
+     if (hfb_ev != 0 & $time - hfb_ev < rhflgSetupW)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", whfflag_setup);
+  $display("Time: ", $time);
+  whfserr <= 1'b 1;
+  whfserr <= #(1000) 1'b 0;
+     end
+ else
+     hfb_ev = $time;
+    end
+
+
+    wire w_efb;
+    parameter fflgHoldW = (xcmfEfbInAtClkWrHold < 0) ?
+        -xcmfEfbInAtClkWrHold : 0;
+    parameter rfflgHoldW = xcmfEfbInAtClkWrHold + fflgHoldW;
+    assign #(fflgHoldW) w_efb = efb;
+
+    always @(w_efb or ckwedge)
+    begin : p10c
+ time clk_ev;
+ if (cfgbits[1:0] == 2'b10)
+ if (ckwedge == $time)
+     clk_ev = $time;
+ else
+     if (clk_ev != 0 & $time - clk_ev < rfflgHoldW)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", wefflag_hold);
+  $display("Time: ", $time);
+  wefherr <= 1'b 1;
+  wefherr <= #(1000) 1'b 0;
+     end
+    end
+
+
+    wire w_hfb;
+    parameter hflgHoldW = (xcmfHfbInAtClkWrHold < 0) ?
+        -xcmfHfbInAtClkWrHold : 0;
+    parameter rhflgHoldW = xcmfHfbInAtClkWrHold + hflgHoldW;
+    assign #(hflgHoldW) w_hfb = hfb;
+
+    always @(w_hfb or ckwedge)
+    begin : p10d
+ time clk_ev;
+ if (cfgbits[1:0] == 2'b10)
+ if (ckwedge == $time)
+     clk_ev = $time;
+ else
+     if (clk_ev != 0 & $time - clk_ev < rhflgHoldW)
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", whfflag_hold);
+  $display("Time: ", $time);
+  whfherr <= 1'b 1;
+  whfherr <= #(1000) 1'b 0;
+     end
+    end
+
+
+    always @(ckredge or ckwedge)
+    begin : p11
+ time ckr_re;
+ time ckw_re;
+ if (cfgbits[1:0] == 2'b01)
+ begin
+     if (ckredge == $time)
+     begin
+  ckr_re = $time;
+     end
+     if (ckwedge == $time)
+     begin
+  ckw_re = $time;
+     end
+     if (ckredge == $time & mrb == 1'b 1)
+     begin
+  if ($time - ckw_re < xcmfRdWrSkewEfb & efb == 1'b 0)
+  begin
+      $display ("\n%m");
+      $write("note: ");
+      $display("%s", write2read_skew1);
+      $display("Time: ", $time);
+  end
+  if ($time - ckw_re < xcmfRdWrSkewPafeb & paem == 1'b 0)
+  begin
+      $display ("\n%m");
+      $write("note: ");
+      $display("%s", write2read_skew2);
+      $display("Time: ", $time);
+  end
+     end
+     if (ckwedge == $time & mrb == 1'b 1)
+     begin
+  if ($time - ckr_re < xcmfRdWrSkewHfb & hfb == 1'b 0)
+  begin
+      $display ("\n%m");
+      $write("note: ");
+      $display("%s", read2write_skew2);
+      $display("Time: ", $time);
+  end
+  if ($time - ckr_re < xcmfRdWrSkewPafeb & pafl == 1'b 0)
+  begin
+      $display ("\n%m");
+      $write("note: ");
+      $display("%s", read2write_skew3);
+      $display("Time: ", $time);
+  end
+     end
+ end
+    end
+
+
+    always @(mrbedge or ckwedge or ckredge or
+      ckwerr or enwserr or enwherr or mrberr or wrcverr or
+                ckrerr or wdserr or wdherr or enrserr or enrherr or rrcverr)
+    begin
+ case (cfgbits[3:2])
+     2'b 00: top = 512;
+     2'b 01: top = 1024;
+     2'b 10: top = 2048;
+     2'b 11: top = 4096;
+ endcase
+
+
+ if (ckwerr | enwserr | enwherr | mrberr | wrcverr | wdserr | wdherr)
+ begin
+     dierr = {8{1'bx}};
+ end
+ else
+ begin
+     dierr = din;
+ end
+
+ if (mrb == 1'b0)
+ begin
+     idx = 0;
+     wadd = 1'b0;
+     radd = 1'b0;
+     doerr = {8{1'b0}};
+ end
+ else
+ begin
+     case (cfgbits[1:0])
+     2'b 01:
+     begin
+  if (ckwedge == $time)
+  begin
+      if ((idx < top) && (enw == 1'b1) && (full != 1'b0))
+      begin
+   idx = idx + 1;
+   case (cfgbits[3:2])
+   2'b 00:
+   begin
+       mem[wadd] = dierr;
+   end
+   2'b 01:
+   begin
+       dslice = mem[wadd/2];
+       case (wadd % 2)
+    1: dslice[7:4] = dierr[3:0];
+    0: dslice[3:0] = dierr[3:0];
+       endcase
+       mem[wadd/2] = dslice;
+   end
+   2'b 10:
+   begin
+       dslice = mem[wadd/4];
+       case (wadd % 4)
+    3: dslice[7:6] = dierr[1:0];
+    2: dslice[5:4] = dierr[1:0];
+    1: dslice[3:2] = dierr[1:0];
+    0: dslice[1:0] = dierr[1:0];
+       endcase
+       mem[wadd/4] = dslice;
+   end
+   2'b 11:
+   begin
+       dslice = mem[wadd/8];
+       dslice[(wadd % 8)] = dierr[0];
+       mem[wadd/8] = dslice;
+   end
+   endcase
+   wadd = wadd + 1'b1;
+   if (wadd >= top)
+   begin
+       wadd = 1'b0;
+   end
+      end
+  end
+  if (ckredge == $time)
+  begin
+      if ((idx > 0) && (enr == 1'b1) && (empt != 1'b0))
+      begin
+   idx = idx - 1;
+   doerr = {8{1'b0}};
+   case (cfgbits[3:2])
+   2'b 00:
+   begin
+       doerr = mem[radd];
+   end
+   2'b 01:
+   begin
+       mslice = mem[radd/2];
+       case (radd % 2)
+    1: doerr[3:0] = mslice[7:4];
+    0: doerr[3:0] = mslice[3:0];
+       endcase
+   end
+   2'b 10:
+   begin
+       mslice = mem[radd/4];
+       case (radd % 4)
+    3: doerr[1:0] = mslice[7:6];
+    2: doerr[1:0] = mslice[5:4];
+    1: doerr[1:0] = mslice[3:2];
+    0: doerr[1:0] = mslice[1:0];
+       endcase
+   end
+   2'b 11:
+   begin
+       mslice = mem[radd/8];
+       doerr[0] = mslice[(radd % 8)];
+   end
+   endcase
+   radd = radd + 1'b1;
+   if (radd >= top)
+   begin
+       radd = 1'b0;
+   end
+      end
+  end
+     end
+     2'b 10:
+     begin
+  if (ckwedge == $time)
+  begin
+      if (!(efb == 1'b0 & hfb == 1'b0) & (enw == 1'b1))
+      begin
+   case (cfgbits[3:2])
+   2'b 00:
+   begin
+       mem[wadd] = dierr;
+   end
+   2'b 01:
+   begin
+       dslice = mem[wadd/2];
+       case (wadd % 2)
+    1: dslice[7:4] = dierr[3:0];
+    0: dslice[3:0] = dierr[3:0];
+       endcase
+       mem[wadd/2] = dslice;
+   end
+   2'b 10:
+   begin
+       dslice = mem[wadd/4];
+       case (wadd % 4)
+    3: dslice[7:6] = dierr[1:0];
+    2: dslice[5:4] = dierr[1:0];
+    1: dslice[3:2] = dierr[1:0];
+    0: dslice[1:0] = dierr[1:0];
+       endcase
+       mem[wadd/4] = dslice;
+   end
+   2'b 11:
+       begin
+    dslice = mem[wadd/8];
+    dslice[(wadd % 8)] = dierr[0];
+    mem[wadd/8] = dslice;
+       end
+   endcase
+   wadd = wadd + 1'b1;
+   if (wadd >= top)
+   begin
+       wadd = 1'b0;
+   end
+      end
+  end
+  if (ckredge == $time)
+  begin
+      if (!(efb == 1'b0 & hfb == 1'b1) & (enr == 1'b1))
+      begin
+   doerr = {8{1'b0}};
+   case (cfgbits[3:2])
+   2'b 00:
+   begin
+       doerr = mem[radd];
+   end
+   2'b 01:
+   begin
+       mslice = mem[radd/2];
+       case (radd % 2)
+    1: doerr[3:0] = mslice[7:4];
+    0: doerr[3:0] = mslice[3:0];
+       endcase
+   end
+   2'b 10:
+   begin
+       mslice = mem[radd/4];
+       case (radd % 4)
+    3: doerr[1:0] = mslice[7:6];
+    2: doerr[1:0] = mslice[5:4];
+    1: doerr[1:0] = mslice[3:2];
+    0: doerr[1:0] = mslice[1:0];
+       endcase
+   end
+   2'b 11:
+   begin
+       mslice = mem[radd/8];
+       doerr[0] = mslice[(radd % 8)];
+   end
+   endcase
+   radd = radd + 1'b1;
+   if (radd >= top)
+   begin
+       radd = 1'b0;
+   end
+      end
+  end
+     end
+     default:
+  ;
+     endcase
+ end
+
+
+ if(ckrerr | enrserr | enrherr | mrberr | rrcverr)
+ begin
+     dtmp = {8{1'bx}};
+ end
+ else
+ begin
+     dtmp = doerr;
+ end
+
+ if (mrbedge == $time)
+ begin
+     VHDL2V_dout <= #(xcmfReset2Dout) {8{1'b0}};
+ end
+ else
+ begin
+     VHDL2V_dout <= #(xcmfClock2Dout) dtmp;
+ end
+
+ case (cfgbits[1:0])
+ 2'b 01:
+ begin
+     if (mrbedge == $time & mrb == 1'b0)
+     begin
+  empt <= #(xcmfMrb2Output) 1'b0;
+  paem <= #(xcmfMrb2Output) 1'b0;
+  half <= #(xcmfMrb2Output) 1'b1;
+  full <= #(xcmfMrb2Output) 1'b1;
+  pafl <= #(xcmfMrb2Output) 1'b1;
+     end
+     else
+     begin
+  if (ckredge == $time)
+  begin
+      if (idx <= 0)
+      begin
+   empt <= #(xcmfClkRd2FlagOut) 1'b0;
+      end
+      else
+      begin
+   empt <= #(xcmfClkRd2FlagOut) 1'b1;
+      end
+      if (idx >= top / 2)
+      begin
+   half <= #(xcmfClkWr2FlagOut) 1'b0;
+      end
+      else
+      begin
+   half <= #(xcmfClkWr2FlagOut) 1'b1;
+      end
+      if (((idx <= (cfgbits[45:35])) && (top == 4096)) ||
+   ((idx <= (cfgbits[45:36])) && (top == 2048)) ||
+   ((idx <= (cfgbits[45:37])) && (top == 1024)) ||
+   ((idx <= (cfgbits[45:38])) && (top == 512)))
+      begin
+   paem <= #(xcmfClkRd2FlagOut) 1'b0;
+      end
+      else
+      begin
+   paem <= #(xcmfClkRd2FlagOut) 1'b1;
+      end
+  end
+  if (ckwedge == $time)
+  begin
+      if (idx >= top)
+      begin
+   full <= #(xcmfClkWr2FlagOut) 1'b0;
+      end
+      else
+      begin
+   full <= #(xcmfClkWr2FlagOut) 1'b1;
+      end
+      if (idx >= top / 2)
+      begin
+   half <= #(xcmfClkWr2FlagOut) 1'b0;
+      end
+      else
+      begin
+   half <= #(xcmfClkWr2FlagOut) 1'b1;
+      end
+      if (((top - idx <= (cfgbits[45:35])) && (top == 4096)) ||
+   ((top - idx <= (cfgbits[45:36])) && (top == 2048)) ||
+   ((top - idx <= (cfgbits[45:37])) && (top == 1024)) ||
+   ((top - idx <= (cfgbits[45:38])) && (top == 512)))
+      begin
+   pafl <= #(xcmfClkWr2FlagOut) 1'b0;
+      end
+      else
+      begin
+   pafl <= #(xcmfClkWr2FlagOut) 1'b1;
+      end
+  end
+     end
+ end
+ default:
+     ;
+ endcase
+    end
+
+    always @(half or full or empt or pafl or paem)
+    begin
+ case (cfgbits[1:0])
+ 2'b 01:
+ begin
+     VHDL2V_hfb <= half;
+     VHDL2V_efb <= full & empt;
+     pafeb <= pafl & paem & full & empt;
+ end
+ default:
+ begin
+     VHDL2V_hfb <= 1'bZ;
+     VHDL2V_efb <= 1'bZ;
+ end
+ endcase
+    end
+
+    assign dout = VHDL2V_dout;
+    assign hfb = VHDL2V_hfb;
+    assign efb = VHDL2V_efb;
+
+endmodule
+`timescale 1ps/1ps
+module c39kck (clk, nios, lock, glclk);
+
+    parameter [63:0] cfgbits = 64'b0;
+    parameter xplPulseWthLo = 100;
+    parameter xplPulseWthHi = 100;
+    parameter xplMinInputDuty = 30;
+    parameter xplMaxInputDuty = 70;
+    parameter xplJitterUncertainty = 100;
+    parameter xplZeroFBUncertainty = 100;
+    parameter xplTreeFBUncertainty = 100;
+    parameter xplMinPinClkPeriod = 100;
+    parameter xplMaxPinClkPeriod = 100;
+    parameter xplLockTime = 100;
+    parameter xplClockTreeOffset = 100;
+    parameter xckPin2GClkDirect = 100;
+    parameter xplSpreadFreqPercent = 1.0;
+    parameter xplSpreadFreqKHz = 1.0;
+
+    input [3:0] clk;
+    reg [3:0] tmpglclk;
+    input nios;
+    output lock;
+    output[3:0] glclk;
+    reg lock;
+    reg [3:0] glclk;
+
+    reg feedback;
+    reg int_fdbk;
+    reg tmp_fdbk;
+    reg vco;
+    reg plllock;
+    reg syncb;
+    time cyc;
+    integer mult;
+    reg [3:0] pllclk;
+    wire[3:0] xclk;
+    reg [7:0] pllout;
+    reg tracking;
+    reg speedup;
+    reg slowdown;
+    reg killvco;
+    reg switch;
+    time ckwidth;
+    time fbwidth;
+    time kpwidth;
+    time fbevent;
+    time clkedge;
+
+    reg [8:0] divide [3:0];
+    reg [8:0] phase [3:0];
+    reg [3:0] fourbits;
+    reg [2:0] threebits;
+
+
+    parameter simLockTime = 3000000;
+
+    parameter clk_high = "Clock high width violation.";
+    parameter clk_low = "Clock low width violation.";
+    parameter clk_cycle_min = "Clock cycle minimum width violation.";
+    parameter clk_cycle_max = "Clock cycle maximum width violation.";
+    parameter clk_duty_cycle = "Clock duty cycle violation.";
+    parameter JitterSpec = 0.01;
+
+    initial
+    begin
+ syncb = 1'b1;
+ plllock = 1'b0;
+ feedback = 1'b0;
+ int_fdbk = 1'b0;
+ tmp_fdbk = 1'b0;
+ vco = 1'b0;
+ cyc = 0;
+ ckwidth = 0;
+ fbwidth = 0;
+ kpwidth = 0;
+ switch = 1'b0;
+    end
+
+
+    always @(clk[0])
+    begin : CLOCK_CHECK
+ time clkhi;
+ time clklo;
+ if (cfgbits[0] == 1'b1)
+ begin
+     if (clk[0] == 1'b0)
+     begin
+  if (~(clkhi == 0 | $time-clkhi >= xplPulseWthHi))
+  begin
+      $display ("\n%m");
+      $write("failure: ");
+      $display("%s", clk_high);
+      $finish;
+  end
+  clklo = $time;
+     end
+     else if (clk[0] == 1'b1)
+     begin
+  if (~(clklo == 0 | $time-clklo >= xplPulseWthLo))
+  begin
+      $display ("\n%m");
+      $write("failure: ");
+      $display("%s", clk_low);
+      $finish;
+  end
+  if (~(clkhi == 0 | $time-clkhi >= xplMinPinClkPeriod))
+  begin
+      $display ("\n%m");
+      $write("failure: ");
+      $display("%s", clk_cycle_min);
+      $finish;
+  end
+  if (~(clkhi == 0 | $time-clkhi <= xplMaxPinClkPeriod))
+  begin
+      $display ("\n%m");
+      $write("failure: ");
+      $display("%s", clk_cycle_max);
+      $finish;
+  end
+
+  if (((clklo > 0) & (clkhi > 0)) &
+      (((clklo - clkhi)*100/($time - clkhi) < xplMinInputDuty) ||
+       ((clklo - clkhi)*100/($time - clkhi) > xplMaxInputDuty)))
+   begin
+      $display ("\n%m");
+      $write("error: ");
+      $display("%s", clk_duty_cycle);
+   end
+  clkhi = $time;
+     end
+ end
+    end
+
+
+    always @(clk[1] or int_fdbk)
+    begin
+ if (cfgbits[0] == 1'b1)
+ begin
+     case (cfgbits[5:4])
+     2'b 11:
+     begin
+  feedback <= 1'b0;
+  $display ("\n%m");
+  $write("failure: ");
+  $display("Illegal PLL feedback select.");
+  $finish;
+     end
+     2'b 10: feedback <= clk[1];
+     2'b 01: feedback <= int_fdbk;
+     2'b 00: feedback <= int_fdbk;
+     endcase
+ end
+    end
+
+    time fbkedge;
+    integer i;
+    always @(clk[0]) clkedge = $time;
+    always @(posedge feedback) fbkedge = $time;
+
+
+    time ckevent;
+    initial ckevent = 0;
+    always @(posedge clk[0])
+    begin : CLOCK_WIDTH
+ if ((ckwidth == 0) || ($time != ckevent))
+ begin
+     kpwidth = ckwidth;
+     ckwidth = $time - ckevent;
+     ckevent = $time;
+ end
+    end
+
+    always @(posedge feedback)
+    begin : FEEDBACK_WIDTH
+ fbwidth = $time - fbevent;
+ fbevent = $time;
+    end
+
+    always @(clkedge or fbkedge)
+    begin
+
+ if (cfgbits[0] == 1'b1)
+ begin
+     case (cfgbits[5:4])
+     2'b 10 : mult = 1'b1;
+     default:
+  case (cfgbits[3:1])
+  3'b 111: mult = 3'b 110;
+  3'b 110: mult = 3'b 101;
+  3'b 101: mult = 2'b 11;
+  3'b 100: mult = 5'b 10000;
+  3'b 011: mult = 4'b 1000;
+  3'b 010: mult = 3'b 100;
+  3'b 001: mult = 2'b 10;
+  3'b 000: mult = 1'b 1;
+  endcase
+     endcase
+
+     if (fbkedge == $time)
+     begin
+  if ((((ckwidth-fbwidth > ckwidth*JitterSpec) ||
+        (fbwidth-ckwidth > ckwidth*JitterSpec)) &&
+   (plllock == 1'b1)) ||
+       ((ckwidth-kpwidth > ckwidth*JitterSpec) ||
+        (kpwidth-ckwidth > ckwidth*JitterSpec)) ||
+   (fbevent == fbwidth))
+  begin
+      plllock <= 1'b0;
+      syncb <= 1'b1;
+  end
+     end
+
+     if (((clkedge == $time) && (clk[0] == 1'b1)) || (fbkedge == $time))
+     begin
+      if (fbkedge == $time && $time > 0)
+      switch <= 1'b1;
+  if (switch == 1'b0)
+  begin
+      speedup <= 1'b0;
+      slowdown <= 1'b0;
+  end
+  else if (fbkedge == $time)
+  begin
+      if (((ckwidth-fbwidth) < (ckwidth*(JitterSpec/10.0))) ||
+   ((fbwidth-ckwidth) < (ckwidth*(JitterSpec/10.0))))
+      begin
+   speedup <= 1'b0;
+   slowdown <= 1'b0;
+   #(simLockTime/10);
+   syncb <= 1'b0;
+   #(simLockTime*9/10);
+   plllock <= 1'b1;
+      end
+      else if (ckwidth > fbwidth)
+      begin
+   speedup <= 1'b0;
+   slowdown <= 1'b1 && syncb;
+      end
+      else if (ckwidth < fbwidth)
+      begin
+   speedup <= 1'b1 && syncb;
+   slowdown <= 1'b0;
+      end
+      else
+      begin
+   speedup <= 1'b0;
+   slowdown <= 1'b0;
+   #(simLockTime/10);
+   syncb <= 1'b0;
+   #(simLockTime*9/10);
+   plllock <= 1'b1;
+      end
+  end
+     end
+ end
+    end
+
+
+    time vco_width;
+    initial vco_width = 6875;
+    always
+    begin : VCO_GENERATION
+ integer vco_i;
+ if (cfgbits[0] == 1'b 1)
+ begin
+     if ((speedup == 1'b1) && (slowdown == 1'b0))
+  if (ckwidth + 1000 < fbwidth)
+      vco_width = vco_width - 100;
+  else
+      vco_width = vco_width - 1;
+     else if ((speedup == 1'b0) && (slowdown == 1'b1))
+  if (ckwidth - 1000 > fbwidth)
+      vco_width = vco_width + 100;
+  else
+      vco_width = vco_width + 1;
+     else if ((speedup == 1'b0) && (slowdown == 1'b0) && (ckwidth > 0))
+  vco_width = ckwidth/(ckwidth/(vco_width - 5));
+
+     cyc <= vco_width / 2;
+
+     for (vco_i = 1; vco_i <= 32; vco_i = vco_i + 1)
+     begin
+  #(vco_width/2);
+  vco <= ~vco;
+     end
+     if (killvco)
+  @ ( killvco )
+  $stop;
+ end
+ else
+ begin
+     vco <= 1'b 0;
+     wait (0);
+ end
+    end
+
+    wire lock_detect;
+    assign lock_detect = (tracking | (cfgbits[5:4] !== 2'b10)) ? plllock : 1'b0;
+
+
+    always @(vco or clkedge)
+    begin : VCO_KILL
+     time ckevent;
+ if (clkedge == $time)
+     ckevent <= $time;
+ if ($time-ckevent > 2 * xplMaxPinClkPeriod && lock_detect == 1'b1)
+     killvco <= 1'b1;
+ else
+     killvco <= 1'b0;
+    end
+
+    always @(lock_detect or nios)
+    begin
+ if (cfgbits[0] == 1'b1)
+ begin
+     case (cfgbits[42])
+     1'b1: lock <= lock_detect;
+     1'b0: lock <= nios;
+     endcase
+ end
+    end
+
+
+    always @(posedge vco)
+    begin : VCO_CHK
+ parameter tmax = 10000;
+ parameter tmin = 3750;
+ time ckhi;
+ if (cfgbits[0] == 1'b1)
+ begin
+     if (syncb === 1'b0)
+     begin
+  if (((($time - ckhi) < tmin) | (($time - ckhi) > tmax))
+      & ($time !== ckhi))
+  begin
+      $write("warning: ");
+      $display("VCO frequency is outside its operating range.");
+      $display("Time: ", $time);
+  end
+     end
+     ckhi = $time;
+ end
+    end
+
+    always @(vco)
+    begin : process_2
+ time width;
+ time edges;
+ if (cfgbits[0] == 1'b1)
+ begin
+     if ($time == 0)
+     begin
+  width <= $time;
+  edges <= $time;
+     end
+
+     if (edges < $time)
+     begin
+  width <= $time - edges;
+  edges <= $time;
+  pllout[7] <= #(width * 3 / 4) ~vco;
+  pllout[6] <= #(width * 2 / 4) ~vco;
+  pllout[5] <= #(width * 1 / 4) ~vco;
+  pllout[4] <= #(width * 0 / 4) ~vco;
+  pllout[3] <= #(width * 3 / 4) vco;
+  pllout[2] <= #(width * 2 / 4) vco;
+  pllout[1] <= #(width * 1 / 4) vco;
+  pllout[0] <= #(width * 0 / 4) vco;
+     end
+ end
+    end
+
+    initial
+    begin : process_3
+ integer i;
+ if (cfgbits[0] == 1'b1)
+ begin
+     for (i = 0; i <= 3; i = i + 1)
+     begin
+  case (i)
+  0: begin
+      fourbits = cfgbits[21:18]; threebits = cfgbits[ 8: 6];
+  end
+  1: begin
+      fourbits = cfgbits[26:23]; threebits = cfgbits[11: 9];
+  end
+  2: begin
+      fourbits = cfgbits[31:28]; threebits = cfgbits[14:12];
+  end
+  3: begin
+      fourbits = cfgbits[36:33]; threebits = cfgbits[17:15];
+  end
+  endcase
+  if (cfgbits[22 + i * 5] == 1'b 1)
+  begin
+      divide[i] <= 1;
+      if (fourbits == 4'b 0110)
+   phase[i] <= 315;
+      else if (fourbits == 4'b 0101 )
+   phase[i] <= 270;
+      else if (fourbits == 4'b 0100 )
+   phase[i] <= 225;
+      else if (fourbits == 4'b 0011 )
+   phase[i] <= 180;
+      else if (fourbits == 4'b 0010 )
+   phase[i] <= 135;
+      else if (fourbits == 4'b 0001 )
+   phase[i] <= 90;
+      else if (fourbits == 4'b 0000 )
+   phase[i] <= 45;
+      else
+      begin
+   $display ("\n%m");
+   $write("failure: ");
+   $display("Illegal phase and divide select.");
+   $finish;
+      end
+  end
+  else
+  begin
+      if (threebits == 3'b 111)
+   divide[i] <= 6;
+      else if (threebits == 3'b 110 )
+   divide[i] <= 5;
+      else if (threebits == 3'b 101 )
+   divide[i] <= 3;
+      else if (threebits == 3'b 100 )
+   divide[i] <= 16;
+      else if (threebits == 3'b 011 )
+   divide[i] <= 8;
+      else if (threebits == 3'b 010 )
+   divide[i] <= 4;
+      else if (threebits == 3'b 001 )
+   divide[i] <= 2;
+      else if (threebits == 3'b 000 )
+   divide[i] <= 1;
+
+      if (fourbits == 4'b 1110)
+   phase[i] <= 315;
+      else if (fourbits == 4'b 1101 )
+   phase[i] <= 270;
+      else if (fourbits == 4'b 1100 )
+   phase[i] <= 225;
+      else if (fourbits == 4'b 1011 )
+   phase[i] <= 180;
+      else if (fourbits == 4'b 1010 )
+   phase[i] <= 135;
+      else if (fourbits == 4'b 1001 )
+   phase[i] <= 90;
+      else if (fourbits == 4'b 1000 )
+   phase[i] <= 45;
+      else if (fourbits == 4'b 0000 )
+   phase[i] <= 0;
+      else
+      begin
+   $display ("\n%m");
+   $write("failure: ");
+   $display("Illegal phase select.");
+   $finish;
+      end
+  end
+     end
+ end
+    end
+
+
+    assign xclk[3] =phase[3] === 315 ? pllout[7] :
+      phase[3] === 270 ? pllout[6] :
+      phase[3] === 225 ? pllout[5] :
+      phase[3] === 180 ? pllout[4] :
+      phase[3] === 135 ? pllout[3] :
+      phase[3] === 90 ? pllout[2] :
+      phase[3] === 45 ? pllout[1] :
+      phase[3] === 0 ? pllout[0] : 0;
+    assign xclk[2] =phase[2] === 315 ? pllout[7] :
+      phase[2] === 270 ? pllout[6] :
+      phase[2] === 225 ? pllout[5] :
+      phase[2] === 180 ? pllout[4] :
+      phase[2] === 135 ? pllout[3] :
+      phase[2] === 90 ? pllout[2] :
+      phase[2] === 45 ? pllout[1] :
+      phase[2] === 0 ? pllout[0] : 0;
+    assign xclk[1] =phase[1] === 315 ? pllout[7] :
+      phase[1] === 270 ? pllout[6] :
+      phase[1] === 225 ? pllout[5] :
+      phase[1] === 180 ? pllout[4] :
+      phase[1] === 135 ? pllout[3] :
+      phase[1] === 90 ? pllout[2] :
+      phase[1] === 45 ? pllout[1] :
+      phase[1] === 0 ? pllout[0] : 0;
+    assign xclk[0] =phase[0] === 315 ? pllout[7] :
+      phase[0] === 270 ? pllout[6] :
+      phase[0] === 225 ? pllout[5] :
+      phase[0] === 180 ? pllout[4] :
+      phase[0] === 135 ? pllout[3] :
+      phase[0] === 90 ? pllout[2] :
+      phase[0] === 45 ? pllout[1] :
+      phase[0] === 0 ? pllout[0] : 0;
+
+
+    always @(posedge vco)
+    begin
+ if ($time > 0)
+ begin
+     tmp_fdbk <= 1'b 1;
+     #( mult * cyc );
+     tmp_fdbk <= 1'b 0;
+     #( (mult - 1'b 1) * cyc );
+ end
+    end
+
+    always @(posedge xclk[3])
+    begin
+ if ($time > 0)
+ begin
+     pllclk[3] <= 1'b 1;
+     #( divide[3] * cyc );
+     pllclk[3] <= 1'b 0;
+     #( (divide[3] - 1'b 1) * cyc );
+ end
+    end
+
+    always @(posedge xclk[2])
+    begin
+ if ($time > 0)
+ begin
+     pllclk[2] <= 1'b 1;
+     #( divide[2] * cyc );
+     pllclk[2] <= 1'b 0;
+     #( (divide[2] - 1'b 1) * cyc );
+ end
+    end
+
+    always @(posedge xclk[1])
+    begin
+ if ($time > 0)
+ begin
+     pllclk[1] <= 1'b 1;
+     #( divide[1] * cyc );
+     pllclk[1] <= 1'b 0;
+     #( (divide[1] - 1'b 1) * cyc );
+ end
+    end
+
+    always @(posedge xclk[0])
+    begin
+ if ($time > 0)
+ begin
+     pllclk[0] <= 1'b 1;
+     #( divide[0] * cyc );
+     pllclk[0] <= 1'b 0;
+     #( (divide[0] - 1'b 1) * cyc );
+ end
+    end
+
+
+    always @(pllclk or clk)
+    begin : GEN_CLOCK
+     integer i;
+ for (i = 3; i >= 0; i = i - 1)
+     if (cfgbits[38 + i] == 1'b1)
+`ifdef __VERIWELL__
+  if (cfgbits[0] == 1'b1)
+      tmpglclk[i] = pllclk[i];
+`else
+  if (cfgbits[0] == 1'b1)
+      tmpglclk[i] <= pllclk[i];
+`endif
+  else
+  begin
+      $display ("\n%m");
+      $write("failure: ");
+      $display("PLL powered down, no output signal available.");
+      $finish;
+  end
+     else
+`ifdef __VERIWELL__
+  tmpglclk[i] = clk[i];
+`else
+  tmpglclk[i] <= clk[i];
+`endif
+    end
+
+
+    always @(tmpglclk or fbkedge or clkedge or tmp_fdbk)
+    begin : EXCOMP
+ time ckevent;
+ time half;
+ time var;
+ time delay;
+ if (cfgbits[0] === 1'b1)
+ begin
+     if ((clkedge == $time) && (clk[0] == 1'b1))
+  ckevent = $time;
+     if ((clkedge == $time) && (clk[0] == 1'b0))
+  half = $time - ckevent;
+
+     if (syncb === 1'b 1)
+     begin
+  if (fbkedge == $time)
+      if ($time - ckevent < half)
+   var = 2 * half - ($time - ckevent);
+      else
+   var = 3 * half - ($time - ckevent);
+  glclk <= tmpglclk;
+  int_fdbk <= tmp_fdbk;
+  tracking <= 1'b0;
+     end
+     else
+     begin
+  if (cfgbits[5:4] === 2'b10)
+  begin
+      if (fbkedge == $time)
+   if ($time - ckevent > half)
+       if (~tracking & (2 * half - ($time - ckevent) > 20))
+    var = var + 20;
+       else
+       begin
+    if (($time - ckevent) != 0)
+        var = var + 1;
+    tracking <= 1'b1;
+       end
+   else
+       if (~tracking & (($time - ckevent) > 20))
+    var = var - 20;
+       else
+       begin
+    if (($time - ckevent) != 0)
+        var = var - 1;
+    tracking <= 1'b1;
+       end
+      glclk <= #(var) tmpglclk;
+  end
+  else
+  begin
+      int_fdbk <= #(var - half) tmp_fdbk;
+      if (cfgbits[5:4] === 2'b00)
+       delay <= xckPin2GClkDirect;
+      else if (cfgbits[5:4] === 2'b01)
+       delay <= 2*half + xckPin2GClkDirect -xplClockTreeOffset;
+      glclk <= #(var - half + delay) tmpglclk;
+      tracking <= 1'b1;
+  end
+     end
+ end
+ else
+     glclk <= #(xckPin2GClkDirect) tmpglclk;
+    end
+
+endmodule
+`timescale 1ps/1ps
+module c39kcm (din_a, din_b, addr_a, addr_b, we_a, we_b, iclk_a, iclk_b, oclk_a,
+oclk_b, reset_a, reset_b, addr_matchb, dout_a, dout_b);
+
+    parameter [45:0] cfgbits = 46'b0;
+    parameter xcmReadAddrWthHi = 100;
+    parameter xcmWritAddrWthHi = 100;
+    parameter xcmWriEnaWthHi = 100;
+    parameter xcmAddrAtWriEnaFallSetup = 100;
+    parameter xcmAddrAtWriEnaRiseSetup = 100;
+    parameter xcmAddrAtWriEnaFallHold = 100;
+    parameter xcmDinAtWriEnaFallSetup = 100;
+    parameter xcmDinAtWriEnaFallHold = 100;
+    parameter xcmAddr2DoutRegD = 100;
+    parameter xcmWriEna2DoutRegD = 100;
+    parameter xcmDin2DoutRegD = 100;
+    parameter xcmDoutRegD2Dout = 100;
+    parameter xcmClkInWthCy = 100;
+    parameter xcmClkInWthHi = 100;
+    parameter xcmClkInWthLo = 100;
+    parameter xcmAddrAtClkInSetup = 100;
+    parameter xcmAddrAtClkInHold = 100;
+    parameter xcmWriEnaAtClkInSetup = 100;
+    parameter xcmWriEnaAtClkInHold = 100;
+    parameter xcmDinAtClkInSetup = 100;
+    parameter xcmDinAtClkInHold = 100;
+    parameter xcmClkIn2DoutRegD = 100;
+    parameter xcmDoutRegCkWthCy = 100;
+    parameter xcmDoutRegCkWthHi = 100;
+    parameter xcmDoutRegCkWthLo = 100;
+    parameter xcmDoutRegSetup = 100;
+    parameter xcmDoutRegHold = 100;
+    parameter xcmDoutRegReWthHi = 100;
+    parameter xcmDoutRegReRcr = 100;
+    parameter xcmReset2Dout = 100;
+    parameter xcmClkOut2Dout = 100;
+    parameter xcmAddrTransDetect = 800;
+
+    input [7:0] din_a;
+    input [7:0] din_b;
+    input[11:0] addr_a;
+    input[11:0] addr_b;
+    input we_a;
+    input we_b;
+    input iclk_a;
+    input iclk_b;
+    input oclk_a;
+    input oclk_b;
+    input reset_a;
+    input reset_b;
+    output addr_matchb;
+    output[7:0] dout_a;
+    output[7:0] dout_b;
+
+    reg addr_matchb;
+
+    reg [11:0] atmp_a;
+    reg [11:0] atmp_b;
+    reg [7:0] dtin_a;
+    reg [7:0] dtin_b;
+    reg [7:0] dtout_a;
+    reg [7:0] dtout_b;
+    reg [7:0] cdout_a;
+    reg [7:0] cdout_b;
+    reg wtmp_a;
+    reg wtmp_b;
+
+    reg [7:0] mem [511:0];
+    integer vect_a;
+    integer vect_b;
+    reg [7:0] data_a;
+    reg [7:0] data_b;
+    reg atd_a;
+    reg atd_b;
+
+    reg [7:0] dslice_a;
+    reg [7:0] dslice_b;
+    reg [7:0] mslice_a;
+    reg [7:0] mslice_b;
+
+    parameter unk = " Setting output unknown.";
+    reg iclkerr_a;
+    parameter iclk_width_a =
+    {"Input clock A cycle width violation:", unk};
+    parameter iclk_low_a =
+    {"Input clock A low width violation:", unk};
+    parameter iclk_high_a =
+    {"Input clock A high width violation:", unk};
+    reg aserr_a;
+    parameter addr2iclk_setup_a =
+    {"Address A to input clock setup violation:", unk};
+    reg aherr_a;
+    parameter addr2iclk_hold_a =
+    {"Input clock to address A hold violation:", unk};
+    reg wserr_a;
+    parameter write2iclk_setup_a =
+    {"Write A to clock setup violation:", unk};
+    reg wherr_a;
+    parameter write2iclk_hold_a =
+    {"Clock to write A hold violation:", unk};
+    reg dserr_a;
+    parameter data2iclk_setup_a =
+    {"Data A to clock setup violation:", unk};
+    reg dherr_a;
+    parameter data2iclk_hold_a =
+    {"Clock to data A hold violation:", unk};
+    reg wrwerr_a;
+    parameter write_width_a =
+    {"Minimum write width A violation:", unk};
+    reg wcycerr_a;
+    parameter writeaddr_cycle_a =
+    {"Minimum write cycle A violation:", unk};
+    reg rcycerr_a;
+    parameter readaddr_cycle_a =
+    {"Minimum read cycle A violation:", unk};
+    reg awserr_a;
+    parameter addr2westart_setup_a =
+    {"Address to we A start setup violation:", unk};
+    parameter addr2weend_setup_a =
+    {"Address to we A end setup violation:", unk};
+    reg awherr_a;
+    parameter addr2we_hold_a =
+    {"We to address A hold violation:", unk};
+    reg dwserr_a;
+    parameter data2we_setup_a =
+    {"Data A to we setup violation:", unk};
+    reg dwherr_a;
+    parameter data2we_hold_a =
+    {"We to data A hold violation:", unk};
+    reg oclkerr_a;
+    parameter outputclock_width_a =
+    {"Output clock A cycle width violation:", unk};
+    parameter outputclock_low_a =
+    {"Output clock A low width violation:", unk};
+    parameter outputclock_high_a =
+    {"Output clock A high width violation:", unk};
+    reg rcverr_a;
+    parameter outreg_rcvry_a =
+    {"Output reg. A reset recovery violation:", unk};
+    reg rsterr_a;
+    parameter reset_width_a =
+    {"Reset A width violation:", unk};
+    reg oserr_a;
+    parameter data2oclk_setup_a =
+    {"Data to output clock setup violation:", unk};
+    parameter addr2oclk_setup_a =
+    {"Address to output clock setup violation:", unk};
+    parameter we2oclk_setup_a =
+    {"WE to output clock setup violation:", unk};
+    parameter iclk2oclk_setup_a =
+    {"In clock to out clock setup violation:", unk};
+    reg oherr_a;
+    parameter data2oclk_hold_a =
+    {"Output clock to data hold violation:", unk};
+    parameter addr2oclk_hold_a =
+    {"Output clock to address hold violation:", unk};
+    parameter we2oclk_hold_a =
+    {"Output clock to WE hold violation:", unk};
+    parameter iclk2oclk_hold_a =
+    {"Out clock to in clock hold violation:", unk};
+    reg iclkerr_b;
+    parameter iclk_width_b =
+    {"Input clock B cycle width violation:", unk};
+    parameter iclk_low_b =
+    {"Input clock B low width violation:", unk};
+    parameter iclk_high_b =
+    {"Input clock B high width violation:", unk};
+    reg aserr_b;
+    parameter addr2iclk_setup_b =
+    {"Address B to input clock setup violation:", unk};
+    reg aherr_b;
+    parameter addr2iclk_hold_b =
+    {"Input clock to address B hold violation:", unk};
+    reg wserr_b;
+    parameter write2iclk_setup_b =
+    {"Write B to clock setup violation:", unk};
+    reg wherr_b;
+    parameter write2iclk_hold_b =
+    {"Clock to write B hold violation:", unk};
+    reg dserr_b;
+    parameter data2iclk_setup_b =
+    {"Data B to clock setup violation:", unk};
+    reg dherr_b;
+    parameter data2iclk_hold_b =
+    {"Clock to data B hold violation:", unk};
+    reg wrwerr_b;
+    parameter write_width_b =
+    {"Minimum write width B violation:", unk};
+    reg wcycerr_b;
+    parameter writeaddr_cycle_b =
+    {"Minimum write cycle B violation:", unk};
+    reg rcycerr_b;
+    parameter readaddr_cycle_b =
+    {"Minimum read cycle B violation:", unk};
+    reg awserr_b;
+    parameter addr2westart_setup_b =
+    {"Address to we B start setup violation:", unk};
+    parameter addr2weend_setup_b =
+    {"Address to we B end setup violation:", unk};
+    reg awherr_b;
+    parameter addr2we_hold_b =
+    {"We to address B hold violation:", unk};
+    reg dwserr_b;
+    parameter data2we_setup_b =
+    {"Data B to we setup violation:", unk};
+    reg dwherr_b;
+    parameter data2we_hold_b =
+    {"We to data B hold violation:", unk};
+    reg oclkerr_b;
+    parameter outputclock_width_b =
+    {"Output clock B cycle width violation:", unk};
+    parameter outputclock_low_b =
+    {"Output clock B low width violation:", unk};
+    parameter outputclock_high_b =
+    {"Output clock B high width violation:", unk};
+    reg rcverr_b;
+    parameter outreg_rcvry_b =
+    {"Output reg. B reset recovery violation:", unk};
+    reg rsterr_b;
+    parameter reset_width_b =
+    {"Reset B width violation:", unk};
+    reg oserr_b;
+    parameter data2oclk_setup_b =
+    {"Data to output clock setup violation:", unk};
+    parameter addr2oclk_setup_b =
+    {"Address to output clock setup violation:", unk};
+    parameter we2oclk_setup_b =
+    {"WE to output clock setup violation:", unk};
+    parameter iclk2oclk_setup_b =
+    {"In clock to out clock setup violation:", unk};
+    reg oherr_b;
+    parameter data2oclk_hold_b =
+    {"Output clock to data hold violation:", unk};
+    parameter addr2oclk_hold_b =
+    {"Output clock to address hold violation:", unk};
+    parameter we2oclk_hold_b =
+    {"Output clock to WE hold violation:", unk};
+    parameter iclk2oclk_hold_b =
+    {"Out clock to in clock hold violation:", unk};
+
+    time iclkedge_a;
+    always @(posedge iclk_a) iclkedge_a = $time;
+    time iclkedge_b;
+    always @(posedge iclk_b) iclkedge_b = $time;
+    time oclkedge_a;
+    always @(posedge oclk_a) oclkedge_a = $time;
+    time oclkedge_b;
+    always @(posedge oclk_b) oclkedge_b = $time;
+    time weedge_a;
+    always @(negedge we_a) weedge_a = $time;
+    time weedge_b;
+    always @(negedge we_b) weedge_b = $time;
+    time atmpedge_a;
+    always @(atmp_a) atmpedge_a = $time;
+    time atmpedge_b;
+    always @(atmp_b) atmpedge_b = $time;
+    time wtmpedge_a;
+    always @(wtmp_a) wtmpedge_a = $time;
+    time wtmpedge_b;
+    always @(wtmp_b) wtmpedge_b = $time;
+    time dtinedge_a;
+    always @(dtin_a) dtinedge_a = $time;
+    time dtinedge_b;
+    always @(dtin_b) dtinedge_b = $time;
+    time resetedge_a;
+    always @(reset_a) resetedge_a= $time;
+    time resetedge_b;
+    always @(reset_b) resetedge_b= $time;
+
+
+    always @(iclk_a)
+    begin : ICLK_CYCLE_CHECK_A
+ time clkhi;
+ time clklo;
+ if (cfgbits[4] == 1'b1)
+ begin
+     if (iclk_a == 1'b0)
+     begin
+  if (~(clkhi == 0 | $time-clkhi >= xcmClkInWthHi))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", iclk_width_a);
+      $display("Time: ", $time);
+      iclkerr_a <= 1'b1;
+      iclkerr_a <= #(1000) 1'b0;
+  end
+  clklo = $time;
+     end
+     else if (iclk_a == 1'b1 )
+     begin
+  if (~(clklo == 0 | $time-clklo >= xcmClkInWthLo))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", iclk_low_a);
+      $display("Time: ", $time);
+      iclkerr_a <= 1'b1;
+      iclkerr_a <= #(1000) 1'b0;
+  end
+  if (~(clkhi == 0 | $time-clkhi >= xcmClkInWthCy))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", iclk_high_a);
+      $display("Time: ", $time);
+      iclkerr_a <= 1'b1;
+      iclkerr_a <= #(1000) 1'b0;
+  end
+  clkhi = $time;
+     end
+ end
+    end
+
+
+    always @(iclk_b)
+    begin : ICLK_CYCLE_CHECK_B
+ time clkhi;
+ time clklo;
+ if (cfgbits[17] == 1'b1)
+ begin
+     if (iclk_b == 1'b0)
+     begin
+  if (~(clkhi == 0 | $time-clkhi >= xcmClkInWthHi))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", iclk_width_b);
+      $display("Time: ", $time);
+      iclkerr_b <= 1'b1;
+      iclkerr_b <= #(1000) 1'b0;
+  end
+  clklo = $time;
+     end
+     else if (iclk_b == 1'b1 )
+     begin
+  if (~(clklo == 0 | $time-clklo >= xcmClkInWthLo))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", iclk_low_b);
+      $display("Time: ", $time);
+      iclkerr_b <= 1'b1;
+      iclkerr_b <= #(1000) 1'b0;
+  end
+  if (~(clkhi == 0 | $time-clkhi >= xcmClkInWthCy))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", iclk_high_b);
+      $display("Time: ", $time);
+      iclkerr_b <= 1'b1;
+      iclkerr_b <= #(1000) 1'b0;
+  end
+  clkhi = $time;
+     end
+ end
+    end
+
+    parameter syncAddrSetup = (xcmAddrAtClkInSetup < 0) ?
+    -xcmAddrAtClkInSetup : 0;
+    parameter realAddrSetup = xcmAddrAtClkInSetup + syncAddrSetup;
+    parameter syncAddrHold = (xcmAddrAtClkInHold < 0) ?
+    -xcmAddrAtClkInHold : 0;
+    parameter realAddrHold = xcmAddrAtClkInHold + syncAddrHold;
+
+
+    wire daiclk_a;
+    time daiclk_aedge;
+    assign #(syncAddrSetup) daiclk_a = iclk_a;
+    always @(posedge daiclk_a) daiclk_aedge = $time;
+
+    always @(addr_a or daiclk_aedge)
+    begin : SYNC_ADDRESS_SETUP_A
+ time addrev;
+ if (cfgbits[4] == 1'b1)
+     if (daiclk_aedge == $time)
+  if (addrev != 0 && ($time-addrev < realAddrSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", addr2iclk_setup_a);
+      $display("Time: ", $time);
+      aserr_a <= 1'b1;
+      aserr_a <= #(1000) 1'b0;
+  end
+     else
+      addrev = $time;
+    end
+
+
+    wire dsaddr_a;
+    assign #(syncAddrHold) dsaddr_a = addr_a;
+
+    always @(dsaddr_a or iclkedge_a)
+    begin : SYNC_ADDRESS_HOLD_A
+ time clkev;
+ if (cfgbits[4] == 1'b1)
+     if (iclkedge_a == $time)
+      clkev = $time;
+     else
+  if (clkev != 0 && ($time-clkev < realAddrHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", addr2iclk_hold_a);
+      $display("Time: ", $time);
+      aherr_a <= 1'b1;
+      aherr_a <= #(1000) 1'b0;
+  end
+    end
+
+
+    wire daiclk_b;
+    time daiclk_bedge;
+    assign #(syncAddrSetup) daiclk_b = iclk_b;
+    always @(posedge daiclk_b) daiclk_bedge = $time;
+
+    always @(addr_b or daiclk_bedge)
+    begin : SYNC_ADDRESS_SETUP_B
+ time addrev;
+ if (cfgbits[17] == 1'b1)
+     if (daiclk_bedge == $time)
+  if (addrev != 0 && ($time-addrev < realAddrSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", addr2iclk_setup_b);
+      $display("Time: ", $time);
+      aserr_b <= 1'b1;
+      aserr_b <= #(1000) 1'b0;
+  end
+     else
+      addrev = $time;
+    end
+
+
+    wire dsaddr_b;
+    assign #(syncAddrHold) dsaddr_b = addr_b;
+
+    always @(dsaddr_b or iclkedge_b)
+    begin : SYNC_ADDRESS_HOLD_B
+ time clkev;
+ if (cfgbits[17] == 1'b1)
+     if (iclkedge_b == $time)
+      clkev = $time;
+     else
+  if (clkev != 0 && ($time-clkev < realAddrHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", addr2iclk_hold_b);
+      $display("Time: ", $time);
+      aherr_b <= 1'b1;
+      aherr_b <= #(1000) 1'b0;
+  end
+    end
+
+    parameter syncWESetup = (xcmWriEnaAtClkInSetup < 0) ?
+         -xcmWriEnaAtClkInSetup : 0;
+    parameter realWESetup = xcmWriEnaAtClkInSetup + syncWESetup;
+    parameter syncWEHold = (xcmWriEnaAtClkInHold < 0) ?
+         -xcmWriEnaAtClkInHold : 0;
+    parameter realWEHold = xcmWriEnaAtClkInHold + syncWEHold;
+
+
+    wire dwiclk_a;
+    time dwiclk_aedge;
+    assign #(syncWESetup) dwiclk_a = iclk_a;
+    always @(posedge dwiclk_a) dwiclk_aedge = $time;
+
+    always @(we_a or dwiclk_aedge)
+    begin : SYNC_WRITE_SETUP_A
+ time writev;
+ if (cfgbits[4] == 1'b1)
+     if (dwiclk_aedge == $time)
+  if (writev != 0 && ($time-writev < realWESetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", write2iclk_setup_a);
+      $display("Time: ", $time);
+      aserr_a <= 1'b1;
+      aserr_a <= #(1000) 1'b0;
+  end
+     else
+      writev = $time;
+    end
+
+
+    wire dswe_a;
+    assign #(syncWEHold) dswe_a = we_a;
+
+    always @(dswe_a or iclkedge_a)
+    begin : SYNC_WRITE_HOLD_A
+ time clkev;
+ if (cfgbits[4] == 1'b1)
+     if (iclkedge_a == $time)
+      clkev = $time;
+     else
+  if (clkev != 0 && ($time-clkev < realWEHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", write2iclk_hold_a);
+      $display("Time: ", $time);
+      aherr_a <= 1'b1;
+      aherr_a <= #(1000) 1'b0;
+  end
+    end
+
+
+    wire dwiclk_b;
+    time dwiclk_bedge;
+    assign #(syncWESetup) dwiclk_b = iclk_b;
+    always @(posedge dwiclk_b) dwiclk_bedge = $time;
+
+    always @(we_b or dwiclk_bedge)
+    begin : SYNC_WRITE_SETUP_B
+ time writev;
+ if (cfgbits[17] == 1'b1)
+     if (dwiclk_bedge == $time)
+  if (writev != 0 && ($time-writev < realWESetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", write2iclk_setup_b);
+      $display("Time: ", $time);
+      aserr_b <= 1'b1;
+      aserr_b <= #(1000) 1'b0;
+  end
+     else
+      writev = $time;
+    end
+
+
+    wire dswe_b;
+    assign #(syncWEHold) dswe_b = we_b;
+
+    always @(dswe_b or iclkedge_b)
+    begin : SYNC_WRITE_HOLD_B
+ time clkev;
+ if (cfgbits[17] == 1'b1)
+     if (iclkedge_b == $time)
+      clkev = $time;
+     else
+  if (clkev != 0 && ($time-clkev < realWEHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", write2iclk_hold_b);
+      $display("Time: ", $time);
+      aherr_b <= 1'b1;
+      aherr_b <= #(1000) 1'b0;
+  end
+    end
+
+    parameter syncDataSetup = (xcmDinAtClkInSetup < 0) ?
+    -xcmDinAtClkInSetup : 0;
+    parameter realDataSetup = xcmDinAtClkInSetup + syncDataSetup;
+    parameter syncDataHold = (xcmDinAtClkInHold < 0) ?
+    -xcmDinAtClkInHold : 0;
+    parameter realDataHold = xcmDinAtClkInHold + syncDataHold;
+
+
+    wire ddiclk_a;
+    time ddiclk_aedge;
+    assign #(syncDataSetup) ddiclk_a = iclk_a;
+    always @(posedge ddiclk_a) ddiclk_aedge = $time;
+
+    always @(din_a or ddiclk_aedge)
+    begin : SYNC_DATA_SETUP_A
+ time dataev;
+ if (cfgbits[5] == 1'b1)
+     if (ddiclk_aedge == $time)
+  if (dataev != 0 && ($time-dataev < realDataSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2iclk_setup_a);
+      $display("Time: ", $time);
+      dserr_a <= 1'b1;
+      dserr_a <= #(1000) 1'b0;
+  end
+     else
+      dataev = $time;
+    end
+
+
+    wire dsdin_a;
+    assign #(syncDataHold) dsdin_a = din_a;
+
+    always @(dsdin_a or iclkedge_a)
+    begin : SYNC_DATA_HOLD_A
+ time clkev;
+ if (cfgbits[5] == 1'b1)
+     if (iclkedge_a == $time)
+      clkev = $time;
+     else
+  if (clkev != 0 && ($time-clkev < realDataHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2iclk_hold_a);
+      $display("Time: ", $time);
+      dherr_a <= 1'b1;
+      dherr_a <= #(1000) 1'b0;
+  end
+    end
+
+
+    wire ddiclk_b;
+    time ddiclk_bedge;
+    assign #(syncDataSetup) ddiclk_b = iclk_b;
+    always @(posedge ddiclk_b) ddiclk_bedge = $time;
+
+    always @(din_b or ddiclk_bedge)
+    begin : SYNC_DATA_SETUP_B
+ time dataev;
+ if (cfgbits[18] == 1'b1)
+     if (ddiclk_bedge == $time)
+  if (dataev != 0 && ($time-dataev < realDataSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2iclk_setup_b);
+      $display("Time: ", $time);
+      dserr_b <= 1'b1;
+      dserr_b <= #(1000) 1'b0;
+  end
+     else
+      dataev = $time;
+    end
+
+
+    wire dsdin_b;
+    assign #(syncDataHold) dsdin_b = din_b;
+
+    always @(dsdin_b or iclkedge_b)
+    begin : SYNC_DATA_HOLD_B
+ time clkev;
+ if (cfgbits[18] == 1'b1)
+     if (iclkedge_b == $time)
+      clkev = $time;
+     else
+  if (clkev != 0 && ($time-clkev < realDataHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2iclk_hold_b);
+      $display("Time: ", $time);
+      dherr_b <= 1'b1;
+      dherr_b <= #(1000) 1'b0;
+  end
+    end
+
+
+    always @(we_a)
+    begin : MIN_WRITE_A
+ time write_ev;
+ if (cfgbits[4] == 1'b0 & we_a == 1'b0)
+ begin
+     if (~(write_ev == 0 | $time-write_ev >= xcmWriEnaWthHi))
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", write_width_a);
+  $display("Time: ", $time);
+  wrwerr_a <= 1'b1;
+  wrwerr_a <= #(1000) 1'b0;
+     end
+     write_ev = $time;
+ end
+    end
+
+
+    always @(we_b)
+    begin : MIN_WRITE_B
+ time write_ev;
+ if (cfgbits[17] == 1'b0 & we_b == 1'b0)
+ begin
+     if (~(write_ev == 0 | $time-write_ev >= xcmWriEnaWthHi))
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", write_width_b);
+  $display("Time: ", $time);
+  wrwerr_b <= 1'b1;
+  wrwerr_b <= #(1000) 1'b0;
+     end
+     write_ev = $time;
+ end
+    end
+
+
+    always @(addr_a)
+    begin : XATD_A
+ time expire_time_a;
+ if (cfgbits[4] == 1'b0)
+ begin
+     if (atd_a == 1'b0)
+     begin
+      atd_a <= 1'b1;
+     end
+     else if (expire_time_a >= $time)
+     begin
+  atd_a <= #(expire_time_a - $time) 1'b1;
+     end
+     atd_a <= #(xcmAddrTransDetect) 1'b0;
+     expire_time_a = $time + xcmAddrTransDetect;
+ end
+    end
+
+
+    always @(addr_b)
+    begin : XATD_B
+ time expire_time_b;
+ if (cfgbits[17] == 1'b0)
+ begin
+     if (atd_b == 1'b0)
+     begin
+      atd_b <= 1'b1;
+     end
+     else if (expire_time_b >= $time)
+     begin
+  atd_b <= #(expire_time_b - $time) 1'b1;
+     end
+     atd_b <= #(xcmAddrTransDetect) 1'b0;
+     expire_time_b = $time + xcmAddrTransDetect;
+ end
+    end
+
+    parameter asyncDataSetup = (xcmDinAtWriEnaFallSetup < 0) ?
+     -xcmDinAtWriEnaFallSetup : 0;
+    parameter arealDataSetup = xcmDinAtWriEnaFallSetup + asyncDataSetup;
+    parameter asyncDataHold = (xcmDinAtWriEnaFallHold < 0) ?
+      -xcmDinAtWriEnaFallHold : 0;
+    parameter arealDataHold = xcmDinAtWriEnaFallHold + asyncDataHold;
+
+
+    wire ddwe_a;
+    time ddwe_aedge;
+    assign #(asyncDataSetup) ddwe_a = we_a;
+    always @(negedge ddwe_a) ddwe_aedge = $time;
+
+    always @(din_a or ddwe_aedge)
+    begin : ASYNC_DATA_TO_WRITE_SETUP_A
+ time dataev;
+ if (cfgbits[5] == 1'b0)
+     if (ddwe_aedge == $time)
+  if (dataev != 0 && ($time-dataev < arealDataSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2we_setup_a);
+      $display("Time: ", $time);
+      dwserr_a <= 1'b1;
+      dwserr_a <= #(1000) 1'b0;
+  end
+     else
+      dataev = $time;
+    end
+
+
+    wire dadin_a;
+    assign #(asyncDataHold) dadin_a = din_a;
+
+    always @(dadin_a or weedge_a)
+    begin : ASYNC_DATA_TO_WRITE_HOLD_A
+ time writev;
+ if (cfgbits[5] == 1'b0)
+     if (weedge_a == $time)
+      writev = $time;
+     else
+  if (writev != 0 && ($time-writev < arealDataHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2we_hold_a);
+      $display("Time: ", $time);
+      dwherr_a <= 1'b1;
+      dwherr_a <= #(1000) 1'b0;
+  end
+    end
+
+
+    wire ddwe_b;
+    time ddwe_bedge;
+    assign #(asyncDataSetup) ddwe_b = we_b;
+    always @(negedge ddwe_b) ddwe_bedge = $time;
+
+    always @(din_b or ddwe_bedge)
+    begin : ASYNC_DATA_TO_WRITE_SETUP_B
+ time dataev;
+ if (cfgbits[18] == 1'b0)
+     if (ddwe_bedge == $time)
+  if (dataev != 0 && ($time-dataev < arealDataSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2we_setup_b);
+      $display("Time: ", $time);
+      dwserr_b <= 1'b1;
+      dwserr_b <= #(1000) 1'b0;
+  end
+     else
+      dataev = $time;
+    end
+
+
+    wire dadin_b;
+    assign #(asyncDataHold) dadin_b = din_b;
+
+    always @(dadin_b or weedge_b)
+    begin : ASYNC_DATA_TO_WRITE_HOLD_B
+ time writev;
+ if (cfgbits[18] == 1'b0)
+     if (weedge_b == $time)
+      writev = $time;
+     else
+  if (writev != 0 && ($time-writev < arealDataHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2we_hold_b);
+      $display("Time: ", $time);
+      dwherr_b <= 1'b1;
+      dwherr_b <= #(1000) 1'b0;
+  end
+    end
+
+    parameter asyncAddrSetupR = (xcmAddrAtWriEnaRiseSetup < 0) ?
+      -xcmAddrAtWriEnaRiseSetup : 0;
+    parameter arealAddrSetupR = xcmAddrAtWriEnaRiseSetup + asyncAddrSetupR;
+    parameter asyncAddrSetupF = (xcmAddrAtWriEnaFallSetup < 0) ?
+      -xcmAddrAtWriEnaFallSetup : 0;
+    parameter arealAddrSetupF = xcmAddrAtWriEnaFallSetup + asyncAddrSetupF;
+    parameter asyncAddrHold = (xcmAddrAtWriEnaFallHold < 0) ?
+      -xcmAddrAtWriEnaFallHold : 0;
+    parameter arealAddrHold = xcmAddrAtWriEnaFallHold + asyncAddrHold;
+
+
+    wire dawer_a;
+    time dawer_aedge;
+    assign #(asyncAddrSetupR) dawer_a = we_a;
+    always @(posedge dawer_a) dawer_aedge = $time;
+
+    always @(addr_a or dawer_aedge)
+    begin : ASYNC_ADDR_TO_WRITE_SETUP_RISING_A
+ time addrev;
+ if (cfgbits[4] == 1'b0)
+     if (dawer_aedge == $time)
+  if (addrev != 0 && ($time-addrev < arealAddrSetupR))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", addr2westart_setup_a);
+      $display("Time: ", $time);
+      awserr_a <= 1'b1;
+      awserr_a <= #(1000) 1'b0;
+  end
+     else
+      addrev = $time;
+    end
+
+
+    wire dawef_a;
+    time dawef_aedge;
+    assign #(asyncAddrSetupF) dawef_a = we_a;
+    always @(negedge dawef_a) dawef_aedge = $time;
+
+    always @(addr_a or dawef_aedge)
+    begin : ASYNC_ADDR_TO_WRITE_SETUP_FALLING_A
+ time addrev;
+ if (cfgbits[4] == 1'b0)
+     if (dawef_aedge == $time)
+  if (addrev != 0 && ($time-addrev < arealAddrSetupF))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", addr2weend_setup_a);
+      $display("Time: ", $time);
+      awserr_a <= 1'b1;
+      awserr_a <= #(1000) 1'b0;
+  end
+     else
+      addrev = $time;
+    end
+
+
+    wire daaddr_a;
+    assign #(asyncAddrHold) daaddr_a = addr_a;
+
+    always @(daaddr_a or weedge_a)
+    begin : ASYNC_ADDR_TO_WRITE_HOLD_A
+ time writev;
+ if (cfgbits[4] == 1'b0)
+     if (weedge_a == $time)
+      writev = $time;
+     else
+  if (writev != 0 && ($time-writev < arealAddrHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", addr2we_hold_a);
+      $display("Time: ", $time);
+      awherr_a <= 1'b1;
+      awherr_a <= #(1000) 1'b0;
+  end
+    end
+
+
+    wire dawer_b;
+    time dawer_bedge;
+    assign #(asyncAddrSetupR) dawer_b = we_b;
+    always @(posedge dawer_b) dawer_bedge = $time;
+
+    always @(addr_b or dawer_bedge)
+    begin : ASYNC_ADDR_TO_WRITE_SETUP_RISING_B
+ time addrev;
+ if (cfgbits[17] == 1'b0)
+     if (dawer_bedge == $time)
+  if (addrev != 0 && ($time-addrev < arealAddrSetupR))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", addr2westart_setup_b);
+      $display("Time: ", $time);
+      awserr_b <= 1'b1;
+      awserr_b <= #(1000) 1'b0;
+  end
+     else
+      addrev = $time;
+    end
+
+
+    wire dawef_b;
+    time dawef_bedge;
+    assign #(asyncAddrSetupF) dawef_b = we_b;
+    always @(negedge dawef_b) dawef_bedge = $time;
+
+    always @(addr_b or dawef_bedge)
+    begin : ASYNC_ADDR_TO_WRITE_SETUP_FALLING_B
+ time addrev;
+ if (cfgbits[17] == 1'b0)
+     if (dawef_bedge == $time)
+  if (addrev != 0 && ($time-addrev < arealAddrSetupF))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", addr2weend_setup_b);
+      $display("Time: ", $time);
+      awserr_b <= 1'b1;
+      awserr_b <= #(1000) 1'b0;
+  end
+     else
+      addrev = $time;
+    end
+
+
+    wire daaddr_b;
+    assign #(asyncAddrHold) daaddr_b = addr_b;
+
+    always @(daaddr_b or weedge_b)
+    begin : ASYNC_ADDR_TO_WRITE_HOLD_B
+ time writev;
+ if (cfgbits[17] == 1'b0)
+     if (weedge_b == $time)
+      writev = $time;
+     else
+  if (writev != 0 && ($time-writev < arealAddrHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", addr2we_hold_b);
+      $display("Time: ", $time);
+      awherr_b <= 1'b1;
+      awherr_b <= #(1000) 1'b0;
+  end
+    end
+
+
+    always @(oclk_a)
+    begin : OCLK_CYCLE_CHECK_A
+ time clkhi;
+ time clklo;
+ if (cfgbits[4] == 1'b1)
+ begin
+     if (oclk_a == 1'b0)
+     begin
+  if (~(clkhi == 0 | $time-clkhi >= xcmDoutRegCkWthHi))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", outputclock_high_a);
+      $display("Time: ", $time);
+      oclkerr_a <= 1'b1;
+      oclkerr_a <= #(1000) 1'b0;
+  end
+  clklo = $time;
+     end
+     else if (oclk_a == 1'b1 )
+     begin
+  if (~(clklo == 0 | $time-clklo >= xcmDoutRegCkWthLo))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", outputclock_low_a);
+      $display("Time: ", $time);
+      oclkerr_a <= 1'b1;
+      oclkerr_a <= #(1000) 1'b0;
+  end
+  if (~(clkhi == 0 | $time-clkhi >= xcmDoutRegCkWthCy))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", outputclock_width_a);
+      $display("Time: ", $time);
+      oclkerr_a <= 1'b1;
+      oclkerr_a <= #(1000) 1'b0;
+  end
+  clkhi = $time;
+     end
+ end
+    end
+
+
+    always @(oclk_b)
+    begin : OCLK_CYCLE_CHECK_B
+ time clkhi;
+ time clklo;
+ if (cfgbits[17] == 1'b1)
+ begin
+     if (oclk_b == 1'b0)
+     begin
+  if (~(clkhi == 0 | $time-clkhi >= xcmDoutRegCkWthHi))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", outputclock_high_b);
+      $display("Time: ", $time);
+      oclkerr_b <= 1'b1;
+      oclkerr_b <= #(1000) 1'b0;
+  end
+  clklo = $time;
+     end
+     else if (oclk_b == 1'b1 )
+     begin
+  if (~(clklo == 0 | $time-clklo >= xcmDoutRegCkWthLo))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", outputclock_low_b);
+      $display("Time: ", $time);
+      oclkerr_b <= 1'b1;
+      oclkerr_b <= #(1000) 1'b0;
+  end
+  if (~(clkhi == 0 | $time-clkhi >= xcmDoutRegCkWthCy))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", outputclock_width_b);
+      $display("Time: ", $time);
+      oclkerr_b <= 1'b1;
+      oclkerr_b <= #(1000) 1'b0;
+  end
+  clkhi = $time;
+     end
+ end
+    end
+
+
+    always @(resetedge_a or oclkedge_a)
+    begin : OCLK_RESET_CHECK_A
+ time clrlastev;
+ time clklastev;
+ time clrhi;
+ if (cfgbits[6] == 1'b1)
+ begin
+     if (resetedge_a == $time)
+     begin
+  clrlastev = $time;
+  if (reset_a == 1'b1)
+  begin
+      clrhi = $time;
+  end
+  else
+  begin
+      if (~(clrhi == 0
+       | $time-clrhi >= xcmDoutRegReWthHi))
+      begin
+   $display ("\n%m");
+   $write("warning: ");
+   $display("%s", reset_width_a);
+   $display("Time: ", $time);
+   rsterr_a <= 1'b1;
+   rsterr_a <= #(1000) 1'b0;
+      end
+  end
+     end
+     if (reset_a == 1'b0 && oclkedge_a == $time)
+     begin
+  if (~(clrlastev == 0
+       | $time-clrlastev >= xcmDoutRegReRcr))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", outreg_rcvry_a);
+      $display("Time: ", $time);
+      rcverr_a <= 1'b1;
+      rcverr_a <= #(1000) 1'b0;
+  end
+  clklastev = $time;
+     end
+ end
+    end
+
+
+    always @(resetedge_b or oclkedge_b)
+    begin : OCLK_RESET_CHECK_B
+ time clrlastev;
+ time clklastev;
+ time clrhi;
+ if (cfgbits[19] == 1'b1)
+ begin
+     if (resetedge_b == $time)
+     begin
+  clrlastev = $time;
+  if (reset_b == 1'b1)
+  begin
+      clrhi = $time;
+  end
+  else
+  begin
+      if (~(clrhi == 0
+       | $time-clrhi >= xcmDoutRegReWthHi))
+      begin
+   $display ("\n%m");
+   $write("warning: ");
+   $display("%s", reset_width_b);
+   $display("Time: ", $time);
+   rsterr_b <= 1'b1;
+   rsterr_b <= #(1000) 1'b0;
+      end
+  end
+     end
+     if (reset_b == 1'b0 && oclkedge_b == $time)
+     begin
+  if (~(clrlastev == 0
+       | $time-clrlastev >= xcmDoutRegReRcr))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", outreg_rcvry_b);
+      $display("Time: ", $time);
+      rcverr_b <= 1'b1;
+      rcverr_b <= #(1000) 1'b0;
+  end
+  clklastev = $time;
+     end
+ end
+    end
+
+    parameter dataOutSetup = (xcmDoutRegSetup < 0) ? -xcmDoutRegSetup : 0;
+    parameter realOutSetup = xcmDoutRegSetup + dataOutSetup;
+    parameter dataOutHold = (xcmDoutRegHold < 0) ? -xcmDoutRegHold : 0;
+    parameter realOutHold = xcmDoutRegHold + dataOutHold;
+
+
+    wire doclk_a;
+    time doclkedge_a;
+    assign #(dataOutSetup) doclk_a = oclk_a;
+    always @(posedge doclk_a) doclkedge_a = $time;
+
+    always @(cdout_a or doclkedge_a)
+    begin : SYNC_DATA_OUT_SETUP_A
+ time dataev;
+ if (cfgbits[6] == 1'b1)
+     if (doclkedge_a == $time)
+  if (dataev != 0 && ($time-dataev < realOutSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2oclk_setup_a);
+      $display("Time: ", $time);
+      oserr_a <= 1'b1;
+      oserr_a <= #(1000) 1'b0;
+  end
+     else
+      dataev = $time;
+    end
+
+
+    wire dcdout_a;
+    assign #(dataOutHold) dcdout_a = cdout_a;
+
+    always @(dcdout_a or oclkedge_a)
+    begin : SYNC_DATA_OUT_HOLD_A
+ time clkev;
+ if (cfgbits[6] == 1'b1)
+     if (oclkedge_a == $time)
+      clkev = $time;
+     else
+  if (clkev != 0 && ($time-clkev < realOutHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2oclk_hold_a);
+      $display("Time: ", $time);
+      oherr_a <= 1'b1;
+      oherr_a <= #(1000) 1'b0;
+  end
+    end
+
+
+    wire doclk_b;
+    time doclkedge_b;
+    assign #(dataOutSetup) doclk_b = oclk_b;
+    always @(posedge doclk_b) doclkedge_b = $time;
+
+    always @(cdout_b or doclkedge_b)
+    begin : SYNC_DATA_OUT_SETUP_B
+ time dataev;
+ if (cfgbits[19] == 1'b1)
+     if (doclkedge_b == $time)
+  if (dataev != 0 && ($time-dataev < realOutSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2oclk_setup_b);
+      $display("Time: ", $time);
+      oserr_b <= 1'b1;
+      oserr_b <= #(1000) 1'b0;
+  end
+     else
+      dataev = $time;
+    end
+
+
+    wire dcdout_b;
+    assign #(dataOutHold) dcdout_b = cdout_b;
+
+    always @(dcdout_b or oclkedge_b)
+    begin : SYNC_DATA_OUT_HOLD_B
+ time clkev;
+ if (cfgbits[19] == 1'b1)
+     if (oclkedge_b == $time)
+      clkev = $time;
+     else
+  if (clkev != 0 && ($time-clkev < realOutHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2oclk_hold_b);
+      $display("Time: ", $time);
+      oherr_b <= 1'b1;
+      oherr_b <= #(1000) 1'b0;
+  end
+    end
+
+
+    always @(iclkedge_a or addr_a or we_a or negedge atd_a)
+    begin
+
+ if (cfgbits[4] == 1'b 1)
+ begin
+     if (iclkedge_a == $time)
+     begin
+  atmp_a <= addr_a;
+     end
+     wtmp_a <= we_a && iclk_a;
+ end
+
+ else
+ begin
+     if (atd_a == 0)
+     begin
+  atmp_a <= addr_a;
+     end
+     wtmp_a <= we_a;
+ end
+    end
+
+    always @(iclkedge_b or addr_b or we_b or negedge atd_b)
+    begin
+
+ if (cfgbits[17] == 1'b 1)
+ begin
+     if (iclkedge_b == $time)
+     begin
+  atmp_b <= addr_b;
+     end
+     wtmp_b <= we_b && iclk_b;
+ end
+
+ else
+ begin
+     if (atd_b == 0)
+     begin
+  atmp_b <= addr_b;
+     end
+     wtmp_b <= we_b;
+ end
+    end
+
+    always @(iclkedge_a or din_a)
+    begin
+
+ if (cfgbits[5] == 1'b 1)
+ begin
+     if (iclkedge_a == $time)
+     begin
+  dtin_a <= din_a;
+     end
+ end
+
+ else
+ begin
+     dtin_a <= din_a;
+ end
+    end
+
+    always @(iclkedge_b or din_b)
+    begin
+
+ if (cfgbits[18] == 1'b 1)
+ begin
+     if (iclkedge_b == $time)
+     begin
+  dtin_b <= din_b;
+     end
+ end
+
+ else
+ begin
+     dtin_b <= din_b;
+ end
+    end
+
+
+    integer i;
+    always @ (dtin_a or atmp_a or wtmp_a or
+  iclkedge_a or atmpedge_a or wtmpedge_a or dtinedge_a
+    or dtin_b or atmp_b or wtmp_b or
+  iclkedge_b or atmpedge_b or wtmpedge_b or dtinedge_b)
+    begin
+ for (i = 12; i >= 3; i = i-1) if (atmp_a[i] === 1'bX) atmp_a[i] = 1'b0;
+ for (i = 12; i >= 3; i = i-1) if (atmp_b[i] === 1'bX) atmp_b[i] = 1'b0;
+ vect_a = atmp_a[11:3];
+ vect_b = atmp_b[11:3];
+
+
+
+ if (vect_a == vect_b)
+ begin
+     addr_matchb <= 1'b 0;
+ end
+ else
+ begin
+     addr_matchb <= 1'b 1;
+ end
+
+
+ if (wtmp_a == 1'b 1)
+ begin
+     case (cfgbits[3:2])
+     2'b 00:
+     begin
+  mem[vect_a] = dtin_a;
+     end
+     2'b 01:
+     begin
+  dslice_a = mem[vect_a];
+  case (atmp_a[2])
+      1'b1: dslice_a[7:4] = dtin_a[3:0];
+      1'b0: dslice_a[3:0] = dtin_a[3:0];
+  endcase
+  mem[vect_a] = dslice_a;
+     end
+     2'b 10:
+     begin
+  dslice_a = mem[vect_a];
+  case (atmp_a[2:1])
+      2'b11: dslice_a[7:6] = dtin_a[1:0];
+      2'b10: dslice_a[5:4] = dtin_a[1:0];
+      2'b01: dslice_a[3:2] = dtin_a[1:0];
+      2'b00: dslice_a[1:0] = dtin_a[1:0];
+  endcase
+  mem[vect_a] = dslice_a;
+     end
+     2'b 11:
+     begin
+  dslice_a = mem[vect_a];
+  dslice_a[atmp_a[2:0]] = dtin_a[0];
+  mem[vect_a] = dslice_a;
+     end
+     endcase
+ end
+
+
+
+ if ( wtmp_b == 1'b 1 & vect_a != vect_b |
+  wtmp_b == 1'b 1 & vect_a == vect_b & wtmp_a != 1'b 1)
+ begin
+     case (cfgbits[3:2])
+     2'b 00:
+     begin
+  mem[vect_b] = dtin_b;
+     end
+     2'b 01:
+     begin
+  dslice_b = mem[vect_b];
+  case (atmp_b[2])
+      1'b1: dslice_b[7:4] = dtin_b[3:0];
+      1'b0: dslice_b[3:0] = dtin_b[3:0];
+  endcase
+  mem[vect_b] = dslice_b;
+     end
+     2'b 10:
+     begin
+  dslice_b = mem[vect_b];
+  case (atmp_b[2:1])
+      2'b11: dslice_b[7:6] = dtin_b[1:0];
+      2'b10: dslice_b[5:4] = dtin_b[1:0];
+      2'b01: dslice_b[3:2] = dtin_b[1:0];
+      2'b00: dslice_b[1:0] = dtin_b[1:0];
+  endcase
+  mem[vect_b] = dslice_b;
+     end
+     2'b 11:
+     begin
+  dslice_b = mem[vect_b];
+  dslice_b[atmp_b[2:0]] = dtin_b[0];
+  mem[vect_b] = dslice_b;
+     end
+     endcase
+ end
+
+
+ data_a = {8{1'b 0}};
+ case (cfgbits[3:2])
+ 2'b 00:
+ begin
+     data_a = mem[vect_a];
+ end
+ 2'b 01:
+ begin
+     mslice_a = mem[vect_a];
+     case (atmp_a[2])
+  1'b1: data_a[3:0] = mslice_a[7:4];
+  1'b0: data_a[3:0] = mslice_a[3:0];
+     endcase
+ end
+ 2'b 10:
+ begin
+     mslice_a = mem[vect_a];
+     case (atmp_a[2:1])
+  2'b11: data_a[1:0] = mslice_a[7:6];
+  2'b10: data_a[1:0] = mslice_a[5:4];
+  2'b01: data_a[1:0] = mslice_a[3:2];
+  2'b00: data_a[1:0] = mslice_a[1:0];
+     endcase
+ end
+ 2'b 11:
+ begin
+     mslice_a = mem[vect_a];
+     data_a[0] = mslice_a[atmp_a[2:0]];
+ end
+ endcase
+
+
+ data_b = {8{1'b 0}};
+ case (cfgbits[3:2])
+ 2'b 00:
+ begin
+     data_b = mem[vect_b];
+ end
+ 2'b 01:
+ begin
+     mslice_b = mem[vect_b];
+     case (atmp_b[2])
+  1'b1: data_b[3:0] = mslice_b[7:4];
+  1'b0: data_b[3:0] = mslice_b[3:0];
+     endcase
+ end
+ 2'b 10:
+ begin
+     mslice_b = mem[vect_b];
+     case (atmp_b[2:1])
+  2'b11: data_b[1:0] = mslice_b[7:6];
+  2'b10: data_b[1:0] = mslice_b[5:4];
+  2'b01: data_b[1:0] = mslice_b[3:2];
+  2'b00: data_b[1:0] = mslice_b[1:0];
+     endcase
+ end
+ 2'b 11:
+ begin
+     mslice_b = mem[vect_b];
+     data_b[0] = mslice_b[atmp_b[2:0]];
+ end
+ endcase
+
+
+ if (cfgbits[4] == 1'b 0)
+ begin
+     if (atmpedge_a == $time)
+     begin
+  dtout_a <= #(xcmAddr2DoutRegD - xcmAddrTransDetect) data_a;
+     end
+     else if (wtmpedge_a == $time & wtmp_a == 1'b1)
+     begin
+  dtout_a <= #(xcmWriEna2DoutRegD) data_a;
+     end
+     else if ((dtinedge_a == $time) & (wtmp_a == 1'b1))
+     begin
+  dtout_a <= #(xcmDin2DoutRegD) data_a;
+     end
+ end
+
+ else
+ begin
+     if (iclkedge_a == $time)
+     begin
+  dtout_a <= #(xcmClkIn2DoutRegD) data_a;
+     end
+ end
+
+
+ if (cfgbits[17] == 1'b 0)
+ begin
+     if (atmpedge_b == $time)
+     begin
+  dtout_b <= #(xcmAddr2DoutRegD - xcmAddrTransDetect) data_b;
+     end
+     else if (wtmpedge_b == $time & wtmp_b == 1'b1)
+     begin
+  dtout_b <= #(xcmWriEna2DoutRegD) data_b;
+     end
+     else if ((dtinedge_b == $time) & (wtmp_b == 1'b1))
+     begin
+  dtout_b <= #(xcmDin2DoutRegD) data_b;
+     end
+ end
+
+ else
+ begin
+     if (iclkedge_b == $time)
+     begin
+  dtout_b <= #(xcmClkIn2DoutRegD) data_b;
+     end
+ end
+    end
+
+
+    always @(dtout_a or iclkerr_a or aserr_a or aherr_a or wserr_a or wherr_a or
+     dserr_a or dherr_a or wrwerr_a or rcycerr_a or wcycerr_a or
+     dwserr_a or dwherr_a or awserr_a or awherr_a)
+    begin
+ if ( iclkerr_a | aserr_a | aherr_a | wserr_a | wherr_a
+     | dserr_a | dherr_a | wrwerr_a | rcycerr_a | wcycerr_a
+     | dwserr_a | dwherr_a | awserr_a | awherr_a )
+ begin
+     cdout_a <= {(8){1'bx}};
+ end
+ else
+ begin
+     cdout_a <= dtout_a;
+ end
+    end
+
+
+    always @(dtout_b or iclkerr_b or aserr_b or aherr_b or wserr_b or wherr_b or
+     dserr_b or dherr_b or wrwerr_b or rcycerr_b or wcycerr_b or
+     dwserr_b or dwherr_b or awserr_b or awherr_b)
+    begin
+ if ( iclkerr_b | aserr_b | aherr_b | wserr_b | wherr_b
+     | dserr_b | dherr_b | wrwerr_b | rcycerr_b | wcycerr_b
+     | dwserr_b | dwherr_b | awserr_b | awherr_b )
+ begin
+     cdout_b <= {(8){1'bx}};
+ end
+ else
+ begin
+     cdout_b <= dtout_b;
+ end
+    end
+
+
+
+    wire dreset_a;
+    assign #(xcmReset2Dout) dreset_a = reset_a;
+    reg [7:0] dreg_a;
+    initial dreg_a <= 8'b0;
+
+    always @(dreset_a)
+    begin
+ if (cfgbits[6] == 1'b1)
+     if (dreset_a == 1'b1)
+  assign dreg_a = 8'b0;
+     else
+  deassign dreg_a;
+    end
+
+
+    always @(oclkedge_a or oclkerr_a or oserr_a or oherr_a or
+     rsterr_a or rcverr_a)
+    begin
+ if (cfgbits[6] == 1'b1)
+     if (oclkerr_a | oserr_a | oherr_a | rsterr_a | rcverr_a)
+      dreg_a <= {(8){1'bx}};
+     else if (oclkedge_a == $time)
+  dreg_a <= #(xcmClkOut2Dout) cdout_a;
+    end
+
+
+    reg [7:0] creg_a;
+    always @(cdout_a)
+    begin
+ if (cfgbits[6] == 1'b0)
+     creg_a <= #(xcmDoutRegD2Dout) cdout_a;
+    end
+
+    wire [7:0] dout_a;
+    assign dout_a = (cfgbits[6] == 1'b1) ? dreg_a : creg_a;
+
+
+    wire dreset_b;
+    assign #(xcmReset2Dout) dreset_b = reset_b;
+    reg [7:0] dreg_b;
+    initial dreg_b <= 8'b0;
+
+    always @(dreset_b)
+    begin
+ if (cfgbits[19] == 1'b1)
+     if (dreset_b == 1'b1)
+  assign dreg_b = 8'b0;
+     else
+  deassign dreg_b;
+    end
+
+
+    always @(oclkedge_b or oclkerr_a or oserr_b or oherr_b or
+     rsterr_b or rcverr_b)
+    begin
+ if (cfgbits[19] == 1'b1)
+     if (oclkerr_b | oserr_b | oherr_b | rsterr_b | rcverr_b)
+      dreg_b <= {(8){1'bx}};
+     else if (oclkedge_b == $time)
+  dreg_b <= #(xcmClkOut2Dout) cdout_b;
+    end
+
+
+    reg [7:0] creg_b;
+    always @(cdout_b)
+    begin
+ if (cfgbits[19] == 1'b0)
+     creg_b <= #(xcmDoutRegD2Dout) cdout_b;
+    end
+
+    wire [7:0] dout_b;
+    assign dout_b = (cfgbits[19] == 1'b1) ? dreg_b : creg_b;
+
+endmodule
+`timescale 1ps/1ps
+module c39kcr (din, addr, we, iclk, oclk, reset, dout);
+
+    parameter [13:0] cfgbits = 14'b0;
+    parameter xcrReadAddrWthHi = 100;
+    parameter xcrWritAddrWthHi = 100;
+    parameter xcrWriEnaWthHi = 100;
+    parameter xcrAddrAtWriEnaFallSetup = 100;
+    parameter xcrAddrAtWriEnaRiseSetup = 100;
+    parameter xcrAddrAtWriEnaFallHold = 100;
+    parameter xcrDinAtWriEnaFallSetup = 100;
+    parameter xcrDinAtWriEnaFallHold = 100;
+    parameter xcrAddr2DoutRegD = 100;
+    parameter xcrWriEna2DoutRegD = 100;
+    parameter xcrDin2DoutRegD = 100;
+    parameter xcrDoutRegD2Dout = 100;
+    parameter xcrClkInWthCy = 100;
+    parameter xcrClkInWthHi = 100;
+    parameter xcrClkInWthLo = 100;
+    parameter xcrAddrAtClkInSetup = 100;
+    parameter xcrAddrAtClkInHold = 100;
+    parameter xcrWriEnaAtClkInSetup = 100;
+    parameter xcrWriEnaAtClkInHold = 100;
+    parameter xcrDinAtClkInSetup = 100;
+    parameter xcrDinAtClkInHold = 100;
+    parameter xcrClkIn2DoutRegD = 100;
+    parameter xcrDoutRegCkWthHi = 100;
+    parameter xcrDoutRegCkWthLo = 100;
+    parameter xcrDoutRegCkWthCy = 100;
+    parameter xcrDoutRegSetup = 100;
+    parameter xcrDoutRegHold = 100;
+    parameter xcrDoutRegReRcr = 100;
+    parameter xcrDoutRegReWthHi = 100;
+    parameter xcrClkOut2Dout = 100;
+    parameter xcrReset2Dout = 100;
+    parameter xcrAddrTransDetect = 800;
+
+    input[7:0] din;
+    input[12:0] addr;
+    input we;
+    input iclk;
+    input oclk;
+    input reset;
+    output[7:0] dout;
+
+    reg [12:0] atmp;
+    reg [7:0] dtin;
+    reg [7:0] dtout;
+    reg [7:0] cdout;
+    reg wtmp;
+    reg [7:0] mem [1023:0];
+    integer vect;
+    reg [7:0] data;
+    reg [7:0] dslice;
+    reg [7:0] mslice;
+    reg atd;
+
+    parameter unk = " Setting output unknown.";
+    reg iclkerr;
+    parameter iclk_high =
+    {"Input clock high width violation:",unk};
+    parameter iclk_low =
+    {"Input clock low width violation:",unk};
+    parameter iclk_cycle =
+    {"Input clock cycle width violation:",unk};
+    reg aserr;
+    parameter address_setup =
+    {"Address to input clock setup violation:",unk};
+    reg aherr;
+    parameter address_hold =
+    {"Input clock to address hold violation:",unk};
+    reg wserr;
+    parameter write_setup =
+    {"Write to input clock setup violation:",unk};
+    reg wherr;
+    parameter write_hold =
+    {"Input clock to write hold violation:",unk};
+    reg dserr;
+    parameter data_setup =
+    {"Data to input clock setup violation:",unk};
+    reg dherr;
+    parameter data_hold =
+    {"Input clock to data hold violation:",unk};
+    reg oclkerr;
+    parameter oclk_high =
+    {"Output clock high width violation:",unk};
+    parameter oclk_low =
+    {"Output clock low width violation:",unk};
+    parameter oclk_cycle =
+    {"Output clock cycle width violation:",unk};
+    reg rcverr;
+    parameter outreg_rcvry =
+    {"Output reg. reset recovery violation:",unk};
+    reg rsterr;
+    parameter reset_width =
+    {"Reset width violation:",unk};
+    reg oserr;
+    parameter data2oclk_setup =
+    {"Data to output clock setup violation:",unk};
+    reg oherr;
+    parameter data2oclk_hold =
+    {"Output clock to data hold violation:",unk};
+    reg wrwerr;
+    parameter write_width =
+    {"Minimum write width violation:",unk};
+    reg rcycerr;
+    parameter read_cycle =
+    {"Minimum read cycle violation:",unk};
+    reg wcycerr;
+    parameter write_cycle =
+    {"Minimum write cycle violation:",unk};
+    reg dwserr;
+    parameter data2we_setup =
+    {"Data to we setup violation:",unk};
+    reg dwherr;
+    parameter data2we_hold =
+    {"We to data hold violation:",unk};
+    reg awserr;
+    parameter addr2westart_setup =
+    {"Addr to we start setup violation:",unk};
+    parameter addr2weend_setup =
+    {"Address to we end setup violation:",unk};
+    reg awherr;
+    parameter addr2we_hold =
+    {"We to address hold violation:",unk};
+
+    time iclkedge ;
+    always @(posedge iclk) iclkedge = $time;
+    time oclkedge ;
+    always @(posedge oclk) oclkedge = $time;
+    time weedge ;
+    always @(negedge we) weedge = $time;
+    time atmpedge ;
+    always @(atmp) atmpedge = $time;
+    time wtmpedge ;
+    always @(wtmp) wtmpedge = $time;
+    time dtinedge ;
+    always @(dtin) dtinedge = $time;
+    time resetedge ;
+    always @(reset) resetedge= $time;
+
+
+    always @(iclk)
+    begin : ICLK_CYCLE_CHECK
+ time clkhi;
+ time clklo;
+ if ((cfgbits[2] == 1'b1) || (cfgbits[3] == 1'b1))
+ begin
+     if (iclk == 1'b0)
+     begin
+  if (~(clkhi == 0 | $time-clkhi >= xcrClkInWthHi))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", iclk_high);
+      $display("Time: ", $time);
+      iclkerr <= 1'b1;
+      iclkerr <= #(1000) 1'b0;
+  end
+  clklo = $time;
+     end
+     else if (iclk == 1'b1 )
+     begin
+  if (~(clklo == 0 | $time-clklo >= xcrClkInWthLo))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", iclk_low);
+      $display("Time: ", $time);
+      iclkerr <= 1'b1;
+      iclkerr <= #(1000) 1'b0;
+  end
+  if (~(clkhi == 0 | $time-clkhi >= xcrClkInWthCy))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", iclk_cycle);
+      $display("Time: ", $time);
+      iclkerr <= 1'b1;
+      iclkerr <= #(1000) 1'b0;
+  end
+  clkhi = $time;
+     end
+ end
+    end
+
+
+    wire daiclk;
+    time daiclkedge;
+    parameter syncAddrSetup = (xcrAddrAtClkInSetup < 0) ?
+    -xcrAddrAtClkInSetup : 0;
+    parameter realAddrSetup = xcrAddrAtClkInSetup + syncAddrSetup;
+    assign #(syncAddrSetup) daiclk = iclk;
+    always @(posedge daiclk) daiclkedge = $time;
+
+    always @(addr or daiclkedge)
+    begin : SYNC_ADDRESS_SETUP
+ time addrev;
+ if (cfgbits[2] == 1'b1)
+     if (daiclkedge == $time)
+  if (addrev != 0 && ($time-addrev < realAddrSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", address_setup);
+      $display("Time: ", $time);
+      aserr <= 1'b1;
+      aserr <= #(1000) 1'b0;
+  end
+     else
+      addrev = $time;
+    end
+
+
+    wire dsaddr;
+    parameter syncAddrHold = (xcrAddrAtClkInHold < 0) ?
+    -xcrAddrAtClkInHold : 0;
+    parameter realAddrHold = xcrAddrAtClkInHold + syncAddrHold;
+    assign #(syncAddrHold) dsaddr = addr;
+
+    always @(dsaddr or iclkedge)
+    begin : SYNC_ADDRESS_HOLD
+ time clkev;
+ if (cfgbits[2] == 1'b1)
+     if (iclkedge == $time)
+      clkev = $time;
+     else
+  if (clkev != 0 && ($time-clkev < realAddrHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", address_hold);
+      $display("Time: ", $time);
+      aherr <= 1'b1;
+      aherr <= #(1000) 1'b0;
+  end
+    end
+
+
+    wire dwiclk;
+    time dwiclkedge;
+    parameter syncWESetup = (xcrWriEnaAtClkInSetup < 0) ?
+         -xcrWriEnaAtClkInSetup : 0;
+    parameter realWESetup = xcrWriEnaAtClkInSetup + syncWESetup;
+    assign #(syncWESetup) dwiclk = iclk;
+    always @(posedge dwiclk) dwiclkedge = $time;
+
+    always @(we or dwiclkedge)
+    begin : SYNC_WRITE_SETUP
+ time writev;
+ if (cfgbits[2] == 1'b1)
+     if (dwiclkedge == $time)
+  if (writev != 0 && ($time-writev < realWESetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", write_setup);
+      $display("Time: ", $time);
+      aserr <= 1'b1;
+      aserr <= #(1000) 1'b0;
+  end
+     else
+      writev = $time;
+    end
+
+
+    wire dswe;
+    parameter syncWEHold = (xcrWriEnaAtClkInHold < 0) ?
+        -xcrWriEnaAtClkInHold : 0;
+    parameter realWEHold = xcrWriEnaAtClkInHold + syncWEHold;
+    assign #(syncWEHold) dswe = we;
+
+    always @(dswe or iclkedge)
+    begin : SYNC_WRITE_HOLD
+ time clkev;
+ if (cfgbits[2] == 1'b1)
+     if (iclkedge == $time)
+      clkev = $time;
+     else
+  if (clkev != 0 && ($time-clkev < realWEHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", write_hold);
+      $display("Time: ", $time);
+      aherr <= 1'b1;
+      aherr <= #(1000) 1'b0;
+  end
+    end
+
+
+    wire ddiclk;
+    time ddiclkedge;
+    parameter syncDataSetup = (xcrDinAtClkInSetup < 0) ?
+    -xcrDinAtClkInSetup : 0;
+    parameter realDataSetup = xcrDinAtClkInSetup + syncDataSetup;
+    assign #(syncDataSetup) ddiclk = iclk;
+    always @(posedge ddiclk) ddiclkedge = $time;
+
+    always @(din or ddiclkedge)
+    begin : SYNC_DATA_SETUP
+ time dataev;
+ if (cfgbits[3] == 1'b1)
+     if (ddiclkedge == $time)
+  if (dataev != 0 && ($time-dataev < realDataSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data_setup);
+      $display("Time: ", $time);
+      dserr <= 1'b1;
+      dserr <= #(1000) 1'b0;
+  end
+     else
+      dataev = $time;
+    end
+
+
+    wire dsdin;
+    parameter syncDataHold = (xcrDinAtClkInHold < 0) ?
+    -xcrDinAtClkInHold : 0;
+    parameter realDataHold = xcrDinAtClkInHold + syncDataHold;
+    assign #(syncDataHold) dsdin = din;
+
+    always @(dsdin or iclkedge)
+    begin : SYNC_DATA_HOLD
+ time clkev;
+ if (cfgbits[3] == 1'b1)
+     if (iclkedge == $time)
+      clkev = $time;
+     else
+  if (clkev != 0 && ($time-clkev < realDataHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data_hold);
+      $display("Time: ", $time);
+      dherr <= 1'b1;
+      dherr <= #(1000) 1'b0;
+  end
+    end
+
+
+    always @(oclk)
+    begin : OCLK_CYCLE_CHECK
+ time clkhi;
+ time clklo;
+ if (cfgbits[8] == 1'b1)
+ begin
+     if (oclk == 1'b0)
+     begin
+  if (~(clkhi == 0 | $time-clkhi >= xcrDoutRegCkWthHi))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", oclk_high);
+      $display("Time: ", $time);
+      oclkerr <= 1'b1;
+      oclkerr <= #(1000) 1'b0;
+  end
+  clklo = $time;
+     end
+     else if (oclk == 1'b1 )
+     begin
+  if (~(clklo == 0 | $time-clklo >= xcrDoutRegCkWthLo))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", oclk_low);
+      $display("Time: ", $time);
+      oclkerr <= 1'b1;
+      oclkerr <= #(1000) 1'b0;
+  end
+  if (~(clkhi == 0 | $time-clkhi >= xcrDoutRegCkWthCy))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", oclk_cycle);
+      $display("Time: ", $time);
+      oclkerr <= 1'b1;
+      oclkerr <= #(1000) 1'b0;
+  end
+  clkhi = $time;
+     end
+ end
+    end
+
+
+    always @(resetedge or oclkedge)
+    begin : OCLK_RESET_CHECK
+ time clrlo;
+ time clrhi;
+ if (cfgbits[8] == 1'b1)
+ begin
+     if (resetedge == $time)
+     begin
+  if (reset == 1'b1)
+  begin
+      clrhi = $time;
+  end
+  else
+  begin
+      clrlo = $time;
+      if (~(clrhi == 0 | $time-clrhi >= xcrDoutRegReWthHi))
+      begin
+   $display ("\n%m");
+   $write("warning: ");
+   $display("%s", reset_width);
+   $display("Time: ", $time);
+   rsterr <= 1'b1;
+   rsterr <= #(1000) 1'b0;
+      end
+  end
+     end
+     if (reset == 1'b0 & oclkedge == $time)
+     begin
+  if (~(clrlo == 0|$time-clrlo >= xcrDoutRegReRcr))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", outreg_rcvry);
+      $display("Time: ", $time);
+      rcverr <= 1'b1;
+      rcverr <= #(1000) 1'b0;
+  end
+     end
+ end
+    end
+
+
+    wire doclk;
+    time doclkedge;
+    parameter dataOutSetup = (xcrDoutRegSetup < 0) ?
+    -xcrDoutRegSetup : 0;
+    parameter realOutSetup = xcrDoutRegSetup + dataOutSetup;
+    assign #(dataOutSetup) doclk = oclk;
+    always @(posedge doclk) doclkedge = $time;
+
+    always @(cdout or doclkedge)
+    begin : SYNC_DATA_OUT_SETUP
+ time dataev;
+ if (cfgbits[8] == 1'b1)
+     if (doclkedge == $time)
+  if (dataev != 0 && ($time-dataev < realOutSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2oclk_setup);
+      $display("Time: ", $time);
+      oserr <= 1'b1;
+      oserr <= #(1000) 1'b0;
+  end
+     else
+      dataev = $time;
+    end
+
+
+    wire dcdout;
+    parameter dataOutHold = (xcrDoutRegHold < 0) ?
+         -xcrDoutRegHold : 0;
+    parameter realOutHold = xcrDoutRegHold + dataOutHold;
+    assign #(dataOutHold) dcdout = cdout;
+
+    always @(dcdout or oclkedge)
+    begin : SYNC_DATA_OUT_HOLD
+ time clkev;
+ if (cfgbits[8] == 1'b1)
+     if (oclkedge == $time)
+      clkev = $time;
+     else
+  if (clkev != 0 && ($time-clkev < realOutHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2oclk_hold);
+      $display("Time: ", $time);
+      oherr <= 1'b1;
+      oherr <= #(1000) 1'b0;
+  end
+    end
+
+
+    always @(we)
+    begin : MIN_WRITE
+ time write_ev;
+ if (cfgbits[2] == 1'b0 & we == 1'b0)
+ begin
+     if (~(write_ev == 0 | $time-write_ev >= xcrWriEnaWthHi))
+     begin
+  $display ("\n%m");
+  $write("warning: ");
+  $display("%s", write_width);
+  $display("Time: ", $time);
+  wrwerr <= 1'b1;
+  wrwerr <= #(1000) 1'b0;
+     end
+     write_ev = $time;
+ end
+    end
+
+
+    always @(addr)
+    begin : XATD
+ time expire_time;
+ if (cfgbits[2] == 1'b0)
+ begin
+     if (atd == 1'b0)
+     begin
+      atd <= 1'b1;
+     end
+     else if (expire_time >= $time)
+     begin
+  atd <= #(expire_time - $time) 1'b1;
+     end
+     atd <= #(xcrAddrTransDetect) 1'b0;
+     expire_time = $time + xcrAddrTransDetect;
+ end
+    end
+
+
+    wire ddwe;
+    time ddweedge;
+    parameter asyncDataSetup = (xcrDinAtWriEnaFallSetup < 0) ?
+     -xcrDinAtWriEnaFallSetup : 0;
+    parameter arealDataSetup = xcrDinAtWriEnaFallSetup + asyncDataSetup;
+    assign #(asyncDataSetup) ddwe = we;
+    always @(negedge ddwe) ddweedge = $time;
+
+    always @(din or ddweedge)
+    begin : ASYNC_DATA_TO_WRITE_SETUP
+ time dataev;
+ if (cfgbits[3] == 1'b0)
+     if (ddweedge == $time)
+  if (dataev != 0 && ($time-dataev < arealDataSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2we_setup);
+      $display("Time: ", $time);
+      dwserr <= 1'b1;
+      dwserr <= #(1000) 1'b0;
+  end
+     else
+      dataev = $time;
+    end
+
+
+    wire dadin;
+    parameter asyncDataHold = (xcrDinAtWriEnaFallHold < 0) ?
+    -xcrDinAtWriEnaFallHold : 0;
+    parameter arealDataHold = xcrDinAtWriEnaFallHold + asyncDataHold;
+    assign #(asyncDataHold) dadin = din;
+
+    always @(dadin or weedge)
+    begin : ASYNC_DATA_TO_WRITE_HOLD
+ time writev;
+ if (cfgbits[3] == 1'b0)
+     if (weedge == $time)
+      writev = $time;
+     else
+  if (writev != 0 && ($time-writev < arealDataHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data2we_hold);
+      $display("Time: ", $time);
+      dwherr <= 1'b1;
+      dwherr <= #(1000) 1'b0;
+  end
+    end
+
+
+    wire dawer;
+    time daweredge;
+    parameter asyncAddrSetupR = (xcrAddrAtWriEnaRiseSetup < 0) ?
+      -xcrAddrAtWriEnaRiseSetup : 0;
+    parameter arealAddrSetupR = xcrAddrAtWriEnaRiseSetup + asyncAddrSetupR;
+    assign #(asyncAddrSetupR) dawer = we;
+    always @(posedge dawer) daweredge = $time;
+
+    always @(addr or daweredge)
+    begin : ASYNC_ADDR_TO_WRITE_SETUP_RISING
+ time addrev;
+ if (cfgbits[2] == 1'b0)
+     if (daweredge == $time)
+  if (addrev != 0 && ($time-addrev < arealAddrSetupR))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", addr2westart_setup);
+      $display("Time: ", $time);
+      awserr <= 1'b1;
+      awserr <= #(1000) 1'b0;
+  end
+     else
+      addrev = $time;
+    end
+
+
+    wire dawef;
+    time dawefedge;
+    parameter asyncAddrSetupF = (xcrAddrAtWriEnaFallSetup < 0) ?
+      -xcrAddrAtWriEnaFallSetup : 0;
+    parameter arealAddrSetupF = xcrAddrAtWriEnaFallSetup + asyncAddrSetupF;
+    assign #(asyncAddrSetupF) dawef = we;
+    always @(negedge dawef) dawefedge = $time;
+
+    always @(addr or dawefedge)
+    begin : ASYNC_ADDR_TO_WRITE_SETUP_FALLING
+ time addrev;
+ if (cfgbits[2] == 1'b0)
+     if (dawefedge == $time)
+  if (addrev != 0 && ($time-addrev < arealAddrSetupF))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", addr2weend_setup);
+      $display("Time: ", $time);
+      awserr <= 1'b1;
+      awserr <= #(1000) 1'b0;
+  end
+     else
+      addrev = $time;
+    end
+
+
+    wire daaddr;
+    parameter asyncAddrHold = (xcrAddrAtWriEnaFallHold < 0) ?
+    -xcrAddrAtWriEnaFallHold : 0;
+    parameter arealAddrHold = xcrAddrAtWriEnaFallHold + asyncAddrHold;
+    assign #(asyncAddrHold) daaddr = addr;
+
+    always @(daaddr or weedge)
+    begin : ASYNC_ADDR_TO_WRITE_HOLD
+ time writev;
+ if (cfgbits[2] == 1'b0)
+     if (weedge == $time)
+      writev = $time;
+     else
+  if (writev != 0 && ($time-writev < arealAddrHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", addr2we_hold);
+      $display("Time: ", $time);
+      awherr <= 1'b1;
+      awherr <= #(1000) 1'b0;
+  end
+    end
+
+
+    always @(iclkedge or addr or we or negedge atd)
+    begin
+
+ if (cfgbits[2] == 1'b1)
+ begin
+     if (iclkedge == $time)
+     begin
+  atmp <= addr;
+     end
+     wtmp <= we && iclk;
+ end
+
+ else
+ begin
+     if (atd == 0)
+     begin
+  atmp <= addr;
+     end
+     wtmp <= we;
+ end
+    end
+
+
+    always @(iclkedge or din)
+    begin
+
+ if (cfgbits[3] == 1'b1)
+ begin
+     if (iclkedge == $time)
+     begin
+  dtin <= din;
+     end
+ end
+
+ else
+ begin
+     dtin <= din;
+ end
+    end
+
+
+    integer i;
+    always @(dtin or atmp or wtmp or
+     iclkedge or atmpedge or wtmpedge or dtinedge)
+    begin
+ for (i = 12; i >= 3; i = i - 1) if (atmp[i] === 1'bX) atmp[i] = 1'b0;
+ vect = atmp[12:3];
+
+ if (wtmp == 1'b1)
+ begin
+     case (cfgbits[1:0])
+     2'b 00:
+     begin
+  mem[vect] = dtin;
+     end
+     2'b 01:
+     begin
+  dslice = mem[vect];
+  case (atmp[2])
+      1'b1: dslice[7:4] = dtin[3:0];
+      1'b0: dslice[3:0] = dtin[3:0];
+  endcase
+  mem[vect] = dslice;
+     end
+     2'b 10:
+     begin
+  dslice = mem[vect];
+  case (atmp[2:1])
+      2'b11: dslice[7:6] = dtin[1:0];
+      2'b10: dslice[5:4] = dtin[1:0];
+      2'b01: dslice[3:2] = dtin[1:0];
+      2'b00: dslice[1:0] = dtin[1:0];
+  endcase
+  mem[vect] = dslice;
+     end
+     2'b 11:
+     begin
+  dslice = mem[vect];
+  dslice[atmp[2:0]] = dtin[0];
+  mem[vect] = dslice;
+     end
+     endcase
+ end
+ data = {8{1'b0}};
+
+
+ case (cfgbits[1:0])
+ 2'b 00:
+ begin
+     data = mem[vect];
+ end
+ 2'b 01:
+ begin
+     mslice = mem[vect];
+     case (atmp[2])
+  1'b1: data[3:0] = mslice[7:4];
+  1'b0: data[3:0] = mslice[3:0];
+     endcase
+ end
+ 2'b 10:
+ begin
+     mslice = mem[vect];
+     case (atmp[2:1])
+  2'b11: data[1:0] = mslice[7:6];
+  2'b10: data[1:0] = mslice[5:4];
+  2'b01: data[1:0] = mslice[3:2];
+  2'b00: data[1:0] = mslice[1:0];
+     endcase
+ end
+ 2'b 11:
+ begin
+     mslice = mem[vect];
+     data[0] = mslice[atmp[2:0]];
+ end
+ endcase
+
+
+ if (cfgbits[3] == 1'b0)
+ begin
+     if (atmpedge == $time)
+     begin
+  dtout <= #(xcrAddr2DoutRegD - xcrAddrTransDetect) data;
+     end
+     else if (wtmpedge == $time & (wtmp == 1'b1))
+     begin
+  dtout <= #(xcrWriEna2DoutRegD) data;
+     end
+     else if ((dtinedge == $time) & (wtmp == 1'b1))
+     begin
+  dtout <= #(xcrDin2DoutRegD) data;
+     end
+ end
+
+ else
+ begin
+     if (iclkedge == $time)
+     begin
+  dtout <= #(xcrClkIn2DoutRegD) data;
+     end
+ end
+    end
+
+
+    always @(dtout or iclkerr or aserr or aherr or wserr or wherr or
+     dserr or dherr or wrwerr or rcycerr or wcycerr or
+     dwserr or dwherr or awserr or awherr)
+    begin
+ if ( iclkerr | aserr | aherr | wserr | wherr
+     | dserr | dherr | wrwerr | rcycerr | wcycerr
+     | dwserr | dwherr | awserr | awherr )
+ begin
+     cdout <= {(8){1'bx}};
+ end
+ else
+ begin
+     cdout <= dtout;
+ end
+    end
+
+
+    wire dreset;
+    assign #(xcrReset2Dout) dreset = reset;
+    reg [7:0] dreg;
+    initial dreg <= 8'b0;
+
+    always @(dreset)
+    begin
+ if (cfgbits[8] == 1'b1)
+     if (reset == 1'b1)
+  assign dreg = 8'b0;
+     else
+  deassign dreg;
+    end
+
+
+    always @(oclkedge or oclkerr or oserr or oherr or rsterr or rcverr)
+    begin
+ if (cfgbits[8] == 1'b1)
+     if (oclkerr | oserr | oherr | rsterr | rcverr)
+  dreg <= {(8){1'bx}};
+     else if (oclkedge == $time)
+  dreg <= #(xcrClkOut2Dout) cdout;
+    end
+
+
+    reg [7:0] creg;
+    always @(cdout)
+    begin
+ if (cfgbits[8] == 1'b0)
+     creg <= #(xcrDoutRegD2Dout) cdout;
+    end
+
+    wire [7:0] dout;
+    assign dout = (cfgbits[8] == 1'b1) ? dreg : creg;
+
+endmodule
+`timescale 1ps/1ps
+module c39kio (oe, din, en, clk, clr, fb, iop);
+
+    parameter [35:0] cfgbits = 36'b0;
+    parameter xioClockWthHi = 100;
+    parameter xioClockWthLo = 100;
+    parameter xioClockWthCy = 100;
+    parameter xioResetRcr = 100;
+    parameter xioResetWthHi = 100;
+    parameter xioIoRegSetup = 100;
+    parameter xioIoRegHold = 100;
+    parameter xioIoRegEnSup = 100;
+    parameter xioIoRegEnHld = 100;
+    parameter xioOeRegSetup = 100;
+    parameter xioOeRegHold = 100;
+    parameter xioFromChip2Pin = 100;
+    parameter xioFromChip2IoRegD = 100;
+    parameter xioIoRegCk2Pin = 100;
+    parameter xioIoRegRe2Pin = 100;
+    parameter xioIoRegRe2ToChip = 100;
+    parameter xioOeRegCk2PinEA = 100;
+    parameter xioOeRegCk2PinER = 100;
+    parameter xioOeRegRe2PinER = 100;
+    parameter xioOutEna2PinEA = 100;
+    parameter xioOutEna2PinER = 100;
+    parameter xioPin2IoRegD = 100;
+    parameter xioIoRegCk2ToChip = 100;
+    parameter xioPin2ToChip = 100;
+    parameter xioAddOslow = 100;
+    parameter xioAddEAslow = 100;
+    parameter xioAddERslow = 100;
+    parameter xioAdd = 100;
+
+    input oe;
+    input din;
+    input en;
+    input clk;
+    input clr;
+    output fb;
+    inout iop;
+
+    reg fb;
+    wire iop;
+
+    wire d;
+    reg q;
+    reg qi;
+    reg qo;
+    reg ena;
+
+    parameter unk = " Setting output unknown.";
+    reg clkerr;
+    parameter clk_high = {"Clock high width violation:", unk};
+    parameter clk_low = {"Clock low width violation:", unk};
+    parameter clk_cycle = {"Clock cycle width violation:", unk};
+    reg clrerr;
+    parameter reset_width = {"Reset width violation:", unk};
+    reg crcverr;
+    parameter reset_rcvry = {"Reset recovery violation:", unk};
+    reg orstuperr;
+    parameter odata2clk_setup = {"Output Data to clock setup violation:",unk};
+    reg orholderr;
+    parameter odata2clk_hold = {"Clock to output data hold violation:", unk};
+    reg enstuperr;
+    parameter enable2clk_setup = {"Enable to clock setup violation:", unk};
+    reg enholderr;
+    parameter enable2clk_hold = {"Clock to enable hold violation:", unk};
+    reg oestuperr;
+    parameter oe2clk_setup = {"OE to clock setup violation:", unk};
+    reg oeholderr;
+    parameter oe2clk_hold = {"Clock to OE hold violation:", unk};
+
+    time clkedge;
+    always @(posedge clk)clkedge = $time;
+    time clredge;
+    always @(clr) clredge = $time;
+    time enedge;
+    always @(en) enedge = $time;
+    time enaedge;
+    always @(ena) enaedge = $time;
+    time dedge;
+    always @(d) dedge = $time;
+    time oeedge;
+    always @(oe) oeedge = $time;
+
+
+    always @(clk)
+    begin : CLOCK_CHECK
+ time clkhi;
+ time clklo;
+ if (cfgbits[2] == 1'b1 | cfgbits[3] == 1'b1 | cfgbits[17] == 1'b1)
+ begin
+     if (clk == 1'b0)
+     begin
+  if (~(clkhi == 0 | $time - clkhi >= xioClockWthHi))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", clk_high);
+      $display("Time: ", $time);
+      clkerr <= 1'b1;
+      clkerr <= #(1000) 1'b0;
+  end
+  clklo = $time;
+     end
+     else if (clk == 1'b1 )
+     begin
+  if (~(clklo == 0 | $time - clklo >= xioClockWthLo))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", clk_low);
+      $display("Time: ", $time);
+      clkerr <= 1'b1;
+      clkerr <= #(1000) 1'b0;
+  end
+  if (~(clkhi == 0 | $time - clkhi >= xioClockWthCy))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", clk_cycle);
+      $display("Time: ", $time);
+      clkerr <= 1'b1;
+      clkerr <= #(1000) 1'b0;
+  end
+  clkhi = $time;
+     end
+ end
+    end
+
+
+    always @(clredge or clkedge)
+    begin : RESET_CHECK
+ time clrhi;
+ time clrlo;
+ if (cfgbits[2] == 1'b1 | cfgbits[3] == 1'b1 | cfgbits[17] == 1'b1)
+ begin
+     if (clredge == $time)
+     begin
+  if (clr == 1'b1)
+  begin
+      clrhi = $time;
+  end
+  else
+  begin
+      clrlo = $time;
+      if (~(clrhi == 0 | $time - clrhi >= xioResetWthHi))
+      begin
+   $display ("\n%m");
+   $write("warning: ");
+   $display("%s", reset_width);
+   $display("Time: ", $time);
+   clrerr <= 1'b1;
+   clrerr <= #(1000) 1'b0;
+      end
+  end
+     end
+     if (clr == 1'b0 & clkedge == $time)
+     begin
+  if (~(clrlo == 0 | $time - clrlo >= xioResetRcr))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", reset_rcvry);
+      $display("Time: ", $time);
+      crcverr <= 1'b1;
+      crcverr <= #(1000) 1'b0;
+  end
+     end
+ end
+    end
+
+
+    wire declk;
+    time declkedge;
+    parameter enSetup = (xioIoRegEnSup < 0) ? -xioIoRegEnSup : 0;
+    parameter renSetup = xioIoRegEnSup + enSetup;
+    assign #(enSetup) declk = clk;
+    always @(posedge declk) declkedge = $time;
+
+    always @(enedge or declkedge)
+    begin : EN_SETUP_CHECK
+ time regevent;
+ if ((cfgbits[2] == 1'b1) || (cfgbits[3] == 1'b1))
+ begin
+     if (clr == 1'b0 && declkedge == $time)
+     begin
+  if (regevent != 0 && ($time-regevent < renSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", enable2clk_setup);
+      $display("Time: ", $time);
+      enstuperr <= 1'b1;
+      enstuperr <= #(1000) 1'b0;
+  end
+     end
+     else
+     begin
+      regevent = $time;
+     end
+ end
+    end
+
+
+    wire den;
+    time denedge;
+    parameter enHold = (xioIoRegEnHld < 0) ? -xioIoRegEnHld : 0;
+    parameter renHold = xioIoRegEnHld + enHold;
+    assign #(enHold) den = en;
+    always @(den) denedge = $time;
+
+    always @(denedge or clkedge)
+    begin : EN_HOLD_CHECK
+ time clkevent;
+ if ((cfgbits[2] == 1'b1) || (cfgbits[3] == 1'b1))
+ begin
+     if (clr == 1'b0 && clkedge == $time)
+     begin
+      clkevent = $time;
+     end
+     else
+     begin
+  if (clkevent != 0 && ($time-clkevent < renHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", enable2clk_hold);
+      $display("Time: ", $time);
+      enholderr <= 1'b1;
+      enholderr <= #(1000) 1'b0;
+  end
+     end
+ end
+    end
+
+
+    wire ddclk;
+    time ddclkedge;
+    parameter dSetup = (xioIoRegSetup < 0) ? -xioIoRegSetup : 0;
+    parameter rdSetup = xioIoRegSetup + dSetup;
+    assign #(dSetup) ddclk = clk;
+    always @(posedge ddclk) ddclkedge = $time;
+
+    always @(dedge or ddclkedge)
+    begin : DATA_SETUP_CHECK
+ time regevent;
+ if ((cfgbits[2] == 1'b1) || (cfgbits[3] == 1'b1))
+ begin
+     if (clr == 1'b0 && ddclkedge == $time)
+     begin
+  if (regevent != 0 && ($time-regevent < rdSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", odata2clk_setup);
+      $display("Time: ", $time);
+      orstuperr <= 1'b1;
+      orstuperr <= #(1000) 1'b0;
+  end
+     end
+     else
+     begin
+      regevent = $time;
+     end
+ end
+    end
+
+
+    wire dd;
+    time ddedge;
+    parameter dHold = (xioIoRegHold < 0) ? -xioIoRegHold : 0;
+    parameter rdHold = xioIoRegHold + dHold;
+    assign #(dHold) dd = d;
+    always @(dd) ddedge = $time;
+
+    always @(ddedge or clkedge)
+    begin : DATA_HOLD_CHECK
+ time clkevent;
+ if ((cfgbits[2] == 1'b1) || (cfgbits[3] == 1'b1))
+ begin
+     if (clr == 1'b0 && clkedge == $time)
+     begin
+      clkevent = $time;
+     end
+     else
+     begin
+  if (clkevent != 0 && ($time-clkevent < rdHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", odata2clk_hold);
+      $display("Time: ", $time);
+      orholderr <= 1'b1;
+      orholderr <= #(1000) 1'b0;
+  end
+     end
+ end
+    end
+
+
+    wire doeclk;
+    time doeclkedge;
+    parameter oeSetup = (xioOeRegSetup < 0) ? -xioOeRegSetup : 0;
+    parameter roeSetup = xioOeRegSetup + oeSetup;
+    assign #(oeSetup) doeclk = clk;
+    always @(posedge doeclk) doeclkedge = $time;
+
+    always @(oeedge or doeclkedge)
+    begin : OE_SETUP_CHECK
+ time regevent;
+ if (cfgbits[17] == 1'b0)
+ begin
+     if (clr == 1'b0 && doeclkedge == $time)
+     begin
+  if (regevent != 0 && ($time-regevent < roeSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", oe2clk_setup);
+      $display("Time: ", $time);
+      oestuperr <= 1'b1;
+      oestuperr <= #(1000) 1'b0;
+  end
+     end
+     else
+     begin
+      regevent = $time;
+     end
+ end
+    end
+
+
+    wire doe;
+    time doeedge;
+    parameter oeHold = (xioOeRegHold < 0) ? -xioOeRegHold : 0;
+    parameter roeHold = xioOeRegHold + oeHold;
+    assign #(oeHold) doe = oe;
+    always @(doe) doeedge = $time;
+
+    always @(doeedge or clkedge)
+    begin : OE_HOLD_CHECK
+ time clkevent;
+ if (cfgbits[17] == 1'b0)
+ begin
+     if (clr == 1'b0 && clkedge == $time)
+     begin
+      clkevent = $time;
+     end
+     else
+     begin
+  if (clkevent != 0 && ($time-clkevent < roeHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", oe2clk_hold);
+      $display("Time: ", $time);
+      oeholderr <= 1'b1;
+      oeholderr <= #(1000) 1'b0;
+  end
+     end
+ end
+    end
+
+    initial
+    begin
+ if ((cfgbits[2] == 1'b1)|(cfgbits[3] == 1'b1)|(~cfgbits[17] == 1'b1))
+ begin
+     qo <= 1'b0;
+     qi <= 1'b1;
+ end
+ else
+     qo <= d;
+
+ if (~cfgbits[17] == 1'b1)
+     ena <= 1'b0;
+ else
+     ena <= oe;
+    end
+
+
+    wire dDIN;
+    wire dIoP;
+    wire iox;
+    assign #(xioFromChip2IoRegD) dDIN = din;
+    assign #(xioPin2IoRegD) dIoP = iop;
+    assign iox = ((iop === 1'b1) | (iop === 1'b0)) ? dIoP : 1'bX;
+    assign d = cfgbits[1] ? dDIN : iox;
+
+
+    wire diclr, doclr;
+    assign #(xioIoRegRe2Pin) doclr = clr;
+    assign #(xioIoRegRe2ToChip) diclr = clr;
+
+    always @(diclr)
+    begin
+ if ((cfgbits[2] == 1'b1) | (cfgbits[3] == 1'b1))
+ begin
+     if (clr == 1'b1)
+  assign qi = 1'b0;
+     else
+  deassign qi;
+ end
+    end
+
+    always @(doclr)
+    begin
+ if ((cfgbits[2] == 1'b1) | (cfgbits[3] == 1'b1))
+ begin
+     if (clr == 1'b1)
+  assign qo = 1'b0;
+     else
+      deassign qo;
+ end
+    end
+
+    always @(clkedge or clkerr or crcverr or clrerr or
+  enstuperr or enholderr or orstuperr or orholderr)
+    begin
+ if ((cfgbits[2] == 1'b1) | (cfgbits[3] == 1'b1))
+ begin
+     if (clkerr|crcverr|clrerr|enstuperr|enholderr|orstuperr|orholderr)
+     begin
+  qo <= #(xioIoRegCk2Pin) 1'bX;
+  qi <= #(xioIoRegCk2ToChip) 1'bX;
+     end
+     else if (en == 1'b1 & clkedge == $time)
+     begin
+  qo <= #(xioIoRegCk2Pin) d;
+  qi <= #(xioIoRegCk2ToChip) d;
+     end
+ end
+    end
+
+
+    always @(qo or qi or din or iop)
+    begin
+ case (cfgbits[3:2])
+ 2'b 00:
+ begin
+     fb <= #(xioPin2ToChip) iop;
+     q <= #(xioFromChip2Pin) din;
+ end
+ 2'b 01:
+ begin
+     fb <= qi;
+     q <= #(xioFromChip2Pin) din;
+ end
+ 2'b 10:
+ begin
+     fb <= #(xioPin2ToChip) iop;
+     q <= qo;
+ end
+ 2'b 11:
+ begin
+     fb <= qi;
+     q <= qo;
+ end
+ endcase
+    end
+
+
+    wire declr;
+    assign #(xioOeRegRe2PinER) declr = clr;
+
+    always @(declr)
+    begin
+ if (cfgbits[17] == 1'b0)
+ begin
+     if (clr == 1'b1)
+  assign ena = 1'b0;
+     else
+      deassign ena;
+ end
+    end
+
+    always @(oe or clkedge or
+ oestuperr or oeholderr or clkerr or crcverr or clrerr)
+    begin
+ if (cfgbits[17] == 1'b1)
+ begin
+     if (cfgbits[6] == 1'b0)
+     begin
+  if (oe == 1'b1)
+  begin
+      ena <= #(xioOutEna2PinEA) oe;
+  end
+  else
+  begin
+      ena <= #(xioOutEna2PinER) oe;
+  end
+     end
+     else
+     begin
+  if (cfgbits[5] == 1'b0)
+  begin
+      if (oe == 1'b1)
+      begin
+   ena <= #(xioOutEna2PinEA) oe;
+      end
+      else
+      begin
+   ena <= #(xioOutEna2PinER) oe;
+      end
+  end
+  else
+  begin
+      if (cfgbits[4] == 1'b1)
+      begin
+   ena <= 1'b0;
+      end
+      else
+      begin
+   ena <= 1'b1;
+      end
+  end
+     end
+ end
+ else
+ begin
+     if (clkerr | crcverr | clrerr | oestuperr | oeholderr)
+     begin
+  ena <= #(xioOeRegCk2PinER) 1'bX;
+     end
+     else if (clkedge == $time)
+     begin
+  if (oe == 1'b1)
+  begin
+      ena <= #(xioOeRegCk2PinEA) oe;
+  end
+  else
+  begin
+      ena <= #(xioOeRegCk2PinER) oe;
+  end
+     end
+ end
+    end
+
+
+    reg lastq;
+    always @(q)
+    begin
+     if (ena == 1'b1)
+     lastq <= q;
+    end
+
+`ifdef __VERIWELL__
+    wire bena0, bena1;
+    buf #(xioAddEAslow+xioAdd, xioAddERslow+xioAdd) UB0 (bena0, ena);
+    buf #( xioAdd, xioAdd) UB1 (bena1, ena);
+`else
+    parameter xioODelay = cfgbits[0] ? (xioAddOslow + xioAdd) : xioAdd;
+    parameter xioADelay = cfgbits[0] ? (xioAddEAslow + xioAdd) : xioAdd;
+    parameter xioRDelay = cfgbits[0] ? (xioAddERslow + xioAdd) : xioAdd;
+
+    wire bena;
+    buf #(xioADelay, xioRDelay) UB (bena, ena);
+`endif
+
+    wire ena2 = !cfgbits[16] ? ena : 1'b1;
+`ifdef __VERIWELL__
+    wire weakq;
+    assign (pull1,pull0) weakq = lastq;
+    bufif0 U1 (iop, weakq, ena2);
+    bufif1 #(xioAddOslow+xioAdd) U0 (iop, q, bena0 & cfgbits[0]);
+    bufif1 #(xioAdd) U2 (iop, q, bena1 & ~cfgbits[0]);
+`else
+    bufif0 (weak1, weak0) U1 (iop, lastq, ena2);
+    bufif1 #(xioODelay) U0 (iop, q, bena);
+`endif
+
+endmodule
+`timescale 1ps/1ps
+module c39kmc (selin, cpt, set, clr, clk, din, selout, qout);
+
+    parameter [11:0] cfgbits = 12'b100000000100;
+    parameter xlbRegSetup = 100;
+    parameter xlbRegHold = 100;
+    parameter xlbRegCkWthHi = 100;
+    parameter xlbRegCkWthLo = 100;
+    parameter xlbRegCkWthCy = 400;
+    parameter xlbRegPrRcr = 100;
+    parameter xlbRegPrWthHi = 100;
+    parameter xlbRegReRcr = 100;
+    parameter xlbRegReWthHi = 100;
+    parameter xlbSelin2Selout = 100;
+    parameter xlbCpt2Selout = 100;
+    parameter xlbCpt2RegD = 100;
+    parameter xlbEqn2RegD = 100;
+    parameter xlbSelin2RegD = 100;
+    parameter xlbRegQ2RegD = 100;
+    parameter xlbRegD2ToPim = 100;
+    parameter xlbRegCk2ToPim = 100;
+    parameter xlbRegPr2ToPim = 100;
+    parameter xlbRegRe2ToPim = 100;
+
+    input selin;
+    input [1:0] cpt;
+    input set;
+    input clr;
+    input clk;
+    input din;
+    output selout;
+    output qout;
+
+    wire selout;
+    wire qout;
+
+    reg qp;
+    reg qn;
+    reg qc;
+    wire cmxout;
+    wire regd;
+    wire [1:0] xorin;
+    wire rcpt0;
+    wire rcpt1;
+    wire rseli;
+    wire scpt0;
+    wire scpt1;
+    wire sseli;
+
+    parameter unk = " Setting output unknown.";
+    reg clkerr;
+    parameter clk_high = {"Clock high width violation:", unk};
+    parameter clk_low = {"Clock low width violation:", unk};
+    parameter clk_cycle = {"Clock cycle width violation:", unk};
+    reg stuperr;
+    parameter data_setup = {"Data to clock setup violation:", unk};
+    reg holderr;
+    parameter data_hold = {"Clock to data hold violation:", unk};
+    reg clrerr;
+    parameter reset_width = {"Reset width violation:", unk};
+    reg crcverr;
+    parameter reset_rcvry = {"Reset recovery violation:", unk};
+    reg seterr;
+    parameter preset_width = {"Preset width violation:", unk};
+    reg srcverr;
+    parameter preset_rcvry = {"Preset recovery violation:", unk};
+
+    time clkedge;
+    always @(clk) clkedge = $time;
+    time clredge;
+    always @(clr) clredge = $time;
+    time setedge;
+    always @(set) setedge = $time;
+    time regedge;
+    always @(regd) regedge = $time;
+
+
+    always @(clk)
+    begin : CLOCK_CHECK
+ time clkhi;
+ time clklo;
+ if (cfgbits[11] == 1'b1)
+ begin
+     if (clk == 1'b0)
+     begin
+  if (~(clkhi == 0 | $time-clkhi >= xlbRegCkWthHi))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", clk_high);
+      $display("Time: ", $time);
+      clkerr <= 1'b1;
+      clkerr <= #(1000) 1'b0;
+  end
+  clklo = $time;
+     end
+     else if (clk == 1'b1)
+     begin
+  if (~(clklo == 0 | $time-clklo >= xlbRegCkWthLo))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", clk_low);
+      $display("Time: ", $time);
+      clkerr <= 1'b1;
+      clkerr <= #(1000) 1'b0;
+  end
+  if (~(clkhi == 0 | $time-clkhi >= xlbRegCkWthCy))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", clk_cycle);
+      $display("Time: ", $time);
+      clkerr <= 1'b1;
+      clkerr <= #(1000) 1'b0;
+  end
+  clkhi = $time;
+     end
+ end
+    end
+
+
+    wire dclk;
+    time dckedge;
+    parameter dataSetup = (xlbRegSetup < 0) ? -xlbRegSetup : 0;
+    parameter realSetup = xlbRegSetup + dataSetup;
+    assign #(dataSetup) dclk = clk;
+    always @(posedge dclk) dckedge = $time;
+
+    always @(regedge or dckedge)
+    begin : SETUP_CHECK
+ time dataev;
+ if (cfgbits[11] == 1'b1)
+ begin
+     if (clr == 1'b0 && set == 1'b0 && dckedge == $time)
+     begin
+  if ((dataev != 0) && ($time-dataev < realSetup))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data_setup);
+      $display("Time: ", $time);
+      stuperr <= 1'b1;
+      stuperr <= #(1000) 1'b0;
+  end
+     end
+     else
+     begin
+      dataev = $time;
+     end
+ end
+    end
+
+
+    wire dregd;
+    time ddaedge;
+    parameter dataHold = (xlbRegHold < 0) ? -xlbRegHold : 0;
+    parameter realHold = xlbRegHold + dataHold;
+    assign #(dataHold) dregd = regd;
+    always @(dregd) ddaedge = $time;
+
+    always @(ddaedge or clkedge)
+    begin : HOLD_CHECK
+ time clckev;
+ if (cfgbits[11] == 1'b1)
+ begin
+     if (clr == 1'b0 && set == 1'b0 && clkedge == $time)
+     begin
+      clckev = $time;
+     end
+     else
+     begin
+  if ((clckev != 0) && ($time-clckev < realHold))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", data_hold);
+      $display("Time: ", $time);
+      holderr <= 1'b1;
+      holderr <= #(1000) 1'b0;
+  end
+     end
+ end
+    end
+
+
+    always @(clredge or clkedge)
+    begin : RESET_CHECK
+ time clrlastev;
+ time clklastev;
+ time clrhi;
+ if (cfgbits[11] == 1'b1)
+ begin
+     if (clredge == $time)
+     begin
+  clrlastev = $time;
+  if (clr == 1'b1)
+  begin
+      clrhi = $time;
+  end
+  else
+  begin
+      if (~(clrhi == 0 | $time-clrhi >= xlbRegReWthHi))
+      begin
+   $display ("\n%m");
+   $write("warning: ");
+   $display("%s", reset_width);
+   $display("Time: ", $time);
+   clrerr <= 1'b1;
+   clrerr <= #(1000) 1'b0;
+      end
+  end
+     end
+     if (clr == 1'b0 & clkedge == $time & clk == 1'b1)
+     begin
+  if (~(clrlastev == 0 | $time-clrlastev >= xlbRegReRcr))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", reset_rcvry);
+      $display("Time: ", $time);
+      crcverr <= 1'b1;
+      crcverr <= #(1000) 1'b0;
+  end
+  clklastev = $time;
+     end
+ end
+    end
+
+
+    always @(setedge or clkedge)
+    begin : PRESET_CHECK
+ time setlastev;
+ time clklastev;
+ time sethi;
+ if (cfgbits[11] == 1'b1)
+ begin
+     if (setedge == $time)
+     begin
+  setlastev = $time;
+  if (set == 1'b1)
+  begin
+      sethi = $time;
+  end
+  else
+  begin
+      if (~(sethi == 0 | $time-sethi >= xlbRegPrWthHi))
+      begin
+   $display ("\n%m");
+   $write("warning: ");
+   $display("%s", preset_width);
+   $display("Time: ", $time);
+   seterr <= 1'b1;
+   seterr <= #(1000) 1'b0;
+      end
+  end
+     end
+     if (set == 1'b0 & clkedge == $time & clk == 1'b1)
+     begin
+  if (~(setlastev == 0 | $time-setlastev >= xlbRegPrRcr))
+  begin
+      $display ("\n%m");
+      $write("warning: ");
+      $display("%s", preset_rcvry);
+      $display("Time: ", $time);
+      srcverr <= 1'b1;
+      srcverr <= #(1000) 1'b0;
+  end
+  clklastev = $time;
+     end
+ end
+    end
+
+    initial
+    begin
+ if (cfgbits[11] == 1'b1)
+ begin
+     qp = 1'b0;
+     qn = 1'b1;
+     qc = 1'b0;
+ end
+ else
+ begin
+     qp = regd;
+     qn = ~regd;
+     qc = regd;
+ end
+    end
+
+
+    assign #(xlbCpt2Selout) scpt0 = cpt[0];
+    assign #(xlbCpt2Selout) scpt1 = cpt[1];
+    assign #(xlbSelin2Selout) sseli = selin;
+    assign #(xlbCpt2RegD) rcpt0 = cpt[0];
+    assign #(xlbCpt2RegD) rcpt1 = cpt[1];
+    assign #(xlbSelin2RegD) rseli = selin;
+
+    assign cmxout = ((cfgbits[2] & rseli) & ~rcpt1) |
+      (~(cfgbits[2] & rseli) & rcpt0);
+
+    assign selout = ((cfgbits[2] & sseli) & ~scpt1) |
+      (~(cfgbits[2] & sseli) & scpt0);
+
+
+    assign #(xlbRegQ2RegD) xorin[1] = cfgbits[1:0] == 2'b00 ? qp :
+          cfgbits[1:0] == 2'b01 ? qn :
+          cfgbits[1:0] == 2'b10 ? cmxout :
+          cfgbits[3];
+
+    assign #(xlbEqn2RegD) xorin[0] = din;
+
+
+    assign regd = xorin[1] ^ xorin[0];
+
+
+    wire dset, dclr;
+    assign #(xlbRegRe2ToPim) dclr = clr;
+    assign #(xlbRegPr2ToPim) dset = set;
+
+    always @(dset or dclr)
+    begin
+ if (cfgbits[11] == 1'b1)
+ begin
+     if (dclr == 1'b1)
+     begin
+  assign qp = 1'b0;
+  assign qn = 1'b1;
+     end
+     else if (dset == 1'b1)
+     begin
+  assign qp = 1'b1;
+  assign qn = 1'b0;
+     end
+     else
+     begin
+      deassign qp;
+  deassign qn;
+     end
+ end
+    end
+
+    always @(clkedge or
+ stuperr or holderr or crcverr or srcverr or seterr or clrerr or clkerr)
+    begin
+ if (cfgbits[11] == 1'b1)
+ begin
+     if (stuperr|holderr|crcverr|srcverr|seterr|clrerr|clkerr)
+     begin
+  qp <= #(xlbRegCk2ToPim) 1'bX;
+  qn <= #(xlbRegCk2ToPim) 1'bX;
+     end
+     else if (clkedge == $time & clk == 1'b1)
+     begin
+  qp <= #(xlbRegCk2ToPim) regd;
+  qn <= #(xlbRegCk2ToPim) ~regd;
+     end
+ end
+    end
+
+    always @(regd)
+    begin
+ if (cfgbits[11] == 1'b0)
+     qc <= #(xlbRegD2ToPim) regd;
+    end
+
+    assign qout = (cfgbits[11] == 1'b1) ? qp : qc;
+
+endmodule

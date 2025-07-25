@@ -1,0 +1,2757 @@
+--
+
+--------------------------------------------------------------------------
+-- Components for Generic RTL. --
+--------------------------------------------------------------------------
+PACKAGE rtlpkg IS
+component cy_bufoe
+    port (x : in bit;
+     oe : in bit;
+     y : inout x01z;
+     yfb : out bit);
+end component;
+
+    attribute atomic_rtl of cy_bufoe : component is bufoe_type;
+component cy_dltch
+    port (d : in bit;
+     e : in bit;
+     q : out bit);
+end component;
+component cy_dff
+    port (d : in bit;
+     clk : in bit;
+     q : out bit);
+end component;
+
+    attribute atomic_rtl of cy_dff : component is dff_type;
+component cy_xdff
+    port (x1 : in bit;
+     x2 : in bit;
+     clk : in bit;
+     q : out bit);
+end component;
+component cy_jkff
+    port (j : in bit;
+     k : in bit;
+     clk : in bit;
+     q : out bit);
+end component;
+component cy_buf
+    port (x : in bit;
+     y : out bit);
+end component;
+
+    attribute atomic_rtl of cy_buf : component is buf_type;
+component cy_srlch
+    port (s : in bit;
+     r : in bit;
+     q : out bit);
+end component;
+component cy_srff
+    port (s : in bit;
+     r : in bit;
+     clk : in bit;
+     q : out bit);
+end component;
+component cy_dsrff
+    port (d : in bit;
+     s : in bit;
+     r : in bit;
+     clk : in bit;
+     q : out bit);
+end component;
+
+    attribute atomic_rtl of cy_dsrff : component is dsrff_type;
+component cy_tsrff
+    port (t : in bit;
+     s : in bit;
+     r : in bit;
+     clk : in bit;
+     q : out bit);
+end component;
+
+    attribute atomic_rtl of cy_tsrff : component is tsrff_type;
+component cy_tff
+    port (t : in bit;
+     clk : in bit;
+     q : out bit);
+end component;
+
+    attribute atomic_rtl of cy_tff : component is tff_type;
+component cy_xbuf
+    port (x1 : in bit;
+     x2 : in bit;
+     q : out bit);
+end component;
+component cy_triout
+    port (x : in bit;
+     oe : in bit;
+     y : out x01z);
+end component;
+component cy_dsrffe
+    port (d : in bit;
+     s : in bit;
+     r : in bit;
+     e : in bit;
+     clk : in bit;
+     q : out bit);
+end component;
+component cy_c39kcarry
+    port (SelIn : in bit;
+     Cpt0 : in bit;
+     Cpt1 : in bit;
+     SelOut : out bit);
+end component;
+
+    attribute atomic_rtl of cy_c39kcarry : component is not_allowed_type;
+component cy_c39kxor
+    port (SIn : in bit;
+     PtmPts : in bit;
+     XorOut : out bit);
+end component;
+
+    attribute atomic_rtl of cy_c39kxor : component is not_allowed_type;
+component cy_c39kmultiply
+    generic(IsSigned : BOOLEAN := FALSE;
+ DataWidthA : positive;
+ DataWidthB : positive;
+ DataWidthP : positive;
+
+ Hint : goal_type := memory);
+
+    port (Data_A : in bit_vector(DataWidthA-1 downto 0);
+     Data_B : in bit_vector(DataWidthB-1 downto 0);
+     Product : out bit_vector(DataWidthP-1 downto 0));
+end component;
+
+    attribute atomic_rtl of cy_c39kmultiply : component is not_allowed_type;
+TYPE fdbk_source IS (DIRECT, CLOCK_TREE, EXTERNAL);
+component cy_c39kpll
+    generic(feedback : fdbk_source := DIRECT;
+     multiply : positive := 1;
+     gclk0_phase : natural := 0;
+     gclk0_divide: positive := 1;
+     gclk1_phase : natural := 0;
+     gclk1_divide: positive := 1;
+     gclk2_phase : natural := 0;
+     gclk2_divide: positive := 1;
+     gclk3_phase : natural := 0;
+     gclk3_divide: positive := 1;
+     input_freq : natural := 0;
+     ext_fdbk_delay_ps : natural := 0;
+     ext_fdbk_port_out : string:="");
+    port (pll_in : in bit;
+     ext_fdbk : in bit := '0';
+     lock_detect : out bit;
+     gclk0 : out bit;
+     gclk1 : out bit;
+     gclk2 : out bit;
+     gclk3 : out bit);
+end component;
+
+    attribute atomic_rtl of cy_c39kpll : component is not_allowed_type;
+component cy_25g01serdes
+
+    port (txd : in bit_vector (15 downto 0) ;
+     fifo_rstb : in bit ;
+     loop_time : in bit ;
+     diagloop : in bit ;
+     loopa : in bit ;
+     lineloop : in bit ;
+     resetb : in bit ;
+     pwrdnb : in bit ;
+     lockrefb : in bit ;
+     refclk_n : in bit ;
+     refclk_p : in bit ;
+     serial_in_n : in bit ;
+     serial_in_p : in bit ;
+     sd : in bit ;
+     serial_out_n: out bit ;
+     serial_out_p: out bit ;
+     fifo_err : out bit ;
+     txclk : out bit ;
+     rxd : out bit_vector (15 downto 0) ;
+     rxclk : out bit ;
+     lfib : out bit );
+
+end component;
+    attribute atomic_rtl of cy_25g01serdes : component is not_allowed_type;
+component cy_15g04serdes
+
+    port ( txda : in bit_vector(7 downto 0) := (others => '0');
+     txdb : in bit_vector(7 downto 0) := (others => '0');
+     txdc : in bit_vector(7 downto 0) := (others => '0');
+     txdd : in bit_vector(7 downto 0) := (others => '0');
+     txpera : out bit;
+     txperb : out bit;
+     txperc : out bit;
+     txperd : out bit;
+     txcta : in bit_vector(1 downto 0) := (others => '0');
+     txctb : in bit_vector(1 downto 0) := (others => '0');
+     txctc : in bit_vector(1 downto 0) := (others => '0');
+     txctd : in bit_vector(1 downto 0) := (others => '0');
+
+     txclka : in bit;
+
+     txclko_p : out bit;
+
+     txrate : in bit;
+     txmode : in bit_vector(1 downto 0);
+     txcksel : in bit;
+     txrstb : in bit;
+
+     rxda : out bit_vector(7 downto 0);
+     rxdb : out bit_vector(7 downto 0);
+     rxdc : out bit_vector(7 downto 0);
+     rxdd : out bit_vector(7 downto 0);
+     rxsta : out bit_vector(2 downto 0);
+     rxstb : out bit_vector(2 downto 0);
+     rxstc : out bit_vector(2 downto 0);
+     rxstd : out bit_vector(2 downto 0);
+
+     rxrate : in bit;
+     rfen : in bit;
+     rxmode : in bit_vector(1 downto 0);
+     rxcksel : in bit;
+     framchar : in bit;
+     rfmode : in bit;
+     decmode : in bit;
+
+     spdsel : in bit;
+     rxclka_p : out bit;
+     rxclkb_p : inout bit;
+     rxclkc_p : out bit;
+     rxclkd_p : inout bit;
+
+     refclk_p : in bit;
+     refclk_n : in bit;
+     serial_outa1_p : out bit;
+     serial_outb1_p : out bit;
+     serial_outc1_p : out bit;
+     serial_outd1_p : out bit;
+     serial_outa2_p : out bit;
+     serial_outb2_p : out bit;
+     serial_outc2_p : out bit;
+     serial_outd2_p : out bit;
+     serial_ina1_p : in bit;
+     serial_inb1_p : in bit;
+     serial_inc1_p : in bit;
+     serial_ind1_p : in bit;
+     serial_ina2_p : in bit;
+     serial_inb2_p : in bit;
+     serial_inc2_p : in bit;
+     serial_ind2_p : in bit;
+     serial_outa1_n : out bit;
+     serial_outb1_n : out bit;
+     serial_outc1_n : out bit;
+     serial_outd1_n : out bit;
+     serial_outa2_n : out bit;
+     serial_outb2_n : out bit;
+     serial_outc2_n : out bit;
+     serial_outd2_n : out bit;
+     serial_ina1_n : in bit;
+     serial_inb1_n : in bit;
+     serial_inc1_n : in bit;
+     serial_ind1_n : in bit;
+     serial_ina2_n : in bit;
+     serial_inb2_n : in bit;
+     serial_inc2_n : in bit;
+     serial_ind2_n : in bit;
+     insela : in bit;
+     inselb : in bit;
+     inselc : in bit;
+     inseld : in bit;
+     sdasel : in bit;
+     lpen : in bit;
+     oele : in bit;
+     bistle : in bit;
+     rxle : in bit;
+     boe : in bit_vector(7 downto 0);
+     bondst : inout bit_vector(1 downto 0);
+     masterb : in bit;
+     bond_all : inout bit;
+     bond_inhb : in bit;
+     lfiab : out bit;
+     lfibb : out bit;
+     lficb : out bit;
+     lfidb : out bit;
+     trstzb : in bit);
+
+end component;
+
+    attribute atomic_rtl of cy_15g04serdes : component is not_allowed_type;
+component cy_c39kdualport
+    generic(DataWidth : positive := 8;
+ AddressWidth : positive := 11;
+ indata_reg : BOOLEAN := TRUE;
+ addr_ctrl_reg : BOOLEAN := TRUE;
+ outdataA_reg : BOOLEAN := FALSE;
+ outdataB_reg : BOOLEAN := FALSE;
+ FileName : string := "");
+    port (DIn_A : in bit_vector(DataWidth-1 downto 0) :=(others => '0');
+     DIn_B : in bit_vector(DataWidth-1 downto 0) :=(others => '0');
+     Addr_A : in bit_vector(AddressWidth-1 downto 0):=(others=>'0');
+     Addr_B : in bit_vector(AddressWidth-1 downto 0):=(others=>'0');
+     WEA : in bit := '0';
+     WEB : in bit := '0';
+     InClk_A : in bit := '0';
+     OutClk_A : in bit := '0';
+     OutRegA_AR : in bit := '0';
+     InClk_B : in bit := '0';
+     OutClk_B : in bit := '0';
+     OutRegB_AR : in bit := '0';
+     Addr_matchb : out bit;
+     DOut_A : out bit_vector(DataWidth-1 downto 0);
+     DOut_B : out bit_vector(DataWidth-1 downto 0));
+end component;
+
+    attribute atomic_rtl of cy_c39kdualport : component is not_allowed_type;
+
+component cy_c39kfifo
+    generic(DataWidth : positive := 8;
+ NumWords : positive := 512;
+ PAFE_Distance : natural := 0);
+    port (DIn : in bit_vector(DataWidth-1 downto 0);
+     DOut : out bit_vector(DataWidth-1 downto 0);
+     ENR : in bit := '0';
+     ENW : in bit := '0';
+     CKR : in bit := '0';
+     CKW : in bit := '0';
+     MRb : in bit := '0';
+     EFb : out bit;
+     HFb : out bit;
+     PAFEb : out bit);
+end component;
+
+    attribute atomic_rtl of cy_c39kfifo : component is not_allowed_type;
+
+component cy_c39ksingleport
+    generic(DataWidth : positive := 8;
+ AddressWidth : positive := 13;
+ indata_reg : BOOLEAN := TRUE;
+ addr_ctrl_reg : BOOLEAN := TRUE;
+ outdata_reg : BOOLEAN := FALSE;
+ FileName : string := "");
+    port (Din : in bit_vector(DataWidth-1 downto 0):=(others => '0');
+     Addr : in bit_vector(AddressWidth-1 downto 0);
+     WE : in bit := '0';
+     InClk : in bit := '0';
+     OutClk : in bit := '0';
+     OutReg_AR : in bit := '0';
+     DOut : out bit_vector(DataWidth-1 downto 0));
+end component;
+
+    attribute atomic_rtl of cy_c39ksingleport : component is not_allowed_type;
+component cy_psoc3_dp
+    generic(cy_dpconfig : bit_vector (207 downto 0) :=
+     X"0000_0000_0000_0000_0000_0000_0000_0000_FFFF_FFFF_0000_0000_0000";
+     d0_init : bit_vector (7 downto 0) := (others => '0');
+     d1_init : bit_vector (7 downto 0) := (others => '0');
+     a0_init : bit_vector (7 downto 0) := (others => '0');
+     a1_init : bit_vector (7 downto 0) := (others => '0');
+     ce0_sync : bit := '1';
+     cl0_sync : bit := '1';
+     z0_sync : bit := '1';
+     ff0_sync : bit := '1';
+     ce1_sync : bit := '1';
+     cl1_sync : bit := '1';
+     z1_sync : bit := '1';
+     ff1_sync : bit := '1';
+     ov_msb_sync : bit := '1';
+     co_msb_sync : bit := '1';
+     cmsb_sync : bit := '1';
+     so_sync : bit := '1';
+     f0_bus_sync : bit := '1';
+     f0_blk_sync : bit := '1';
+     f1_bus_sync : bit := '1';
+     f1_blk_sync : bit := '1');
+    port (reset : in bit := '0';
+     clk : in bit := '0';
+     cs_addr : in bit_vector (2 downto 0) := "000";
+     route_si : in bit := '0';
+     route_ci : in bit := '0';
+     f0_load : in bit := '0';
+     f1_load : in bit := '0';
+     d0_load : in bit := '0';
+     d1_load : in bit := '0';
+     ce0 : out bit;
+     cl0 : out bit;
+     z0 : out bit;
+     ff0 : out bit;
+     ce1 : out bit;
+     cl1 : out bit;
+     z1 : out bit;
+     ff1 : out bit;
+     ov_msb : out bit;
+     co_msb : out bit;
+     cmsb : out bit;
+     so : out bit;
+     f0_bus_stat : out bit;
+     f0_blk_stat : out bit;
+     f1_bus_stat : out bit;
+     f1_blk_stat : out bit;
+     ce0_reg : out bit;
+     cl0_reg : out bit;
+     z0_reg : out bit;
+     ff0_reg : out bit;
+     ce1_reg : out bit;
+     cl1_reg : out bit;
+     z1_reg : out bit;
+     ff1_reg : out bit;
+     ov_msb_reg : out bit;
+     co_msb_reg : out bit;
+     cmsb_reg : out bit;
+     so_reg : out bit;
+     f0_bus_stat_reg : out bit;
+     f0_blk_stat_reg : out bit;
+     f1_bus_stat_reg : out bit;
+     f1_blk_stat_reg : out bit;
+     ci : in bit := '0';
+     co : out bit;
+     sir : in bit := '0';
+     sor : out bit;
+     sil : in bit := '0';
+     sol : out bit;
+     msbi : in bit := '0';
+     msbo : out bit;
+     cei : in bit_vector (1 downto 0) := "00";
+     ceo : out bit_vector (1 downto 0);
+     cli : in bit_vector (1 downto 0) := "00";
+     clo : out bit_vector (1 downto 0);
+     zi : in bit_vector (1 downto 0) := "00";
+     zo : out bit_vector (1 downto 0);
+     fi : in bit_vector (1 downto 0) := "00";
+     fo : out bit_vector (1 downto 0);
+     capi : in bit_vector (1 downto 0) := "00";
+     capo : out bit_vector (1 downto 0);
+     cfbi : in bit := '0';
+     cfbo : out bit;
+     pi : in bit_vector (7 downto 0) := "00000000";
+     po : out bit_vector (7 downto 0));
+end component;
+
+    attribute atomic_rtl of cy_psoc3_dp : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_dp : component is true;
+component cy_psoc3_carry
+    port (Cin : in bit;
+     Cpt0 : in bit;
+     Cpt1 : in bit;
+     Sum : out bit;
+     Cout : out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc3_carry : component is rtl_generic;
+component cy_psoc3_status
+    generic(cy_force_order : boolean := false;
+     cy_md_select : bit_vector (7 downto 0) := "00000000");
+    port (reset : in bit := '0';
+     clock : in bit := '0';
+     status : in bit_vector (7 downto 0));
+end component;
+
+    attribute atomic_rtl of cy_psoc3_status : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_status : component is true;
+component cy_psoc3_statusi
+    generic(cy_force_order : boolean := false;
+     cy_md_select : bit_vector (6 downto 0) := "0000000";
+     cy_int_mask : bit_vector (6 downto 0) := "0000000");
+    port (reset : in bit := '0';
+     clock : in bit := '0';
+     status : in bit_vector (6 downto 0);
+     interrupt : out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc3_statusi : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_statusi : component is true;
+component cy_psoc3_control
+    generic(cy_init_value : bit_vector (7 downto 0) := "00000000";
+     cy_force_order : boolean := false;
+     cy_ctrl_mode_1 : bit_vector (7 downto 0) := "00000000";
+     cy_ctrl_mode_0 : bit_vector (7 downto 0) := "00000000";
+     cy_ext_reset : boolean := false);
+    port (reset : in bit := '0';
+     clock : in bit := '0';
+     control : out bit_vector (7 downto 0));
+end component;
+
+    attribute atomic_rtl of cy_psoc3_control : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_control : component is true;
+component cy_isr_v1_0
+    generic(int_type : bit_vector := ""; -- 00 = Rising Edge
+      -- 01 = Level
+      -- 10 = 'derived', which is the old AUTO
+         is_nmi : boolean := false);
+    port (int_signal : in bit);
+end component;
+
+    attribute atomic_rtl of cy_isr_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_isr_v1_0 : component is true;
+component cy_dma_v1_0
+    generic(drq_type : bit_vector := ""; -- 00 = Rising Edge
+      -- 01 = Level
+      -- 10 = 'derived', which is the old AUTO
+         num_tds : natural := 0); -- deprecated, no longer supported
+    port (drq : in bit := '0';
+     trq : in bit := '0';
+     nrq : out bit);
+end component;
+
+    attribute atomic_rtl of cy_dma_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_dma_v1_0 : component is true;
+component cy_psoc3_count7
+    generic(cy_period : bit_vector (6 downto 0) := "1111111";
+            cy_init_value : bit_vector (6 downto 0) := "0000000";
+     cy_route_ld : boolean := false;
+     cy_route_en : boolean := false;
+     cy_alt_mode : boolean := false);
+    port (clock : in bit;
+     reset : in bit;
+     load : in bit;
+     enable : in bit;
+     count : out bit_vector (6 downto 0);
+     tc : out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc3_count7 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_count7 : component is true;
+component cy_psoc3_sync
+    port (clock : in bit := '0';
+     sc_in : in bit;
+     sc_out : out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc3_sync : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_sync : component is true;
+component cy_psoc3_udb_clock_enable_v1_0
+    generic(sync_mode : boolean := true);
+    port (clock_in : in bit := '0';
+     enable : in bit := '1';
+     clock_out : out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc3_udb_clock_enable_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_udb_clock_enable_v1_0 : component is true;
+-- ********************* DeltaSigma_Mod ***************************** --
+
+component cy_psoc3_ds_mod_v1_0
+    generic(cy_registers : string := "";
+     resolution : positive := 12); -- DSM resolutn
+    port (aclock : in bit; -- digital
+     vplus : in bit; -- analog
+     vminus : in bit; -- analog
+     modbit : in bit; -- digital
+     reset_udb : in bit; -- digital
+     reset_dec : in bit; -- digital
+     clk_udb : in bit; -- digital
+     extclk_cp_udb : in bit; -- digital
+     dec_clock : out bit; -- digital
+     mod_dat : out bit_vector(3 downto 0); -- digital
+     dout_udb : out bit_vector(7 downto 0));-- digital
+end component;
+
+    attribute atomic_rtl of cy_psoc3_ds_mod_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_ds_mod_v1_0 : component is true;
+-- ********************* DeltaSigma_Mod ***************************** --
+
+component cy_psoc3_ds_mod_v2_0
+    generic(cy_registers : string := "";
+     resolution : positive := 12); -- DSM resolutn
+    port (aclock : in bit; -- digital
+     vplus : in bit; -- analog
+     vminus : in bit; -- analog
+     modbit : in bit; -- digital
+     reset_udb : in bit; -- digital
+     reset_dec : in bit; -- digital
+     clk_udb : in bit; -- digital
+     extclk_cp_udb : in bit; -- digital
+     ext_pin_1 : in bit; -- analog
+     ext_pin_2 : in bit; -- analog
+     dec_clock : out bit; -- digital
+     mod_dat : out bit_vector(3 downto 0); -- digital
+     dout_udb : out bit_vector(7 downto 0));-- digital
+end component;
+
+    attribute atomic_rtl of cy_psoc3_ds_mod_v2_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_ds_mod_v2_0 : component is true;
+-- ********************* DeltaSigma_Mod ***************************** --
+
+component cy_psoc3_ds_mod_v3_0
+    generic(cy_registers : string := "";
+     resolution : positive := 12); -- DSM resolutn
+    port (aclock : in bit; -- digital
+     vplus : in bit; -- analog
+     vminus : in bit; -- analog
+     modbit : in bit; -- digital
+     reset_udb : in bit; -- digital
+     reset_dec : in bit; -- digital
+     clk_udb : in bit; -- digital
+     extclk_cp_udb : in bit; -- digital
+     ext_pin_1 : in bit; -- analog
+     ext_pin_2 : in bit; -- analog
+     ext_vssa : in bit; -- analog
+     dec_clock : out bit; -- digital
+     mod_dat : out bit_vector(3 downto 0); -- digital
+     dout_udb : out bit_vector(7 downto 0));-- digital
+end component;
+
+    attribute atomic_rtl of cy_psoc3_ds_mod_v3_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_ds_mod_v3_0 : component is true;
+-- ********************* DeltaSigma_Mod ***************************** --
+
+component cy_psoc3_ds_mod_v4_0
+    generic(cy_registers : string := "";
+     resolution : positive := 12); -- DSM resolutn
+    port (aclock : in bit; -- digital
+     vplus : in bit; -- analog
+     vminus : in bit; -- analog
+     modbit : in bit; -- digital
+     reset_udb : in bit; -- digital
+     reset_dec : in bit; -- digital
+     clk_udb : in bit; -- digital
+     extclk_cp_udb : in bit; -- digital
+     ext_pin_1 : in bit; -- analog
+     ext_pin_2 : in bit; -- analog
+     ext_vssa : in bit; -- analog
+     qtz_ref : in bit; -- analog
+     dec_clock : out bit; -- digital
+     mod_dat : out bit_vector(3 downto 0); -- digital
+     dout_udb : out bit_vector(7 downto 0));-- digital
+end component;
+
+    attribute atomic_rtl of cy_psoc3_ds_mod_v4_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_ds_mod_v4_0 : component is true;
+-- *********************** Decimator ******************************* --
+
+component cy_psoc3_decimator_v1_0
+    generic(cy_registers: string := "");
+    port (aclock : in bit; -- digital
+     mod_dat : in bit_vector(3 downto 0); -- digital
+     ext_start : in bit; -- digital
+     mod_reset : out bit; -- digital
+     interrupt : out bit); -- digital
+end component;
+
+    attribute atomic_rtl of cy_psoc3_decimator_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_decimator_v1_0 : component is true;
+
+-- ********************* VIDAC ***************************** --
+
+component cy_psoc3_vidac8_v1_0
+    generic(cy_registers: string := "";
+         reg_data : boolean := true;
+     is_all_if_any:boolean := true);
+    port (reset : in bit := '0'; -- digital
+     idir : in bit := '0'; -- digital
+     ioff : in bit := '0'; -- digital
+     data : in bit_vector (7 downto 0)
+        := (others => '0'); -- digital
+     strobe : in bit := '0'; -- digital
+     strobe_udb : in bit := '0'; -- digital
+     vout : out bit; -- analog
+     iout : out bit); -- analog
+end component;
+
+    attribute atomic_rtl of cy_psoc3_vidac8_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_vidac8_v1_0 : component is true;
+
+-- ********************* SCBLOCK ***************************** --
+
+component cy_psoc3_scblock_v1_0
+    generic(cy_registers: string := "");
+    port (vref : in bit; -- analog
+     vin : in bit; -- analog
+     aclk : in bit; -- digital
+     bst_clk : in bit; -- digital
+     clk_udb : in bit; -- digital
+     dyn_cntl : in bit; -- digital
+     modout_sync : out bit; -- digital
+     vout : out bit); -- analog
+end component;
+
+    attribute atomic_rtl of cy_psoc3_scblock_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_scblock_v1_0 : component is true;
+
+-- ********************* Comparator ***************************** --
+
+component cy_psoc3_ctcomp_v1_0
+    generic(cy_registers: string := "");
+    port (vplus : in bit; -- analog
+     vminus : in bit; -- analog
+     clock : in bit; -- digital
+     clk_udb : in bit; -- digital
+     cmpout : out bit); -- digital
+end component;
+
+    attribute atomic_rtl of cy_psoc3_ctcomp_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_ctcomp_v1_0 : component is true;
+
+-- ********************* AMUX ***************************** --
+
+component cy_psoc3_amux_v1_0
+    generic(cy_registers: string := "";
+     muxin_width : positive := 8;
+     hw_control : boolean := false;
+     one_active : boolean := false;
+     init_mux_sel: bit_vector := "00000000"; -- Deflt selector (mask)
+          -- Same size as muxin.
+     api_type : natural := 0; -- 0 = table driven
+          -- 1 = sequential
+          -- 2 = hardware
+     connect_mode: natural := 1); -- 0 = single_ended
+          -- 1 = double_static
+          -- 2 = double_dynamic
+    port (muxin : inout bit_vector (muxin_width-1 downto 0); -- analog
+     hw_ctrl_en : in bit_vector (muxin_width-1 downto 0)
+        := (others => '0'); -- digital
+     vout : inout bit); -- analog
+end component;
+
+     attribute atomic_rtl of cy_psoc3_amux_v1_0 : component is rtl_generic;
+     attribute cpu_access of cy_psoc3_amux_v1_0 : component is true;
+
+-- ********************* ABUF ***************************** --
+
+component cy_psoc3_abuf_v1_0
+    generic(cy_registers: string := "");
+    port (vplus : in bit; -- analog
+     vminus : in bit; -- analog
+     vout : out bit); -- analog
+end component;
+
+    attribute atomic_rtl of cy_psoc3_abuf_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_abuf_v1_0 : component is true;
+
+-- ********************* Cap Sense ABUF ***************************** --
+
+component cy_psoc3_csabuf_v1_0
+   generic(cy_registers: string := "");
+   port (vchan : in bit; -- analog
+    vref : in bit; -- analog
+           vout : out bit; -- analog
+    swon : in bit := '0'); -- digital
+end component;
+
+   attribute atomic_rtl of cy_psoc3_csabuf_v1_0 : component is rtl_generic;
+   attribute cpu_access of cy_psoc3_csabuf_v1_0 : component is true;
+
+-- ********************* VREF ***************************** --
+
+component cy_psoc3_vref_v1_0
+    generic(cy_registers: string := "";
+     vref_value : string);
+    port (vref : out bit); -- analog
+end component;
+
+    attribute atomic_rtl of cy_psoc3_vref_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_vref_v1_0 : component is true;
+
+-- *** Place holder to force the back end to keep this analog signal *** --
+
+component cy_analog_marker_v1_0
+    port (marker : in bit); -- analog
+end component;
+
+    attribute atomic_rtl of cy_analog_marker_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_analog_marker_v1_0 : component is true;
+
+-- *** This component is used to connect analog signals together *** --
+
+component cy_connect_v1_0
+    generic(sig_width : positive := 1;
+     is_net_join : boolean := false);
+    port (signal1 : in bit_vector (sig_width-1 downto 0); -- analog
+     signal2 : in bit_vector (sig_width-1 downto 0)); -- analog
+end component;
+
+    attribute atomic_rtl of cy_connect_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_connect_v1_0 : component is true;
+
+-- ********************* LPF ***************************** --
+
+component cy_psoc3_lpf_v1_0
+    generic(cy_registers: string := "");
+    port (vin : in bit; -- analog
+     vout : out bit); -- analog
+end component;
+
+    attribute atomic_rtl of cy_psoc3_lpf_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_lpf_v1_0 : component is true;
+
+-- ********************* SAR3 ***************************** --
+
+component cy_psoc3_sar_v1_0
+    generic(cy_registers: string := "");
+    port (vplus : in bit; -- analog
+     vminus : in bit; -- analog
+     clock : in bit; -- digital
+     pump_clock : in bit; -- digital
+     sof_udb : in bit; -- digital
+     clk_udb : in bit := '0'; -- digital
+     vp_ctl_udb : in bit_vector (3 downto 0)
+        := (others => '0'); -- digital
+     vn_ctl_udb : in bit_vector (3 downto 0)
+        := (others => '0'); -- digital
+     irq : out bit; -- digital
+     data_out : out bit_vector(11 downto 0);-- digital
+     eof_udb : out bit); -- digital
+end component;
+
+    attribute atomic_rtl of cy_psoc3_sar_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_sar_v1_0 : component is true;
+
+-- ********************* SAR5 ***************************** --
+
+component cy_psoc5_sar_v2_0
+    generic(cy_registers: string := "");
+    port (vplus : in bit; -- analog
+     vminus : in bit; -- analog
+     ext_pin : inout bit; -- analog
+     vrefhi_out : out bit; -- analog
+     vref : in bit; -- analog
+     clock : in bit; -- digital
+     pump_clock : in bit; -- digital
+     sof_udb : in bit; -- digital
+     clk_udb : in bit := '0'; -- digital
+     vp_ctl_udb : in bit_vector (3 downto 0)
+        := (others => '0'); -- digital
+     vn_ctl_udb : in bit_vector (3 downto 0)
+        := (others => '0'); -- digital
+     irq : out bit; -- digital
+     next_out : out bit; -- digital
+     data_out : out bit_vector(11 downto 0);-- digital
+     eof_udb : out bit); -- digital
+end component;
+
+    attribute atomic_rtl of cy_psoc5_sar_v2_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc5_sar_v2_0 : component is true;
+
+-- ********************* VREF ***************************** --
+
+component cy_vref_v1_0
+    generic(guid : string := "";
+     name : string := "";
+     autoenable : boolean := false;
+     ignoresleep : boolean := false);
+    port (vout : out bit); -- analog
+end component;
+
+    attribute atomic_rtl of cy_vref_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_vref_v1_0 : component is true;
+
+-- *** Component to denote where there are analog connections that are *** --
+-- *** *meant* to be unconnected, so we can detect the unintentional ones *** --
+
+component cy_analog_noconnect_v1_0
+       port (noconnect : inout bit); -- analog
+end component;
+
+   attribute atomic_rtl of cy_analog_noconnect_v1_0 : component is rtl_generic;
+   attribute cpu_access of cy_analog_noconnect_v1_0 : component is true;
+
+-- ********************* Location ***************************** --
+
+component cy_analog_location_v1_0
+    generic(guid : string := "";
+     name : string := "";
+  is_always_static : boolean := false;
+  is_amux_constraint : boolean := false;
+  exclusive_use : boolean := false);
+    port (connect : inout bit); -- analog
+end component;
+
+    attribute atomic_rtl of cy_analog_location_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_analog_location_v1_0 : component is true;
+
+-- ********************* Terminal Reserve ***************************** --
+
+component cy_terminal_reserve_v1_0
+    port (connect : inout bit); -- analog
+end component;
+
+    attribute atomic_rtl of cy_terminal_reserve_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_terminal_reserve_v1_0 : component is true;
+
+-- ********************* Stay Awake Component ***************************** --
+
+component cy_stay_awake_v1_0
+    port (connect : inout bit); -- analog
+end component;
+
+    attribute atomic_rtl of cy_stay_awake_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_stay_awake_v1_0 : component is true;
+
+-- ********************* Annotation Universal Component ********************* --
+component cy_annotation_universal_v1_0
+    generic(comp_name : string := "";
+     port_names : string := "";
+     width : positive := 2);
+    port (connect : inout bit_vector (width-1 downto 0));
+end component;
+
+    attribute atomic_rtl of cy_annotation_universal_v1_0 : component is
+            rtl_generic;
+    attribute cpu_access of cy_annotation_universal_v1_0 : component is true;
+
+-- ********************* Annotation Noconnect Component ********************* --
+component cy_annotation_noconnect_v1_0
+   port (noconnect : inout bit);
+end component;
+
+    attribute atomic_rtl of cy_annotation_noconnect_v1_0 : component is
+            rtl_generic;
+    attribute cpu_access of cy_annotation_noconnect_v1_0 : component is true;
+-- ****************** Controller Area Network Controller ********************
+
+component cy_psoc3_can_v1_0
+    generic(cy_registers: string := "");
+    port (clock : in bit;
+     can_rx : in bit;
+     can_tx : out bit;
+     can_tx_en : out bit;
+     interrupt : out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc3_can_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_can_v1_0 : component is true;
+
+-- **************** Inter-Integrated Circuit Controller **********************
+
+component cy_psoc3_i2c_v1_0
+    generic(cy_registers: string := "";
+     use_wakeup : boolean := false);
+    port (clock : in bit;
+     scl_in : in bit;
+     sda_in : in bit;
+     scl_out : out bit;
+     sda_out : out bit;
+     interrupt : out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc3_i2c_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_i2c_v1_0 : component is true;
+
+-- ********************* Timer/Counter/PWM *****************************
+
+component cy_psoc3_timer_v1_0
+    generic(cy_registers: string := "");
+    port (clock : in bit;
+     kill : in bit;
+     enable : in bit;
+     capture : in bit;
+     timer_reset : in bit;
+     tc : out bit;
+     compare : out bit;
+     interrupt : out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc3_timer_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_timer_v1_0 : component is true;
+
+-- ********************* Digital Filter Block *****************************
+
+component cy_psoc3_dfb_v1_0
+    generic(cy_registers: string := "");
+    port (clock : in bit;
+     in_1 : in bit;
+     in_2 : in bit;
+     out_1 : out bit;
+     out_2 : out bit;
+     dmareq_1 : out bit;
+     dmareq_2 : out bit;
+     interrupt : out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc3_dfb_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_dfb_v1_0 : component is true;
+
+-- *************************** USB Block **********************************
+
+component cy_psoc3_usb_v1_0
+    generic(cy_registers: string := "");
+    port (dp : inout bit; -- analog;
+     dm : inout bit; -- analog;
+     sof_int : out bit;
+     arb_int : out bit;
+     usb_int : out bit;
+     ept_int : out bit_vector (8 downto 0);
+     ord_int : out bit;
+     dma_req : out bit_vector (7 downto 0);
+     dma_termin : out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc3_usb_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_usb_v1_0 : component is true;
+
+-- *********************** LCD Control Block ******************************
+
+component cy_psoc3_lcd_v1_0
+    generic(cy_registers: string := "";
+     global_bias : boolean := false);
+    port (drive_en : in bit;
+     en_hi : in bit;
+     frame : in bit;
+     data_clk : in bit;
+     dac_dis : in bit;
+     chop_clk : in bit;
+     bias : inout bit_vector (4 downto 0)); -- analog
+end component;
+
+    attribute atomic_rtl of cy_psoc3_lcd_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_lcd_v1_0 : component is true;
+
+-- *********************** LCD Control Block ******************************
+
+component cy_psoc3_lcd_v2_0
+    generic(cy_registers: string := "";
+     global_bias : boolean := false);
+    port (drive_en : in bit;
+     frame : in bit;
+     data_clk : in bit;
+     int_clr : in bit;
+     lp_ack_udb : in bit;
+     mode_1 : in bit;
+     mode_2 : in bit;
+     interrupt : out bit;
+     bias : inout bit_vector (4 downto 0)); -- analog
+end component;
+
+    attribute atomic_rtl of cy_psoc3_lcd_v2_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_lcd_v2_0 : component is true;
+
+-- *********************** CLK Control Block ******************************
+
+component cy_clock_v1_0
+    generic(cy_registers: string := "";
+     id : string := "";
+     source_clock_id : string := "";
+     divisor : natural := 1;
+     period : string := "";
+     is_direct : boolean := false;
+     is_digital : boolean := true);
+    port (clock_out : out bit;
+   dig_domain_out : out bit);
+end component;
+
+    attribute atomic_rtl of cy_clock_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_clock_v1_0 : component is true;
+
+-- *********************** EMIF Control Block ******************************
+
+component cy_psoc3_emif_v1_0
+    generic(cy_registers: string := "";
+     udb_mode : boolean := false);
+    port (clock : out bit;
+     ce : out bit;
+     oe : out bit;
+     adsc : out bit;
+     sleep : out bit;
+     wr : out bit;
+            data_oe_n : out bit;
+            xmem_wr : out bit;
+            xmem_rd : out bit;
+            udb_stall : in bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc3_emif_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_emif_v1_0 : component is true;
+
+component cy_psoc3_emif_v2_0
+    generic(cy_registers: string := "";
+     udb_mode : boolean := false);
+    port (clock : out bit;
+     ce : out bit;
+     oe : out bit;
+     adsc : out bit;
+     sleep : out bit;
+     wr : out bit;
+            data_oe : out bit;
+            xmem_wr : out bit;
+            xmem_rd : out bit;
+            udb_ready : in bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc3_emif_v2_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_emif_v2_0 : component is true;
+
+-- ********************* Global Signal Ref ***************************** --
+
+component cy_gsref_v1_0
+   generic(guid : string := "");
+   port (sig_out : out bit);
+end component;
+
+   attribute atomic_rtl of cy_gsref_v1_0 : component is rtl_generic;
+   attribute cpu_access of cy_gsref_v1_0 : component is true;
+
+-- *********************** Digital Sentinel ******************************
+
+component cy_psoc3_digital_sentinel_v1_0
+    generic(info : string := "");
+    port (watch : in bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc3_digital_sentinel_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc3_digital_sentinel_v1_0 : component is true;
+component cy_psoc3_port_v1_0
+    generic(width : natural := 0; -- number of pins
+            siorefwidth : natural := 0; -- number of SIO refs (width/2)
+            pin_aliases : string := ""; -- CSV of aliases
+            id : string := ""; -- id from the GUI
+            access_mode : string := "SW_ONLY"; -- SW_ONLY, HW_ONLY,
+                                                        -- LCD, EMIF
+            layout_mode : string := "CONTIGUOUS";-- CONTIGUOUS,
+                                                        -- NONCONTIGUOUS
+            port_mode : string := "INPUT"; -- INPUT, OUTPUT,
+                                                        -- INOUT, ANALOG
+                                                        -- BIDIRECTIONAL
+            vtrip : bit := '0'; -- 0 = CMOS
+                                                        -- 1 = LVTTL
+            slew_rate : bit_vector := ""; -- 0 = Fast, 1 = Slow
+            intr_mode : bit_vector := ""; -- size is width*2
+            drive_mode : bit_vector := ""; -- size is width*3
+            lcd_sw_drive: boolean := false; -- False = HW drives LCD
+                                                        -- True = SW drives LCD
+            lcd_com_seg : bit_vector := ""; -- size is width
+            por_state : natural := 0; -- 0 = inp dis, out hi-Z
+                                                        -- 1 = inp en, out hi-Z
+                                                        -- 2 = inp dis, out '0' (pullup)
+                                                        -- 3 = inp dis, out '1' (pulldown)
+            emif_mode : string := ""; -- default "" = not EMIF
+                                                        -- MSB_ADDR, MID_ADDR,
+                                                        -- LSB_ADDR,
+                                                        -- MSB_DATA, LSB_DATA,
+                                                        -- CONTROL
+            enable_shielding : bit_vector := ""; -- 0 = FALSE, 1 = TRUE
+            cs_mode : bit_vector (1 downto 0) := "00"; -- 00 = Neither
+                                                                -- 01 = Pull Up
+                                                                -- 10 = None
+                                                                -- 11 = Pull Dn
+            sio_obuf : bit_vector := ""; -- SIO Output buf, size =width/2
+                                                -- 0 = unreulated, 1 = regulated
+            sio_ibuf : bit_vector := ""; -- SIO INput buf, size =width/2
+                                                -- 0 = sngl end, 1 =differential
+            sio_hyst : bit_vector := ""; -- SIO Output buf, size = width
+                                                -- 0 = disabled, 1 = enabled
+            sio_hifreq : bit_vector := ""; -- SIO PU current, size =width/2
+                                                -- 0 = low, 1 = high
+            sio_vtrip : bit_vector := ""; -- SIO Vtrip set, size = width/2
+                                                -- 0 = 0.5 mult, 1 = 0.4 or 1
+            sio_refsel : bit_vector := ""; -- SIO Vref sel, size = width/2
+                                                -- 0 = vcc_io, 1 = vohref
+            port_alias_required : bit := '0'; -- 0 = Does not require port alias mask
+                                                -- 1 = Requires port alias mask
+            port_alias_group : string := ""); -- Name of group, used to allow multiple
+                                                -- ports using mask in the same phy. port
+
+    port ( oe : in bit := '1'; -- Output Enable
+            y : in bit_vector (width-1 downto 0); -- Input
+            fb : out bit_vector (width-1 downto 0); -- Feed back
+            analog : inout bit_vector (width-1 downto 0); -- Analog Port
+            io : inout bit_vector (width-1 downto 0); -- Bidirectional
+            siovref : inout bit_vector (siorefwidth-1 downto 0); -- Analog SIO Vref
+            interrupt : out bit; -- Interrupt
+            precharge : in bit := '0'); -- Capsense
+end component;
+
+   attribute atomic_rtl of cy_psoc3_port_v1_0 : component is rtl_generic;
+   attribute cpu_access of cy_psoc3_port_v1_0 : component is true;
+component cy_psoc3_pins_v1_10
+    generic(id : string := ""; -- id from the GUI
+            drive_mode : bit_vector := ""; -- size = width * 3
+                                                        -- 000 = Analog Hi-Z
+                                                        -- 001 = Digital Hi-Z
+                                                        -- 010 = Res Pull Up
+                                                        -- 011 = Res Pull Down
+                                                        -- 100 = Open Drain Lo
+                                                        -- 101 = Open Drain Hi
+                                                        -- 110 = CMOS Out
+                                                        -- 111 = Res PullUp/Down
+            ibuf_enabled : bit_vector := ""; -- size = width
+                                                        -- 0 = enabled
+                                                        -- 1 = disabled
+            init_dr_st : bit_vector := ""; -- intial drive state
+                                                        -- size = width
+                                                        -- 0 = low
+                                                        -- 1 = high
+            input_sync : bit_vector := ""; -- size = width
+                                                        -- 0 = disabled
+                                                        -- 1 = enabled
+            input_clk_en: bit := '0'; -- 0 = rising edge
+                                                        -- 1 = level
+            input_sync_mode : bit_vector:= ""; -- size = width
+                                                        -- 0 = double
+                                                        -- 1 = single
+            intr_mode : bit_vector := ""; -- size = width * 2
+                                                        -- 00 = None
+                                                        -- 01 = Rising Edge
+                                                        -- 10 = Falling Edge
+                                                        -- 11 = On Change
+            invert_in_clock : bit := '0'; -- 0 = normal
+                                                        -- 1 = inverted
+            invert_in_clock_en : bit := '0'; -- 0 = normal
+                                                        -- 1 = inverted
+            invert_in_reset : bit := '0'; -- 0 = normal
+                                                        -- 1 = inverted
+            invert_out_clock : bit := '0'; -- 0 = normal
+                                                        -- 1 = inverted
+            invert_out_clock_en : bit := '0'; -- 0 = normal
+                                                        -- 1 = inverted
+            invert_out_reset : bit := '0'; -- 0 = normal
+                                                        -- 1 = inverted
+            io_voltage : string := ""; -- CSV IO supply volts
+                                                        -- each volt is a float
+            layout_mode : string := "CONTIGUOUS";-- CONTIGUOUS,
+                                                        -- NONCONTIGUOUS
+            output_conn : bit_vector := ""; -- size = width
+                                                        -- 0 = not visible
+                                                        -- 1 = visible
+            output_sync : bit_vector := ""; -- size = width
+                                                        -- 0 = disabled
+                                                        -- 1 = enabled
+            output_clk_en: bit := '0'; -- 0 = rising edge
+                                                        -- 1 = level
+            output_mode : bit_vector := ""; -- size = width
+                                                        -- 0 = data
+                                                        -- 1 = clock
+            output_reset: bit := '0'; -- 0 = don't use reset
+                                                        -- 1 = use reset
+            output_clock_mode : bit_vector:= ""; -- size = width, when mode is clock
+                                                        -- 0 = normal
+                                                        -- 1 = inverted
+            oe_sync : bit_vector := ""; -- size = width
+                                                        -- 0 = disabled
+                                                        -- 1 = enabled
+            oe_conn : bit_vector := ""; -- size = width
+                                                        -- 0 = not visible
+                                                        -- 1 = visible
+            oe_reset : bit := '0'; -- 0 = don't use reset
+                                                        -- 1 = use reset
+            pin_aliases : string := ""; -- CSV of aliases
+            pin_mode : string := ""; -- size = width
+                                                        -- I = input
+                                                        -- O = output
+                                                        -- A = analog only
+                                                        -- B = bidirectional
+            por_state : natural := 0; -- 0 = High-Z Analog
+                                                        -- 1 = High-Z Dig (NA)
+                                                        -- 2 = Pulled up
+                                                        -- 3 = Pulled down
+                                                        -- 4 = Dont care
+            sio_group_cnt : natural := 0; -- # SIO pairs/singles
+            sio_hifreq : bit_vector := ""; -- SIO PU current
+                                                        -- size = sio_group_cnt
+                                                        -- 0 = low
+                                                        -- 1 = high
+            sio_hyst : bit_vector := ""; -- size = width
+                                                        -- 0 = disabled
+                                                        -- 1 = enabled
+            sio_ibuf : bit_vector := ""; -- SIO Input buf
+                                                        -- size = sio_group_cnt
+                                                        -- 0 = single ended
+                                                        -- 1 = differential
+            sio_info : bit_vector := ""; -- size = width * 2
+                                                        -- 00 = not SIO
+                                                        -- 01 = SIO single
+                                                        -- 10 = #1 of SIO pair
+                                                        -- 11 = #2 of SIO Pair
+            sio_obuf : bit_vector := ""; -- SIO Output buf
+                                                        -- size = sio_group_cnt
+                                                        -- 0 = unreulated
+                                                        -- 1 = regulated
+            sio_refsel : bit_vector := ""; -- SIO Vref sel
+                                                        -- size = sio_group_cnt
+                                                        -- 0 = vcc_io,
+                                                        -- 1 = vohref
+            sio_vtrip : bit_vector := ""; -- SIO Vtrip set
+                                                        -- size = sio_group_cnt
+                                                        -- 0 = 0.5 mult
+                                                        -- 1 = 0.4 or 1
+     sio_vohsel : bit_vector := ""; -- SIO VOH multiplier setting
+       -- size = sio_group_cnt * 3
+       -- See SIO.PAIR_VOH_SEL field values
+            slew_rate : bit_vector := ""; -- size = width
+                                                        -- 0 = Fast
+                                                        -- 1 = Slow
+            spanning : bit := '0'; -- 0 = not spanning
+                                                        -- 1 = spanning
+            sw_only : bit := '0'; -- 0 = HW/SW
+                                                        -- 1 = SW ONLY
+            vtrip : bit_vector := ""; -- size = width * 2
+                                                        -- 00 = CMOS
+                                                        -- 01 = LVTTL
+                                                        -- 10 = CMOS or LVTTL
+            width : natural := 0; -- number of pins
+            port_alias_required : bit := '0'; -- 0 = Does not require port alias mask
+                                                        -- 1 = Requires port alias mask
+            port_alias_group : string := ""; -- Name of group, used to allow multiple
+                                                        -- ports using mask in the same phy. port
+            use_annotation : bit_vector := "";
+            pa_in_clock : integer := -1; -- index of pin to use a PA input to in_clock
+            pa_in_clock_en : integer := -1; -- index of pin to use a PA input to in_clock_en
+            pa_in_reset : integer := -1; -- index of pin to use a PA input to in_reset
+            pa_out_clock : integer := -1; -- index of pin to use a PA input to out_clock
+            pa_out_clock_en: integer := -1; -- index of pin to use a PA input to out_clock_en
+            pa_out_reset : integer := -1; -- index of pin to use a PA input to out_reset
+            ovt_needed : bit_vector := ""; -- size = width
+                                                        -- overvoltage needed
+            ovt_slew_control : bit_vector := ""; -- size = width * 2
+                                                        -- ovt slew control, range
+            ovt_hyst_trim : bit_vector := ""; -- size = width
+                                                        -- ovt hysteresis trim
+            input_buffer_sel : bit_vector := ""); -- size = width * 2
+                                                        -- GPIOv2 input buffer mode
+
+    port ( oe : in bit_vector (width-1 downto 0); -- Output Enable
+            y : in bit_vector (width-1 downto 0); -- Input
+            fb : out bit_vector (width-1 downto 0); -- Feed back
+            analog : inout bit_vector (width-1 downto 0); -- Analog Port
+            io : inout bit_vector (width-1 downto 0); -- Bidirectional
+            siovref : inout bit_vector; -- Analog SIO Vref
+            annotation : inout bit_vector (width-1 downto 0); -- Off chip conn
+            in_clock : in bit := '0'; -- Clock for input register
+            in_clock_en : in bit := '1'; -- Clock Enable for input register
+            in_reset : in bit := '0'; -- Reset for input register
+            out_clock : in bit := '0'; -- Clock for output register
+            out_clock_en: in bit := '1'; -- Clock Enable for output register
+            out_reset : in bit := '0'; -- Reset for output register
+            interrupt : out bit); -- Interrupt
+end component;
+
+   attribute atomic_rtl of cy_psoc3_pins_v1_10 : component is rtl_generic;
+   attribute cpu_access of cy_psoc3_pins_v1_10 : component is true;
+component cy_tsg4_ssc_v1_0
+    generic(if_type : string := "I2C");
+    -- I2C (default)
+    -- SPI
+    port (scli : in bit := '0';
+     sdai : in bit := '0';
+     csel : in bit := '0';
+     sclo : out bit;
+     sdao : out bit;
+     irq : out bit);
+end component;
+
+    attribute atomic_rtl of cy_tsg4_ssc_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_tsg4_ssc_v1_0 : component is true;
+component cy_tsg4_tss_v1_0
+    port (clk_seq : in bit;
+     clk_adc : in bit;
+     ext_reject : in bit;
+     ext_sync : in bit;
+     reject_in : in bit;
+     start_in : in bit;
+     tx_sync : in bit;
+     lx_det_hi : out bit;
+     lx_det_lo : out bit;
+     rej_window : out bit;
+     tx_hilo : out bit;
+     phase_end : out bit;
+     phase_num : out bit_vector (3 downto 0);
+     ipq_reject : out bit;
+     ipq_start : out bit;
+     epq_reject : out bit;
+     epq_start : out bit;
+     mcs_reject : out bit;
+     mcs_start : out bit;
+     do_switch : out bit;
+     adc_start : out bit;
+     adc_done : out bit);
+end component;
+
+    attribute atomic_rtl of cy_tsg4_tss_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_tsg4_tss_v1_0 : component is true;
+-- ********************************************************* --
+-- ***************** PSOC4 Temp Sensor ********************* --
+
+component cy_psoc4_temp_v1_0
+    generic(cy_registers: string := "");
+    port (
+   temp : out bit; -- analog
+   vssa_kelvin : in bit); -- analog
+end component;
+
+    attribute atomic_rtl of cy_psoc4_temp_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_temp_v1_0 : component is true;
+
+-- ********************************************************* --
+-- ************* PSOC4 Low Power Comparator***************** --
+
+component cy_psoc4_lpcomp_v1_0
+    generic(cy_registers: string := "";
+         needs_hibernate: boolean := true);
+    port (vminus : in bit; -- analog
+        vplus : in bit; -- analog
+        cmpout : out bit); -- digital
+end component;
+
+    attribute atomic_rtl of cy_psoc4_lpcomp_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_lpcomp_v1_0 : component is true;
+
+-- ********************************************************* --
+-- ********************* PSOC4 SAR ************************* --
+
+component cy_psoc4_sar_v1_0
+    generic(cy_registers: string := "");
+    port (vplus : in bit; -- analog
+     vminus : in bit; -- analog
+     vref : in bit; -- analog
+     ext_vref : in bit; -- analog
+   clock : in bit; -- digital
+   sample_done : out bit; -- digital
+   chan_id_valid : out bit; -- digital
+   chan_id : out bit_vector (3 downto 0); -- digital
+   data_valid : out bit; -- digital
+   data : out bit_vector (11 downto 0); -- digital
+   eos_intr : out bit; -- digital
+   irq : out bit; -- digital
+   sw_negvref : in bit; -- digital
+   cfg_st_sel : in bit_vector (1 downto 0); -- digital
+   cfg_average : in bit; -- digital
+   cfg_resolution : in bit; -- digital
+   cfg_differential: in bit; -- digital
+   trigger : in bit; -- digital
+   data_hilo_sel : in bit); -- digital
+end component;
+
+    attribute atomic_rtl of cy_psoc4_sar_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_sar_v1_0 : component is true;
+
+-- ********************************************************* --
+-- ******************** PSOC4 Opamp *********************** --
+
+component cy_psoc4_abuf_v1_0
+    generic(cy_registers: string := "";
+         needs_dsab: boolean := false;
+         deepsleep_available: boolean := false;
+         has_resistor: boolean := false);
+    port (
+   vplus : in bit; -- analog
+     vminus : in bit; -- analog
+     vout1 : out bit; -- analog
+     rs_bot : out bit; -- analog
+     vout10 : out bit; -- analog
+     cmpout : out bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_abuf_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_abuf_v1_0 : component is true;
+-- ********************************************************* --
+-- ****************** PSOC4 Half-UAB *********************** --
+
+component cy_psoc4_half_uab_v1_0
+    generic(cy_registers: string := "");
+    port (
+  x0 : in bit; -- analog
+  x1 : in bit; -- analog
+  x2 : in bit; -- analog
+  x3 : in bit; -- analog
+  ref : in bit; -- analog
+  agnd : in bit; -- analog
+  vout : out bit; -- analog
+  couple : in bit; -- analog
+  clock : in bit; -- digital
+  modbitab : in bit; -- digital
+  modbitc : in bit; -- digital
+  strobe : in bit; -- digital
+  trigger : in bit; -- digital
+  comp : out bit; -- digital
+  uab_valid : out bit; -- digital
+  uab_trig_out : out bit; -- digital
+  uab_dac_intr : out bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_half_uab_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_half_uab_v1_0 : component is true;
+-- ********************************************************* --
+-- ****************** PSOC4 Decimator ********************** --
+
+component cy_psoc4_decimator_v1_0
+    generic(cy_registers: string := "");
+    port (
+  valid : in bit; -- digital
+  incr : in bit; -- digital
+  reset : out bit; -- digital
+  intr : out bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_decimator_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_decimator_v1_0 : component is true;
+
+component cy_psoc4_decimator_v1_10
+    generic(cy_registers: string := "");
+    port (
+  valid : in bit; -- digital
+  incr : in bit; -- digital
+  trigger : in bit; -- digital
+  reset : out bit; -- digital
+  intr : out bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_decimator_v1_10 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_decimator_v1_10 : component is true;
+-- ********************************************************* --
+-- ************ PSOC4 Programmable Reference *************** --
+
+component cy_psoc4_pref_v1_0
+    generic(cy_registers : string := "";
+   referenceID : integer := 0;
+   tapID : integer := 0);
+    port (vout : out bit); -- analog
+end component;
+
+    attribute atomic_rtl of cy_psoc4_pref_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_pref_v1_0 : component is true;
+
+-- ********************************************************* --
+-- ******************* PSOC4 CSD Comp ********************** --
+
+component cy_psoc4_csd_comp_v1_0
+    generic(cy_registers: string := "");
+    port (
+  vplus : in bit; -- analog
+  clk_sample : in bit := '0'; -- digital
+  cmpout : out bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_csd_comp_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_csd_comp_v1_0 : component is true;
+-- ********************************************************* --
+-- ****************** PSOC4 CSD Comp v2 ******************** --
+
+component cy_psoc4_csd_comp2_v1_0
+    generic(cy_registers: string := "");
+    port (
+  vplus : in bit; -- analog
+  vminus : in bit; -- analog
+  clk_sample : in bit := '0'; -- digital
+  cmpout : out bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_csd_comp2_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_csd_comp2_v1_0 : component is true;
+-- ********************************************************* --
+-- ********************** PSOC4 CSD ************************ --
+
+component cy_psoc4_csd_v1_0
+    generic(cy_registers: string := "";
+   sensors_count : positive := 1;
+   shield_count : positive := 1;
+   is_capsense : boolean := true;
+   is_mutual : boolean := false;
+   is_cmod_charge : boolean := false;
+         is_csh_charge : boolean := false);
+    port (
+
+  source : in bit_vector (sensors_count -1 downto 0); -- analog
+  shield : out bit_vector (shield_count -1 downto 0); -- analog
+  amuxa : in bit; -- analog
+  csh : in bit; -- analog
+  cmod : in bit; -- analog
+  sense_out : out bit; -- digital
+  sample_out : out bit; -- digital
+  sense_in : in bit; -- digital
+  clk1 : in bit; -- digital
+  clk2 : in bit; -- digital
+  irq : out bit; -- digital
+  sample_in : in bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_csd_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_csd_v1_0 : component is true;
+
+-- ********************************************************* --
+-- ********************** PSOC4 CSD ************************ --
+
+component cy_psoc4_csd_v1_10
+    generic(cy_registers : string := "";
+   sensors_count : positive := 1;
+   rx_count : positive := 1;
+   tx_count : positive := 1;
+   shield_count : positive := 1;
+   is_capsense : boolean := true;
+   is_mutual : boolean := false;
+   is_cmod_charge : boolean := false;
+         is_csh_charge : boolean := false);
+    port (
+
+  sense : in bit_vector (sensors_count -1 downto 0); -- analog
+  rx : in bit_vector (rx_count -1 downto 0); -- analog
+  tx : out bit_vector (tx_count -1 downto 0); -- analog
+  shield : out bit_vector (shield_count -1 downto 0); -- analog
+  amuxa : in bit; -- analog
+  amuxb : in bit; -- analog
+  csh : in bit; -- analog
+  cmod : in bit; -- analog
+  sense_out : out bit; -- digital
+  sample_out : out bit; -- digital
+  sense_in : in bit; -- digital
+  clk1 : in bit; -- digital
+  clk2 : in bit; -- digital
+  irq : out bit; -- digital
+  sample_in : in bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_csd_v1_10 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_csd_v1_10 : component is true;
+
+component cy_psoc4_csd_v1_20
+    generic(cy_registers : string := "";
+   sensors_count : positive := 1;
+   rx_count : positive := 1;
+   tx_count : positive := 1;
+   shield_count : positive := 1;
+   ganged_csx : boolean := false;
+   sense_as_shield : boolean := false;
+   shield_as_sense : boolean := false;
+   is_capsense : boolean := true;
+   is_mutual : boolean := false;
+   is_cmod_charge : boolean := false;
+         is_csh_charge : boolean := false);
+    port (
+
+  sense : in bit_vector (sensors_count -1 downto 0); -- analog
+  rx : in bit_vector (rx_count -1 downto 0); -- analog
+  tx : out bit_vector (tx_count -1 downto 0); -- analog
+  shield : out bit_vector (shield_count -1 downto 0); -- analog
+  amuxa : in bit; -- analog
+  amuxb : in bit; -- analog
+  csh : in bit; -- analog
+  cmod : in bit; -- analog
+  sense_out : out bit; -- digital
+  sample_out : out bit; -- digital
+  sense_in : in bit; -- digital
+  clk1 : in bit; -- digital
+  clk2 : in bit; -- digital
+  irq : out bit; -- digital
+  sample_in : in bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_csd_v1_20 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_csd_v1_20 : component is true;
+-- ********************************************************* --
+-- ******************** PSOC4 CSDv2 ************************ --
+
+component cy_psoc4_csd2_v1_0
+    generic(cy_registers : string := "";
+   sensors_count : positive := 1;
+   rx_count : positive := 1;
+   tx_count : positive := 1;
+   shield_count : positive := 1;
+   adc_channel_count : positive := 1;
+   is_capsense : boolean := true;
+   is_mutual : boolean := false;
+   is_cmod_charge : boolean := false;
+         is_csh_charge : boolean := false);
+    port (
+
+  sense : in bit_vector (sensors_count -1 downto 0); -- analog
+  rx : in bit_vector (rx_count -1 downto 0); -- analog
+  tx : out bit_vector (tx_count -1 downto 0); -- analog
+  shield : out bit_vector (shield_count -1 downto 0); -- analog
+  amuxa : in bit; -- analog
+  amuxb : in bit; -- analog
+  csh : in bit; -- analog
+  cmod : in bit; -- analog
+  shield_pad : in bit; -- analog
+  dedicated_io : in bit; -- analog
+  vref_ext : in bit; -- analog
+  adc_channel : in bit_vector (adc_channel_count -1 downto 0); -- analog
+  sense_out : out bit; -- digital
+  sample_out : out bit; -- digital
+  sense_in : in bit; -- digital
+  sample_in : in bit; -- digital
+  csh_tank_en : out bit; -- digital
+  cmod_en : out bit; -- digital
+  hscmp : out bit; -- digital
+  start : in bit; -- digital
+  sampling : out bit; -- digital
+  adc_on : out bit; -- digital
+  count : out bit_vector (15 downto 0); -- digital
+  count_val_sel : in bit; -- digital
+  clk : in bit; -- digital
+  irq : out bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_csd2_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_csd2_v1_0 : component is true;
+
+component cy_psoc4_csd2_v1_10
+    generic(cy_registers : string := "";
+   sensors_count : positive := 1;
+   rx_count : positive := 1;
+   tx_count : positive := 1;
+   shield_count : positive := 1;
+   adc_channel_count : positive := 1;
+   ganged_csx : boolean := false;
+   sense_as_shield : boolean := false;
+   is_capsense : boolean := true;
+   is_mutual : boolean := false;
+   is_cmod_charge : boolean := false;
+         is_csh_charge : boolean := false);
+    port (
+
+  sense : in bit_vector (sensors_count -1 downto 0); -- analog
+  rx : in bit_vector (rx_count -1 downto 0); -- analog
+  tx : out bit_vector (tx_count -1 downto 0); -- analog
+  shield : out bit_vector (shield_count -1 downto 0); -- analog
+  amuxa : in bit; -- analog
+  amuxb : in bit; -- analog
+  csh : in bit; -- analog
+  cmod : in bit; -- analog
+  shield_pad : in bit; -- analog
+  dedicated_io : in bit; -- analog
+  vref_ext : in bit; -- analog
+  adc_channel : in bit_vector (adc_channel_count -1 downto 0); -- analog
+  sense_out : out bit; -- digital
+  sample_out : out bit; -- digital
+  sense_in : in bit; -- digital
+  sample_in : in bit; -- digital
+  csh_tank_en : out bit; -- digital
+  cmod_en : out bit; -- digital
+  hscmp : out bit; -- digital
+  start : in bit; -- digital
+  sampling : out bit; -- digital
+  adc_on : out bit; -- digital
+  count : out bit_vector (15 downto 0); -- digital
+  count_val_sel : in bit; -- digital
+  clk : in bit; -- digital
+  irq : out bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_csd2_v1_10 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_csd2_v1_10 : component is true;
+
+component cy_psoc4_csd2_v1_20
+    generic(cy_registers : string := "";
+   sensors_count : positive := 1;
+   rx_count : positive := 1;
+   tx_count : positive := 1;
+   shield_count : positive := 1;
+   adc_channel_count : positive := 1;
+   dedicated_io_count : positive := 1;
+   ganged_csx : boolean := false;
+   sense_as_shield : boolean := false;
+   shield_as_sense : boolean := false;
+   is_capsense : boolean := true;
+   is_mutual : boolean := false;
+   is_cmod_charge : boolean := false;
+         is_csh_charge : boolean := false);
+    port (
+
+  sense : in bit_vector (sensors_count -1 downto 0); -- analog
+  rx : in bit_vector (rx_count -1 downto 0); -- analog
+  tx : out bit_vector (tx_count -1 downto 0); -- analog
+  shield : out bit_vector (shield_count -1 downto 0); -- analog
+  amuxa : in bit; -- analog
+  amuxb : in bit; -- analog
+  csh : in bit; -- analog
+  cmod : in bit; -- analog
+  shield_pad : in bit; -- analog
+  dedicated_io : in bit_vector (dedicated_io_count -1 downto 0);-- analog
+  vref_ext : in bit; -- analog
+  adc_channel : in bit_vector (adc_channel_count -1 downto 0); -- analog
+  sense_out : out bit; -- digital
+  sample_out : out bit; -- digital
+  sense_in : in bit; -- digital
+  sample_in : in bit; -- digital
+  csh_tank_en : out bit; -- digital
+  cmod_en : out bit; -- digital
+  hscmp : out bit; -- digital
+  start : in bit; -- digital
+  sampling : out bit; -- digital
+  adc_on : out bit; -- digital
+  count : out bit_vector (15 downto 0); -- digital
+  count_val_sel : in bit; -- digital
+  clk : in bit; -- digital
+  irq : out bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_csd2_v1_20 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_csd2_v1_20 : component is true;
+
+component cy_psoc4_csd2_v1_30
+    generic(cy_registers : string := "";
+   sensors_count : positive := 1;
+   rx_count : positive := 1;
+   tx_count : positive := 1;
+   shield_count : positive := 1;
+   adc_channel_count : positive := 1;
+   dedicated_io_count : positive := 1;
+   ganged_csx : boolean := false;
+   sense_as_shield : boolean := false;
+   shield_as_sense : boolean := false;
+   is_capsense : boolean := true;
+   is_mutual : boolean := false;
+   is_cmod_charge : boolean := false;
+         is_csh_charge : boolean := false);
+    port (
+
+  sense : in bit_vector (sensors_count -1 downto 0); -- analog
+  rx : in bit_vector (rx_count -1 downto 0); -- analog
+  tx : out bit_vector (tx_count -1 downto 0); -- analog
+  shield : out bit_vector (shield_count -1 downto 0); -- analog
+  amuxa : in bit; -- analog
+  amuxb : in bit; -- analog
+  csh : in bit; -- analog
+  cmod : in bit; -- analog
+  shield_pad : in bit; -- analog
+  dedicated_io : in bit_vector (dedicated_io_count -1 downto 0);-- analog
+  vref_ext : in bit; -- analog
+  adc_channel : in bit_vector (adc_channel_count -1 downto 0); -- analog
+  sense_out : out bit; -- digital
+  sample_out : out bit; -- digital
+  sense_in : in bit; -- digital
+  sample_in : in bit; -- digital
+  csh_tank_en : out bit; -- digital
+  cmod_en : out bit; -- digital
+  hscmp : out bit; -- digital
+  start : in bit; -- digital
+  sampling : out bit; -- digital
+  adc_on : out bit; -- digital
+  tr_adc_done : out bit; -- digital
+  count : out bit_vector (15 downto 0); -- digital
+  count_val_sel : in bit; -- digital
+  clk : in bit; -- digital
+  irq : out bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_csd2_v1_30 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_csd2_v1_30 : component is true;
+-- ********************************************************* --
+-- ********************* PSOC4 CS IDAC ********************* --
+
+component cy_psoc4_csidac_v1_0
+    generic(cy_registers: string := "";
+           resolution : integer := 7);
+    port (iout : out bit; -- analog
+      en : in bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_csidac_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_csidac_v1_0 : component is true;
+-- ********************************************************* --
+-- ********************* PSOC4 CS IDAC ********************* --
+
+component cy_psoc4_csidac2_v1_0
+    generic(cy_registers: string := "";
+   leg3_needed : boolean := false);
+    port (
+  iout : out bit; -- analog
+  en_a : in bit; -- digital
+  en_b : in bit; -- digital
+  en_c : in bit; -- digital
+  pol : in bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_psoc4_csidac2_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_csidac2_v1_0 : component is true;
+-- ********************************************************* --
+-- ********************* SARMUX **************************** --
+
+component cy_psoc4_sarmux_v1_0
+    generic(cy_registers: string := "";
+     muxin_width : positive := 4;
+     input_mode : string := "0000"); --0 = single-ended, 1 = differential
+    port (
+   muxin_plus : in bit_vector (muxin_width-1 downto 0); -- analog
+   muxin_minus : in bit_vector (muxin_width-1 downto 0); -- analog
+   cmn_neg : in bit; -- analog
+   vout_plus : out bit; -- analog
+   vout_minus : out bit); -- analog
+end component;
+
+     attribute atomic_rtl of cy_psoc4_sarmux_v1_0 : component is rtl_generic;
+     attribute cpu_access of cy_psoc4_sarmux_v1_0 : component is true;
+-- ********************************************************* --
+-- ********************* SARMUX **************************** --
+
+component cy_psoc4_sarmux_v1_10
+    generic(cy_registers: string := "";
+     muxin_width : positive := 4;
+  cmn_neg_width : positive := 1;
+  input_mode : string := "0000"); --0 = single-ended, 1 = differential
+    port (
+  muxin_plus : in bit_vector (muxin_width-1 downto 0); -- analog
+  muxin_minus : in bit_vector (muxin_width-1 downto 0); -- analog
+  cmn_neg : in bit_vector (cmn_neg_width-1 downto 0); -- analog
+  vout_plus : out bit; -- analog
+  vout_minus : out bit); -- analog
+end component;
+
+     attribute atomic_rtl of cy_psoc4_sarmux_v1_10 : component is rtl_generic;
+     attribute cpu_access of cy_psoc4_sarmux_v1_10 : component is true;
+-- ********************************************************* --
+-- ********************** LNFE ***************************** --
+
+component cy_psoc4_lnfe_v1_0
+    generic(cy_registers: string := "");
+    port (
+  lc : out bit; -- analog
+  lb : out bit; -- analog
+  le : out bit); -- analog
+end component;
+
+     attribute atomic_rtl of cy_psoc4_lnfe_v1_0 : component is rtl_generic;
+     attribute cpu_access of cy_psoc4_lnfe_v1_0 : component is true;
+component cy_psoc4_imo_fss_v1_0
+    port (ss_clock : in bit;
+     ss : in bit_vector (4 downto 0) := "00000";
+     ss_updn : out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc4_imo_fss_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_imo_fss_v1_0 : component is true;
+-- ****************************** TCPWM ************************************* --
+
+component cy_m0s8_tcpwm_v1_0
+     generic(cy_registers : string := "");
+     port (clock : in bit; -- digital
+             capture : in bit; -- digital
+             count : in bit; -- digital
+             reload : in bit; -- digital
+             stop : in bit; -- digital
+             start : in bit; -- digital
+             underflow : out bit; -- digital
+             overflow : out bit; -- digital
+             compare_match : out bit; -- digital
+             line_out : out bit; -- digital
+             line_out_compl : out bit; -- digital
+             interrupt : out bit); -- digital
+end component;
+
+    attribute atomic_rtl of cy_m0s8_tcpwm_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_m0s8_tcpwm_v1_0 : component is true;
+-- ****************************** SCB ************************************* --
+component cy_m0s8_scb_v1_0
+    generic(cy_registers : string := "";
+     scb_mode : integer := 0); -- 0 = I2C
+       -- 1 = SPI
+       -- 2 = UART
+    port ( clock : in bit; -- digital
+     interrupt : out bit; -- digital
+     rx : in bit; -- digital
+     tx : out bit; -- digital
+     mosi_m : out bit; -- digital
+     miso_m : in bit; -- digital
+     select_m : out bit_vector (3 downto 0);-- digital
+     sclk_m : out bit; -- digital
+     mosi_s : in bit; -- digital
+     miso_s : out bit; -- digital
+     select_s : in bit; -- digital
+     sclk_s : in bit; -- digital
+     scl : inout bit; -- digital
+     sda : inout bit); -- digital
+end component;
+
+    attribute atomic_rtl of cy_m0s8_scb_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_m0s8_scb_v1_0 : component is true;
+-- ****************************** SCBv2 ************************************* --
+component cy_m0s8_scb_v2_0
+    generic(cy_registers : string := "";
+     scb_mode : integer := 0); -- 0 = I2C
+       -- 1 = SPI
+       -- 2 = UART
+    port ( clock : in bit; -- digital
+     interrupt : out bit; -- digital
+     rx : in bit; -- digital
+     tx : out bit; -- digital
+     cts : in bit; -- digital
+     rts : out bit; -- digital
+     mosi_m : out bit; -- digital
+     miso_m : in bit; -- digital
+     select_m : out bit_vector (3 downto 0);-- digital
+     sclk_m : out bit; -- digital
+     mosi_s : in bit; -- digital
+     miso_s : out bit; -- digital
+     select_s : in bit; -- digital
+     sclk_s : in bit; -- digital
+     scl : inout bit; -- digital
+     sda : inout bit; -- digital
+     tx_req : out bit; -- digital
+     rx_req : out bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_m0s8_scb_v2_0 : component is rtl_generic;
+    attribute cpu_access of cy_m0s8_scb_v2_0 : component is true;
+-- ****************************** LCD ************************************* --
+component cy_m0s8_lcd_v1_0
+    generic(cy_registers : string := "";
+     common_width : natural := 1 ; -- number of common
+     segment_width : natural := 1); -- number of segment
+    port ( clock : in bit := '1'; -- digital
+            common : out bit_vector (common_width -1 downto 0);
+       -- digital
+     segment : out bit_vector (segment_width-1 downto 0));
+       -- digital
+end component;
+
+    attribute atomic_rtl of cy_m0s8_lcd_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_m0s8_lcd_v1_0 : component is true;
+-- ****************************** BLE ************************************* --
+component cy_m0s8_ble_v1_0
+    generic(cy_registers : string := "");
+    port ( interrupt : out bit; -- digital
+      rf_ext_pa_en : out bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_m0s8_ble_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_m0s8_ble_v1_0 : component is true;
+-- ****************************** BLE II ************************************* --
+component cy_m0s8_ble_v2_0
+    generic(cy_registers : string := "");
+port( interrupt : out bit; -- digital
+   ext_pa_tx_ctl : out bit; -- digital
+   ext_lna_rx_ctl : out bit; -- digital
+   ext_pa_lna_chip_en : out bit); -- digital
+
+end component;
+
+    attribute atomic_rtl of cy_m0s8_ble_v2_0 : component is rtl_generic;
+    attribute cpu_access of cy_m0s8_ble_v2_0 : component is true;
+-- ****************************** DMA ************************************* --
+component cy_m0s8_dma_v1_0
+    generic(priority : bit_vector (1 downto 0) := "00"); -- 00 = Highest
+                                                -- 01
+            -- 10
+            -- 11 = Lowest
+            port(tr_in : in bit := '0';
+tr_out : out bit);
+
+end component;
+
+ attribute atomic_rtl of cy_m0s8_dma_v1_0 : component is rtl_generic;
+ attribute cpu_access of cy_m0s8_dma_v1_0 : component is true;
+    -- ****************** Controller Area Network Controller ********************
+component cy_m0s8_can_v1_0
+    generic(cy_registers : string := "");
+    port(can_rx: in bit;
+         can_tx: out bit;
+         can_tx_en: out bit;
+         interrupt: out bit);
+end component;
+
+    attribute atomic_rtl of cy_m0s8_can_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_m0s8_can_v1_0 : component is true;
+-- ****************** USB ********************
+component cy_m0s8_usb_v1_0
+    generic(cy_registers : string := "");
+    port(dp: out bit; -- These are declared as outputs for simplicity. The actual
+         dm: out bit; -- drive mode is controlled by the USB hardware.
+         vbus_valid: in bit;
+         interrupt_lo: out bit;
+         interrupt_med: out bit;
+         interrupt_hi: out bit;
+         dsi_usb_sof: out bit;
+         dma_burstend: in bit_vector(7 downto 0);
+         dma_req: out bit_vector(7 downto 0));
+end component;
+
+    attribute atomic_rtl of cy_m0s8_usb_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_m0s8_usb_v1_0 : component is true;
+-- ****************** USB (Legacy) ********************
+component cy_psoc4u_usb_v1_0
+    generic(cy_registers : string := "");
+    port(dp: out bit; -- These are declared as outputs for simplicity. The actual
+         dm: out bit; -- drive mode is controlled by the USB hardware.
+         sof: out bit;
+         ep0: out bit;
+         ep8_1: out bit;
+         reset: out bit;
+         arb: out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc4u_usb_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4u_usb_v1_0 : component is true;
+-- ****************** usbpd ********************
+component cy_psoc4_usbpd_v1_0
+    generic(cy_registers : string := "");
+    port(clock_rx: in bit;
+         clock_tx: in bit;
+         clock_sar: in bit;
+         interrupt: out bit;
+         interrupt_wakeup: out bit;
+         cmp_out: out bit;
+         tx_data: in bit;
+         tx_data_en: in bit;
+         tr_out_0: out bit;
+         tr_out_1: out bit;
+         tr_out_2: out bit;
+         tr_out_3: out bit;
+         tr_out_4: out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc4_usbpd_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_usbpd_v1_0 : component is true;
+-- ****************** usbpd ********************
+component cy_psoc4_usbpd_v2_0
+    generic(cy_registers : string := "");
+    port(clock_rx: in bit;
+         clock_tx: in bit;
+         clock_sar: in bit;
+         interrupt: out bit;
+         interrupt_wakeup: out bit;
+         cmp_out: out bit_vector(1 downto 0);
+         tx_data: in bit;
+         tx_data_en: in bit;
+         tr_out_0: out bit;
+         tr_out_1: out bit;
+         tr_out_2: out bit;
+         tr_out_3: out bit;
+         tr_out_4: out bit;
+         tr_out_5: out bit;
+         tr_out_6: out bit;
+         hpd: out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc4_usbpd_v2_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_usbpd_v2_0 : component is true;
+-- ****************************** PRGIO ************************************* --
+component cy_m0s8_prgio_v1_0
+    generic(cy_registers : string := "";
+   port_id : natural := 0); -- port number to place prgio at
+    port(clock : in bit;
+         data0_i : in bit;
+         data0_o : out bit;
+         data0_oe : out bit;
+         data0_io : inout bit;
+         data1_i : in bit;
+         data1_o : out bit;
+         data1_oe : out bit;
+         data1_io : inout bit;
+         data2_i : in bit;
+         data2_o : out bit;
+         data2_oe : out bit;
+         data2_io : inout bit;
+         data3_i : in bit;
+         data3_o : out bit;
+         data3_oe : out bit;
+         data3_io : inout bit;
+         data4_i : in bit;
+         data4_o : out bit;
+         data4_oe : out bit;
+         data4_io : inout bit;
+         data5_i : in bit;
+         data5_o : out bit;
+         data5_oe : out bit;
+         data5_io : inout bit;
+         data6_i : in bit;
+         data6_o : out bit;
+         data6_oe : out bit;
+         data6_io : inout bit;
+         data7_i : in bit;
+         data7_o : out bit;
+         data7_oe : out bit;
+         data7_io : inout bit;
+
+         gpio0_i : in bit;
+         gpio0_o : out bit;
+         gpio0_oe : out bit;
+         gpio0_io : inout bit;
+         gpio1_i : in bit;
+         gpio1_o : out bit;
+         gpio1_oe : out bit;
+         gpio1_io : inout bit;
+         gpio2_i : in bit;
+         gpio2_o : out bit;
+         gpio2_oe : out bit;
+         gpio2_io : inout bit;
+         gpio3_i : in bit;
+         gpio3_o : out bit;
+         gpio3_oe : out bit;
+         gpio3_io : inout bit;
+         gpio4_i : in bit;
+         gpio4_o : out bit;
+         gpio4_oe : out bit;
+         gpio4_io : inout bit;
+         gpio5_i : in bit;
+         gpio5_o : out bit;
+         gpio5_oe : out bit;
+         gpio5_io : inout bit;
+         gpio6_i : in bit;
+         gpio6_o : out bit;
+         gpio6_oe : out bit;
+         gpio6_io : inout bit;
+         gpio7_i : in bit;
+         gpio7_o : out bit;
+         gpio7_oe : out bit;
+         gpio7_io : inout bit);
+end component;
+
+    attribute atomic_rtl of cy_m0s8_prgio_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_m0s8_prgio_v1_0 : component is true;
+-- ****************************** CRYPTO ************************************* --
+component cy_psoc4_crypto_v1_0
+    generic(cy_registers : string := "");
+    port(tr_in : in bit;
+         tr_out : out bit;
+         interrupt : out bit);
+end component;
+
+    attribute atomic_rtl of cy_psoc4_crypto_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_psoc4_crypto_v1_0 : component is true;
+component cy_mxs40_tcpwm_v1_0
+    generic(
+        cy_registers : string :="";
+        width : natural :=32;
+        exact_width : boolean :=false);
+    port (
+        clock : in bit; --digital
+        capture : in bit; --digital
+        count : in bit; --digital
+        reload : in bit; --digital
+        stop : in bit; --digital
+        start : in bit; --digital
+        tr_underflow : out bit; --digital
+        tr_compare_match : out bit; --digital
+        tr_overflow : out bit; --digital
+        line_compl : out bit; --digital
+        line : out bit; --digital
+        interrupt : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_tcpwm_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_tcpwm_v1_0 : component is true;
+component cy_mxs40_dw_v1_0
+    generic(
+        cy_registers : string :="";
+        priority : bit_vector (1 downto 0) :="00");
+    port (
+        tr_in : in bit; --digital
+        tr_out : out bit; --digital
+        interrupt : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_dw_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_dw_v1_0 : component is true;
+component cy_mxs40_gpio_v1_0
+    generic(
+        cy_registers : string :="";
+        width : natural :=1;
+        sio_grp_cnt : natural :=1;
+        id : string :="";
+        drive_mode : string :="";
+        ibuf_enabled : string :="";
+        init_dr_st : string :="";
+        input_sync : string :="";
+        intr_mode : string :="";
+        io_voltage : string :="";
+        output_conn : string :="";
+        oe_conn : string :="";
+        output_sync : string :="";
+        oe_sync : string :="";
+        drive_strength : string :="";
+        max_frequency : string :="";
+        output_current_cap : string :="";
+        i2c_mode : string :="";
+        pin_aliases : string :="";
+        pin_mode : string :="";
+        slew_rate : string :="";
+        vtrip : string :="";
+        use_annotation : string :="";
+        hotswap_needed : string :="");
+    port (
+        oe : in bit_vector(width - 1 downto 0); --digital
+        y : in bit_vector(width - 1 downto 0); --digital
+        fb : out bit_vector(width - 1 downto 0); --digital
+        analog : inout bit_vector(width - 1 downto 0); --analog
+        io : inout bit_vector(width - 1 downto 0); --digital
+        annotation : inout bit_vector(width - 1 downto 0); --analog
+        siovref : inout bit_vector); --analog
+end component;
+
+    attribute atomic_rtl of cy_mxs40_gpio_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_gpio_v1_0 : component is true;
+component cy_mxs40_smartio_v1_0
+    generic(
+        cy_registers : string :="";
+        port_id : natural :=0);
+    port (
+        clock : in bit; --digital
+        data0_i : in bit; --digital
+        data0_o : out bit; --digital
+        data0_oe : out bit; --digital
+        data0_io : inout bit; --digital
+        data1_i : in bit; --digital
+        data1_o : out bit; --digital
+        data1_oe : out bit; --digital
+        data1_io : inout bit; --digital
+        data2_i : in bit; --digital
+        data2_o : out bit; --digital
+        data2_oe : out bit; --digital
+        data2_io : inout bit; --digital
+        data3_i : in bit; --digital
+        data3_o : out bit; --digital
+        data3_oe : out bit; --digital
+        data3_io : inout bit; --digital
+        data4_i : in bit; --digital
+        data4_o : out bit; --digital
+        data4_oe : out bit; --digital
+        data4_io : inout bit; --digital
+        data5_i : in bit; --digital
+        data5_o : out bit; --digital
+        data5_oe : out bit; --digital
+        data5_io : inout bit; --digital
+        data6_i : in bit; --digital
+        data6_o : out bit; --digital
+        data6_oe : out bit; --digital
+        data6_io : inout bit; --digital
+        data7_i : in bit; --digital
+        data7_o : out bit; --digital
+        data7_oe : out bit; --digital
+        data7_io : inout bit; --digital
+        gpio0_i : in bit; --digital
+        gpio0_o : out bit; --digital
+        gpio0_oe : out bit; --digital
+        gpio0_io : inout bit; --digital
+        gpio1_i : in bit; --digital
+        gpio1_o : out bit; --digital
+        gpio1_oe : out bit; --digital
+        gpio1_io : inout bit; --digital
+        gpio2_i : in bit; --digital
+        gpio2_o : out bit; --digital
+        gpio2_oe : out bit; --digital
+        gpio2_io : inout bit; --digital
+        gpio3_i : in bit; --digital
+        gpio3_o : out bit; --digital
+        gpio3_oe : out bit; --digital
+        gpio3_io : inout bit; --digital
+        gpio4_i : in bit; --digital
+        gpio4_o : out bit; --digital
+        gpio4_oe : out bit; --digital
+        gpio4_io : inout bit; --digital
+        gpio5_i : in bit; --digital
+        gpio5_o : out bit; --digital
+        gpio5_oe : out bit; --digital
+        gpio5_io : inout bit; --digital
+        gpio6_i : in bit; --digital
+        gpio6_o : out bit; --digital
+        gpio6_oe : out bit; --digital
+        gpio6_io : inout bit; --digital
+        gpio7_i : in bit; --digital
+        gpio7_o : out bit; --digital
+        gpio7_oe : out bit; --digital
+        gpio7_io : inout bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_smartio_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_smartio_v1_0 : component is true;
+component cy_mxs40_smif_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        clock : in bit; --digital
+        spi_clk : out bit; --digital
+        spi_select : out bit_vector(3 downto 0); --digital
+        spi_data : out bit_vector(7 downto 0); --digital
+        interrupt : out bit; --digital
+        tr_tx_req : out bit; --digital
+        tr_rx_req : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_smif_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_smif_v1_0 : component is true;
+component cy_mxs40_ble_v1_0
+    generic(
+        cy_registers : string :="";
+        low_power : boolean :=false);
+    port (
+        ext_pa_lna_chip_en_out : out bit; --digital
+        ext_lna_rx_ctl_out : out bit; --digital
+        ext_pa_tx_ctl_out : out bit; --digital
+        interrupt : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_ble_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_ble_v1_0 : component is true;
+component cy_mxs40_scb_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        clock : in bit; --digital
+        uart_rx : in bit; --digital
+        uart_tx : out bit; --digital
+        uart_rts : out bit; --digital
+        uart_cts : in bit; --digital
+        i2c_scl : inout bit; --digital
+        i2c_sda : inout bit; --digital
+        spi_clk_m : out bit; --digital
+        spi_clk_s : in bit; --digital
+        spi_select_m : out bit_vector(3 downto 0); --digital
+        spi_select_s : in bit; --digital
+        spi_mosi_m : out bit; --digital
+        spi_miso_m : in bit; --digital
+        spi_mosi_s : in bit; --digital
+        spi_miso_s : out bit; --digital
+        interrupt : out bit; --digital
+        tr_tx_req : out bit; --digital
+        tr_rx_req : out bit; --digital
+        tr_i2c_scl_filtered : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_scb_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_scb_v1_0 : component is true;
+component cy_mxs40_scb_v1_10
+    generic(
+        cy_registers : string :="";
+        requires_io_preconfigure : boolean :=false;
+        mode : natural :=0;
+        master : boolean :=false);
+    port (
+        clock : in bit; --digital
+        uart_rx : in bit; --digital
+        uart_tx : out bit; --digital
+        uart_rts : out bit; --digital
+        uart_cts : in bit; --digital
+        uart_tx_en : out bit; --digital
+        i2c_scl : inout bit; --digital
+        i2c_sda : inout bit; --digital
+        spi_clk_m : out bit; --digital
+        spi_clk_s : in bit; --digital
+        spi_select_m : out bit_vector(3 downto 0); --digital
+        spi_select_s : in bit; --digital
+        spi_mosi_m : out bit; --digital
+        spi_miso_m : in bit; --digital
+        spi_mosi_s : in bit; --digital
+        spi_miso_s : out bit; --digital
+        interrupt : out bit; --digital
+        tr_tx_req : out bit; --digital
+        tr_rx_req : out bit; --digital
+        tr_i2c_scl_filtered : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_scb_v1_10 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_scb_v1_10 : component is true;
+component cy_mxs40_csd_v1_0
+    generic(
+        cy_registers : string :="";
+        sensors_count : natural :=1;
+        rx_count : natural :=1;
+        tx_count : natural :=1;
+        shield_count : natural :=1;
+        adc_channel_count : natural :=1;
+        dedicated_io_count : natural :=1;
+        is_cmod_charge : boolean :=false;
+        is_capsense : boolean :=true;
+        sense_as_shield : boolean :=false;
+        shield_as_sense : boolean :=false);
+    port (
+        sense : in bit_vector(sensors_count - 1 downto 0); --analog
+        rx : in bit_vector(rx_count - 1 downto 0); --analog
+        tx : out bit_vector(tx_count - 1 downto 0); --analog
+        shield : out bit_vector(shield_count - 1 downto 0); --analog
+        adc_channel : in bit_vector(adc_channel_count - 1 downto 0); --analog
+        amuxa : in bit; --analog
+        amuxb : in bit; --analog
+        csh : in bit; --analog
+        cmod : in bit; --analog
+        shield_pad : in bit; --analog
+        dedicated_io : in bit_vector(dedicated_io_count - 1 downto 0); --analog
+        vref_ext : in bit; --analog
+        vref_pass : in bit; --analog
+        dsi_sense_out : out bit; --digital
+        dsi_sample_out : out bit; --digital
+        dsi_sense_in : in bit; --digital
+        dsi_sample_in : in bit; --digital
+        dsi_csh_tank : out bit; --digital
+        dsi_cmod : out bit; --digital
+        dsi_hscmp : out bit; --digital
+        dsi_start : in bit; --digital
+        dsi_sampling : out bit; --digital
+        dsi_adc_on : out bit; --digital
+        dsi_count : out bit_vector(15 downto 0); --digital
+        dsi_count_val_sel : in bit; --digital
+        csd_tx : out bit; --digital
+        csd_tx_n : out bit; --digital
+        clock : in bit; --digital
+        interrupt : out bit; --digital
+        tr_adc_done : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_csd_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_csd_v1_0 : component is true;
+component cy_mxs40_usb_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        usb_dp_pad : out bit; --digital
+        usb_dm_pad : out bit; --digital
+        interrupt_lo : out bit; --digital
+        interrupt_med : out bit; --digital
+        interrupt_hi : out bit; --digital
+        dma_req : out bit_vector(7 downto 0); --digital
+        dma_burstend : in bit_vector(7 downto 0); --digital
+        dsi_usb_sof : out bit; --digital
+        clk_usb_dev : in bit; --digital
+        clk_usb_host : in bit; --digital
+        clock_dev_brs : in bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_usb_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_usb_v1_0 : component is true;
+component cy_mxs40_ipc_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        interrupt : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_ipc_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_ipc_v1_0 : component is true;
+component cy_mxs40_crypto_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        interrupt : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_crypto_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_crypto_v1_0 : component is true;
+component cy_mxs40_profile_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        clock : in bit; --digital
+        interrupt : out bit; --digital
+        tr_start : in bit; --digital
+        tr_stop : in bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_profile_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_profile_v1_0 : component is true;
+component cy_mxs40_i2s_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        clock : in bit; --digital
+        clk_i2s_if : in bit; --digital
+        tx_sck_m : out bit; --digital
+        tx_sck_s : in bit; --digital
+        tx_ws_m : out bit; --digital
+        tx_ws_s : in bit; --digital
+        tx_sdo : out bit; --digital
+        rx_sck_m : out bit; --digital
+        rx_sck_s : in bit; --digital
+        rx_ws_m : out bit; --digital
+        rx_ws_s : in bit; --digital
+        rx_sdi : in bit; --digital
+        tr_i2s_tx_req : out bit; --digital
+        tr_i2s_rx_req : out bit; --digital
+        interrupt : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_i2s_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_i2s_v1_0 : component is true;
+component cy_mxs40_pdm_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        clock : in bit; --digital
+        pdm_clk : out bit; --digital
+        pdm_data : in bit; --digital
+        tr_pdm_rx_req : out bit; --digital
+        interrupt : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_pdm_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_pdm_v1_0 : component is true;
+component cy_mxs40_lpcomp_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        inp : in bit; --analog
+        inn : in bit; --analog
+        dsi_comp : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_lpcomp_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_lpcomp_v1_0 : component is true;
+component cy_mxs40_isr_v1_0
+    generic(
+        cy_registers : string :="";
+        deepsleep_required : boolean :=false;
+        int_type : bit_vector :="00");
+    port (
+        int_signal : in bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_isr_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_isr_v1_0 : component is true;
+component cy_mxs40_samplehold_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        vin : inout bit); --analog
+end component;
+
+    attribute atomic_rtl of cy_mxs40_samplehold_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_samplehold_v1_0 : component is true;
+component cy_mxs40_csidac_v1_0
+    generic(
+        cy_registers : string :="";
+        leg3_needed : boolean :=false);
+    port (
+        iout : out bit; --analog
+        dsi_idac_leg1_en : in bit; --digital
+        dsi_idac_leg2_en : in bit; --digital
+        dsi_idac_leg3_en : in bit; --digital
+        dsi_idac_pol : in bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_csidac_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_csidac_v1_0 : component is true;
+component cy_mxs40_opamp_v1_0
+    generic(
+        cy_registers : string :="";
+        has_resistor : boolean :=false;
+        deepsleep_available : boolean :=false;
+        needs_dsab : boolean :=false);
+    port (
+        out_1x : out bit; --analog
+        out_10x : out bit; --analog
+        vplus : in bit; --analog
+        vminus : in bit; --analog
+        ctb_dsi_comp : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_opamp_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_opamp_v1_0 : component is true;
+component cy_mxs40_lcd_v1_0
+    generic(
+        cy_registers : string :="";
+        common_width : natural :=1;
+        segment_width : natural :=1);
+    port (
+        clock : in bit; --digital
+        com : out bit_vector(common_width - 1 downto 0); --digital
+        seg : out bit_vector(segment_width - 1 downto 0)); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_lcd_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_lcd_v1_0 : component is true;
+component cy_mxs40_ctdac_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        clock : in bit; --digital
+        ctdrefdrive : in bit; --analog
+        ctdrefsense : out bit; --analog
+        ctdvout : out bit; --analog
+        ctdvoutsw : out bit; --analog
+        dsi_ctdac_strobe : in bit; --digital
+        tr_ctdac_empty : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_ctdac_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_ctdac_v1_0 : component is true;
+component cy_mxs40_ctdac_v1_10
+    generic(
+        cy_registers : string :="");
+    port (
+        clock : in bit; --digital
+        ctdrefdrive : in bit; --analog
+        ctdrefsense : out bit; --analog
+        ctdvout : out bit; --analog
+        ctdvoutsw : out bit; --analog
+        dsi_ctdac_strobe : in bit; --digital
+        tr_ctdac_empty : out bit; --digital
+        interrupt_dac : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_ctdac_v1_10 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_ctdac_v1_10 : component is true;
+component cy_mxs40_sar_v1_0
+    generic(
+        cy_registers : string :="";
+        edge_trigger : boolean :=false);
+    port (
+        vplus : in bit; --analog
+        vminus : out bit; --analog
+        vref : out bit; --analog
+        ext_vref : out bit; --analog
+        dsi_sar_sample_done : out bit; --digital
+        dsi_sar_chan_id_valid : out bit; --digital
+        dsi_sar_data_valid : out bit; --digital
+        tr_sar_out : out bit; --digital
+        dsi_sar_data : out bit_vector(11 downto 0); --digital
+        dsi_sar_chan_id : out bit_vector(3 downto 0); --digital
+        dsi_sar_cfg_st_sel : in bit_vector(1 downto 0); --digital
+        dsi_sar_cfg_average : in bit; --digital
+        dsi_sar_cfg_differential : in bit; --digital
+        dsi_sar_sw_negvref : in bit; --digital
+        dsi_sar_data_hilo_sel : in bit; --digital
+        tr_sar_in : in bit; --digital
+        clock : in bit; --digital
+        interrupt : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_sar_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_sar_v1_0 : component is true;
+component cy_mxs40_sarmux_v1_0
+    generic(
+        cy_registers : string :="";
+        muxin_width : natural :=4;
+        cmn_neg_width : natural :=1;
+        input_mode : string :="1");
+    port (
+        muxin_plus : in bit_vector(muxin_width - 1 downto 0); --analog
+        muxin_minus : in bit_vector(muxin_width - 1 downto 0); --analog
+        cmn_neg : in bit_vector(cmn_neg_width - 1 downto 0); --analog
+        muxout_plus : out bit; --analog
+        muxout_minus : out bit); --analog
+end component;
+
+    attribute atomic_rtl of cy_mxs40_sarmux_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_sarmux_v1_0 : component is true;
+component cy_mxs40_temp_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        temp : out bit); --analog
+end component;
+
+    attribute atomic_rtl of cy_mxs40_temp_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_temp_v1_0 : component is true;
+component cy_mxs40_mcwdt_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        interrupt : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_mcwdt_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_mcwdt_v1_0 : component is true;
+component cy_mxs40_rtc_v1_0
+    generic(
+        cy_registers : string :="");
+    port (
+        interrupt : out bit); --digital
+end component;
+
+    attribute atomic_rtl of cy_mxs40_rtc_v1_0 : component is rtl_generic;
+    attribute cpu_access of cy_mxs40_rtc_v1_0 : component is true;
+
+END rtlpkg;
+
+--------------------------------------------------------------------------
+-- Force synthesis to use the device library.
+--------------------------------------------------------------------------
+use work.rtlpkg.all;
+entity dummy is
+end dummy;

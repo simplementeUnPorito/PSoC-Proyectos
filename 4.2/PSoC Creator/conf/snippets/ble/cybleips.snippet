@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_IpsRegisterAttrCallback</Title>
+			<Shortcut>CyBle_IpsRegisterAttrCallback</Shortcut>
+			<Description>BLE IPS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_IpsRegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_IpsCallBack</Default>
+					<ToolTip>BLE IPS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_IpsCallBack</Title>
+			<Shortcut>CyBle_IpsCallBack</Shortcut>
+			<Description>BLE CallBack function for Indoor Positioning service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_IpsCallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>IPS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>IPS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CYBLE_IPS_SERVER
+        case CYBLE_EVT_IPSS_WRITE_CHAR:
+            break;
+
+    #endif /* CYBLE_IPS_SERVER */
+
+    #ifdef CYBLE_IPS_CLIENT
+        case CYBLE_EVT_IPSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_IPSC_READ_MULTIPLE_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_IPSC_WRITE_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_IPSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_IPSC_WRITE_DESCR_RESPONSE:
+            break;
+		
+		case CYBLE_EVT_IPSC_ERROR_RESPONSE:
+            break;
+			
+		case CYBLE_EVT_IPSC_READ_BLOB_RSP:
+            break;
+    #endif /* CYBLE_IPS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

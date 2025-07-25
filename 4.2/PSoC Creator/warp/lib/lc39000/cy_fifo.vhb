@@ -1,0 +1,43 @@
+--
+
+--
+-- CY_FIFO
+--
+library cypress;
+use work.rtlpkg.all;
+use cypress.lpmpkg.all;
+entity cy_fifo is
+    generic(lpm_width : positive := 1;
+     lpm_numwords: positive := 1;
+     lpm_pafe_length : natural := 0;
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0);
+     q : out bit_vector(lpm_width-1 downto 0);
+     enr : in bit;
+     enw : in bit;
+     readclock : in bit;
+     writeclock : in bit;
+     mrb : in bit;
+     efb : out bit;
+     hfb : out bit;
+     pafeb : out bit);
+end cy_fifo;
+
+architecture c39k of cy_fifo is
+begin
+
+    u1: cy_C39KFIFO
+    generic map(datawidth => lpm_width,
+                numwords => lpm_numwords,
+                pafe_distance => lpm_pafe_length)
+    port map( din => data,
+                dout => q,
+                enr => enr,
+                enw => enw,
+                ckr => readclock,
+                ckw => writeclock,
+                mrb => mrb,
+                efb => efb,
+                hfb => hfb,
+                pafeb => pafeb);
+end c39k;

@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://cypress.com/xsd/PdscDefaults" xmlns="http://cypress.com/xsd/PdscDefaults">
+  <!-- Component Class Name Type: specify your own Class in taxonomy -->
+  <xs:simpleType name="CclassType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="3"/>
+      <xs:maxLength value="32"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Component Group Name Type -->
+  <xs:simpleType name="CgroupType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="3"/>
+      <xs:maxLength value="32"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Component Sub Name Type -->
+  <xs:simpleType name="CsubType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0"/>
+      <xs:maxLength value="32"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Component Variant Name Type -->
+  <xs:simpleType name="CvariantType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="3"/>
+      <xs:maxLength value="32"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ComponentVersionType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]+\.[0-9]+((\.[0-9]+)|())((\-[0-9A-Za-z_\-\.]+)|([_A-Za-z][0-9A-Za-z_\-\.]*)|())((\+[\-\._A-Za-z0-9]+)|())"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="InstancesType">
+    <xs:restriction base="xs:unsignedInt">
+      <xs:minInclusive value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- file category type -->
+  <xs:simpleType name="FileCategoryType">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="doc"/>
+      <xs:enumeration value="header"/>
+      <xs:enumeration value="include"/>
+      <xs:enumeration value="library"/>
+      <xs:enumeration value="object"/>
+      <xs:enumeration value="source"/>
+      <xs:enumeration value="sourceC"/>
+      <xs:enumeration value="sourceCpp"/>
+      <xs:enumeration value="sourceAsm"/>
+      <xs:enumeration value="linkerScript"/>
+      <xs:enumeration value="utility"/>
+      <xs:enumeration value="image"/>
+      <xs:enumeration value="other"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- file attribute type -->
+  <xs:simpleType name="FileAttributeType">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="config"/>
+      <xs:enumeration value="copy"/>
+      <xs:enumeration value="template"/>
+      <xs:enumeration value="interface"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Component file type definition -->
+  <xs:complexType name="FileType">
+    <xs:attribute name="condition" type="xs:string" use="optional"/>
+    <!-- file item category: source, header, include path, etc.  -->
+    <xs:attribute name="category" type="FileCategoryType" use ="required"/>
+    <!-- file item action attribute : config (copy to project, template, interface)  -->
+    <xs:attribute name="attr"     type="FileAttributeType" use ="optional"/>
+    <!-- description for "template" or "interface" files. Multiple items are combined when they have the same select attribute  -->
+    <xs:attribute name="select"   type="xs:string" use ="optional"/>
+    <!-- path + filename + extension -->
+    <xs:attribute name="name" type ="xs:string" use="required" />
+    <!-- copy file to project folder:  deprecated, use attr="config" instead  -->
+    <xs:attribute name="copy" type ="xs:string" use="optional"/>
+    <!-- simple file version: to be used by RTE copy file action to see whether the file needs updating in project -->
+    <xs:attribute name="version" type ="ComponentVersionType" use="optional"/>
+    <!-- path(s) to find source files for a library, paths are delimited with semicolon (;) -->
+    <xs:attribute name="src" type="xs:string" use ="optional"/>
+  </xs:complexType>
+
+  <xs:element name="PdscDefaults">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="defaultDocumentation" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="path" use="required"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="defaultFilters" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="filter" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="key" use="required"/>
+                      <xs:attribute type="xs:string" name="value" use="required"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="defaultComponents" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="group" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="attribute" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="key" use="required"/>
+                            <xs:attribute type="xs:string" name="value" use="required"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="showOnMiddlewareTab" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="group" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="attribute" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="key" use="required"/>
+                            <xs:attribute type="xs:string" name="value" use="required"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+		<xs:element name="tools" maxOccurs="1" minOccurs="0">
+          <xs:complexType>
+            <xs:choice minOccurs="1" maxOccurs="unbounded">
+              <!-- COMPONENT Description Root Point: -->
+              <xs:element name="bundle" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="description" type="xs:string"/>
+                    <xs:element name="doc"         type="xs:string"/>
+                    <xs:element name="component" minOccurs="1" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <!-- a component can be deprecated if it is no longer maintained-->
+                          <xs:element name="deprecated" type="xs:boolean" minOccurs="0" default="false"/>
+                          <!-- short component description displayed -->
+                          <xs:element name="description" type="xs:string"/>
+                          <!-- content to be added to generated RTE_Component.h file -->
+                          <xs:element name="RTE_Components_h" type="xs:string" minOccurs="0"/>
+                          <!-- list of files / content -->
+                          <xs:element name="files">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="file" type="FileType"  minOccurs="0" maxOccurs="unbounded"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <!-- component identity attributes Cclass Cvendor and Cversion are specified by bundle -->
+                        <xs:attribute name="Cgroup"   type="CgroupType"           use="required"/>
+                        <xs:attribute name="Csub"     type="CsubType"             use="optional"/>
+                        <xs:attribute name="Cvariant" type="CvariantType"         use="optional"/>
+                        <xs:attribute name="Cversion" type="ComponentVersionType" use="optional"/>
+                        <!-- api version for this component -->
+                        <xs:attribute name="Capiversion"  type="ComponentVersionType" use="optional"/>
+                        <!-- component attribute for referencing a condition specified in conditions section above -->
+                        <xs:attribute name="condition" type="xs:string" use="optional"/>
+                        <!-- maximum allowed number of instances of a component in a project, default - 1-->
+                        <xs:attribute name="maxInstances" type="InstancesType" use="optional"/>
+                        <!-- association of component with a generator. If the component is selected the generator information becomes active -->
+                        <xs:attribute name="generator" type="xs:string" use="optional"/>
+                        <!-- identifies this component variant to be the preferred variant [Version 1.4.0] -->
+                        <xs:attribute name="isDefaultVariant" type="xs:boolean" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <!-- bundle attributes -->
+                  <xs:attribute name="Cbundle"  type="xs:string"   use="required"/>
+                  <xs:attribute name="Cvendor"  type="xs:string"   use="optional"/>
+                  <xs:attribute name="Cclass"   type="CclassType"  use="required"/>
+                  <xs:attribute name="Cversion" type="ComponentVersionType" use="required"/>
+                  <!-- association of component with a generator. If the component is selected the generator information becomes active -->
+                  <xs:attribute name="generator" type="xs:string" use="optional"/>
+                  <!-- identifies this bundle variant to be the preferred variant [Version 1.4.0] -->
+                  <xs:attribute name="isDefaultVariant" type="xs:boolean" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="component" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <!-- a component can be deprecated if it is no longer maintained-->
+                    <xs:element name="deprecated" type="xs:boolean" minOccurs="0" default="false"/>
+                    <!-- short component description displayed -->
+                    <xs:element name="description" type="xs:string"/>
+                    <!-- content to be added to generated RTE_Component.h file -->
+                    <xs:element name="RTE_Components_h" type="xs:string" minOccurs="0"/>
+                    <!-- list of files / content -->
+                    <xs:element name="files">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="file" type="FileType" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <!-- component identity attributes -->
+                  <xs:attribute name="Cvendor"  type="xs:string"            use="optional"/>
+                  <xs:attribute name="Cclass"   type="CclassType"           use="required"/>
+                  <xs:attribute name="Cgroup"   type="CgroupType"           use="required"/>
+                  <xs:attribute name="Csub"     type="CsubType"             use="optional"/>
+                  <xs:attribute name="Cvariant" type="CvariantType"         use="optional"/>
+                  <xs:attribute name="Cversion" type="ComponentVersionType" use="required"/>
+                  <!-- api version for this component -->
+                  <xs:attribute name="Capiversion"  type="ComponentVersionType" use="optional"/>
+                  <!-- component attribute for referencing a condition specified in conditions section above -->
+                  <xs:attribute name="condition" type="xs:string" use="optional"/>
+                  <!-- maximum allowed number of instances of a component in a project, default - 1-->
+                  <xs:attribute name="maxInstances" type="InstancesType" use="optional"/>
+                  <!-- association of component with a generator. If the component is selected the generator information becomes active -->
+                  <xs:attribute name="generator" type="xs:string" use="optional"/>
+                  <!-- identifies this component variant to be the preferred variant [Version 1.4.0] -->
+                  <xs:attribute name="isDefaultVariant" type="xs:boolean" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+            <xs:attribute name="generator" type="xs:string" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+

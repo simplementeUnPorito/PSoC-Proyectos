@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_HidsRegisterAttrCallback</Title>
+			<Shortcut>CyBle_HidsRegisterAttrCallback</Shortcut>
+			<Description>BLE HIDS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_HidsRegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_HidsCallBack</Default>
+					<ToolTip>BLE HIDS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_HidsCallBack</Title>
+			<Shortcut>CyBle_HidsCallBack</Shortcut>
+			<Description>BLE CallBack function for HID service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_HidsCallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>HIDS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>HIDS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CYBLE_HIDS_SERVER
+        case CYBLE_EVT_HIDSS_NOTIFICATION_ENABLED:
+            break;
+
+        case CYBLE_EVT_HIDSS_NOTIFICATION_DISABLED:
+            break;
+
+        case CYBLE_EVT_HIDSS_BOOT_MODE_ENTER:
+            break;
+
+        case CYBLE_EVT_HIDSS_REPORT_MODE_ENTER:
+            break;
+
+        case CYBLE_EVT_HIDSS_SUSPEND:
+            break;
+
+        case CYBLE_EVT_HIDSS_EXIT_SUSPEND:
+            break;
+
+        case CYBLE_EVT_HIDSS_REPORT_CHAR_WRITE:
+            break;
+    #endif /* CYBLE_HIDS_SERVER */
+
+    #ifdef CYBLE_HIDS_CLIENT
+        case CYBLE_EVT_HIDSC_NOTIFICATION:
+            break;
+
+        case CYBLE_EVT_HIDSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_HIDSC_WRITE_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_HIDSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_HIDSC_WRITE_DESCR_RESPONSE:
+            break;
+    #endif /* CYBLE_HIDS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

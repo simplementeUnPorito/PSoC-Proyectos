@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<xs:schema elementFormDefault="qualified" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:annotation>
+    <xs:documentation xml:lang="en-us">
+        This schema is used to define the format of the psoc analog XML
+        The psoc analog XML is used in turn, to define the analog portion of a psoc for use while routing
+      </xs:documentation>
+  </xs:annotation>
+
+  <xs:simpleType name="Imped">
+    <xs:annotation>
+      <xs:documentation xml:lang="en-us">
+        This specifies the switch/mux types
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="High">
+        <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            Represents a costly switch/mux to go through
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Low">
+        <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            Represents a cheap switch/mux to go through
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Preferred">
+        <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            Represents a preferred switch/mux to go through (intended for Vrefs only to favor using local Vref source)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AsNonBarrierType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en-us">
+        This defines why the adjacent APIable node on the special path
+        is a (dynamic) non-barrier node
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AutoEnableVref">
+        <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            This wire is reachable when used to route the auto enable 1.024V vref
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Type">
+    <xs:annotation>
+      <xs:documentation xml:lang="en-us">
+        This enum defines the possible values for the node type
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Block">
+        <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            This is a port or other ending point in the graph
+            This should only connect to one other wire
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SwitchGroup">
+        <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            This is a group of switches between wires
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MuxGroup">
+        <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            This is a group of wires with a mux between them
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="WireCost">
+        <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            This item marks a wire with additional cost.
+            This node is not used while routing
+            This should only connect to one other wire
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RoutingLocation">
+        <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            This item creates a location where the user can choose for a signal to route from
+            This should only connect to one wire
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="PassThru">
+        <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            Virtual connection without an associated register
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="Chip">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="WireDefines" maxOccurs="1" minOccurs="1">
+          <xs:annotation>
+            <xs:documentation xml:lang="en-us">
+              A comma separated list of all the wires to be checked against when parsing for typos.
+              The string will be trimmed of surrounding whitespace.
+            </xs:documentation>
+          </xs:annotation>
+
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="WireDef" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                <xs:attribute name="Name" type="xs:string" use="required">
+                  <xs:annotation>
+                    <xs:documentation xml:lang="en-us">
+                      The name of the wire used everywhere else in the XML
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="ADVentName" type="xs:string" use="optional">
+                  <xs:annotation>
+                    <xs:documentation xml:lang="en-us">
+                      This is the name that will be used by the Analog Device Viewer
+                    </xs:documentation>
+                  </xs:annotation>
+                </xs:attribute>
+                </xs:complexType>
+               </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Item" maxOccurs="unbounded" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation xml:lang="en-us">
+              This element defines a node in the ASP graph
+            </xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="1" ref="Wire">
+                <xs:annotation>
+                  <xs:documentation xml:lang="en-us">
+                    List of wires this item connects to
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Name" type="xs:string" use="required">
+              <xs:annotation>
+                <xs:documentation xml:lang="en-us">
+                  Name of this item
+                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="Type" type="Type" use="required">
+              <xs:annotation>
+                <xs:documentation xml:lang="en-us">
+                  Type of this item
+                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name ="UserFriendlyName" type ="xs:string" use ="optional">
+              <xs:annotation>
+                <xs:documentation xml:lang="en-us">
+                  Name that will be displayed to the user in device viewer.
+                </xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attributeGroup ref="BlockAttributes" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Name" type="xs:string" use="required" />
+      <xs:attribute name="version" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="BlockAttributes">
+    <xs:attribute name="PortName" type="xs:string">
+      <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            Defines the port which this item relates to.
+          This attribute must match the port name for the component.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CompDefName" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en-us">
+          This attribute must match the compdef name for the component
+        </xs:documentation>
+      </xs:annotation>      
+    </xs:attribute>
+    <xs:attribute name="ItemIndex" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation xml:lang="en-us">
+          Matches an item with an index in the arch
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Guid" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en-us">
+          This attribute is only used for vrefs.  It identifies the vref with the associated vref in the DWR.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Cost" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation xml:lang="en-us">
+          This attribute is only for wire cost nodes.  It defines an additional cost to add to the default cost of
+          a wire.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Imped" type="Imped" >
+      <xs:annotation>
+        <xs:documentation xml:lang="en-us">
+          Specifies the impedance, only valid for switch and mux groups
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ADVentName" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en-us">
+          This is the name that will be used by the Analog Device Viewer
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="RDLRegisterInfo">
+    <xs:attribute name="BlockName" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en-us">
+          Matches to a name of a block in the RDL
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="RegisterName" type="xs:string">
+      <xs:annotation>
+        <xs:documentation xml:lang="en-us">
+          Matches to a register in the selected block in the RDL
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Bit" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation xml:lang="en-us">
+          Bit within the register to use for operations.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:group name="RDLInfo">
+    <xs:choice>
+      <xs:element name="SwitchInfo">
+        <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            Defines switching information
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence />
+          <xs:attributeGroup ref="RDLRegisterInfo" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="MuxInfo">
+        <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            Defines muxing information
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence />
+          <xs:attributeGroup ref="RDLRegisterInfo" />
+          <xs:attribute name="MuxValue" type="xs:nonNegativeInteger">
+            <xs:annotation>
+              <xs:documentation xml:lang="en-us">
+                The value to write into the mux, once it has been shifted to the left by bit position
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:group>
+  
+  
+  
+  <xs:element name="Wire">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:group ref="RDLInfo" maxOccurs="1" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="IsCommonOrStub" type="xs:boolean" fixed="true">
+        <xs:annotation>
+          <xs:documentation xml:lang="en-us">
+            This attribute says when the attached node is driven, this wire must be driven
+            Required on at least one wire of a mux
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="Name" type="xs:string" />     
+      <xs:attribute name="AsNonBarrier" type="AsNonBarrierType" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

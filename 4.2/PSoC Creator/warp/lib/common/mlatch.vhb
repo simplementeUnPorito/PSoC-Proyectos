@@ -1,0 +1,37 @@
+--
+
+--
+-- MLATCH
+--
+library cypress;
+use cypress.rtlpkg.cy_dsrlch;
+use cypress.lpmpkg.all;
+entity mlatch is
+    generic(lpm_width : positive := 1;
+     lpm_avalue : bit_vector := "";
+     lpm_pvalue : bit_vector := "";
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0) := (others => zero);
+     gate : in bit;
+     q : out bit_vector(lpm_width-1 downto 0);
+     aset : in bit := zero;
+     aclr : in bit := zero);
+end mlatch;
+
+architecture archlpmbit of Mlatch is
+
+    signal qtmp,async,set,clr : bit_vector(q'high downto 0);
+
+begin
+
+    async <= restring(lpm_avalue,lpm_width);
+
+    G0: for j in q'range generate
+        set(j) <= (aset AND async(j));
+        clr(j) <= (aset AND NOT async(j)) OR aclr;
+        UJ: cy_dsrlch port map (data(j), set(j), clr(j), gate, qtmp(j));
+    end generate;
+
+    q <= qtmp;
+
+end archlpmbit;

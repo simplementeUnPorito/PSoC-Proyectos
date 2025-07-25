@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<xs:schema 
+  elementFormDefault="qualified" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- N.B., this XSD doesn't have any targetNamespace because it is designed
+       to be included in other XSD documents. These elements will assume the
+       namespace of the XSD including it. 
+       -->
+  
+  <!-- CyDesigner identifier names (see common/info/identifier_names.txt for details. 
+       This schema does not check for keywords. Clients must check for keywords in
+       their own code. See the CyBasic.IsValidIdentifierName method. -->
+  <xs:simpleType name="cyIdentifierName">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z`][a-zA-Z0-9_`$]*" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- identifier name that is unique across a single XML document -->
+  <xs:simpleType name="cyUniqueIdentifierName">
+    <xs:restriction base="xs:ID">
+      <xs:pattern value="[a-zA-Z][a-zA-Z0-9_]*" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!--  identifier name that refers to a cyUniqueIdentifierName elsewhere in 
+        the document.
+        -->
+  <xs:simpleType name="cyUniqueIdentifierNameRef">
+    <xs:restriction base="xs:IDREF">
+      <xs:pattern value="[a-zA-Z][a-zA-Z0-9_]*" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Integer parse-able by CyBasic.ParseInteger -->
+  <xs:simpleType name="cyParsableInteger">
+    <xs:restriction base="xs:string">
+      <!-- Here is the breakdown:
+            optional leading whitespace
+            optional sign of + or -
+            one of the following:
+              [0-9]+            (dec)
+              0[0-7]+           (oct)
+              0[xX][A-Fa-f0-9]+ (hex)
+              
+            Due to the unfortunate need to copy/paste to reuse this
+            regex, be sure to also apply any updates to 
+            cyParsableIntegerList below.
+           -->
+      <xs:pattern value="\s*[-+]?(0[xX][A-Fa-f0-9]+|0[0-7]+|[0-9]+)" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- List of CyBasic.ParseInteger parse-able integers -->
+  <xs:simpleType name="cyParsableIntegerList">
+    <xs:restriction base="xs:string">
+      <!-- Yes, this is a relatively ugly regex. Here is the break down:
+          cyParsableInteger(,\s*cyParsableInteger)*
+          
+          Unfortunately there is no way to reuse the regular expression
+          used to validate cyParsableInteger, so we had to resort to
+          the unpleasant copy/paste method. Sigh.
+        -->
+      <xs:pattern value="\s*[-+]?(0[xX][A-Fa-f0-9]+|0[0-7]+|[0-9]+)(,\s*[-+]?(0[xX][A-Fa-f0-9]+|0[0-7]+|[0-9]+))*" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- An integer or a macro that can be evaluated to an integer -->
+  <xs:simpleType name="cyParsableIntegerMacro">
+    <xs:restriction base="xs:string">
+      <!-- Here is the breakdown:
+            one of the following:
+              [0-9]+            (dec)
+              0[0-7]+           (oct)
+              0[xX][A-Fa-f0-9]+ (hex)
+              `$[A-Za-z0-9_]+`  (macro)
+              
+            Due to the unfortunate need to copy/paste to reuse this
+            regex, be sure to also apply any updates to 
+            cyParsableIntegerList below.
+        -->
+      <xs:pattern value="(0[xX][A-Fa-f0-9]+|0[0-7]+|[0-9]+|`$[A-Za-z0-9_]+`)" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,321 @@
+-- /*******************************************************************************
+-- * Copyright 1995, 1996, 2009, Cypress Semiconductor Corporation.  All rights reserved.
+-- * You may use this file only in accordance with the license, terms, conditions, 
+-- * disclaimers, and limitations in the end user license agreement accompanying 
+-- * the software package with which this file was provided.
+-- ********************************************************************************/
+
+--------------------------------------------------------------------------------
+--  Module generation package components for integer arithmetic.
+--------------------------------------------------------------------------------
+
+PACKAGE ultragenpkg_ii IS
+
+    COMPONENT add_ii
+	generic (goal : goal_type := speed);
+	PORT (a,b : in integer; s : out integer);
+    END COMPONENT;
+
+    COMPONENT sub_ii
+	generic (goal : goal_type := speed);
+	PORT (a,b : in integer; d : out integer);
+    END COMPONENT;
+
+    COMPONENT cmp_ii
+	generic (goal : goal_type := speed);
+	PORT (a,b : in integer; lt,lte,gt,gte,eq,neq: out Boolean);
+    END COMPONENT;
+
+    COMPONENT mul_ii
+	generic (goal : goal_type := speed);
+	PORT (a,b : in integer; p : out integer);
+    END COMPONENT;
+
+END ultragenpkg_ii;
+
+--------------------------------------------------------------------------------
+PACKAGE int_funs IS
+
+    FUNCTION get_max (x : integer) RETURN integer ;
+    FUNCTION bits_needed (val : natural) RETURN natural;
+    FUNCTION max (a,b : natural) return natural;
+    FUNCTION bv2i (bv : BIT_VECTOR) RETURN INTEGER;
+    FUNCTION i2bv (A, size : INTEGER) RETURN BIT_VECTOR;
+
+END int_funs;
+
+package body int_funs is
+
+    FUNCTION get_max (x : integer) RETURN integer IS
+    BEGIN
+	if (x'globally_static) then
+	    return x ;
+	else
+	    return x'high ;
+	end if ;
+    END get_max ;
+
+    FUNCTION bits_needed (val : natural) RETURN natural IS
+	variable tmp  : natural := val;
+	variable sval : natural;
+    BEGIN
+	if (val = 0) then
+	    return 1 ;
+	end if ;
+	sval := 0;
+	while tmp > 0 loop
+	    sval := sval + 1;
+	    tmp := tmp / 2;
+	end loop;
+	return sval;
+    END bits_needed;
+
+    FUNCTION max (a,b : natural) return natural is
+    begin
+	if (a < b) then return b; else return a; end if;
+    end max;
+
+    FUNCTION BV2I (bv : Bit_vector) RETURN integer IS
+	VARIABLE result, abit : integer range 0 to 2**bv'length - 1 := 0;
+	VARIABLE  count            : integer := 0;
+    BEGIN  --  BV2I 
+	bits : FOR I IN bv'low to bv'high LOOP
+	    abit := 0;
+	    IF ((bv(I) = '1')) THEN
+		abit := 2**(I - bv'low);
+	    END IF;
+	    result := result + abit;	--  Add in bit if '1'.
+	    count := count + 1;
+	    EXIT bits WHEN count = 32;	--  32 bits max.
+	END LOOP bits;
+	RETURN (result);
+    END BV2I;
+
+    FUNCTION i2bv   (A, SIZE : INTEGER)	RETURN BIT_VECTOR IS
+	variable result : bit_vector(size-1 downto 0) := (others => '0');
+	variable b : natural;
+	variable newsize : integer := size;
+    begin
+	if (newsize > 32) then 
+	    newsize := 32;
+	    assert (false)
+	    report "I2BV: Widths > 32 not allowed, vector truncated"
+	    severity warning;
+	end if;
+	if (newsize <= 31) then
+	    for i in result'reverse_range loop
+		if ((a/(2**i)) mod 2) = 1 then
+		    result(i) := '1';
+		end if;
+	    end loop;
+	end if;
+	if (newsize = 32) then
+	    b := a/2;
+	    if ((a mod 2) = 1) then
+		result(result'low) := '1';
+	    end if;
+	    for i in result'low to (result'high - 1) loop
+		if ((b/(2**i)) mod 2) = 1 then
+		    result(i+1) := '1';
+		end if;
+	    end loop;
+	end if;
+	return result;
+    END i2bv;
+END int_funs;
+
+-------------------------------------------------------------------------------
+--  Add 2 integers.
+-------------------------------------------------------------------------------
+use work.int_funs.all;
+library cypress;
+use cypress.ultragenpkg_bb.all;
+
+entity add_ii is
+    generic (goal : goal_type := speed);
+    port (a,b : in integer; s : out integer);
+end add_ii;
+
+architecture module of add_ii is
+
+    constant width: integer := bits_needed(max(max(get_max(a), get_max(b)), s'high));
+    constant lsba : natural := lsb1(a,width);
+    constant msba : natural := msb1(a,width);
+    constant lsbb : natural := lsb1(b,width);
+    constant msbb : natural := msb1(b,width);
+    signal ain, bin, sum : Bit_Vector(width - 1 downto 0);
+
+begin
+
+    ain <= i2bv(a, width);
+    bin <= i2bv(b, width);
+
+    G0: if (a'globally_static AND b'globally_static) generate
+	ASSERT false REPORT "Addition of constants in UltraGen?" severity ERROR;
+    end generate;
+
+    G1: if (NOT a'globally_static AND NOT b'globally_static) generate
+	U0:  add_bb generic map(goal,false,false,0,0)
+			port map(ain,bin,sum);
+    end generate;
+
+    G2: if (NOT a'globally_static AND b'globally_static) generate
+	U0:  add_bb generic map(goal,false,true,lsbb,msbb)
+			port map(ain,bin,sum);
+    end generate;
+
+    G3: if (a'globally_static AND NOT b'globally_static) generate
+	U0:  add_bb generic map(goal,false,true,lsba,msba)
+			port map(bin,ain,sum);
+    end generate;
+
+    s <= bv2i(sum);
+
+end module;
+
+-------------------------------------------------------------------------------
+--  Subtract 1 integer from another.
+-------------------------------------------------------------------------------
+use work.int_funs.all;
+library cypress;
+use cypress.ultragenpkg_bb.all;
+
+entity sub_ii is
+    generic (goal : goal_type := speed);
+    port (a,b : in integer; d : out integer);
+end sub_ii;
+
+architecture module of sub_ii is
+
+    constant width: integer := 
+			bits_needed(max(max(get_max(a), get_max(b)), d'high));
+    constant lsba : natural := lsb1(a,width);
+    constant msba : natural := msb1(a,width);
+    constant lsbb : natural := lsb1(b,width);
+    constant msbb : natural := msb1(b,width);
+    signal ain, bin, dif : Bit_Vector(width - 1 downto 0);
+
+begin
+
+    ain <= i2bv(a, width);
+    bin <= i2bv(b, width);
+
+    G0: if (a'globally_static AND b'globally_static) generate
+	ASSERT false REPORT "Subtraction of constants in UltraGen?"
+								severity ERROR;
+    end generate;
+
+    G1: if (NOT a'globally_static AND NOT b'globally_static) generate
+	U0:  sub_bb generic map(goal,false,false,0,0)
+			port map(ain,bin,dif);
+    end generate;
+
+    G2: if (NOT a'globally_static AND b'globally_static) generate
+	U0:  sub_bb generic map(goal,false,true,lsbb,msbb)
+			port map(ain,bin,dif);
+    end generate;
+
+    G3: if (a'globally_static AND NOT b'globally_static) generate
+	U0:  sub_bb generic map(goal,true,false,lsba,msba)
+			port map(ain,bin,dif);
+    end generate;
+
+    d <= bv2i(dif);
+
+end module;
+
+-------------------------------------------------------------------------------
+--  Compare 2 integers.
+-------------------------------------------------------------------------------
+use work.int_funs.all;
+library cypress;
+use cypress.ultragenpkg_bb.all;
+
+entity cmp_ii is
+    generic (goal : goal_type := speed);
+    port (a,b : in integer; lt,lte,gt,gte,eq,neq: out Boolean);
+end cmp_ii;
+
+architecture module of cmp_ii is
+
+    constant width : integer := bits_needed(max(get_max(a), get_max(b)));
+    signal ain, bin : Bit_Vector(width - 1 downto 0);
+
+begin
+
+    ain <= i2bv(a, width);
+    bin <= i2bv(b, width);
+
+    G0: if (a'globally_static AND b'globally_static) generate
+	ASSERT false REPORT "Compare of constants in UltraGen?" severity ERROR;
+    end generate;
+
+    G1: if (NOT a'globally_static AND NOT b'globally_static) generate
+	A0: cmp_bb generic map(goal, false, false)
+		    port map(ain,bin,lt,lte,gt,gte,eq,neq);
+    end generate;
+
+    G2: if (NOT a'globally_static AND b'globally_static) generate
+	A0: cmp_bb generic map(goal, false, true)
+		    port map(ain,bin,lt,lte,gt,gte,eq,neq);
+    end generate;
+
+    G3: if (a'globally_static AND NOT b'globally_static) generate
+	A0: cmp_bb generic map(goal, true, false)
+		    port map(ain,bin,lt,lte,gt,gte,eq,neq);
+    end generate;
+
+end module;
+
+
+-------------------------------------------------------------------------------
+--  Multiply 2 integers.
+-------------------------------------------------------------------------------
+use work.int_funs.all;
+library cypress;
+use cypress.ultragenpkg_bb.all;
+
+entity mul_ii is
+    generic (goal : goal_type := speed);
+    port (a,b : in integer; p : out integer);
+end mul_ii;
+
+architecture module of mul_ii is
+
+    constant width: integer := bits_needed(max((get_max(a)+get_max(b)),p'high));
+    constant in_w : integer := bits_needed(max(get_max(a),get_max(b)));
+    constant lsba : natural := lsb1(a,get_max(a));
+    constant msba : natural := msb1(a,get_max(a));
+    constant lsbb : natural := lsb1(b,get_max(b));
+    constant msbb : natural := msb1(b,get_max(b));
+    signal ain,bin: Bit_Vector(in_w - 1 downto 0);
+    signal prod   : Bit_Vector(width- 1 downto 0);
+
+begin
+
+    ain <= i2bv(a, in_w);
+    bin <= i2bv(b, in_w);
+
+    G0: if (a'globally_static AND b'globally_static) generate
+	ASSERT false REPORT "Multiplication of constants in UltraGen?"
+								severity ERROR;
+    end generate;
+
+    G1: if (NOT a'globally_static AND NOT b'globally_static) generate
+	A0: mul_bb generic map(goal, false, false, 0, 0)
+		    port map(ain, bin, prod);
+    end generate;
+
+    G2: if (NOT a'globally_static AND b'globally_static) generate
+	A0: mul_bb generic map(goal, false, true, lsbb, msbb)
+		    port map(ain, bin, prod);
+    end generate;
+
+    G3: if (a'globally_static AND NOT b'globally_static) generate
+	A0: mul_bb generic map(goal, false, true, lsba, msba)
+		    port map(bin, ain, prod);
+    end generate;
+
+    p <= bv2i(prod);
+
+end module;

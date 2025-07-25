@@ -1,0 +1,472 @@
+-- lpmpkg.vhp --
+--
+
+--------------------------------------------------------------------------------
+-- LPM Component Declarations --
+--------------------------------------------------------------------------------
+package lpmpkg is
+
+-- LPM types
+    type Shift_Type is (LPM_LOGICAL, LPM_ROTATE, LPM_ARITHMETIC);
+    type Repre_Type is (LPM_SIGNED, LPM_UNSIGNED);
+    type Truth_Type is (LPM_F, LPM_FD, LPM_FR, LPM_FDR);
+    type CtDir_Type is (LPM_NO_DIR, LPM_UP, LPM_DOWN);
+    type Arith_Type is (LPM_NO_TYP, LPM_ADD, LPM_SUB);
+    type Fflop_Type is (LPM_DFF,LPM_TFF);
+    type ShDir_Type is (LPM_LEFT,LPM_RIGHT);
+    type Regis_Type is (LPM_REGISTERED,LPM_UNREGISTERED);
+    type Stgth_Type is (LPM_NO_STRENGTH,LPM_WEAK);
+    type goal_type is (SPEED,AREA,COMBINATORIAL,MEMORY);
+
+-- Internal functions declarations
+    function port_state (arg : bit) return port_state_type;
+
+    function connects (x : bit; i : integer) return integer;
+
+    function max (a,b : natural) return natural;
+    function vectorize (a, size : natural) RETURN bit_vector;
+    function restring (a : bit_vector; w : positive) return bit_vector;
+    function registered( regQ : regis_type) return BOOLEAN;
+
+-- Constant signals
+    signal zero : bit := '0' ;
+    signal one : bit := '1' ;
+
+-- LPM Components
+component mcnstnt
+    generic(lpm_width : positive := 1;
+     lpm_cvalue : bit_vector := "";
+     lpm_hint : goal_type := SPEED;
+     lpm_strength: stgth_type := LPM_NO_STRENGTH);
+    port (result : out bit_vector(lpm_width-1 downto 0));
+end component;
+component minv
+    generic(lpm_width : positive := 1;
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0);
+     result : out bit_vector(lpm_width-1 downto 0));
+end component;
+component mand
+    generic(lpm_width : positive := 1;
+     lpm_size : positive := 1;
+     lpm_hint : goal_type := SPEED;
+     lpm_data_pol : bit_vector := "";
+     lpm_result_pol : bit_vector := "");
+    port (data : in bit_vector((lpm_width*lpm_size)-1 downto 0);
+     result : out bit_vector(lpm_width-1 downto 0));
+end component;
+component mor
+    generic(lpm_width : positive := 1;
+     lpm_size : positive := 1;
+     lpm_hint : goal_type := SPEED;
+     lpm_data_pol : bit_vector := "";
+     lpm_result_pol : bit_vector := "");
+    port (data : in bit_vector((lpm_width*lpm_size)-1 downto 0);
+     result : out bit_vector(lpm_width-1 downto 0));
+end component;
+component mxor
+    generic(lpm_width : positive := 1;
+     lpm_size : positive := 1;
+     lpm_hint : goal_type := SPEED;
+     lpm_data_pol : bit_vector := "";
+     lpm_result_pol : bit_vector := "");
+    port (data : in bit_vector((lpm_width*lpm_size)-1 downto 0);
+     result : out bit_vector(lpm_width-1 downto 0));
+end component;
+component mbustri
+    generic(lpm_width : positive := 1;
+     lpm_hint : goal_type := SPEED);
+    port (tridata : inout x01z_vector(lpm_width-1 downto 0);
+     data : in bit_vector(lpm_width-1 downto 0) := (others => zero);
+     enabletr : in bit := zero;
+     enabledt : in bit := zero;
+     result : out x01z_vector(lpm_width-1 downto 0));
+end component;
+component mmux
+    generic(lpm_width : positive := 1;
+     lpm_size : positive := 1;
+     lpm_widths : positive := 1;
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector((lpm_width*lpm_size)-1 downto 0);
+     sel : in bit_vector(lpm_widths-1 downto 0);
+     result : out bit_vector(lpm_width-1 downto 0));
+end component;
+component mdecode
+    generic(lpm_width : positive := 1;
+     lpm_decodes : positive := 1;
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0);
+     enable : in bit := one;
+     eq : out bit_vector(lpm_decodes-1 downto 0));
+end component;
+component mclshift
+    generic(lpm_width : positive := 1;
+     lpm_widthdist : positive := 1;
+     lpm_shifttype : shift_type := LPM_LOGICAL;
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0);
+     distance : in bit_vector(lpm_widthdist-1 downto 0);
+     direction : in bit := zero;
+     result : out bit_vector(lpm_width-1 downto 0);
+     overflow : out bit;
+     underflow : out bit);
+end component;
+component madd_sub
+    generic(lpm_width : positive := 1;
+     lpm_representation : repre_type := LPM_UNSIGNED;
+     lpm_direction : arith_type := LPM_NO_TYP;
+     lpm_hint : goal_type := SPEED;
+     lpm_pipeline: natural := 0);
+    port (dataa : in bit_vector(lpm_width-1 downto 0);
+     datab : in bit_vector(lpm_width-1 downto 0);
+     cin : in bit := zero;
+     add_sub : in bit := one;
+     result : out bit_vector(lpm_width-1 downto 0);
+     cout : out bit;
+     overflow : out bit;
+     clock : in bit := zero;
+     aclr : in bit := zero);
+end component;
+component mcompare
+    generic(lpm_width : positive := 1;
+     lpm_representation : repre_type := LPM_UNSIGNED;
+     lpm_hint : goal_type := SPEED;
+     lpm_pipeline: natural := 0);
+    port ( dataa : in bit_vector(lpm_width-1 downto 0);
+     datab : in bit_vector(lpm_width-1 downto 0);
+     alb : out bit;
+     aeb : out bit;
+     agb : out bit;
+     ageb : out bit;
+     aleb : out bit;
+     aneb : out bit;
+     clock : in bit := zero;
+     aclr : in bit := zero);
+end component;
+component mmult
+    generic(lpm_widtha : positive := 1;
+     lpm_widthb : positive := 1;
+     lpm_widths : natural := 0;
+     lpm_widthp : positive := 2;
+     lpm_representation : repre_type := LPM_UNSIGNED;
+     lpm_hint : goal_type := SPEED;
+     lpm_avalue : bit_vector := "");
+    port (dataa : in bit_vector(lpm_widtha-1 downto 0);
+     datab : in bit_vector(lpm_widthb-1 downto 0);
+     sum : in bit_vector(lpm_widths-1 downto 0) := (others => zero);
+     result : out bit_vector(lpm_widthp-1 downto 0));
+end component;
+component mabs
+    generic(lpm_width : positive := 1;
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0);
+     result : out bit_vector(lpm_width-1 downto 0);
+     overflow : out bit);
+end component;
+component mcounter
+    generic(lpm_width : positive := 1;
+     lpm_direction : ctdir_type := LPM_NO_DIR;
+     lpm_avalue : bit_vector := "";
+     lpm_svalue : bit_vector := "";
+     lpm_pvalue : bit_vector := "";
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0) := (others => zero);
+     clock : in bit;
+     clk_en : in bit := one;
+     cnt_en : in bit := one;
+     updown : in bit := one;
+     q : out bit_vector(lpm_width-1 downto 0);
+     aset : in bit := zero;
+     aclr : in bit := zero;
+     aload : in bit := zero;
+     sset : in bit := zero;
+     sclr : in bit := zero;
+     sload : in bit := zero;
+     testenab : in bit := zero;
+     testin : in bit := zero;
+     testout : out bit);
+end component;
+component mlatch
+    generic(lpm_width : positive := 1;
+     lpm_avalue : bit_vector := "";
+     lpm_pvalue : bit_vector := "";
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0) := (others => zero);
+     gate : in bit;
+     q : out bit_vector(lpm_width-1 downto 0);
+     aset : in bit := zero;
+     aclr : in bit := zero);
+end component;
+component mshiftreg
+    generic(lpm_width : positive := 1;
+     lpm_direction : shdir_type:= LPM_LEFT;
+     lpm_avalue : bit_vector := "";
+     lpm_svalue : bit_vector := "";
+     lpm_pvalue : bit_vector := "";
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0) := (others => zero);
+     clock : in bit;
+     enable : in bit := one;
+     shiftin : in bit := zero;
+     load : in bit := zero;
+     q : out bit_vector(lpm_width-1 downto 0);
+     shiftout : out bit;
+     aset : in bit := zero;
+     aclr : in bit := zero;
+     sset : in bit := zero;
+     sclr : in bit := zero;
+     testenab : in bit := zero;
+     testin : in bit := zero;
+     testout : out bit);
+end component;
+component mff
+    generic(lpm_width : positive := 1;
+     lpm_fftype : fflop_type := LPM_DFF;
+     lpm_avalue : bit_vector := "";
+     lpm_svalue : bit_vector := "";
+     lpm_pvalue : bit_vector := "";
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0) := (others => zero);
+     clock : in bit;
+     enable : in bit := one;
+     q : out bit_vector(lpm_width-1 downto 0);
+     aset : in bit := zero;
+     aclr : in bit := zero;
+     aload : in bit := zero;
+     sset : in bit := zero;
+     sclr : in bit := zero;
+     sload : in bit := zero;
+     testenab : in bit := zero;
+     testin : in bit := zero;
+     testout : out bit);
+end component;
+component mram_dq
+    generic(lpm_width : positive := 1;
+     lpm_widthad : positive := 1;
+     lpm_numwords: natural := 1;
+     lpm_indata : regis_type := LPM_REGISTERED;
+     lpm_address_control : regis_type := LPM_REGISTERED;
+     lpm_outdata : regis_type := LPM_REGISTERED;
+     lpm_file : string := "";
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0);
+     address : in bit_vector(lpm_widthad-1 downto 0);
+     q : out bit_vector(lpm_width-1 downto 0);
+     inclock : in bit := zero;
+     outclock : in bit := zero;
+     we : in bit;
+     outreg_ar : in bit := zero);
+end component;
+component mram_io
+    generic(lpm_width : positive := 1;
+     lpm_widthad : positive := 1;
+     lpm_numwords: natural := 1;
+     lpm_indata : regis_type := LPM_REGISTERED;
+     lpm_address_control : regis_type := LPM_REGISTERED;
+     lpm_outdata : regis_type := LPM_REGISTERED;
+     lpm_file : string := "";
+     lpm_hint : goal_type := SPEED);
+    port (dio : inout x01z_vector(lpm_width-1 downto 0);
+     address : in bit_vector(lpm_widthad-1 downto 0);
+     inclock : in bit := zero;
+     outclock : in bit := zero;
+     memenab : in bit := one;
+     outenab : in bit := zero;
+     we : in bit := one;
+     outreg_ar : in bit := zero);
+end component;
+component mrom
+    generic(lpm_width : positive := 1;
+     lpm_widthad : positive := 1;
+     lpm_numwords: natural := 1;
+     lpm_address_control : regis_type := LPM_REGISTERED;
+     lpm_outdata : regis_type := LPM_REGISTERED;
+     lpm_file : string := "";
+     lpm_hint : goal_type := SPEED);
+    port (address : in bit_vector(lpm_widthad-1 downto 0);
+     q : out x01z_vector(lpm_width-1 downto 0);
+     inclock : in bit := zero;
+     outclock : in bit := zero;
+     memenab : in bit := one;
+     outreg_AR : in bit := zero);
+end component;
+component cy_fifo
+    generic(lpm_width : positive := 1;
+     lpm_numwords: positive := 1;
+     lpm_pafe_length : natural := 0;
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0);
+     q : out bit_vector(lpm_width-1 downto 0);
+     enr : in bit;
+     enw : in bit;
+     readclock : in bit;
+     writeclock : in bit;
+     mrb : in bit;
+     efb : out bit;
+     hfb : out bit;
+     pafeb : out bit);
+end component;
+component cy_ram_dp
+    generic(lpm_width : positive := 1;
+     lpm_widthad : positive := 1;
+     lpm_numwords: natural := 1;
+     lpm_indata : regis_type := lpm_registered;
+     lpm_address_control : regis_type := lpm_registered;
+     lpm_outdata_a : regis_type := lpm_registered;
+     lpm_outdata_b : regis_type := lpm_registered;
+     lpm_file : string := "";
+     lpm_hint : goal_type := speed);
+    port (data_a : in bit_vector(lpm_width-1 downto 0);
+     data_b : in bit_vector(lpm_width-1 downto 0);
+     address_a : in bit_vector(lpm_widthad-1 downto 0);
+     address_b : in bit_vector(lpm_widthad-1 downto 0);
+     q_a : out bit_vector(lpm_width-1 downto 0);
+     q_b : out bit_vector(lpm_width-1 downto 0);
+     addr_matchb : out bit;
+     wea : in bit;
+     web : in bit;
+     inclock_a : in bit := zero;
+     inclock_b : in bit := zero;
+     outclock_a : in bit := zero;
+     outclock_b : in bit := zero;
+     outrega_ar : in bit := zero;
+     outregb_ar : in bit := zero);
+end component;
+component mparity
+    generic(lpm_width : positive := 1;
+     lpm_hint : goal_type := SPEED;
+     lpm_pipeline: natural := 0);
+    port (data : in bit_vector (lpm_width - 1 downto 0);
+     even : out bit;
+     odd : out bit;
+     clock : in bit := zero;
+     aclr : in bit := zero);
+end component;
+component minpad
+    generic(lpm_width : positive := 1;
+     lpm_hint : goal_type := SPEED);
+    port (result : out bit_vector(lpm_width-1 downto 0);
+     pad : in bit_vector(lpm_width-1 downto 0) := (others => zero));
+end component;
+component moutpad
+    generic(lpm_width : positive := 1;
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0);
+     pad : out bit_vector(lpm_width-1 downto 0));
+end component;
+component mbipad
+    generic(lpm_width : positive := 1;
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector (lpm_width-1 downto 0);
+     enable : in bit;
+     result : out bit_vector (lpm_width-1 downto 0);
+     pad : inout x01z_vector(lpm_width-1 downto 0));
+end component;
+component mgnd
+    generic(lpm_width : positive := 1);
+    port (x : out bit_vector(lpm_width-1 downto 0));
+end component;
+component mvcc
+    generic(lpm_width : positive := 1);
+    port (x : out bit_vector(lpm_width-1 downto 0));
+end component;
+component mbuf
+    generic(lpm_width : positive := 1;
+     lpm_hint : goal_type := SPEED);
+    port (data : in bit_vector(lpm_width-1 downto 0);
+     result : out bit_vector(lpm_width-1 downto 0));
+end component;
+
+end lpmpkg;
+
+-- Internal functions definitions
+package body lpmpkg is
+
+    function port_state (arg : bit) return port_state_type is
+        variable result : port_state_type := ps_connected;
+    begin
+
+        result := arg'port_state_att;
+
+        return result;
+    end port_state;
+
+    function connects (x : bit; i : integer) return integer is
+        variable result : integer := i;
+    begin
+        if (port_state(x) = ps_connected) then
+            result := result - 1;
+        end if;
+        return (result);
+    end connects;
+
+    function max (a,b : natural) return natural is
+    begin
+        if (a < b) then return b; else return a; end if;
+    end max;
+
+    function vectorize (a, size : natural) return bit_vector is
+        variable result : bit_vector(size-1 downto 0) := (others => '0');
+        variable b : natural;
+        variable newsize : integer := size;
+    begin
+        if (newsize > 32) then
+            newsize := 32;
+        end if;
+        if (newsize <= 31) then
+            for i in result'reverse_range loop
+                if ((a/(2**i)) mod 2) = 1 then
+                    result(i) := '1';
+                end if;
+            end loop;
+        end if;
+        if (newsize = 32) then
+            b := a/2;
+            if ((a mod 2) = 1) then
+                result(result'low) := '1';
+            end if;
+            for i in 0 to (newsize - 2) loop
+                if ((b/(2**i)) mod 2) = 1 then
+                    result(i+1) := '1';
+                end if;
+            end loop;
+        end if;
+        return result;
+    end vectorize;
+
+    function restring (a : bit_vector; w : positive) return bit_vector is
+        variable result : bit_vector (w-1 downto 0) := (others => '1');
+        variable indx : natural;
+    begin
+
+        if (a'length = 0) then
+            return result;
+        else
+            indx := 0;
+            Resloop: for i in a'reverse_range loop
+                case a(i) is
+                when '1' => result(indx) := '1';
+                when '0' => result(indx) := '0';
+                when others => Assert (false)
+                    Report "Invalid char. literal (must be '1' or '0').  Defauting to  '0'."
+                    Severity Warning;
+                    result(indx) := '0';
+                end case;
+                indx := indx + 1;
+                if (indx >= w) then
+                    exit Resloop;
+                end if;
+            end loop;
+            return result;
+        end if;
+    end restring;
+
+    function registered( regQ : regis_type) return BOOLEAN is
+    begin
+        if regQ = LPM_registered then
+            return(TRUE);
+        else
+            return(FALSE);
+        end if;
+    end registered;
+end lpmpkg;

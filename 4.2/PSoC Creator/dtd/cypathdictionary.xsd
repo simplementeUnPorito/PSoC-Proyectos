@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="us-ascii" ?>
+
+<xs:schema  elementFormDefault="qualified" 
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            xmlns="http://cypress.com/xsd/cypathdictionary"
+            targetNamespace="http://cypress.com/xsd/cypathdictionary">
+  
+  <xs:element name="file">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required" />
+      <xs:attribute name="value" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="fileSet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="file" />
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:integer" use="required" />
+      <xs:attribute name="anchorPath" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

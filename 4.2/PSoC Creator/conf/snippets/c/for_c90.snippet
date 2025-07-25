@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>for (c90)</Title>
+      <Shortcut>for_c90</Shortcut>
+      <Description>Creates a "for" loop, compatible with older (c90) versions of compilers</Description>
+      <Author>Cypress Semiconductor</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+        <SnippetType>SurroundsWith</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>index</ID>
+          <Default>i</Default>
+          <ToolTip>Index</ToolTip>
+        </Literal>
+        <Literal>
+          <ID>maximum</ID>
+          <Default>iterations</Default>
+          <ToolTip>Number of iterations</ToolTip>
+        </Literal>
+      </Declarations>
+      <Code Language="c">
+        <![CDATA[{
+    int $index$;
+    for ($index$ = 0; $index$ < $maximum$; $index$++){
+        $selected$ $end$
+    }
+}]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

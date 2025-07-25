@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<Project Name="CE215703_UART_Char_Echo" WorkspaceName="CE215703.cywrk">
+  <Version>1.12</Version>
+  <Keyword>MFS</Keyword>
+  <Keyword>UART</Keyword>
+  <Keyword>Serial</Keyword>
+  <Keyword>CMSIS-DAP</Keyword>
+  <Keyword Hidden="true">PDL_MFS</Keyword>
+  <Keyword Hidden="true">FM0-V48-S6E1A1</Keyword>
+  <Description>
+  A UART echoes a received character over a serial port.
+  </Description>
+  <DeviceFilter>S6E1A1</DeviceFilter>
+  <Document>CE215703.pdf</Document>
+  <MinToolVersion>4.2.0.0</MinToolVersion>
+</Project>

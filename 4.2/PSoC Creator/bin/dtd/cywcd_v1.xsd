@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema id="cywcd"
+    targetNamespace="http://cypress.com/xsd/cywcd_v1"
+    xmlns="http://cypress.com/xsd/cywcd_v1"
+    xmlns:wcdns="http://cypress.com/xsd/cywcd_v1"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <!-- Types -->
+  <xs:simpleType name="toolNames">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PSoCCreator" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="documentationTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="datasheet" />
+      <xs:enumeration value="api" />
+      <xs:enumeration value="main" />
+      <xs:enumeration value="image" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="version">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]+\.[0-9]+|[0-9]+\.[0-9]+\.[0-9]+|[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+|[0-9]+\.[0-9]+[a-zA-Z]" />
+    </xs:restriction>  
+  </xs:simpleType>
+
+  <xs:simpleType name="componentName">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z][a-zA-Z0-9_]*" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <!-- Elements -->
+
+  <xs:element name="requirements">
+    <xs:complexType>
+      <xs:sequence minOccurs="1" maxOccurs="unbounded">
+        <xs:choice>
+          <xs:element ref="usesComponent" />
+          <xs:element ref="tool" />
+          <xs:element ref="family" />
+          <xs:element ref="series" />
+          <xs:element ref="baseDie" />
+          <xs:element ref="any" />
+          <xs:element ref="all" />
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="usesComponent">
+    <xs:complexType>
+      <xs:attribute name="name" type="componentName" use="required" />
+      <xs:attribute name="version" type="version" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="tool">
+    <xs:complexType>
+      <xs:attribute name="name" type="toolNames" use="required" />
+      <xs:attribute name="minVersion" type="version" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="family">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="series">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="baseDie">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="any">
+    <xs:complexType>
+      <xs:sequence minOccurs="1" maxOccurs="unbounded">
+        <xs:choice>
+          <xs:element ref="tool" />
+          <xs:element ref="family" />
+          <xs:element ref="series" />
+          <xs:element ref="baseDie" />
+          <xs:element ref="all" />
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="all">
+    <xs:complexType>
+      <xs:sequence minOccurs="1" maxOccurs="unbounded">
+        <xs:choice>
+          <xs:element ref="tool" />
+          <xs:element ref="family" />
+          <xs:element ref="series" />
+          <xs:element ref="baseDie" />
+          <xs:element ref="any" />
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="documentation">
+    <xs:complexType>
+      <xs:attribute name="type" type="documentationTypes" use="required" />
+      <xs:attribute name="path" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="description" type="xs:string" />
+  
+  <xs:element name="catalogPlacement">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded" >
+        <xs:element ref="documentation" />
+      </xs:sequence>
+
+      <xs:attribute name="location" type="xs:string" />
+      <xs:attribute name="type" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="component">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:sequence minOccurs="0" maxOccurs="1">
+          <xs:element ref="requirements" />
+        </xs:sequence>
+        
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="catalogPlacement" />
+        </xs:sequence>
+        
+        <xs:element ref="description" />
+      </xs:sequence>
+
+      <xs:attribute name="name" type="componentName" use="required" />
+      <xs:attribute name="version" type="version" use="required" />
+      <xs:attribute name="path" type="xs:string" use="required" />
+      <xs:attribute name="visible" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="example">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:sequence minOccurs="0" maxOccurs="1">
+          <xs:element ref="requirements" />
+        </xs:sequence>
+
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="documentation" />
+        </xs:sequence>
+        
+        <xs:sequence minOccurs="0" maxOccurs="1">
+          <xs:element ref="description" />
+        </xs:sequence>
+      </xs:sequence>
+      
+      <xs:attribute name="name" type="xs:string" use="required" />
+      <xs:attribute name="version" type="version" use="required" />
+      <xs:attribute name="path" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="components">
+    <xs:complexType>
+      <xs:sequence minOccurs="1" maxOccurs="unbounded">
+        <xs:element ref="component" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="examples">
+    <xs:complexType>
+      <xs:sequence minOccurs="1" maxOccurs="unbounded">
+        <xs:element ref="example" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="devices">
+    <xs:complexType>
+      <xs:sequence>        
+        <xs:sequence minOccurs="0" maxOccurs="1">
+          <xs:element ref="requirements" />
+        </xs:sequence>
+        <xs:sequence minOccurs="1" maxOccurs="1">
+          <xs:element ref="description" />
+        </xs:sequence>
+      </xs:sequence>
+      
+      <xs:attribute name="datetime" type="xs:string" use="required" />
+      <xs:attribute name="path" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="parcel">
+    <xs:complexType>
+      <xs:sequence minOccurs="1" maxOccurs="unbounded">
+        <xs:choice>
+          <xs:element ref="components" />
+          <xs:element ref="examples" />
+          <xs:element ref="devices" />
+        </xs:choice>
+      </xs:sequence>
+
+      <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="parcels">
+    <xs:complexType>
+      <xs:sequence minOccurs="1" maxOccurs="unbounded">
+        <xs:element ref="parcel" />
+      </xs:sequence>
+
+      <xs:attribute name="date" type="xs:dateTime" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

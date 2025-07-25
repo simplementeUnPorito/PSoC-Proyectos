@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_CPS_RegisterAttrCallback</Title>
+			<Shortcut>Cy_BLE_CPS_RegisterAttrCallback</Shortcut>
+			<Description>BLE CPS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_CPS_RegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>Cy_BLE_CPS_CallBack</Default>
+					<ToolTip>BLE CPS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_CPS_CallBack</Title>
+			<Shortcut>Cy_BLE_CPS_CallBack</Shortcut>
+			<Description>BLE CallBack function for Cycling Power service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_CPS_CallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>CPS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>CPS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CY_BLE_CPS_SERVER
+        case CY_BLE_EVT_CPSS_INDICATION_ENABLED:
+            break;
+
+        case CY_BLE_EVT_CPSS_INDICATION_DISABLED:
+            break;
+
+        case CY_BLE_EVT_CPSS_INDICATION_CONFIRMED:
+            break;
+
+        case CY_BLE_EVT_CPSS_NOTIFICATION_ENABLED:
+            break;
+
+        case CY_BLE_EVT_CPSS_NOTIFICATION_DISABLED:
+            break;
+
+        case CY_BLE_EVT_CPSS_BROADCAST_ENABLED:
+            break;
+
+        case CY_BLE_EVT_CPSS_BROADCAST_DISABLED:
+            break;
+
+        case CY_BLE_EVT_CPSS_WRITE_CHAR:
+            break;
+    #endif /* CY_BLE_CPS_SERVER */
+
+    #ifdef CY_BLE_CPS_CLIENT
+        case CY_BLE_EVT_CPSC_INDICATION:
+            break;
+
+        case CY_BLE_EVT_CPSC_NOTIFICATION:
+            break;
+
+        case CY_BLE_EVT_CPSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_CPSC_WRITE_CHAR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_CPSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_CPSC_WRITE_DESCR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_CPSC_SCAN_PROGRESS_RESULT:
+            break;
+    #endif /* CY_BLE_CPS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

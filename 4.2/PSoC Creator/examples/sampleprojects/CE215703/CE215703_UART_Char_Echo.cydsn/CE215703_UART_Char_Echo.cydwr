@@ -1,0 +1,487 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DesignWideResources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://cypress.com/xsd/cydwr">
+  <Group key="Component">
+    <Group key="v1">
+      <Data key="LIN_Dynamic" value="LIN_Dynamic_v4_0" />
+    </Group>
+  </Group>
+  <Data key="DataVersionKey" value="2" />
+  <Group key="DWRInstGuidMapping" />
+  <Group key="M0S8Clock">
+    <Group key="SystemClks">
+      <Group key="13C42818-71FB-46DD-ABBD-94319557B216">
+        <Data key="check_tolerance" value="False" />
+        <Data key="derive_type" value="BUILTIN" />
+        <Data key="desired_freq" value="4" />
+        <Data key="desired_unit" value="6" />
+        <Data key="divider" value="0" />
+        <Data key="enabled" value="True" />
+        <Data key="minus_accuracy" value="0" />
+        <Data key="minus_tolerance" value="0" />
+        <Data key="name" value="CLKMO" />
+        <Data key="netlist_name" value="CLKMO" />
+        <Data key="osc_stabilization_source_internal" value="True" />
+        <Data key="osc_stabilization_wait_cycles" value="CYCLES_2_1" />
+        <Data key="plus_accuracy" value="0" />
+        <Data key="plus_tolerance" value="0" />
+        <Data key="scope" value="BUILTIN" />
+        <Data key="src_clk_id" value="" />
+        <Data key="src_clk_name" value="" />
+        <Data key="start_on_reset" value="False" />
+        <Data key="use_eco" value="True" />
+      </Group>
+      <Group key="38BF601C-2F7B-4ECE-9C82-C5AAA6A7A3DD">
+        <Data key="check_tolerance" value="False" />
+        <Data key="derive_type" value="BUILTIN" />
+        <Data key="desired_freq" value="32.768" />
+        <Data key="desired_unit" value="3" />
+        <Data key="divider" value="0" />
+        <Data key="enabled" value="False" />
+        <Data key="minus_accuracy" value="0" />
+        <Data key="minus_tolerance" value="0" />
+        <Data key="name" value="CLKSO" />
+        <Data key="netlist_name" value="CLKSO" />
+        <Data key="osc_stabilization_source_internal" value="True" />
+        <Data key="osc_stabilization_wait_cycles" value="CYCLES_2_10" />
+        <Data key="plus_accuracy" value="0" />
+        <Data key="plus_tolerance" value="0" />
+        <Data key="scope" value="BUILTIN" />
+        <Data key="src_clk_id" value="" />
+        <Data key="src_clk_name" value="" />
+        <Data key="start_on_reset" value="False" />
+        <Data key="use_wco" value="True" />
+      </Group>
+      <Group key="53D5F46C-0C11-46A8-846A-68DC93FC8703">
+        <Data key="check_tolerance" value="False" />
+        <Data key="derive_type" value="BUILTIN" />
+        <Data key="desired_freq" value="0" />
+        <Data key="desired_unit" value="6" />
+        <Data key="divider" value="1" />
+        <Data key="enabled" value="True" />
+        <Data key="minus_accuracy" value="0" />
+        <Data key="minus_tolerance" value="0" />
+        <Data key="name" value="PCLK1" />
+        <Data key="netlist_name" value="PCLK1" />
+        <Data key="plus_accuracy" value="0" />
+        <Data key="plus_tolerance" value="0" />
+        <Data key="scope" value="BUILTIN" />
+        <Data key="src_clk_id" value="0208EEB9-AA27-4869-8125-B6747B18C2D3" />
+        <Data key="src_clk_name" value="HCLK" />
+        <Data key="start_on_reset" value="True" />
+      </Group>
+      <Group key="63D5AA6B-B4BA-4DAC-9FDC-41333EAE1668">
+        <Data key="check_tolerance" value="False" />
+        <Data key="derive_type" value="BUILTIN" />
+        <Data key="desired_freq" value="100" />
+        <Data key="desired_unit" value="3" />
+        <Data key="divider" value="0" />
+        <Data key="enabled" value="True" />
+        <Data key="minus_accuracy" value="50" />
+        <Data key="minus_tolerance" value="0" />
+        <Data key="name" value="CLKLC" />
+        <Data key="netlist_name" value="CLKLC" />
+        <Data key="plus_accuracy" value="50" />
+        <Data key="plus_tolerance" value="0" />
+        <Data key="scope" value="BUILTIN" />
+        <Data key="src_clk_id" value="" />
+        <Data key="src_clk_name" value="" />
+        <Data key="start_on_reset" value="True" />
+      </Group>
+      <Group key="0208EEB9-AA27-4869-8125-B6747B18C2D3">
+        <Data key="check_tolerance" value="False" />
+        <Data key="derive_type" value="BUILTIN" />
+        <Data key="desired_freq" value="0" />
+        <Data key="desired_unit" value="6" />
+        <Data key="divider" value="1" />
+        <Data key="enabled" value="True" />
+        <Data key="minus_accuracy" value="0" />
+        <Data key="minus_tolerance" value="0" />
+        <Data key="name" value="HCLK" />
+        <Data key="netlist_name" value="HCLK" />
+        <Data key="plus_accuracy" value="0" />
+        <Data key="plus_tolerance" value="0" />
+        <Data key="scope" value="BUILTIN" />
+        <Data key="src_clk_id" value="4777399F-0D21-4383-AE66-117DD4E153A8" />
+        <Data key="src_clk_name" value="Master" />
+        <Data key="start_on_reset" value="True" />
+      </Group>
+      <Group key="464EAFF0-0B36-455A-92C3-A302779DAAC5">
+        <Data key="accuracy_display_unit" value="1" />
+        <Data key="check_tolerance" value="False" />
+        <Data key="derive_type" value="BUILTIN" />
+        <Data key="desired_freq" value="24" />
+        <Data key="desired_unit" value="6" />
+        <Data key="divider" value="0" />
+        <Data key="enabled" value="False" />
+        <Data key="minus_accuracy" value="0" />
+        <Data key="minus_tolerance" value="0" />
+        <Data key="name" value="FRCK" />
+        <Data key="netlist_name" value="FRCK" />
+        <Data key="plus_accuracy" value="0" />
+        <Data key="plus_tolerance" value="0" />
+        <Data key="port_number" value="3" />
+        <Data key="port_offset" value="4" />
+        <Data key="scope" value="BUILTIN" />
+        <Data key="src_clk_id" value="" />
+        <Data key="src_clk_name" value="" />
+        <Data key="start_on_reset" value="False" />
+      </Group>
+      <Group key="28131A44-9F90-4B83-BD39-C2341EE94301">
+        <Data key="check_tolerance" value="False" />
+        <Data key="crtrim_enable" value="True" />
+        <Data key="derive_type" value="BUILTIN" />
+        <Data key="desired_freq" value="4" />
+        <Data key="desired_unit" value="6" />
+        <Data key="divider" value="0" />
+        <Data key="enabled" value="True" />
+        <Data key="minus_accuracy" value="2" />
+        <Data key="minus_tolerance" value="0" />
+        <Data key="name" value="CLKHC" />
+        <Data key="netlist_name" value="CLKHC" />
+        <Data key="plus_accuracy" value="2" />
+        <Data key="plus_tolerance" value="0" />
+        <Data key="scope" value="BUILTIN" />
+        <Data key="src_clk_id" value="" />
+        <Data key="src_clk_name" value="" />
+        <Data key="start_on_reset" value="True" />
+      </Group>
+      <Group key="601747CC-D77E-46E3-BF88-5F4E79456602">
+        <Data key="check_tolerance" value="False" />
+        <Data key="derive_type" value="BUILTIN" />
+        <Data key="desired_freq" value="0" />
+        <Data key="desired_unit" value="6" />
+        <Data key="divider" value="1" />
+        <Data key="enabled" value="True" />
+        <Data key="minus_accuracy" value="0" />
+        <Data key="minus_tolerance" value="0" />
+        <Data key="name" value="PCLK0" />
+        <Data key="netlist_name" value="PCLK0" />
+        <Data key="plus_accuracy" value="0" />
+        <Data key="plus_tolerance" value="0" />
+        <Data key="scope" value="BUILTIN" />
+        <Data key="src_clk_id" value="0208EEB9-AA27-4869-8125-B6747B18C2D3" />
+        <Data key="src_clk_name" value="HCLK" />
+        <Data key="start_on_reset" value="True" />
+      </Group>
+      <Group key="4777399F-0D21-4383-AE66-117DD4E153A8">
+        <Data key="check_tolerance" value="False" />
+        <Data key="derive_type" value="BUILTIN" />
+        <Data key="desired_freq" value="0" />
+        <Data key="desired_unit" value="6" />
+        <Data key="divider" value="0" />
+        <Data key="enabled" value="True" />
+        <Data key="minus_accuracy" value="0" />
+        <Data key="minus_tolerance" value="0" />
+        <Data key="name" value="Master" />
+        <Data key="netlist_name" value="Master" />
+        <Data key="plus_accuracy" value="0" />
+        <Data key="plus_tolerance" value="0" />
+        <Data key="scope" value="BUILTIN" />
+        <Data key="src_clk_id" value="13C42818-71FB-46DD-ABBD-94319557B216" />
+        <Data key="src_clk_name" value="CLKMO" />
+        <Data key="start_on_reset" value="True" />
+      </Group>
+      <Group key="A78C8073-701C-48A8-BBA2-5C9603557584">
+        <Data key="check_tolerance" value="False" />
+        <Data key="derive_type" value="BUILTIN" />
+        <Data key="desired_freq" value="8" />
+        <Data key="desired_unit" value="6" />
+        <Data key="divider" value="0" />
+        <Data key="enabled" value="False" />
+        <Data key="K" value="1" />
+        <Data key="M" value="1" />
+        <Data key="manual_data_entry" value="False" />
+        <Data key="minus_accuracy" value="0" />
+        <Data key="minus_tolerance" value="0" />
+        <Data key="N" value="10" />
+        <Data key="name" value="CLKPLL" />
+        <Data key="netlist_name" value="CLKPLL" />
+        <Data key="osc_stabilization_wait_cycles" value="CYCLES_2_9" />
+        <Data key="plus_accuracy" value="0" />
+        <Data key="plus_tolerance" value="0" />
+        <Data key="scope" value="BUILTIN" />
+        <Data key="src_clk_id" value="13C42818-71FB-46DD-ABBD-94319557B216" />
+        <Data key="src_clk_name" value="CLKMO" />
+        <Data key="start_on_reset" value="False" />
+      </Group>
+      <Group key="CC242A08-C8B3-48A8-BB0E-928F07FDD445">
+        <Data key="check_tolerance" value="False" />
+        <Data key="derive_type" value="BUILTIN" />
+        <Data key="desired_freq" value="0" />
+        <Data key="desired_unit" value="6" />
+        <Data key="divider" value="1" />
+        <Data key="enabled" value="True" />
+        <Data key="minus_accuracy" value="0" />
+        <Data key="minus_tolerance" value="0" />
+        <Data key="name" value="SWDOGCLK" />
+        <Data key="netlist_name" value="SWDOGCLK" />
+        <Data key="plus_accuracy" value="0" />
+        <Data key="plus_tolerance" value="0" />
+        <Data key="scope" value="BUILTIN" />
+        <Data key="src_clk_id" value="601747CC-D77E-46E3-BF88-5F4E79456602" />
+        <Data key="src_clk_name" value="PCLK0" />
+        <Data key="start_on_reset" value="True" />
+      </Group>
+    </Group>
+  </Group>
+  <Group key="MFTs">
+    <Group key="MFT 0">
+      <Group key="ADCMP ch.0">
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_adcmp_buf_t enBuf" value="AdcmpBufDisable" />
+        <Data key="en_adcmp_frt_t enFrt" value="Frt0ToAdcmp" />
+        <Data key="en_adcmp_mode_t enMode" value="AdcmpNormalMode" />
+        <Data key="en_adcmp_occp_sel_t enOccpSel" value="AdcmpSelOccp0" />
+        <Data key="en_adcmp_trig_sel_t enTrigSel" value="AdcmpTrigAdc0Scan" />
+      </Group>
+      <Group key="ADCMP ch.1">
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_adcmp_buf_t enBuf" value="AdcmpBufDisable" />
+        <Data key="en_adcmp_frt_t enFrt" value="Frt0ToAdcmp" />
+        <Data key="en_adcmp_mode_t enMode" value="AdcmpNormalMode" />
+        <Data key="en_adcmp_occp_sel_t enOccpSel" value="AdcmpSelOccp0" />
+        <Data key="en_adcmp_trig_sel_t enTrigSel" value="AdcmpTrigAdc0Scan" />
+      </Group>
+      <Group key="ADCMP ch.2">
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_adcmp_buf_t enBuf" value="AdcmpBufDisable" />
+        <Data key="en_adcmp_frt_t enFrt" value="Frt0ToAdcmp" />
+        <Data key="en_adcmp_mode_t enMode" value="AdcmpNormalMode" />
+        <Data key="en_adcmp_occp_sel_t enOccpSel" value="AdcmpSelOccp0" />
+        <Data key="en_adcmp_trig_sel_t enTrigSel" value="AdcmpTrigAdc0Scan" />
+      </Group>
+      <Group key="ADCMP ch.3">
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_adcmp_buf_t enBuf" value="AdcmpBufDisable" />
+        <Data key="en_adcmp_frt_t enFrt" value="Frt0ToAdcmp" />
+        <Data key="en_adcmp_mode_t enMode" value="AdcmpNormalMode" />
+        <Data key="en_adcmp_occp_sel_t enOccpSel" value="AdcmpSelOccp0" />
+        <Data key="en_adcmp_trig_sel_t enTrigSel" value="AdcmpTrigAdc0Scan" />
+      </Group>
+      <Group key="ADCMP ch.4">
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_adcmp_buf_t enBuf" value="AdcmpBufDisable" />
+        <Data key="en_adcmp_frt_t enFrt" value="Frt0ToAdcmp" />
+        <Data key="en_adcmp_mode_t enMode" value="AdcmpNormalMode" />
+        <Data key="en_adcmp_occp_sel_t enOccpSel" value="AdcmpSelOccp0" />
+        <Data key="en_adcmp_trig_sel_t enTrigSel" value="AdcmpTrigAdc0Scan" />
+      </Group>
+      <Group key="ADCMP ch.5">
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_adcmp_buf_t enBuf" value="AdcmpBufDisable" />
+        <Data key="en_adcmp_frt_t enFrt" value="Frt0ToAdcmp" />
+        <Data key="en_adcmp_mode_t enMode" value="AdcmpNormalMode" />
+        <Data key="en_adcmp_occp_sel_t enOccpSel" value="AdcmpSelOccp0" />
+        <Data key="en_adcmp_trig_sel_t enTrigSel" value="AdcmpTrigAdc0Scan" />
+      </Group>
+      <Group key="FRT ch.0">
+        <Data key="boolean_t bEnBuffer" value="False" />
+        <Data key="boolean_t bEnExtClock" value="False" />
+        <Data key="boolean_t bFrtPeakMatchIrq" value="False" />
+        <Data key="boolean_t bFrtZeroMatchIrq" value="False" />
+        <Data key="boolean_t bTouchNvic;" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_mft_frt_clock_t enFrtClockDiv" value="FrtPclkDiv1" />
+        <Data key="en_mft_frt_mode_t enFrtMode" value="FrtUpCount" />
+        <Data key="func_ptr_t  pfnFrtZeroIrqCb" value="" />
+        <Data key="func_ptr_t pfnFrtPeakIrqCb" value="" />
+      </Group>
+      <Group key="FRT ch.1">
+        <Data key="boolean_t bEnBuffer" value="False" />
+        <Data key="boolean_t bEnExtClock" value="False" />
+        <Data key="boolean_t bFrtPeakMatchIrq" value="False" />
+        <Data key="boolean_t bFrtZeroMatchIrq" value="False" />
+        <Data key="boolean_t bTouchNvic;" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_mft_frt_clock_t enFrtClockDiv" value="FrtPclkDiv1" />
+        <Data key="en_mft_frt_mode_t enFrtMode" value="FrtUpCount" />
+        <Data key="func_ptr_t  pfnFrtZeroIrqCb" value="" />
+        <Data key="func_ptr_t pfnFrtPeakIrqCb" value="" />
+      </Group>
+      <Group key="FRT ch.2">
+        <Data key="boolean_t bEnBuffer" value="False" />
+        <Data key="boolean_t bEnExtClock" value="False" />
+        <Data key="boolean_t bFrtPeakMatchIrq" value="False" />
+        <Data key="boolean_t bFrtZeroMatchIrq" value="False" />
+        <Data key="boolean_t bTouchNvic;" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_mft_frt_clock_t enFrtClockDiv" value="FrtPclkDiv1" />
+        <Data key="en_mft_frt_mode_t enFrtMode" value="FrtUpCount" />
+        <Data key="func_ptr_t  pfnFrtZeroIrqCb" value="" />
+        <Data key="func_ptr_t pfnFrtPeakIrqCb" value="" />
+      </Group>
+      <Group key="ICU ch.0">
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_mft_icu_frt_t enFrt" value="Frt0ToIcu" />
+        <Data key="en_mft_icu_mode_t enMode" value="IcuDisable" />
+        <Data key="func_ptr_t pfnIrqCb" value="" />
+      </Group>
+      <Group key="ICU ch.1">
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_mft_icu_frt_t enFrt" value="Frt0ToIcu" />
+        <Data key="en_mft_icu_mode_t enMode" value="IcuDisable" />
+        <Data key="func_ptr_t pfnIrqCb" value="" />
+      </Group>
+      <Group key="ICU ch.2">
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_mft_icu_frt_t enFrt" value="Frt0ToIcu" />
+        <Data key="en_mft_icu_mode_t enMode" value="IcuDisable" />
+        <Data key="func_ptr_t pfnIrqCb" value="" />
+      </Group>
+      <Group key="ICU ch.3">
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_mft_icu_frt_t enFrt" value="Frt0ToIcu" />
+        <Data key="en_mft_icu_mode_t enMode" value="IcuDisable" />
+        <Data key="func_ptr_t pfnIrqCb" value="" />
+      </Group>
+      <Group key="NZCL">
+        <Data key="boolean_t bDtifAnalogFilterIrqMask" value="False" />
+        <Data key="boolean_t bDtifDigitalFilterIrqMask" value="False" />
+        <Data key="boolean_t bEnAnalogFilter" value="False" />
+        <Data key="boolean_t bEnDigitalFilter" value="False" />
+        <Data key="boolean_t bSwitchToGpio" value="False" />
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_nzcl_filter_width_t enDigitalFilterWidth" value="NzlcNoFilter" />
+        <Data key="func_ptr_t pfnDtifAnalogFilterIrqCallback" value="" />
+        <Data key="func_ptr_t pfnDtifDigtalFilterIrqCallback" value="" />
+      </Group>
+      <Group key="OCU ch.0">
+        <Data key="boolean_t bFm4" value="False" />
+        <Data key="boolean_t bIrqEnable" value="False" />
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_mft_ocu_frt_t enFrtConnect" value="Frt0ToOcu" />
+        <Data key="en_ocu_occp_buf_t enOccpBufMode" value="OccpBufDisable" />
+        <Data key="en_ocu_ocse_buf_t enOcseBufMode" value="OcseBufDisable" />
+        <Data key="en_ocu_rt_out_state_t enPinState" value="RtLowLevel" />
+        <Data key="func_ptr_t pfnIrqCallback" value="" />
+      </Group>
+      <Group key="OCU ch.1">
+        <Data key="boolean_t bFm4" value="False" />
+        <Data key="boolean_t bIrqEnable" value="False" />
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_mft_ocu_frt_t enFrtConnect" value="Frt0ToOcu" />
+        <Data key="en_ocu_occp_buf_t enOccpBufMode" value="OccpBufDisable" />
+        <Data key="en_ocu_ocse_buf_t enOcseBufMode" value="OcseBufDisable" />
+        <Data key="en_ocu_rt_out_state_t enPinState" value="RtLowLevel" />
+        <Data key="func_ptr_t pfnIrqCallback" value="" />
+      </Group>
+      <Group key="OCU ch.2">
+        <Data key="boolean_t bFm4" value="False" />
+        <Data key="boolean_t bIrqEnable" value="False" />
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_mft_ocu_frt_t enFrtConnect" value="Frt0ToOcu" />
+        <Data key="en_ocu_occp_buf_t enOccpBufMode" value="OccpBufDisable" />
+        <Data key="en_ocu_ocse_buf_t enOcseBufMode" value="OcseBufDisable" />
+        <Data key="en_ocu_rt_out_state_t enPinState" value="RtLowLevel" />
+        <Data key="func_ptr_t pfnIrqCallback" value="" />
+      </Group>
+      <Group key="OCU ch.3">
+        <Data key="boolean_t bFm4" value="False" />
+        <Data key="boolean_t bIrqEnable" value="False" />
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_mft_ocu_frt_t enFrtConnect" value="Frt0ToOcu" />
+        <Data key="en_ocu_occp_buf_t enOccpBufMode" value="OccpBufDisable" />
+        <Data key="en_ocu_ocse_buf_t enOcseBufMode" value="OcseBufDisable" />
+        <Data key="en_ocu_rt_out_state_t enPinState" value="RtLowLevel" />
+        <Data key="func_ptr_t pfnIrqCallback" value="" />
+      </Group>
+      <Group key="OCU ch.4">
+        <Data key="boolean_t bFm4" value="False" />
+        <Data key="boolean_t bIrqEnable" value="False" />
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_mft_ocu_frt_t enFrtConnect" value="Frt0ToOcu" />
+        <Data key="en_ocu_occp_buf_t enOccpBufMode" value="OccpBufDisable" />
+        <Data key="en_ocu_ocse_buf_t enOcseBufMode" value="OcseBufDisable" />
+        <Data key="en_ocu_rt_out_state_t enPinState" value="RtLowLevel" />
+        <Data key="func_ptr_t pfnIrqCallback" value="" />
+      </Group>
+      <Group key="OCU ch.5">
+        <Data key="boolean_t bFm4" value="False" />
+        <Data key="boolean_t bIrqEnable" value="False" />
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_mft_ocu_frt_t enFrtConnect" value="Frt0ToOcu" />
+        <Data key="en_ocu_occp_buf_t enOccpBufMode" value="OccpBufDisable" />
+        <Data key="en_ocu_ocse_buf_t enOcseBufMode" value="OcseBufDisable" />
+        <Data key="en_ocu_rt_out_state_t enPinState" value="RtLowLevel" />
+        <Data key="func_ptr_t pfnIrqCallback" value="" />
+      </Group>
+      <Group key="WFG ch.10">
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="boolean_t bWfgimerIrqMask" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_dmod_bits_t enDmodBits" value="DmodBits00B" />
+        <Data key="en_gten_bits_t enGtenBits" value="GtenBits00B" />
+        <Data key="en_mft_wfg_mode_t enMode" value="WfgThroughMode" />
+        <Data key="en_pgen_bits_t enPgenBits" value="PgenBits00B" />
+        <Data key="en_psel_bits_t enPselBits" value="PselBits00B" />
+        <Data key="en_wfg_timer_clock_t enClk" value="WfgPlckDiv1" />
+        <Data key="func_ptr_t pfnWfgTimerIrqCallback" value="" />
+      </Group>
+      <Group key="WFG ch.32">
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="boolean_t bWfgimerIrqMask" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_dmod_bits_t enDmodBits" value="DmodBits00B" />
+        <Data key="en_gten_bits_t enGtenBits" value="GtenBits00B" />
+        <Data key="en_mft_wfg_mode_t enMode" value="WfgThroughMode" />
+        <Data key="en_pgen_bits_t enPgenBits" value="PgenBits00B" />
+        <Data key="en_psel_bits_t enPselBits" value="PselBits00B" />
+        <Data key="en_wfg_timer_clock_t enClk" value="WfgPlckDiv1" />
+        <Data key="func_ptr_t pfnWfgTimerIrqCallback" value="" />
+      </Group>
+      <Group key="WFG ch.54">
+        <Data key="boolean_t bTouchNvic" value="False" />
+        <Data key="boolean_t bWfgimerIrqMask" value="False" />
+        <Data key="Configure" value="False" />
+        <Data key="CY_CONST_CONFIG" value="True" />
+        <Data key="en_dmod_bits_t enDmodBits" value="DmodBits00B" />
+        <Data key="en_gten_bits_t enGtenBits" value="GtenBits00B" />
+        <Data key="en_mft_wfg_mode_t enMode" value="WfgThroughMode" />
+        <Data key="en_pgen_bits_t enPgenBits" value="PgenBits00B" />
+        <Data key="en_psel_bits_t enPselBits" value="PselBits00B" />
+        <Data key="en_wfg_timer_clock_t enClk" value="WfgPlckDiv1" />
+        <Data key="func_ptr_t pfnWfgTimerIrqCallback" value="" />
+      </Group>
+    </Group>
+  </Group>
+  <Group key="PlaceDir">
+    <Data key="count" value="0" />
+  </Group>
+  <Group key="System3">
+    <Data key="CYDEV_DEBUGGING_DPS" value="SWD" />
+    <Data key="CYDEV_VCC" value="3.3" />
+  </Group>
+</DesignWideResources>

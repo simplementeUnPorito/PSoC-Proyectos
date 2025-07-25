@@ -1,0 +1,64 @@
+<!--
+===============================================================
+ 
+	Copyright Cypress Semiconductor Corporation, 2005-2006
+	All Rights Reserved
+	
+===============================================================
+-->
+<!ELEMENT cystsmsglist (cystsmsg*)>
+<!ATTLIST cystsmsglist module ID #REQUIRED>
+<!ATTLIST cystsmsglist namespace CDATA #REQUIRED>
+
+<!ELEMENT cystsmsg (summary, param*, description)>
+<!ATTLIST cystsmsg format (FILE_LINE_OFFSET | FILE_LINE | FILE | APPLICATION | PLAIN) "PLAIN">
+<!ATTLIST cystsmsg level (0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9) "0">
+<!ATTLIST cystsmsg number ID #REQUIRED>
+<!ATTLIST cystsmsg alias CDATA #IMPLIED>
+<!ATTLIST cystsmsg custUI CDATA #IMPLIED>
+<!ATTLIST cystsmsg result (OK | OK_CANCEL | YES_NO | YES_NO_CANCEL | RETRY_CANCEL | NO_DISPLAY) "OK">
+<!ATTLIST cystsmsg OkBtnText CDATA #IMPLIED>
+<!ATTLIST cystsmsg CancelBtnText CDATA #IMPLIED>
+<!ATTLIST cystsmsg YesBtnText CDATA #IMPLIED>
+<!ATTLIST cystsmsg NoBtnText CDATA #IMPLIED>
+<!ATTLIST cystsmsg RetryBtnText CDATA #IMPLIED>
+<!ATTLIST cystsmsg status (ACTIVE | DEPRECATED | REMOVED) "ACTIVE">
+<!ATTLIST cystsmsg type (ERROR | WARNING | INFORMATION | DEBUG | LOG) "ERROR">
+<!ATTLIST cystsmsg visibility (INTERNAL | PUB ) "INTERNAL">
+<!ATTLIST cystsmsg notice (TRUE | FALSE) "FALSE">
+
+<!ELEMENT summary (#PCDATA)>
+
+<!ELEMENT param (#PCDATA)>
+<!ATTLIST param type (string | int | long | float | double | byte | short | bool) "string">
+<!ATTLIST param name NMTOKEN #REQUIRED>
+
+<!ELEMENT description (#PCDATA|a|b|i|br|p|pre|h1|h2|h3|h4|h5|h6)*>
+
+<!--Hyperlinks-->
+<!ELEMENT a (#PCDATA)>
+<!ATTLIST a href CDATA #REQUIRED>
+
+<!--Bold face-->
+<!ELEMENT b (#PCDATA)>
+
+<!--Italics-->
+<!ELEMENT i (#PCDATA)>
+
+<!--Line break-->
+<!ELEMENT br EMPTY>
+
+<!--Paragraph-->
+<!ELEMENT p (#PCDATA)>
+
+<!--Preformatted-->
+<!ELEMENT pre (#PCDATA)>
+
+<!--Various headings-->
+<!ELEMENT h1 (#PCDATA)>
+<!ELEMENT h2 (#PCDATA)>
+<!ELEMENT h3 (#PCDATA)>
+<!ELEMENT h4 (#PCDATA)>
+<!ELEMENT h5 (#PCDATA)>
+<!ELEMENT h6 (#PCDATA)>
+

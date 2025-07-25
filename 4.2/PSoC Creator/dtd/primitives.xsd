@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="category_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Analog" />
+      <xs:enumeration value="Digital" />
+      <xs:enumeration value="Communication" />
+      <xs:enumeration value="System" />
+      <xs:enumeration value="Internal" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="direction_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="In" />
+      <xs:enumeration value="Out" />
+      <xs:enumeration value="InOut" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="signal_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ANALOG" />
+      <xs:enumeration value="DIGITAL" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="Primitives">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Primitive" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Version" maxOccurs="unbounded" minOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Terminal" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="name" use="required"/>
+                            <xs:attribute type="signal_type" name="type" use="required"/>
+                            <xs:attribute type="direction_type" name="direction" use="required"/>
+                            <xs:attribute type="xs:int" name="width" use="required"/>
+                            <xs:attribute type="xs:boolean" name="permutable" use="optional"/>
+                            <xs:attribute type="xs:boolean" name="performAltIdMatch" use="optional"/>
+                            <xs:attribute type="xs:int" name="minPaddingWidth" use="optional"/>
+                            <xs:attribute type="xs:boolean" name="alwaysGenerateInst" use="optional"/>
+                            <xs:attribute type="xs:boolean" name="neverPad" use="optional"/>
+                            <xs:attribute type="xs:string" name="clockFlags" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:int" name="major" use="required"/>
+                  <xs:attribute type="xs:int" name="minor" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="blockName" use="required"/>
+            <xs:attribute type="xs:string" name="pdscGroup" use="required"/>
+            <xs:attribute type="category_type" name="category" use="required"/>
+            <xs:attribute type="xs:string" name="displayName" use="required"/>
+            <xs:attribute type="xs:string" name="pdlType" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

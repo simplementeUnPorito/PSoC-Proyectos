@@ -1,0 +1,31 @@
+BODY, TABLE, TR, TD, P, TH, LI, OL {
+	FONT-SIZE: 9pt;
+	FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif;
+	FONT-STYLE: normal; 
+}
+ 
+BODY {
+	margin-top: 10px;
+        overflow: auto;
+}
+
+H1 {
+	MARGIN-TOP: 10px; 
+	MARGIN-BOTTOM: 3px;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 10pt;
+	COLOR: #01325A;
+}
+
+H2 {
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 9pt;
+	COLOR: #000000;
+	MARGIN-TOP: 8px;
+	MARGIN-BOTTOM: 3px;
+}
+
+A:link {text-decoration: none; color: #000080;}
+A:visited {text-decoration: none; color: #000080;}
+A:hover {text-decoration: underline;}
+A:active {text-decoration: underline; color: Red;}

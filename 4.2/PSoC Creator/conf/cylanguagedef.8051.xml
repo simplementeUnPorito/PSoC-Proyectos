@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<SyntaxLanguage Key="8051" LanguageDefinitionVersion="4.0" Secure="True"
+        SyntaxLanguageTypeName="CyDesigner.Common.Editors.CyDynamicOutliningLanguage, cyeditors">
+
+  <!-- String Properties -->
+  <Properties>
+    <Property Key="Creator" Value="Cypress Semiconductor" />
+    <Property Key="Copyright" Value="Copyright (c) 2006-2010 Cypress Semiconductor.  All rights reserved." />
+  </Properties>
+
+  <!-- Highlighting Styles -->
+  <Styles>
+    <Style Key="ReservedWordStyle" ForeColor ="Maroon"/>
+    <Style Key="ReservedSymbolStyle" ForeColor ="Maroon"/>
+    <Style Key="DirectiveStyle" ForeColor ="Blue"/>
+    <Style Key="NativeTypeStyle" ForeColor="Blue" />
+    <Style Key="KeyWordStyle" ForeColor="Teal" />
+    <Style Key="LabelStyle" ForeColor="Teal" />
+    <Style Key="NumberStyle" ForeColor="Purple" />
+    <Style Key="StringDelimiterStyle" ForeColor="Magenta" />
+    <Style Key="StringDefaultStyle" ForeColor="Magenta" />
+    <Style Key="CommentDelimiterStyle" ForeColor="Green" />
+    <Style Key="CommentDefaultStyle" ForeColor="Green" />
+  </Styles>
+
+  <!-- States -->
+  <States>
+    <!-- Code -->
+    <State Key="DefaultState">
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <!-- Whitespace -->
+        <RegexPatternGroup TokenKey="WhitespaceToken" PatternValue="{WhitespaceMacro}+" IsWhitespace="True" />
+        <!-- Line Terminators -->
+        <RegexPatternGroup TokenKey="LineTerminatorToken" PatternValue="{LineTerminatorMacro}" IsWhitespace="True" />
+        <!-- Brackets -->
+        <ExplicitPatternGroup Key="OpenParenthesisPatternGroup" TokenKey="OpenParenthesisToken" PatternValue="(" EndBracket="CloseParenthesisPatternGroup" />
+        <ExplicitPatternGroup Key="CloseParenthesisPatternGroup" TokenKey="CloseParenthesisToken" PatternValue=")" StartBracket="OpenParenthesisPatternGroup" />
+        <ExplicitPatternGroup Key="OpenSquareBracePatternGroup" TokenKey="OpenSquareBraceToken" PatternValue="[" EndBracket="CloseSquareBracePatternGroup" />
+        <ExplicitPatternGroup Key="CloseSquareBracePatternGroup" TokenKey="CloseSquareBraceToken" PatternValue="]" StartBracket="OpenSquareBracePatternGroup" />
+        <!-- Punctuation -->
+        <ExplicitPatternGroup TokenKey="PunctuationToken">
+          <ExplicitPatterns>
+            # . , : ; ! $ ? + - * / &lt; &gt; &lt;&gt; &lt;= &gt;= == &amp; %
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <ExplicitPatternGroup TokenKey="Instruction" Style="ReservedWordStyle" LookAhead="{NonWordMacro}|\z">
+          <ExplicitPatterns>
+            ACALL ADD ADDC AJMP ANL
+            CALL CJNE CLR CMP CPL
+            DA DEC DIV DJNZ
+            INC
+            JB JBC JC JE JG JLE JMP JNB JNC JNE JNZ JSG JSGE JSL JSLE JZ
+            LCALL LJMP
+            MOV MOVC MOVX MUL
+            NOP
+            ORL
+            POP PUSH
+            RET RETI RL RLC RR RRC
+            SETB SHL SHR SJMP SUBB SWAP
+            XCH XCHD XRL
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <!-- Control -->
+        <ExplicitPatternGroup TokenKey="ControlWordToken" Style="DirectiveStyle" LookAhead="{NonWordMacro}|\z">
+          <ExplicitPatterns>
+            __ERROR__ __WARNING__
+            BIT BSEG
+            CODE CSEG
+            DATA DB DBIT DD DS DSB DSD DSEG DSW DW
+            ELSE ELSEIF END ENDIF ENDP EQU EVEN EXTERN EXTRN
+            IDATA IF ISEG
+            LABEL LIT
+            NAME
+            ORG
+            PROC
+            PUBLIC
+            RSEG
+            SBIT SEGMENT SET SFR SFR16
+            USING
+            XDATA XSEG
+
+            AT OFFS
+            CONST EBIT ECODE ECONST EDATA HCONST HDATA BITADDRESSABLE INBLOCK INPAGE INSEG OVERLAYABLE
+            BYTE WORD DWORD PAGE BLOCK SEG
+
+            MACRO EXITM ENDM LOCAL REPT IRP IRPC
+            NUL
+
+            EDATA NEAR FAR NUMBER
+            AND BYTE0 BYTE1 BYTE2 BYTE3 EQ GT GTE HIGH LOW LE LT LTE MBYTE MOD NE NOT OR SHL SHR WORD0 WORD2 XOR
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <!-- Special Function Registers and other special symbols -->
+        <ExplicitPatternGroup TokenKey="SpecialSymbolToken" Style="KeyWordStyle" LookAhead="{NonWordMacro}|\z">
+          <ExplicitPatterns>
+            A
+            DPTR @DPTR @R0 @R1
+            PC
+            C
+            AB
+            R0 R1 R2 R3 R4 R5 R6 R7
+            AR0 AR1 AR2 AR3 AR4 AR5 AR6 AR7
+            SP DPL DPH DPL1 DPH1 DPS PCON
+            DPX DPX1
+            P2
+            IE EA
+            IP
+            PSW P F1 OV RS0 RS1 F0 AC CY
+            ACC
+            MXAX
+            B
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <!-- Directives -->
+        <ExplicitPatternGroup TokenKey="DirectiveToken" Style="DirectiveStyle" LookBehind="\$" LookAhead="{NonWordMacro}|\z">
+          <ExplicitPatterns>
+            CA CASE CO COND
+            DA DATE DB DEBUG DF DEFINE
+            EJ EJECT ELSE ELSEIF ENDIF EP ERRORPRINT
+            GE GEN GO GENONLY
+            IF ID INCDIR IC INCLUDE
+            LI LIST
+            MACRO MC MOD_CONT MX MOD_MX51 M51 MOD51 MPL
+            NOAMAKE NOCA NOCASE NOCO NOCOND NODB NODEBUG NOEP NOERRORPRINT NOGE NOGEN NOLN NOLINES NOLI NOLIST
+            NOMACRO NOMO NOMOD51 NOMPL NOOJ NOOBJECT NOPR NOPRINT NORB NOREGISTERBANK NOSB NOSYMBOLS NOSL NOSYMLIST
+            NOXR NOXREF
+            OJ OBJECT
+            PL PAGELENGTH PAGEWIDTH PW PR PRINT
+            RB REGISTERBANK RU REGUSE RESET RS RESTORE
+            SA SAVE SET SB SYMBOLS SL SYMLIST
+            TT TITLE
+            XR XREF
+          </ExplicitPatterns>
+        </ExplicitPatternGroup>
+        <!-- Label -->
+        <RegexPatternGroup TokenKey="LabelToken" Style="LabelStyle" PatternValue="([\._@\$\?] | {AlphaMacro})([@\$\?] | {WordMacro})* \:" />
+        <!-- Identifier -->
+        <RegexPatternGroup TokenKey="IdentifierToken" PatternValue="([\._@\$\?] | {AlphaMacro})([@\$\?] | {WordMacro})*" />
+        <!-- Numbers -->
+        <RegexPatternGroup TokenKey="HexNumberToken" Style="NumberStyle" PatternValue="{DigitMacro} ({HexDigitMacro} | \$)+ [Hh]" LookAhead="{NonWordMacro}|\z" />
+        <RegexPatternGroup TokenKey="DecimalNumberToken" Style="NumberStyle" PatternValue="({DigitMacro} | \$)+" LookAhead="{NonWordMacro}|\z" />
+        <RegexPatternGroup TokenKey="OctalNumberToken" Style="NumberStyle" PatternValue="[0-7\$]+ [Oo]" LookAhead="{NonWordMacro}|\z" />
+        <RegexPatternGroup TokenKey="BinaryNumberToken" Style="NumberStyle" PatternValue="[0-1\$]+ [Bb]" LookAhead="{NonWordMacro}|\z" />
+      </PatternGroups>
+      <!-- Child States -->
+      <ChildStates>
+        <ChildState Key="SingleQuoteStringState" />
+        <!-- <ChildState Key="DoubleQuoteStringState" /> -->
+        <ChildState Key="CommentState" />
+      </ChildStates>
+    </State>
+
+    <!-- Single-Quote Strings -->
+    <State Key="SingleQuoteStringState" TokenKey="SingleQuoteStringDefaultToken" Style="StringDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="SingleQuoteStringStartToken" Style="StringDelimiterStyle" PatternValue="'" />
+          <ExplicitPatternGroup Type="EndScope" TokenKey="SingleQuoteStringEndToken" Style="StringDelimiterStyle" PatternValue="'" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <ExplicitPatternGroup TokenKey="SingleQuoteStringEscapedCharacterToken" PatternValue="''" />
+        <RegexPatternGroup TokenKey="SingleQuoteStringDefaultToken" PatternValue="[^\']+" />
+      </PatternGroups>
+    </State>
+
+    <!-- Double-Quote Strings -->
+    <State Key="DoubleQuoteStringState" TokenKey="DoubleQuoteStringDefaultToken" Style="StringDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="DoubleQuoteStringStartToken" Style="StringDelimiterStyle" PatternValue="&quot;" />
+          <ExplicitPatternGroup Type="EndScope" TokenKey="DoubleQuoteStringEndToken" Style="StringDelimiterStyle" PatternValue="&quot;" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <ExplicitPatternGroup TokenKey="DoubleQuoteStringEscapedCharacterToken" PatternValue="&quot;&quot;" />
+        <RegexPatternGroup TokenKey="DoubleQuoteStringDefaultToken" PatternValue="[^\&quot;]+" />
+      </PatternGroups>
+    </State>
+
+    <!-- Comments -->
+    <State Key="CommentState" TokenKey="CommentDefaultToken" Style="CommentDefaultStyle">
+      <!-- Scopes -->
+      <Scopes>
+        <Scope>
+          <ExplicitPatternGroup Type="StartScope" TokenKey="CommentStartToken" Style="CommentDelimiterStyle" PatternValue=";" />
+          <RegexPatternGroup Type="EndScope" TokenKey="CommentEndToken" Style="CommentDelimiterStyle" PatternValue="{LineTerminatorMacro}" IsWhitespace="True" />
+        </Scope>
+      </Scopes>
+      <!-- Patterns Groups -->
+      <PatternGroups>
+        <RegexPatternGroup TokenKey="CommentDefaultToken" PatternValue="{NonLineTerminatorMacro}+" />
+      </PatternGroups>
+    </State>
+
+  </States>
+
+  <!-- Example Text -->
+  <ExampleText>
+    <![CDATA[
+section	.text
+    global _start
+
+_start:			; The entry point
+
+	mov	edx,len	; The message length
+	mov	ecx,msg	; The message to write
+	mov	ebx,1	; File descriptor (stdout)
+	mov	eax,4	; System call number (sys_write)
+	int	0x80	; Call kernel
+
+	mov	eax,1	; System call number (sys_exit)
+	int	0x80	; Call kernel
+
+section	.data
+
+msg	db	'Hello, world!',0xa
+len	equ	$ - msg
+	]]>
+  </ExampleText>
+
+</SyntaxLanguage>

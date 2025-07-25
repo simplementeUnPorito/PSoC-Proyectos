@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="devicetype"
+    elementFormDefault="qualified" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns="http://cypress.com/xsd/devicetype" 
+    xmlns:NS="http://cypress.com/xsd/devicetype" 
+    targetNamespace="http://cypress.com/xsd/devicetype">
+    
+  <xs:element name="devicetype">
+    <xs:complexType>
+      <xs:sequence>
+        
+        <xs:element name="parameters">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="param" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="name" use="required"/>
+                      <xs:attribute type="xs:string" name="value" use="required"/>
+                      <xs:attribute type="xs:string" name="sirev" use="optional"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="datafiles">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="file" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="sirev" use="optional"/>
+                      <xs:attribute type="xs:string" name="type" use="required"/>
+                      <xs:attribute type="xs:string" name="path" use="required"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="ipblocks">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ipblock" maxOccurs="unbounded" minOccurs="1">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="sirev" use="optional"/>
+                      <xs:attribute type="xs:string" name="path" use="required"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="udbcounts">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="udblayout" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:byte" name="count" use="optional"/>
+                      <xs:attribute type="xs:string" name="path" use="optional"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="pinpackages">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="pinpackage" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="sirev" use="optional"/>
+                      <xs:attribute type="xs:string" name="name" use="required"/>
+                      <xs:attribute type="xs:string" name="path" use="required"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element name="module" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="sirev" use="optional"/>
+                      <xs:attribute type="xs:string" name="name" use="required"/>
+                      <xs:attribute type="xs:string" name="path" use="required"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="siliconrevs">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="siliconrev" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="name" use="required"/>
+                      <xs:attribute type="xs:string" name="hwVersions" use="required"/>
+                      <xs:attribute type="xs:byte" name="jtagVersion" use="required"/>
+                      <xs:attribute type="xs:string" name="supported" use="required"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="default"/>
+          </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="registermaps">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="registermap" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="sirev" use="required"/>
+                      <xs:attribute type="xs:string" name="path" use="required"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="fixeddevcatresources">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="resource" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="name" use="required"/>
+                      <xs:attribute type="xs:byte" name="count" use="required"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

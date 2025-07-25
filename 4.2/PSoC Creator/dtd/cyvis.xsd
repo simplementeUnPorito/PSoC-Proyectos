@@ -1,0 +1,732 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema  elementFormDefault="qualified"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://cypress.com/xsd/cyvis"
+            targetNamespace="http://cypress.com/xsd/cyvis">
+
+  <xs:element name="Document">
+    <xs:complexType>
+      <xs:sequence>
+        <!--Sorted by page index.-->
+        <xs:element name="Page" type="Page" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="release" type="xs:string" use="optional" />
+      <xs:attribute name="template" type="xs:string" use="optional" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="HatchStyle" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Min" />
+      <xs:enumeration value="Horizontal" />
+      <xs:enumeration value="Vertical" />
+      <xs:enumeration value="ForwardDiagonal" />
+      <xs:enumeration value="BackwardDiagonal" />
+      <xs:enumeration value="Max" />
+      <xs:enumeration value="Cross" />
+      <xs:enumeration value="LargeGrid" />
+      <xs:enumeration value="DiagonalCross" />
+      <xs:enumeration value="Percent05" />
+      <xs:enumeration value="Percent10" />
+      <xs:enumeration value="Percent20" />
+      <xs:enumeration value="Percent25" />
+      <xs:enumeration value="Percent30" />
+      <xs:enumeration value="Percent40" />
+      <xs:enumeration value="Percent50" />
+      <xs:enumeration value="Percent60" />
+      <xs:enumeration value="Percent70" />
+      <xs:enumeration value="Percent75" />
+      <xs:enumeration value="Percent80" />
+      <xs:enumeration value="Percent90" />
+      <xs:enumeration value="LightDownwardDiagonal" />
+      <xs:enumeration value="LightUpwardDiagonal" />
+      <xs:enumeration value="DarkDownwardDiagonal" />
+      <xs:enumeration value="DarkUpwardDiagonal" />
+      <xs:enumeration value="WideDownwardDiagonal" />
+      <xs:enumeration value="WideUpwardDiagonal" />
+      <xs:enumeration value="LightVertical" />
+      <xs:enumeration value="LightHorizontal" />
+      <xs:enumeration value="NarrowVertical" />
+      <xs:enumeration value="NarrowHorizontal" />
+      <xs:enumeration value="DarkVertical" />
+      <xs:enumeration value="DarkHorizontal" />
+      <xs:enumeration value="DashedDownwardDiagonal" />
+      <xs:enumeration value="DashedUpwardDiagonal" />
+      <xs:enumeration value="DashedHorizontal" />
+      <xs:enumeration value="DashedVertical" />
+      <xs:enumeration value="SmallConfetti" />
+      <xs:enumeration value="LargeConfetti" />
+      <xs:enumeration value="ZigZag" />
+      <xs:enumeration value="Wave" />
+      <xs:enumeration value="DiagonalBrick" />
+      <xs:enumeration value="HorizontalBrick" />
+      <xs:enumeration value="Weave" />
+      <xs:enumeration value="Plaid" />
+      <xs:enumeration value="Divot" />
+      <xs:enumeration value="DottedGrid" />
+      <xs:enumeration value="DottedDiamond" />
+      <xs:enumeration value="Shingle" />
+      <xs:enumeration value="Trellis" />
+      <xs:enumeration value="Sphere" />
+      <xs:enumeration value="SmallGrid" />
+      <xs:enumeration value="SmallCheckerBoard" />
+      <xs:enumeration value="LargeCheckerBoard" />
+      <xs:enumeration value="OutlinedDiamond" />
+      <xs:enumeration value="SolidDiamond" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DashStyle" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Solid" />
+      <xs:enumeration value="Dash" />
+      <xs:enumeration value="Dot" />
+      <xs:enumeration value="DashDot" />
+      <xs:enumeration value="DashDotDot" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LineCap" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Flat" />
+      <xs:enumeration value="Square" />
+      <xs:enumeration value="Round" />
+      <xs:enumeration value="Triangle" />
+      <xs:enumeration value="NoAnchor" />
+      <xs:enumeration value="SquareAnchor" />
+      <xs:enumeration value="RoundAnchor" />
+      <xs:enumeration value="DiamondAnchor" />
+      <xs:enumeration value="ArrowAnchor" />
+      <xs:enumeration value="AnchorMask" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LineJoin" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Miter" />
+      <xs:enumeration value="Bevel" />
+      <xs:enumeration value="Round" />
+      <xs:enumeration value="MiterClipped" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ContentAlignment" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TopLeft" />
+      <xs:enumeration value="TopCenter" />
+      <xs:enumeration value="TopRight" />
+      <xs:enumeration value="MiddleLeft" />
+      <xs:enumeration value="MiddleCenter" />
+      <xs:enumeration value="MiddleRight" />
+      <xs:enumeration value="BottomLeft" />
+      <xs:enumeration value="BottomCenter" />
+      <xs:enumeration value="BottomRight" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SignalType" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Analog" />
+      <xs:enumeration value="Digital" />
+      <xs:enumeration value="External" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TerminalType" final="restriction" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Instance Analog InOut" />
+      <xs:enumeration value="Instance External InOut" />
+      <xs:enumeration value="Instance Digital Input" />
+      <xs:enumeration value="Instance Digital InOut" />
+      <xs:enumeration value="Instance Digital Output" />
+      <xs:enumeration value="Schematic Analog InOut" />
+      <xs:enumeration value="Schematic External InOut" />
+      <xs:enumeration value="Schematic Digital Input" />
+      <xs:enumeration value="Schematic Digital InOut" />
+      <xs:enumeration value="Schematic Digital Output" />
+      <xs:enumeration value="Symbol Analog InOut" />
+      <xs:enumeration value="Symbol External InOut" />
+      <xs:enumeration value="Symbol Digital Input" />
+      <xs:enumeration value="Symbol Digital InOut" />
+      <xs:enumeration value="Symbol Digital Output" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Color">
+    <!--Colors are displayed as an "R, G, B" value or "A, R, G, B" when applicable.-->
+    <!--The numbers will range from 0 to 255.-->
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9]+, )?[0-9]+, [0-9]+, [0-9]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="Size">
+    <xs:attribute name="width" type="xs:decimal" use="required" />
+    <xs:attribute name="height" type="xs:decimal" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="Point">
+    <xs:attribute name="x" type="xs:decimal" use="required" />
+    <xs:attribute name="y" type="xs:decimal" use="required" />
+    <xs:attribute name="solderDot" type="xs:boolean" use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="SolidBrush">
+    <xs:attribute name="color" type="Color" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="HatchBrush">
+    <xs:attribute name="backColor" type="Color" use="required" />
+    <xs:attribute name="foreColor" type="Color" use="required" />
+    <xs:attribute name="style" type="HatchStyle" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="NoOutline">
+  </xs:complexType>
+
+  <xs:group name="AllBrushesChoice">
+    <xs:choice>
+      <xs:element name="SolidBrush" type="SolidBrush"/>
+      <xs:element name="HatchBrush" type="HatchBrush"/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:complexType name="Outline">
+    <xs:group ref="AllBrushesChoice" minOccurs="1" maxOccurs="1"/>
+    <xs:attribute name="dashStyle" type="DashStyle" use="required" />
+    <xs:attribute name="startCap" type="LineCap" use="required" />
+    <xs:attribute name="endCap" type="LineCap" use="required" />
+    <xs:attribute name="lineJoin" type="LineJoin" use="required" />
+    <xs:attribute name="weight" type="xs:decimal" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="NoFill">
+  </xs:complexType>
+
+  <xs:complexType name="Fill">
+    <xs:group ref="AllBrushesChoice" minOccurs="1" maxOccurs="1"/>
+  </xs:complexType>
+
+  <xs:complexType name="Page">
+    <!--Sorted alphabetically by shape name.-->
+    <xs:group ref="AllTopShapesChoice" minOccurs="0" maxOccurs="unbounded"/>
+    <xs:attribute name="index" type="xs:unsignedInt" use="required" />
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="enabled" type="xs:boolean" use="required" />
+    <xs:attribute name="shapeCount" type="xs:unsignedInt" use="required" />
+  </xs:complexType>
+
+  <xs:attributeGroup name="TopShapeAttributes">
+    <xs:attribute name="shapeName" type="xs:string" use="required" />
+    <xs:attribute name="zorder" type="xs:unsignedInt" use="required" />
+  </xs:attributeGroup>
+
+  <xs:group name="AllTopShapesChoice">
+    <xs:choice>
+      <xs:element name="Ellipse">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="BoxBasedShape">
+              <xs:attributeGroup ref="TopShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Rectangle">
+      <xs:complexType>
+        <xs:complexContent>
+          <xs:extension base="BoxBasedShape">
+            <xs:attributeGroup ref="TopShapeAttributes"/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      </xs:element>
+      <xs:element name="GroupedShape">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="BoxBasedShape">
+              <xs:attributeGroup ref="TopShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Instance">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="Instance">
+              <xs:attributeGroup ref="TopShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Line">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="Line">
+              <xs:attributeGroup ref="TopShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ClosedShape">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="ClosedShape">
+              <xs:attributeGroup ref="TopShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Image">
+      <xs:complexType>
+        <xs:complexContent>
+          <xs:extension base="Image">
+            <xs:attributeGroup ref="TopShapeAttributes"/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      </xs:element>
+      <xs:element name="Annotation">
+      <xs:complexType>
+        <xs:complexContent>
+          <xs:extension base="Annotation">
+            <xs:attributeGroup ref="TopShapeAttributes"/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      </xs:element>
+      <xs:element name="Arc">
+      <xs:complexType>
+        <xs:complexContent>
+          <xs:extension base="Arc">
+            <xs:attributeGroup ref="TopShapeAttributes"/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      </xs:element>
+      <xs:element name="SheetConnector">
+      <xs:complexType>
+        <xs:complexContent>
+          <xs:extension base="SheetConnector">
+            <xs:attributeGroup ref="TopShapeAttributes"/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      </xs:element>
+      <xs:element name="Terminal">
+      <xs:complexType>
+        <xs:complexContent>
+          <xs:extension base="Terminal">
+            <xs:attributeGroup ref="TopShapeAttributes"/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      </xs:element>
+      <xs:element name="Wire">
+      <xs:complexType>
+        <xs:complexContent>
+          <xs:extension base="Wire">
+            <xs:attributeGroup ref="TopShapeAttributes"/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      </xs:element>
+      <xs:element name="RoundedRectangle">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="BoxBasedShape">
+              <xs:attributeGroup ref="TopShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TableShape">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="TableShape">
+              <xs:attributeGroup ref="TopShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="BezierCurve">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="BezierCurve">
+              <xs:attributeGroup ref="TopShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:group>
+
+  <xs:attributeGroup name="OwnedShapeAttributes">
+    <xs:attribute name="zorder" type="xs:unsignedInt" use="required" />
+  </xs:attributeGroup>
+
+  <xs:group name="AllOwnedShapesChoice">
+    <xs:choice>
+      <xs:element name="Ellipse">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="BoxBasedShape">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Rectangle">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="BoxBasedShape">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GroupedShape">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="BoxBasedShape">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Instance">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="Instance">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Line">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="Line">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ClosedShape">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="ClosedShape">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Image">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="Image">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Annotation">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="Annotation">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Arc">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="Arc">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SheetConnector">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="SheetConnector">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Terminal">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="Terminal">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Wire">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="Wire">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="RoundedRectangle">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="BoxBasedShape">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TableShape">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="TableShape">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="BezierCurve">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="BezierCurve">
+              <xs:attributeGroup ref="OwnedShapeAttributes"/>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:group>
+
+  <xs:group name="AllShapesChoice">
+    <xs:choice>
+      <xs:element name="Ellipse" type="BoxBasedShape"/>
+      <xs:element name="Rectangle" type="BoxBasedShape"/>
+      <xs:element name="RoundedRectangle" type="BoxBasedShape"/>
+      <xs:element name="GroupedShape" type="BoxBasedShape"/>
+      <xs:element name="Instance" type="Instance"/>
+      <xs:element name="Line" type="Line"/>
+      <xs:element name="ClosedShape" type="ClosedShape"/>
+      <xs:element name="Image" type="Image"/>
+      <xs:element name="Annotation" type="Annotation"/>
+      <xs:element name="Arc" type="Arc"/>
+      <xs:element name="SheetConnector" type="SheetConnector"/>
+      <xs:element name="Terminal" type="Terminal"/>
+      <xs:element name="Wire" type="Wire"/>
+      <xs:element name="TableShape" type="TableShape"/>
+      <xs:element name="BezierCurve" type="BezierCurve"/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:group name="ShapeElements">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="1">
+        <xs:element name="NoOutline" type="NoOutline"/>
+        <xs:element name="Outline" type="Outline"/>
+      </xs:choice>
+      <xs:choice minOccurs="0" maxOccurs="1">
+        <xs:element name="NoFill" type="NoFill"/>
+        <xs:element name="Fill" type="Fill"/>
+      </xs:choice>
+      <xs:element name="Font" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="value" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TextAlignment" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="value" type="ContentAlignment" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <!--Symbol Specific-->
+      <xs:element name="VisibilityExpression" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <!--Symbol Specific-->
+      <xs:element name="ShapeTags" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <!--Symbol Terminal Specific-->
+      <xs:element name="MustConnectionIfVisible" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <!--Symbol Terminal Specific-->
+      <xs:element name="IsBuriedPin" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <!--Symbol Terminal Specific-->
+      <xs:element name="DefaultExpression" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <!--This represents a shaped owned by another shape (i.e. the optional annotation shape on a wire).-->
+      <xs:group ref="AllOwnedShapesChoice" minOccurs="0" maxOccurs="1"/>
+      <!--This represents the shapes used to define the shape.-->
+      <xs:element name="SubShapes" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <!--Sorted by z-order within the parent shape (bottom-most to top-most).-->
+          <xs:group ref="AllShapesChoice" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+
+  <xs:complexType name="BoxBasedShape">
+    <xs:sequence>
+      <xs:element name ="Location" type="Point"  minOccurs="1" maxOccurs="1"/>
+      <xs:element name ="Size" type="Size"  minOccurs="1" maxOccurs="1"/>
+      <xs:group ref="ShapeElements"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Instance">
+    <xs:sequence>
+      <xs:element name ="Location" type="Point"  minOccurs="1" maxOccurs="1"/>
+      <xs:element name ="Size" type="Size"  minOccurs="1" maxOccurs="1"/>
+      <xs:group ref="ShapeElements"/>
+    </xs:sequence>
+    <xs:attribute name="guid" type="xs:string" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <!--The name of the component. We cannot include library path information because this is stored in the project not the schematic.-->
+    <xs:attribute name="component" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="Line">
+    <xs:sequence>
+      <xs:element name ="Point" type="Point"  minOccurs="2" maxOccurs="unbounded"/>
+      <xs:group ref="ShapeElements"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="ClosedShape">
+    <xs:sequence>
+      <xs:element name ="Point" type="Point"  minOccurs="1" maxOccurs="unbounded"/>
+      <xs:group ref="ShapeElements"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TableShape">
+    <xs:sequence>
+      <xs:element name ="Location" type="Point"  minOccurs="1" maxOccurs="1"/>
+      <xs:element name ="Size" type="Size"  minOccurs="1" maxOccurs="1"/>
+      <xs:element name ="Cells" type="TableCells"  minOccurs="1" maxOccurs="1"/>
+      <xs:group ref="ShapeElements"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TableCells">
+    <xs:sequence>
+      <xs:element name ="Cell"  minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="row" type="xs:unsignedInt" use="required" />
+          <xs:attribute name="column" type="xs:unsignedInt" use="required" />
+          <xs:attribute name="text" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="rowCount" type="xs:unsignedInt" use="required" />
+    <xs:attribute name="columnCount" type="xs:unsignedInt" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="Image">
+    <xs:sequence>
+      <xs:element name ="Location" type="Point"  minOccurs="1" maxOccurs="1"/>
+      <xs:element name ="Size" type="Size"  minOccurs="1" maxOccurs="1"/>
+      <!--MD5 checksum calculated based on the contents of the image.-->
+      <xs:element name ="ImageChecksum"  minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="value" type="xs:string" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:group ref="ShapeElements"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Annotation">
+    <xs:sequence>
+      <xs:element name ="Location" type="Point" minOccurs="1" maxOccurs="1"/>
+      <!--The size will be provided if the text shape is box-based. Point-based text does not have a size.-->
+      <xs:element name ="Size" type="Size" minOccurs="0" maxOccurs="1"/>
+      <!--If the Text string does not contain a CDATA tag and it requires XML escaping it will 
+      be wrapped in a CDATA tag; otherwise, it will be XML escaped as needed. This is to assist in readability.-->
+      <xs:element name ="Text" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+      <!--"true" if the text is read from vertical, "false" otherwise-->
+      <xs:element name="Vertical" minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="value" type="xs:boolean" use ="required" />
+        </xs:complexType>
+      </xs:element>
+      <!--The Expression is only added if different from the Text value.-->
+      <!--If the Expression string does not contain a CDATA tag and it requires XML escaping it will 
+      be wrapped in a CDATA tag; otherwise, it will be XML escaped as needed. This is to assist in readability.-->
+      <xs:element name ="Expression" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+      <xs:element name ="Hyperlink"  minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="url" type="xs:string" use="required" />
+          <xs:attribute name="linkHoverColor" type="Color" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:group ref="ShapeElements"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Arc">
+    <xs:sequence>
+      <xs:element name ="Location" type="Point"  minOccurs="1" maxOccurs="1"/>
+      <xs:element name ="Size" type="Size"  minOccurs="1" maxOccurs="1"/>
+      <xs:element name ="Angles"  minOccurs="1" maxOccurs="1">
+        <xs:complexType>
+          <xs:attribute name="start" type="xs:decimal" use="required" />
+          <xs:attribute name="sweep" type="xs:decimal" use="required" />
+        </xs:complexType>
+      </xs:element>
+      <xs:group ref="ShapeElements"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BezierCurve">
+    <xs:sequence>
+      <xs:element name ="StartPoint" type="Point"  minOccurs="1" maxOccurs="1"/>
+      <xs:element name ="MidPoint" type="Point"  minOccurs="1" maxOccurs="1"/>
+      <xs:element name ="EndPoint" type="Point"  minOccurs="1" maxOccurs="1"/>
+      <xs:group ref="ShapeElements"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SheetConnector">
+    <xs:sequence>
+      <xs:element name ="Location" type="Point"  minOccurs="1" maxOccurs="1"/>
+      <xs:group ref="ShapeElements"/>
+    </xs:sequence>
+    <xs:attribute name="effectiveName" type="xs:string" use="required" />
+    <xs:attribute name="type" type="SignalType" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="Terminal">
+    <xs:sequence>
+      <xs:element name ="Location" type="Point"  minOccurs="1" maxOccurs="1"/>
+      <xs:element name ="ShowLabel" minOccurs="0" maxOccurs="1">
+      <xs:complexType>
+        <xs:attribute name="value" type="xs:boolean" use="required" />
+      </xs:complexType>
+      </xs:element>
+      <xs:element name ="ShowWireGuide" minOccurs="0" maxOccurs="1">
+      <xs:complexType>
+        <xs:attribute name="value" type="xs:boolean" use="required" />
+      </xs:complexType>
+      </xs:element>
+      <xs:group ref="ShapeElements"/>
+    </xs:sequence>
+    <!--For instance terminals the name is in the format of InstanceName.TerminalName. All other types just 
+    have their TerminalName.-->
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="type" type="TerminalType" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="Wire">
+    <xs:sequence>
+      <xs:element name ="Point1" type="Point" minOccurs="1" maxOccurs="1"/>
+      <xs:element name ="Point2" type="Point" minOccurs="1" maxOccurs="1"/>
+      <xs:group ref="ShapeElements"/>
+    </xs:sequence>
+    <xs:attribute name="effectiveName" type="xs:string" use="required" />
+    <xs:attribute name="type" type="SignalType" use="required" />
+  </xs:complexType>
+  
+</xs:schema>

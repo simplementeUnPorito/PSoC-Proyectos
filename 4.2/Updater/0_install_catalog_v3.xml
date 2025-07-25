@@ -1,0 +1,1249 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="catalogschema.xsd">
+  <CatalogVersion CurrentVersion="21.144.0.116" Format="0" MinimumVersion="21.144.0.116"/>
+<PrerequisiteInfo>
+</PrerequisiteInfo>
+    <VenderInfo Name="Cypress">
+      <Description>
+	The complete PSoC Programmer package includes:&lt;br&gt;
+        -PSoC Programmer.&lt;br&gt;
+        -Clock Programmer to configure Cypress clock devices.&lt;br&gt;
+        -USB Bootloader application which supports USB Bootloader User Module.&lt;br&gt;
+        -Bridge Control Panel which supports serial bridging capability.&lt;br&gt;
+        -Programmer COM code examples.&lt;br&gt;
+	-Device Database.&lt;br&gt;
+</Description>
+    </VenderInfo>
+  <ProductInfo Name="PSoC Programmer">{DA516B86-CA87-42D0-8959-D8CE5D088E8C}</ProductInfo>
+    <Licenses>
+      <License Name="eula" URL="eula.htm"/>
+    </Licenses>
+  <Releases>
+    <Release Name="PSoC Programmer 3.10 Beta 1.0" date="2009-02-11T16:11:21" ID="332" URL=""/>
+    <Release Name="PSoC Programmer 3.10 Beta 2.0" date="2009-06-16T11:15:15" ID="440" URL="_3.10.0.440_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.10 Beta 3.0" date="2009-09-12T13:09:32" ID="465" URL="_3.10.0.465_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.10 Beta 3.1" date="2009-10-02T10:41:56" ID="469" URL="_3.10.0.469_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.10 Production" date="2009-10-29T10:31:56" ID="519" URL="_3.10.0.519_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.10.1 Production" date="2009-11-30T20:19:02" ID="616" URL="_3.10.1.616_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.11 Production" date="2010-03-25T10:21:17" ID="724" URL="_3.11.0.724_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.12 Beta" date="2010-05-20T14:03:27" ID="813" URL="_3.12.0.813_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.12 Production" date="2010-08-04T15:46:35" ID="827" URL="_3.12.0.827_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.12.2 Production" date="2010-12-08T20:51:34" ID="862" URL="_3.12.2.862_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.12.3 Production" date="2011-01-01T09:51:34" ID="863" URL="_3.12.3.863_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.12.4 Production" date="2011-02-11T12:43:05" ID="866" URL="_3.12.4.866_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.12.5 Production" date="2011-04-07T09:50:24" ID="868" URL="_3.12.5.868_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.12.6 Production" date="2011-05-27T17:47:24" ID="870" URL="_3.12.6.870_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.13" date="2011-06-23T10:43:55" ID="961" URL="_3.13.0.961_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.13.1" date="2011-09-02T08:31:34" ID="1036" URL="_3.13.1.1036_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.13.2" date="2011-09-14T10:40:35" ID="1038" URL="_3.13.2.1038_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.13.3" date="2011-11-01T16:38:39" ID="1045" URL="_3.13.3.1045_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.13.4" date="2011-12-01T16:42:36" ID="1048" URL="_3.13.4.1048_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.14" date="2012-02-23T16:47:55" ID="1126" URL="_3.14.0.1126_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.15" date="2012-05-23T16:04:40" ID="1220" URL="_3.15.0.1220_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.15.1" date="2012-06-27T15:27:41" ID="1223" URL="_3.15.1.1223_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.16" date="2012-09-13T10:00:43" ID="1322" URL="_3.16.0.1322_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.17" date="2012-12-07T09:35:48" ID="1424" URL="_3.17.0.1424_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.18" date="2013-04-17T14:01:39" ID="1536" URL="_3.18.0.1536_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.18.1" date="2013-05-08T17:19:33" ID="1538" URL="_3.18.1.1538_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.19.0" date="2013-08-14T02:09:07" ID="1655" URL="_3.19.0.1655_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.19.1" date="2013-09-13T01:40:51" ID="1702" URL="_3.19.0.1702_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.20.0" date="2013-12-11T04:06:28" ID="1823" URL="_3.20.0.1823_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.20.1" date="2014-04-16T09:49:07" ID="1831" URL="_3.20.1.1831_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.21.0" date="2014-06-11T04:59:29" ID="1926" URL="_3.21.0.1926_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.22.0" date="2014-11-24T07:09:41" ID="2034" URL="_3.22.0.2034_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.22.2" date="2015-02-16T06:38:13" ID="2042" URL="_3.22.2.2042_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.22.3" date="2015-03-24T15:00:56" ID="2043" URL="_3.22.3.2043_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.23.0" date="2015-05-08T23:52:29" ID="2140" URL="_3.23.0.2140_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.23.1" date="2015-07-13T16:08:05" ID="2145" URL="_3.23.1.2145_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.24.0" date="2015-11-24T10:33:52" ID="2230" URL="_3.24.0.2230_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.24.2" date="2016-02-18T02:25:41" ID="2254" URL="_3.24.2.2254_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.24.4" date="2016-05-16T07:31:32" ID="2265" URL="_3.24.4.2265_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.25.0" date="2016-09-09T04:06:37" ID="2504" URL="_3.25.0.2504_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.26.0" date="2017-05-25T01:22:32" ID="2791" URL="_3.26.0.2791_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.27.1" date="2018-01-31T01:58:04" ID="3121" URL="_3.27.1.3121_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.27.3" date="2018-06-28T00:23:54" ID="3144" URL="_3.27.3.3144_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.28.0" date="2018-12-06T06:15:15" ID="4154" URL="_3.28.0.4154_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.28.1" date="2019-02-13T01:44:47" ID="4162" URL="_3.28.1.4162_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.28.2" date="2019-03-27T05:41:38" ID="4163" URL="_3.28.2.4163_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.28.3" date="2019-04-25T11:32:21" ID="4174" URL="_3.28.3.4174_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.28.4" date="2019-06-18T06:51:53" ID="4307" URL="_3.28.4.4307_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.28.5" date="2019-09-23T06:13:59" ID="4358" URL="_3.28.5.4358_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.28.6" date="2019-12-19T06:22:14" ID="4409" URL="_3.28.6.4409_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.28.7" date="2020-04-06T06:49:26" ID="4504" URL="_3.28.7.4504_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.29.0" date="2020-08-20T05:33:38" ID="4610" URL="_3.29.0.4610_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.29.1" date="2021-04-13T05:10:28" ID="4659" URL="_3.29.1.4659_release_notes.pdf"/>
+    <Release Name="PSoC Programmer 3.29.5" date="2023-04-13T01:44:17" ID="4730" URL="_3.29.5.4730_release_notes.pdf"/>
+  </Releases>
+  <Package Name="PSoC Programmer 3.10" Typical="true" PackageID="0" Mandatory="true">
+    <Description>PSoC Programmer GUI and PP COM</Description>
+    <LicenseRequirement Name="eula" />
+    <Version Name="PSoC Programmer 3.10 (332)" Number="3.10.0.332" URL="332/PSoCProgrammer3.10.0.332.msi" Size="">
+      <ChangeLog>Beta 1.0 Build 332 &lt;P&gt;Built on Wed Feb 11 16:11:21 2009</ChangeLog>
+      <release>332</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.10 (440)" Number="3.10.0.440" URL="440/PSoCProgrammer3.10.0.440.msi" Size="">
+      <ChangeLog>Beta 2.0 Build 440 &lt;P&gt;Built on Tue Jun 16 11:15:15 2009</ChangeLog>
+      <release>440</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.10 (465)" Number="3.10.0.465" URL="465/PSoCProgrammer3.10.0.465.msi" Size="">
+      <ChangeLog>Beta 3.0 Build 465 &lt;P&gt;Built on Sat Sep 12 13:09:31 2009</ChangeLog>
+      <release>465</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.10 (469)" Number="3.10.0.469" URL="469/PSoCProgrammer3.10.0.469.msi" Size="">
+      <ChangeLog>Beta 3.1 Build 469 &lt;P&gt;Built on Fri Oct  2 10:41:56 2009</ChangeLog>
+      <release>469</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.10 (519)" Number="3.10.0.519" URL="519/PSoCProgrammer3.10.0.519.msi" Size="">
+      <ChangeLog>Build 519 &lt;P&gt;Built on Thu Oct 29 10:31:56 2009</ChangeLog>
+      <release>519</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.10.1 (616)" Number="3.10.1.616" URL="616/PSoCProgrammer3.10.1.616.msi" Size="">
+      <ChangeLog>3.10.1 Production Release build 616 &lt;P&gt;Built on Mon Nov 30 20:18:54 2009</ChangeLog>
+      <release>616</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.11 (724)" Number="3.11.0.724" URL="724/PSoCProgrammer3.11.0.724.msi" Size="">
+      <ChangeLog>3.11 Release build 724 &lt;P&gt;Built on Thu Mar 25 10:21:08 2010</ChangeLog>
+      <release>724</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.12 (813)" Number="3.12.0.813" URL="813/PSoCProgrammer3.12.0.813.msi" Size="">
+      <ChangeLog>3.12 Release build 813 &lt;P&gt;Built on Sun Jun 20 14:04:27 2010</ChangeLog>
+      <release>813</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.12 (827)" Number="3.12.827.0" URL="827/PSoCProgrammer3.12.0.827.msi" Size="">
+      <ChangeLog>3.12 Release Build 827 &lt;P&gt; Built on Wed Aug 04 15:41:39</ChangeLog>
+      <release>827</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.12.2 (862)" Number="3.12.2.862" URL="862/PSoCProgrammer3.12.2.862.msi" Size="">
+      <ChangeLog>3.12.2 Release Build 862 &lt;P&gt;Built on Wed Dec  8 20:51:34 2010</ChangeLog>
+      <release>862</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.12.3 (863)" Number="3.12.3.863" URL="863/PSoCProgrammer3.12.3.863.msi" Size="">
+      <ChangeLog>3.12.3 Release Build 863 &lt;P&gt;Built on Sat Jan 01 09:51:34 2011</ChangeLog>
+      <release>863</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.12.4 (866)" Number="3.12.4.866" URL="866/PSoCProgrammer3.12.4.866.msi" Size="">
+      <ChangeLog>3.12.4 Release Build 866 &lt;P&gt;Built on Fri Feb 11 12:43:05 2011</ChangeLog>
+      <release>866</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.12.5 (868)" Number="3.12.5.868" URL="868/PSoCProgrammer3.12.5.868.msi" Size="">
+      <ChangeLog>3.12.5 Release Build 868 &lt;P&gt;Built on Thu Apr 7 09:50:24 2011</ChangeLog>
+      <release>868</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.12.6 (870)" Number="3.12.6.870" URL="870/PSoCProgrammer3.12.6.870.msi" Size="">
+      <ChangeLog>3.12.6 Release Build 870 &lt;P&gt;Built on Fri May 27 17:47:24 2011</ChangeLog>
+      <release>870</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.13 (961)" Number="3.13.0.961" URL="961/PSoCProgrammer3.13.0.961.msi" Size="5206580">
+      <ChangeLog>3.13 Release Build 961 &lt;P&gt;Built on Thu Jun 23 10:43:55 2011</ChangeLog>
+      <release>961</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.13.1 (1036)" Number="3.13.1.1036" URL="1036/PSoCProgrammer3.13.1.1036.msi" Size="5360816">
+      <ChangeLog>3.13.1 Release Build 1036 &lt;P&gt;Built on Fri Sep  2 08:31:34 2011</ChangeLog>
+      <release>1036</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.13.2 (1038)" Number="3.13.2.1038" URL="1038/PSoCProgrammer3.13.2.1038.msi" Size="5499060">
+      <ChangeLog>3.13.2 Release Build 1038 &lt;P&gt;Built on Wed Sep 14 10:40:35 2011</ChangeLog>
+      <release>1038</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.13.3 (1045)" Number="3.13.3.1045" URL="1045/PSoCProgrammer3.13.3.1045.msi" Size="5519548">
+      <ChangeLog>3.13.3 Release Build 1045 &lt;P&gt;Built on Tue Nov 1 16:38:39 2011</ChangeLog>
+      <release>1045</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.13.4 (1048)" Number="3.13.4.1048" URL="1048/PSoCProgrammer3.13.4.1048.msi" Size="5522096">
+      <ChangeLog>3.13.4 Release Build 1048 &lt;P&gt;Built on Thu Dec 1 16:42:36 2011</ChangeLog>
+      <release>1048</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.14.0 (1126)" Number="3.14.0.1126" URL="1126/PSoCProgrammer3.14.0.1126.msi" Size="6851792">
+      <ChangeLog>3.14 Release Build 1126 &lt;P&gt;Built on Thu Feb 23 16:47:55 2012</ChangeLog>
+      <release>1126</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.15.0 (1220)" Number="3.15.0.1220" URL="1220/PSoCProgrammer3.15.0.1220.msi" Size="10318160">
+      <ChangeLog>3.15 Release Build 1220 &lt;P&gt;Built on Wed May 23 16:04:40 2012</ChangeLog>
+      <release>1220</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.15.1 (1223)" Number="3.15.1.1223" URL="1223/PSoCProgrammer3.15.1.1223.msi" Size="10349408">
+      <ChangeLog>3.15.1 Release Build 1223 &lt;P&gt;Built on Wed Jun 27 15:27:41 2012</ChangeLog>
+      <release>1223</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.16.0 (1322)" Number="3.16.0.1322" URL="1322/PSoCProgrammer3.16.0.1322.msi" Size="12015428">
+      <ChangeLog>3.16.0 Release Build 1322 &lt;P&gt;Built on Thu Sep 13 10:00:43 2012</ChangeLog>
+      <release>1322</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.17.0 (1424)" Number="3.17.0.1424" URL="1424/PSoCProgrammer3.17.0.1424.msi" Size="8945300">
+      <ChangeLog>3.17.0 Release Build 1424 &lt;P&gt;Built on Fri Dec 7 09:35:48 2012</ChangeLog>
+      <release>1424</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.18 (1536)" Number="3.18.1536" URL="1536/PSoCProgrammer3.18.0.1536.msi" Size="9174952">
+      <ChangeLog>3.18 Release Build 1536 &lt;P&gt;Built on Wed Apr 17 14:01:39 2013</ChangeLog>
+      <release>1536</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.18.1 (1538)" Number="3.18.1.1538" URL="1538/PSoCProgrammer3.18.1.1538.msi" Size="9148840">
+      <ChangeLog>3.18.1 Release Build 1538 &lt;P&gt;Built on Wed May 8 17:19:33 2013</ChangeLog>
+      <release>1538</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.19.0 (1655)" Number="3.19.0.1655" URL="1655/PSoCProgrammer3.19.0.1655.msi" Size="11223400">
+      <ChangeLog>3.19.0 Release Build 1655&lt;P&gt;Built on Wed Aug 14 02:09:07 2013</ChangeLog>
+      <release>1655</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.19.1 (1702)" Number="3.19.1.1702" URL="1702/PSoCProgrammer3.19.1.1702.msi" Size="11226984">
+      <ChangeLog>3.19.1 Release Build 1702&lt;P&gt;Built on Fri Sep 13 01:40:51 2013</ChangeLog>
+      <release>1702</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.20.0 (1823)" Number="3.20.0.1823" URL="1823/PSoCProgrammer3.20.0.1823.msi" Size="11308456">
+      <ChangeLog>3.20.0 Release Build 1823&lt;P&gt;Built on Wed Dec 11 04:06:28 2013</ChangeLog>
+      <release>1823</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.20.1 (1831)" Number="3.20.1.1831" URL="1831/PSoCProgrammer3.20.1.1831.msi" Size="11331020">
+      <ChangeLog>3.20.1 Release Build 1831&lt;P&gt;Built on Wed Apr 16 09:49:07 2014</ChangeLog>
+      <release>1831</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.21.0 (1926)" Number="3.21.0.1926" URL="1926/PSoCProgrammer3.21.0.1926.msi" Size="15669852">
+      <ChangeLog>3.21.0 Release Build 1926&lt;P&gt;Built on Wed Jun 11 04:59:29 2014</ChangeLog>
+      <release>1926</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.22.0 (2034)" Number="3.22.0.2034" URL="2034/PSoCProgrammer3.22.0.2034.msi" Size="19592004">
+      <ChangeLog>3.22.0 Release Build 2034&lt;P&gt;Built on Mon Nov 24 07:09:41 2014</ChangeLog>
+      <release>2034</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.22.2 (2042)" Number="3.22.2.2042" URL="2042/PSoCProgrammer3.22.2.2042.msi" Size="19600708">
+      <ChangeLog>3.22.2 Release Build 2042&lt;P&gt;Built on Mon Feb 16 06:38:13 2015</ChangeLog>
+      <release>2042</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.22.3 (2043)" Number="3.22.2.2043" URL="2043/PSoCProgrammer3.22.3.2043.msi" Size="19600732">
+      <ChangeLog>3.22.3 Release Build 2043&lt;P&gt;Built on Tue Mar 24 15:00:56 2015</ChangeLog>
+      <release>2043</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.23.0 (2140)" Number="3.23.0.2140" URL="2140/PSoCProgrammer3.23.0.2140.msi" Size="20068644">
+      <ChangeLog>3.23.0 Release Build 2140 &lt;P&gt;Built on Fri May  8 23:52:29 2015</ChangeLog>
+      <release>2140</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.23.1 (2145)" Number="3.23.1.2145" URL="2145/PSoCProgrammer3.23.1.2145.msi" Size="20456444">
+      <ChangeLog>3.23.1 Release Build 2145 &lt;P&gt;Built on Mon Jul 13 16:08:05 2015</ChangeLog>
+      <release>2145</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.24.0 (2230)" Number="3.24.0.2230" URL="2230/PSoCProgrammer3.24.0.2230.msi" Size="20543252">
+      <ChangeLog>3.24.0 Release Build 2230 &lt;P&gt;3.24.0 Release Build 2230 </ChangeLog>
+      <release>2230</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.24.2 (2254)" Number="3.24.2.2254" URL="2254/PSoCProgrammer3.24.2.2254.msi" Size="20958988">
+      <ChangeLog>3.24.2 Release Build 2254&lt;P&gt;Built on Thu Feb 18 02:25:41 2016</ChangeLog>
+      <release>2254</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.24.4 (2265)" Number="3.24.4.2265" URL="2265/PSoCProgrammer3.24.4.2265.msi" Size="20863756">
+      <ChangeLog>3.24.4 Release Build 2265&lt;P&gt;Built on Mon May 16 07:31:32 2016</ChangeLog>
+      <release>2265</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.25.0 (2504)" Number="3.25.0.2504" URL="2504/PSoCProgrammer3.25.0.2504.msi" Size="21218180">
+      <ChangeLog>3.25.0 Release Build 2504&lt;P&gt;Built on Fri Sep  9 04:06:37 2016</ChangeLog>
+      <release>2504</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.26.0 (2791)" Number="3.26.0.2791" URL="2791/PSoCProgrammer3.26.0.2791.msi" Size="28351524">
+      <ChangeLog>3.26.0 Release Build 2791&lt;P&gt;Built on Thu May 25 01:22:32 2017</ChangeLog>
+      <release>2791</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.27.1 (3121)" Number="3.27.1.3121" URL="3121/PSoCProgrammer3.27.1.3121.msi" Size="29338820">
+      <ChangeLog>3.27.1 Release Build 3121&lt;P&gt;Built on Wed Jan 31 01:58:04 2018</ChangeLog>
+      <release>3121</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.27.3 (3144)" Number="3.27.3.3144" URL="3144/PSoCProgrammer3.27.3.3144.msi" Size="29330628">
+      <ChangeLog>3.27.3 Release Build 3144&lt;P&gt;Built on Thu Jun 28 00:23:54 2018</ChangeLog>
+      <release>3144</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.28.0 (4154)" Number="3.28.0.4154" URL="4154/PSoCProgrammer3.28.0.4154.msi" Size="32301312">
+      <ChangeLog>3.28.0 Release Build 4154&lt;P&gt;Built on Thu Dec  6 06:15:15 2018</ChangeLog>
+      <release>4154</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.28.1 (4162)" Number="3.28.1.4162" URL="4162/PSoCProgrammer3.28.1.4162.msi" Size="32480000">
+      <ChangeLog>3.28.1 Release Build 4162 &lt;P&gt;Built on Wed Feb 13 01:44:47 2019</ChangeLog>
+      <release>4162</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.28.2 (4163)" Number="3.28.2.4163" URL="4163/PSoCProgrammer3.28.2.4163.msi" Size="32502016">
+      <ChangeLog>3.28.2 Release Build 4163 &lt;P&gt;Built on Wed Mar 27 05:41:38 2019</ChangeLog>
+      <release>4163</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.28.3 (4174)" Number="3.28.3.4174" URL="4174/PSoCProgrammer3.28.3.4174.msi" Size="32581888">
+      <ChangeLog>3.28.3 Release Build 4174 &lt;P&gt;Built on Thu Apr 25 11:32:21 2019</ChangeLog>
+      <release>4174</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.28.4 (4307)" Number="3.28.4.4307" URL="4307/PSoCProgrammer3.28.4.4307.msi" Size="32503040">
+      <ChangeLog>3.28.4 Release Build 4307 &lt;P&gt;Built on Tue Jun 18 06:51:53 2019</ChangeLog>
+      <release>4307</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.28.5 (4358)" Number="3.28.5.4358" URL="4358/PSoCProgrammer3.28.5.4358.msi" Size="33000484">
+      <ChangeLog>3.28.5 Release Build 4358 &lt;P&gt;Built on Mon Sep 23 06:13:59 2019</ChangeLog>
+      <release>4358</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.28.6 (4409)" Number="3.28.6.4409" URL="4409/PSoCProgrammer3.28.6.4409.msi" Size="32954404">
+      <ChangeLog>3.28.6 Release Build 4409 &lt;P&gt;Built on Thu Dec 19 06:22:14 2019</ChangeLog>
+      <release>4409</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.28.7 (4504)" Number="3.28.7.4504" URL="4504/PSoCProgrammer3.28.7.4504.msi" Size="32951332">
+      <ChangeLog>3.28.7 Release Build 4504 &lt;P&gt;Built on Mon Apr 6 06:49:26 2020</ChangeLog>
+      <release>4504</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.29.0 (4610)" Number="3.29.0.4610" URL="4610/PSoCProgrammer3.29.0.4610.msi" Size="31564324">
+      <ChangeLog>3.29.0 Release Build 4610 &lt;P&gt;Built on Thu Aug 20 05:33:38 2020</ChangeLog>
+      <release>4610</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.29.1 (4659)" Number="3.29.1.4659" URL="4659/PSoCProgrammer3.29.1.4659.msi" Size="31083044">
+      <ChangeLog>3.29.1 Release Build 4659 &lt;P&gt;Built on Tue Apr 13 05:10:28 2021</ChangeLog>
+      <release>4659</release>
+    </Version>
+    <Version Name="PSoC Programmer 3.29.5 (4730)" Number="3.29.5.4730" URL="4730/PSoCProgrammer3.29.5.4730.msi" Size="36264096">
+      <ChangeLog>3.29.5 Release Build 4730 &lt;P&gt;Built on Thu Apr 13 01:44:17 2023</ChangeLog>
+      <release>4730</release>
+    </Version>
+  </Package>
+  <Package Name="Clock Programmer" Typical="true" PackageID="1" Mandatory="true">
+    <Description>
+	Clock Programmer to configure Cypress clock devices.
+    </Description>
+    <DependentOn>
+      <DepPackage Name="PSoC Programmer 3.10" />
+    </DependentOn>
+    <Version Name="Clock Programmer 1.3 (813)" Number="3.12.0.813" URL="813/ClockProgrammer1.3.0.813.msi" Size="">
+      <ChangeLog>3.12 Release Build 813 &lt;P&gt;Built on Thu May 20 14:05:29 2010</ChangeLog>
+      <release>813</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (827)" Number="3.12.827.0" URL="827/ClockProgrammer1.3.0.827.msi" Size="">
+      <ChangeLog>3.12 Release Build 827 &lt;P&gt; Built on Wed Aug 04 15:41:39</ChangeLog>
+      <release>827</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (862)" Number="3.12.2.862" URL="862/ClockProgrammer1.3.0.862.msi" Size="">
+      <ChangeLog>3.12.2 Release Build 862 &lt;P&gt;Built on Wed Dec  8 20:51:33 2010</ChangeLog>
+      <release>862</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (863)" Number="3.12.3.863" URL="863/ClockProgrammer1.3.0.863.msi" Size="">
+      <ChangeLog>3.12.3 Release Build 863 &lt;P&gt;Built on Sat Jan 01 09:51:32 2011</ChangeLog>
+      <release>863</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (866)" Number="3.12.4.866" URL="866/ClockProgrammer1.3.0.866.msi" Size="">
+      <ChangeLog>3.12.4 Release Build 866 &lt;P&gt;Built on Fri Feb 11 12:43:04 2011</ChangeLog>
+      <release>866</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (868)" Number="3.12.5.868" URL="868/ClockProgrammer1.3.0.868.msi" Size="">
+      <ChangeLog>3.12.5 Release Build 868 &lt;P&gt;Built on Thu Apr 7 09:50:23 2011</ChangeLog>
+      <release>868</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (870)" Number="3.12.6.870" URL="870/ClockProgrammer1.3.0.870.msi" Size="">
+      <ChangeLog>3.12.6 Release Build 870 &lt;P&gt;Built on Fri May 27 17:46:25 2011</ChangeLog>
+      <release>870</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (961)" Number="3.13.0.961" URL="961/ClockProgrammer1.3.0.961.msi" Size="561152">
+      <ChangeLog>3.13 Release Build 961 &lt;P&gt;Built on Thu Jun 23 10:43:51 2011</ChangeLog>
+      <release>961</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (1036)" Number="3.13.1.1036" URL="1036/ClockProgrammer1.3.0.1036.msi" Size="394752">
+      <ChangeLog>3.13.1 Release Build 1036 &lt;P&gt;Built on Fri Sep  2 08:31:34 2011</ChangeLog>
+      <release>1036</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (1038)" Number="3.13.2.1038" URL="1038/ClockProgrammer1.3.0.1038.msi" Size="561152">
+      <ChangeLog>3.13.2 Release Build 1038 &lt;P&gt;Built on Wed Sep 14 10:40:35 2011</ChangeLog>
+      <release>1038</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (1045)" Number="3.13.3.1045" URL="1045/ClockProgrammer1.3.0.1045.msi" Size="561152">
+      <ChangeLog>3.13.3 Release Build 1045 &lt;P&gt;Built on Tue Nov 1 16:38:37 2011</ChangeLog>
+      <release>1045</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (1048)" Number="3.13.4.1048" URL="1048/ClockProgrammer1.3.0.1048.msi" Size="561152">
+      <ChangeLog>3.13.4 Release Build 1048 &lt;P&gt;Built on Thu Dec 1 16:42:34 2011</ChangeLog>
+      <release>1048</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (1126)" Number="3.14.0.1126" URL="1126/ClockProgrammer1.3.0.1126.msi" Size="561152">
+      <ChangeLog>3.14 Release Build 1126 &lt;P&gt;Built on Thu Feb 23 16:47:46 2012</ChangeLog>
+      <release>1126</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (1220)" Number="3.15.0.1220" URL="1220/ClockProgrammer1.3.0.1220.msi" Size="561152">
+      <ChangeLog>3.15 Release Build 1220 &lt;P&gt;Built on Wed May 23 16:04:34 2012</ChangeLog>
+      <release>1220</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (1223)" Number="3.15.1.1223" URL="1223/ClockProgrammer1.3.0.1223.msi" Size="561152">
+      <ChangeLog>3.15.1 Release Build 1223 &lt;P&gt;Built on Wed Jun 27 15:27:39 2012</ChangeLog>
+      <release>1223</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (1322)" Number="3.16.0.1322" URL="1322/ClockProgrammer1.3.0.1322.msi" Size="561152">
+      <ChangeLog>3.16.0 Release Build 1322 &lt;P&gt;Built on Thu Sep 13 10:00:41 2012</ChangeLog>
+      <release>1322</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (1424)" Number="3.17.0.1424" URL="1424/ClockProgrammer1.3.0.1424.msi" Size="561152">
+      <ChangeLog>3.17.0 Release Build 1424 &lt;P&gt;Built on Fri Dec 7 09:35:48 2012</ChangeLog>
+      <release>1424</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (1536)" Number="3.18.1536" URL="1536/ClockProgrammer1.3.0.1536.msi" Size="560640">
+      <ChangeLog>3.18 Release Build 1536 &lt;P&gt;Built on Wed Apr 17 14:01:38 2013</ChangeLog>
+      <release>1536</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3 (1538)" Number="3.18.1.1538" URL="1538/ClockProgrammer1.3.0.1538.msi" Size="560640">
+      <ChangeLog>3.18.1 Release Build 1538 &lt;P&gt;Built on Wed May 8 17:19:31 2013</ChangeLog>
+      <release>1538</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3.0  (1655)" Number="3.19.0.1655" URL="1655/ClockProgrammer1.3.0.1655.msi" Size="558592">
+      <ChangeLog>3.19.0 Release Build 1655 &lt;P&gt;Built on Wed Aug 14 02:09:04 2013</ChangeLog>
+      <release>1655</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3.0  (1702)" Number="3.19.1.1702" URL="1702/ClockProgrammer1.3.0.1702.msi" Size="558592">
+      <ChangeLog>3.19.1 Release Build 1702&lt;P&gt;Built on Fri Sep 13 01:40:47 2013</ChangeLog>
+      <release>1702</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3.0  (1823)" Number="3.20.0.1823" URL="1823/ClockProgrammer1.3.0.1823.msi" Size="558592">
+      <ChangeLog>3.20.0 Release Build 1823&lt;P&gt;Built on Wed Dec 11 04:06:24 2013</ChangeLog>
+      <release>1823</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3.0  (1831)" Number="3.20.1.1831" URL="1831/ClockProgrammer1.3.0.1831.msi" Size="558592">
+      <ChangeLog>3.20.1 Release Build 1831&lt;P&gt;Built on Wed Apr 16 09:49:03 2014</ChangeLog>
+      <release>1831</release>
+    </Version>
+    <Version Name="Clock Programmer 1.3.0  (1926)" Number="3.21.0.1926" URL="1926/ClockProgrammer1.3.0.1926.msi" Size="564736">
+      <ChangeLog>3.21.0 Release Build 1926&lt;P&gt;Built on Wed Jun 11 04:59:26 2014</ChangeLog>
+      <release>1926</release>
+    </Version>
+    <Version Name="Clock Programmer 1.4.0 (2034)" Number="3.22.0.2034" URL="2034/ClockProgrammer1.4.0.2034.msi" Size="566784">
+      <ChangeLog>3.22.0 Release Build 2034&lt;P&gt;Built on Mon Nov 24 07:09:39 2014</ChangeLog>
+      <release>2034</release>
+    </Version>
+    <Version Name="Clock Programmer 1.4.0 (2042)" Number="3.22.2.2042" URL="2042/ClockProgrammer1.4.0.2042.msi" Size="567296">
+      <ChangeLog>3.22.2 Release Build 2042&lt;P&gt;Built on Mon Feb 16 06:38:11 2015</ChangeLog>
+      <release>2042</release>
+    </Version>
+    <Version Name="Clock Programmer 1.4.0 (2043)" Number="3.22.3.2043" URL="2043/ClockProgrammer1.4.0.2043.msi" Size="567296">
+      <ChangeLog>3.22.3 Release Build 2043 &lt;P&gt;Built on Tue Mar 24 15:00:55 2015</ChangeLog>
+      <release>2043</release>
+    </Version>
+    <Version Name="Clock Programmer 1.4.0 (2140)" Number="3.23.0.2140" URL="2140/ClockProgrammer1.4.0.2140.msi" Size="571904">
+      <ChangeLog>3.23.0 Release Build 2140&lt;P&gt;Built on Fri May  8 23:52:28 2015</ChangeLog>
+      <release>2140</release>
+    </Version>
+    <Version Name="Clock Programmer 1.4.0 (2145)" Number="3.23.1.2145" URL="2145/ClockProgrammer1.4.0.2145.msi" Size="571904">
+      <ChangeLog>3.23.1 Release Build 2145&lt;P&gt;Built on Mon Jul 13 16:08:04 2015</ChangeLog>
+      <release>2145</release>
+    </Version>
+    <Version Name="Clock Programmer 1.4.0 (2230)" Number="3.24.0.2230" URL="2230/ClockProgrammer1.4.0.2230.msi" Size="573952">
+      <ChangeLog>3.24.0 Release Build 2230&lt;P&gt;Built on Tue Nov 24 10:33:51 2015</ChangeLog>
+      <release>2230</release>
+    </Version>
+    <Version Name="Clock Programmer 1.4.0 (2254)" Number="3.24.2.2254" URL="2254/ClockProgrammer1.4.0.2254.msi" Size="573952">
+      <ChangeLog>3.24.2 Release Build 2254&lt;P&gt;Built on Thu Feb 18 02:25:40 2016</ChangeLog>
+      <release>2254</release>
+    </Version>
+    <Version Name="Clock Programmer 1.4.0 (2265)" Number="3.24.4.2265" URL="2265/ClockProgrammer1.4.0.2265.msi" Size="573952">
+      <ChangeLog>3.24.4 Release Build 2265&lt;P&gt;Built on Mon May 16 07:31:31 2016</ChangeLog>
+      <release>2265</release>
+    </Version>
+    <Version Name="Clock Programmer 1.5.0 (2504)" Number="3.25.0.2504" URL="2504/ClockProgrammer1.5.0.2504.msi" Size="578048">
+      <ChangeLog>3.25.0 Release Build 2504&lt;P&gt;Built on Fri Sep  9 04:06:36 2016</ChangeLog>
+      <release>2504</release>
+    </Version>
+    <Version Name="Clock Programmer 1.6.0 (2791)" Number="3.26.0.2791" URL="2791/ClockProgrammer1.6.0.2791.msi" Size="583168">
+      <ChangeLog>3.26.0 Release Build 2791 &lt;P&gt;Built on Thu May 25 01:22:31 2017</ChangeLog>
+      <release>2791</release>
+    </Version>
+    <Version Name="Clock Programmer 1.8.0 (3121)" Number="3.27.1.3121" URL="3121/ClockProgrammer1.8.0.3121.msi" Size="584192">
+      <ChangeLog>3.27.1 Release Build 3121&lt;P&gt;Built on Wed Jan 31 01:58:03 2018</ChangeLog>
+      <release>3121</release>
+    </Version>
+    <Version Name="Clock Programmer 1.8.0 (3144)" Number="3.27.3.3144" URL="3144/ClockProgrammer1.8.0.3144.msi" Size="584192">
+      <ChangeLog>3.27.3 Release Build 3144 &lt;P&gt;Built on Thu Jun 28 00:23:53 2018</ChangeLog>
+      <release>3144</release>
+    </Version>
+    <Version Name="Clock Programmer 1.9.0 (4154)" Number="3.28.0.4154" URL="4154/ClockProgrammer1.9.0.4154.msi" Size="584192">
+      <ChangeLog>3.28.0 Release Build 4154 &lt;P&gt;Built on Thu Dec  6 06:15:14 2018</ChangeLog>
+      <release>4154</release>
+    </Version>
+    <Version Name="Clock Programmer 1.9.0 (4162)" Number="3.28.1.4162" URL="4162/ClockProgrammer1.9.0.4162.msi" Size="584192">
+      <ChangeLog>3.28.1 Release Build 4162 &lt;P&gt;Built on Wed Feb 13 01:44:47 2019</ChangeLog>
+      <release>4162</release>
+    </Version>
+    <Version Name="Clock Programmer 1.9.0 (4163)" Number="3.28.2.4163" URL="4163/ClockProgrammer1.9.0.4163.msi" Size="584192">
+      <ChangeLog>3.28.2 Release Build 4163 &lt;P&gt;Built on Wed Mar 27 05:41:38 2019</ChangeLog>
+      <release>4163</release>
+    </Version>
+    <Version Name="Clock Programmer 1.9.0 (4174)" Number="3.28.3.4174" URL="4174/ClockProgrammer1.9.0.4174.msi" Size="584192">
+      <ChangeLog>3.28.3 Release Build 4174 &lt;P&gt;Built on Thu Apr 25 11:32:21 2019</ChangeLog>
+      <release>4174</release>
+    </Version>
+    <Version Name="Clock Programmer 1.9.0 (4307)" Number="3.28.4.4307" URL="4307/ClockProgrammer1.9.0.4307.msi" Size="584192">
+      <ChangeLog>3.28.4 Release Build 4307 &lt;P&gt;Built on Tue Jun 18 06:51:53 2019</ChangeLog>
+      <release>4307</release>
+    </Version>
+    <Version Name="Clock Programmer 1.9.0 (4358)" Number="3.28.5.4358" URL="4358/ClockProgrammer1.9.0.4358.msi" Size="584192">
+      <ChangeLog>3.28.5 Release Build 4358 &lt;P&gt;Built on Mon Sep 23 06:13:59 2019</ChangeLog>
+      <release>4358</release>
+    </Version>
+    <Version Name="Clock Programmer 1.9.0 (4409)" Number="3.28.6.4409" URL="4409/ClockProgrammer1.9.0.4409.msi" Size="584192">
+      <ChangeLog>3.28.6 Release Build 4409 &lt;P&gt;Built on Thu Dec 19 06:22:14 2019</ChangeLog>
+      <release>4409</release>
+    </Version>
+    <Version Name="Clock Programmer 1.9.0 (4504)" Number="3.28.7.4504" URL="4504/ClockProgrammer1.9.0.4504.msi" Size="584192">
+      <ChangeLog>3.28.7 Release Build 4504 &lt;P&gt;Built on Mon Apr 6 06:49:26 2020</ChangeLog>
+      <release>4504</release>
+    </Version>
+    <Version Name="Clock Programmer 1.9.0 (4610)" Number="3.29.0.4610" URL="4610/ClockProgrammer1.9.0.4610.msi" Size="584192">
+      <ChangeLog>3.29.0 Release Build 4610 &lt;P&gt;Built on Thu Aug 20 05:33:38 2020</ChangeLog>
+      <release>4610</release>
+    </Version>
+    <Version Name="Clock Programmer 1.9.0 (4659)" Number="3.29.1.4659" URL="4659/ClockProgrammer1.9.0.4659.msi" Size="622080">
+      <ChangeLog>3.29.1 Release Build 4659 &lt;P&gt;Built on Tue Apr 13 05:10:28 2021</ChangeLog>
+      <release>4659</release>
+    </Version>
+    <Version Name="Clock Programmer 1.9.0 (4730)" Number="3.29.5.4730" URL="4730/ClockProgrammer1.9.0.4730.msi" Size="622080">
+      <ChangeLog>3.29.5 Release Build 4730 &lt;P&gt;Built on Thu Apr 13 01:44:17 2023</ChangeLog>
+      <release>4730</release>
+    </Version>
+  </Package>
+  <Package Name="USB Bootloader" Typical="true" PackageID="2" Mandatory="false">
+    <Description>
+	USB Bootloader Application which supports USB Bootloader User Module.
+    </Description>
+    <DependentOn>
+      <DepPackage Name="PSoC Programmer 3.10" />
+    </DependentOn>
+    <Version Name="USB Bootloader Application (813)" Number="3.12.0.813" URL="813/USBBootloader.813.msi" Size="">
+      <ChangeLog>3.12 Release Build 813 &lt;P&gt;Built on Thu May 20 14:06:30 2010</ChangeLog>
+      <release>813</release>
+    </Version>
+    <Version Name="USB Bootloader application (827)" Number="3.12.827.0" URL="827/USBBootloader.827.msi" Size="">
+      <ChangeLog>3.12 Release Build 827 &lt;P&gt; Built on Wed Aug 04 15:41:39</ChangeLog>
+      <release>827</release>
+    </Version>
+    <Version Name="USB Bootloader Application (862)" Number="3.12.2.862" URL="862/USBBootloader.862.msi" Size="">
+      <ChangeLog>3.12.2 Release Build 862 &lt;P&gt;Built on Wed Dec  8 20:51:35 2010</ChangeLog>
+      <release>862</release>
+    </Version>
+    <Version Name="USB Bootloader Application (863)" Number="3.12.3.863" URL="863/USBBootloader.863.msi" Size="">
+      <ChangeLog>3.12.3 Release Build 863 &lt;P&gt;Built on Sat Jan 01 09:51:35 2011</ChangeLog>
+      <release>863</release>
+    </Version>
+    <Version Name="USB Bootloader Application (866)" Number="3.12.4.866" URL="866/USBBootloader.866.msi" Size="">
+      <ChangeLog>3.12.4 Release Build 866 &lt;P&gt;Built on Fri Feb 11 12:43:05 2011</ChangeLog>
+      <release>866</release>
+    </Version>
+    <Version Name="USB Bootloader Application (868)" Number="3.12.5.868" URL="868/USBBootloader.868.msi" Size="">
+      <ChangeLog>3.12.5 Release Build 868 &lt;P&gt;Built on Thu Apr 7 09:50:25 2011</ChangeLog>
+      <release>868</release>
+    </Version>
+    <Version Name="USB Bootloader Application (870)" Number="3.12.6.870" URL="870/USBBootloader.870.msi" Size="">
+      <ChangeLog>3.12.6 Release Build 870 &lt;P&gt;Built on Fri May 27 17:46:22 2011</ChangeLog>
+      <release>870</release>
+    </Version>
+    <Version Name="USB Bootloader Application (961)" Number="3.13.0.961" URL="961/USBBootloader.961.msi" Size="10799104">
+      <ChangeLog>3.13 Release Build 961 &lt;P&gt;Built on Thu Jun 23 10:43:57 2011</ChangeLog>
+      <release>961</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1036)" Number="3.13.1.1036" URL="1036/USBBootloader.1036.msi" Size="10631680">
+      <ChangeLog>3.13.1 Release Build 1036 &lt;P&gt;Built on Fri Sep  2 08:31:34 2011</ChangeLog>
+      <release>1036</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1038)" Number="3.13.2.1038" URL="1038/USBBootloader.1038.msi" Size="10798592">
+      <ChangeLog>3.13.2 Release Build 1038 &lt;P&gt;Built on Wed Sep 14 10:40:35 2011</ChangeLog>
+      <release>1038</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1045)" Number="3.13.3.1045" URL="1045/USBBootloader.1045.msi" Size="10798592">
+      <ChangeLog>3.13.3 Release Build 1045 &lt;P&gt;Built on Tue Nov 1 16:38:42 2011</ChangeLog>
+      <release>1045</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1048)" Number="3.13.4.1048" URL="1048/USBBootloader.1048.msi" Size="10798592">
+      <ChangeLog>3.13.4 Release Build 1048 &lt;P&gt;Built on Thu Dec 1 16:42:37 2011</ChangeLog>
+      <release>1048</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1126)" Number="3.14.0.1126" URL="1126/USBBootloader.1126.msi" Size="6108672">
+      <ChangeLog>3.14 Release Build 1126 &lt;P&gt;Built on Thu Dec 1 16:42:37 2011</ChangeLog>
+      <release>1126</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1220)" Number="3.15.0.1220" URL="1220/USBBootloader.1220.msi" Size="6275584">
+      <ChangeLog>3.15 Release Build 1220 &lt;P&gt;Built on Wed May 23 16:04:44 2012</ChangeLog>
+      <release>1220</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1223)" Number="3.15.1.1223" URL="1223/USBBootloader.1223.msi" Size="6275584">
+      <ChangeLog>3.15.1 Release Build 1223 &lt;P&gt;Built on Wed Jun 27 15:27:44 2012</ChangeLog>
+      <release>1223</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1322)" Number="3.16.0.1322" URL="1322/USBBootloader.1322.msi" Size="765440">
+      <ChangeLog>3.16.0 Release Build 1322 &lt;P&gt;Built on Thu Sep 13 10:00:46 2012</ChangeLog>
+      <release>1322</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1424)" Number="3.17.0.1424" URL="1424/USBBootloader.1424.msi" Size="764928">
+      <ChangeLog>3.17.0 Release Build 1424 &lt;P&gt;Built on Fri Dec 7 09:35:48 2012</ChangeLog>
+      <release>1424</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1536)" Number="3.18.1536" URL="1536/USBBootloader.1536.msi" Size="765952">
+      <ChangeLog>3.18 Release Build 1536 &lt;P&gt;Built on Wed Apr 17 14:01:40 2013</ChangeLog>
+      <release>1536</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1538)" Number="3.18.1.1538" URL="1538/USBBootloader.1538.msi" Size="765952">
+      <ChangeLog>3.18.1 Release Build 1538 &lt;P&gt;Built on Wed May 8 17:19:34 2013</ChangeLog>
+      <release>1538</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1655)" Number="3.19.0.1655" URL="1655/USBBootloader.1655.msi" Size="786432">
+      <ChangeLog>3.19.0 Release Build 1655 &lt;P&gt;Built on Wed Aug 14 02:09:08 2013</ChangeLog>
+      <release>1655</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1702)" Number="3.19.1.1702" URL="1702/USBBootloader.1702.msi" Size="785920">
+      <ChangeLog>3.19.1 Release Build 1702 &lt;P&gt;Built on Fri Sep 13 01:40:52 2013</ChangeLog>
+      <release>1702</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1823)" Number="3.20.0.1823" URL="1823/USBBootloader.1823.msi" Size="785408">
+      <ChangeLog>3.20.0 Release Build 1823 &lt;P&gt;Built on Wed Dec 11 04:06:29 2013</ChangeLog>
+      <release>1823</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1831)" Number="3.20.1.1831" URL="1831/USBBootloader.1831.msi" Size="784896">
+      <ChangeLog>3.20.1 Release Build 1831&lt;P&gt;Built on Wed Apr 16 09:49:08 2014</ChangeLog>
+      <release>1831</release>
+    </Version>
+    <Version Name="USB Bootloader Application (1926)" Number="3.21.0.1926" URL="1926/USBBootloader.1926.msi" Size="784384">
+      <ChangeLog>3.21.0 Release Build 1926 &lt;P&gt;Built on Wed Jun 11 04:59:30 2014</ChangeLog>
+      <release>1926</release>
+    </Version>
+    <Version Name="USB Bootloader Application (2034)" Number="3.22.0.2034" URL="2034/USBBootloader.2034.msi" Size="785408">
+      <ChangeLog>3.22.0 Release Build 2034 &lt;P&gt;Built on Mon Nov 24 07:09:41 2014</ChangeLog>
+      <release>2034</release>
+    </Version>
+    <Version Name="USB Bootloader Application (2042)" Number="3.22.2.2042" URL="2042/USBBootloader.2042.msi" Size="785408">
+      <ChangeLog>3.22.2 Release Build 2042 &lt;P&gt;Built on Mon Feb 16 06:38:13 2015</ChangeLog>
+      <release>2042</release>
+    </Version>
+    <Version Name="USB Bootloader Application (2043)" Number="3.22.3.2043" URL="2043/USBBootloader.2043.msi" Size="785408">
+      <ChangeLog>3.22.3 Release Build 2043&lt;P&gt;Built on Tue Mar 24 15:00:57 2015</ChangeLog>
+      <release>2043</release>
+    </Version>
+    <Version Name="USB Bootloader Application (2140)" Number="3.23.0.2140" URL="2140/USBBootloader.2140.msi" Size="785408">
+      <ChangeLog>3.23.0 Release Build 2140&lt;P&gt;Built on Fri May  8 23:52:29 2015</ChangeLog>
+      <release>2140</release>
+    </Version>
+    <Version Name="USB Bootloader Application (2145)" Number="3.23.1.2145" URL="2145/USBBootloader.2145.msi" Size="785408">
+      <ChangeLog>3.23.1 Release Build 2145&lt;P&gt;Built on Mon Jul 13 16:08:05 2015</ChangeLog>
+      <release>2145</release>
+    </Version>
+    <Version Name="USB Bootloader Application (2230)" Number="3.24.0.2230" URL="2230/USBBootloader.2230.msi" Size="785920">
+      <ChangeLog>3.24.0 Release Build 2230&lt;P&gt;Built on Tue Nov 24 10:33:53 2015</ChangeLog>
+      <release>2230</release>
+    </Version>
+    <Version Name="USB Bootloader Application (2254)" Number="3.24.2.2254" URL="2254/USBBootloader.2254.msi" Size="785408">
+      <ChangeLog>3.24.2 Release Build 2254 &lt;P&gt;Built on Thu Feb 18 02:25:42 2016</ChangeLog>
+      <release>2254</release>
+    </Version>
+    <Version Name="USB Bootloader Application (2265)" Number="3.24.4.2265" URL="2265/USBBootloader.2265.msi" Size="785408">
+      <ChangeLog>3.24.4 Release Build 2265&lt;P&gt;Built on Mon May 16 07:31:33 2016</ChangeLog>
+      <release>2265</release>
+    </Version>
+    <Version Name="USB Bootloader Application (2504)" Number="3.25.0.2504" URL="2504/USBBootloader.2504.msi" Size="785408">
+      <ChangeLog>3.25.0 Release Build 2504&lt;P&gt;Built on Fri Sep  9 04:06:37 2016</ChangeLog>
+      <release>2504</release>
+    </Version>
+    <Version Name="USB Bootloader Application (2791)" Number="3.26.0.2791" URL="2791/USBBootloader.2791.msi" Size="786432">
+      <ChangeLog>3.26.0 Release Build 2791&lt;P&gt;Built on Thu May 25 01:22:32 2017</ChangeLog>
+      <release>2791</release>
+    </Version>
+    <Version Name="USB Bootloader Application (3121)" Number="3.27.1.3121" URL="3121/USBBootloader.3121.msi" Size="786432">
+      <ChangeLog>3.27.1 Release Build 3121&lt;P&gt;Built on Wed Jan 31 01:58:04 2018</ChangeLog>
+      <release>3121</release>
+    </Version>
+    <Version Name="USB Bootloader Application (3144)" Number="3.27.3.3144" URL="3144/USBBootloader.3144.msi" Size="785408">
+      <ChangeLog>3.27.3 Release Build 3144 &lt;P&gt;Built on Thu Jun 28 00:23:55 2018</ChangeLog>
+      <release>3144</release>
+    </Version>
+    <Version Name="USB Bootloader Application (4154)" Number="3.28.0.4154" URL="4154/USBBootloader.4154.msi" Size="786432">
+      <ChangeLog>3.28.0 Release Build 4154 &lt;P&gt;Built on Thu Dec  6 06:15:16 2018</ChangeLog>
+      <release>4154</release>
+    </Version>
+    <Version Name="USB Bootloader Application (4162)" Number="3.28.1.4162" URL="4162/USBBootloader.4162.msi" Size="786432">
+      <ChangeLog>3.28.1 Release Build 4162 &lt;P&gt;Built on Wed Feb 13 01:44:47 2019</ChangeLog>
+      <release>4162</release>
+    </Version>
+    <Version Name="USB Bootloader Application (4163)" Number="3.28.2.4163" URL="4163/USBBootloader.4163.msi" Size="786432">
+      <ChangeLog>3.28.2 Release Build 4163 &lt;P&gt;Built on Wed Mar 27 05:41:38 2019</ChangeLog>
+      <release>4163</release>
+    </Version>
+    <Version Name="USB Bootloader Application (4174)" Number="3.28.3.4174" URL="4174/USBBootloader.4174.msi" Size="786432">
+      <ChangeLog>3.28.3 Release Build 4174 &lt;P&gt;Built on Thu Apr 25 11:32:21 2019</ChangeLog>
+      <release>4174</release>
+    </Version>
+    <Version Name="USB Bootloader Application (4307)" Number="3.28.4.4307" URL="4307/USBBootloader.4307.msi" Size="786432">
+      <ChangeLog>3.28.4 Release Build 4307 &lt;P&gt;Built on Tue Jun 18 06:51:53 2019</ChangeLog>
+      <release>4307</release>
+    </Version>
+    <Version Name="USB Bootloader Application (4358)" Number="3.28.5.4358" URL="4358/USBBootloader.4358.msi" Size="786432">
+      <ChangeLog>3.28.5 Release Build 4358 &lt;P&gt;Built on Mon Sep 23 06:13:59 2019</ChangeLog>
+      <release>4358</release>
+    </Version>
+    <Version Name="USB Bootloader Application (4409)" Number="3.28.6.4409" URL="4409/USBBootloader.4409.msi" Size="786432">
+      <ChangeLog>3.28.6 Release Build 4409 &lt;P&gt;Built on Thu Dec 19 06:22:14 2019</ChangeLog>
+      <release>4409</release>
+    </Version>
+    <Version Name="USB Bootloader Application (4504)" Number="3.28.7.4504" URL="4504/USBBootloader.4504.msi" Size="786432">
+      <ChangeLog>3.28.7 Release Build 4504 &lt;P&gt;Built on Mon Apr 6 06:49:26 2020</ChangeLog>
+      <release>4504</release>
+    </Version>
+    <Version Name="USB Bootloader Application (4610)" Number="3.29.0.4610" URL="4610/USBBootloader.4610.msi" Size="786432">
+      <ChangeLog>3.29.0 Release Build 4610 &lt;P&gt;Built on Thu Aug 20 05:33:38 2020</ChangeLog>
+      <release>4610</release>
+    </Version>
+    <Version Name="USB Bootloader Application (4659)" Number="3.29.1.4659" URL="4659/USBBootloader.4659.msi" Size="939008">
+      <ChangeLog>3.29.1 Release Build 4659 &lt;P&gt;Built on Tue Apr 13 05:10:28 2021</ChangeLog>
+      <release>4659</release>
+    </Version>
+    <Version Name="USB Bootloader Application (4730)" Number="3.29.5.4730" URL="4730/USBBootloader.4730.msi" Size="939008">
+      <ChangeLog>3.29.5 Release Build 4730 &lt;P&gt;Built on Thu Apr 13 01:44:17 2023</ChangeLog>
+      <release>4730</release>
+    </Version>
+  </Package>
+  <Package Name="Bridge Control Panel" Typical="true" PackageID="3" Mandatory="true">
+    <Description>
+	Bridge Control Panel which supports serial bridging capability.
+    </Description>
+    <DependentOn>
+      <DepPackage Name="PSoC Programmer 3.10" />
+    </DependentOn>
+    <Version Name="Bridge Control Panel Beta 1.2 (813)" Number="3.12.0.813" URL="813/BridgeControlPanel1.2.0.813.msi" Size="">
+      <ChangeLog>3.12 Release Build 813 &lt;P&gt;Built on Thu May 20 14:09:32 2010</ChangeLog>
+      <release>813</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.2 (827)" Number="3.12.827.0" URL="827/BridgeControlPanel1.2.0.827.msi" Size="">
+      <ChangeLog>3.12 Release Build 827 &lt;P&gt; Built on Wed Aug 04 15:41:39</ChangeLog>
+      <release>827</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.2 (862)" Number="3.12.2.862" URL="862/BridgeControlPanel1.2.0.862.msi" Size="">
+      <ChangeLog>3.12.2 Release Build 862 &lt;P&gt;Built on Wed Dec  8 20:51:32 2010</ChangeLog>
+      <release>862</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.2 (863)" Number="3.12.3.863" URL="863/BridgeControlPanel1.2.0.863.msi" Size="">
+      <ChangeLog>3.12.3 Release Build 863 &lt;P&gt;Built on Sat Jan 01 09:51:32 2011</ChangeLog>
+      <release>863</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.2 (866)" Number="3.12.4.866" URL="866/BridgeControlPanel1.2.0.866.msi" Size="">
+      <ChangeLog>3.12.4 Release Build 866 &lt;P&gt;Built on Fri Feb 11 12:43:04 2011</ChangeLog>
+      <release>866</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.2 (868)" Number="3.12.5.868" URL="868/BridgeControlPanel1.2.0.868.msi" Size="">
+      <ChangeLog>3.12.5 Release Build 868 &lt;P&gt;Built on Thu Apr 7 09:50:22 2011</ChangeLog>
+      <release>868</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.2 (870)" Number="3.12.6.870" URL="870/BridgeControlPanel1.2.0.870.msi" Size="">
+      <ChangeLog>3.12.6 Release Build 870 &lt;P&gt;Built on Fri May 27 17:46:22 2011</ChangeLog>
+      <release>870</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.2 (961)" Number="3.13.0.961" URL="961/BridgeControlPanel1.2.0.961.msi" Size="7243776">
+      <ChangeLog>3.13 Release Build 961 &lt;P&gt;Built on Thu Jun 23 10:43:50 2011</ChangeLog>
+      <release>961</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.3 (1036)" Number="3.13.1.1036" URL="1036/BridgeControlPanel1.3.0.1036.msi" Size="7066624">
+      <ChangeLog>3.13.1 Release Build 1036 &lt;P&gt;Built on Fri Sep  2 08:31:34 2011</ChangeLog>
+      <release>1036</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.3 (1038)" Number="3.13.2.1038" URL="1038/BridgeControlPanel1.3.0.1038.msi" Size="7069184">
+      <ChangeLog>3.13.2 Release Build 1038 &lt;P&gt;Built on Wed Sep 14 10:40:35 2011</ChangeLog>
+      <release>1038</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.3 (1045)" Number="3.13.3.1045" URL="1045/BridgeControlPanel1.3.0.1045.msi" Size="7068160">
+      <ChangeLog>3.13.3 Release Build 1045 &lt;P&gt;Built on Tue Nov 1 16:38:36 2011</ChangeLog>
+      <release>1045</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.3 (1048)" Number="3.13.4.1048" URL="1048/BridgeControlPanel1.3.0.1048.msi" Size="7068160">
+      <ChangeLog>3.13.4 Release Build 1048 &lt;P&gt;Built on Thu Dec 1 16:42:34 2011</ChangeLog>
+      <release>1048</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.4 (1126)" Number="3.14.0.1126" URL="1126/BridgeControlPanel1.4.0.1126.msi" Size="7237632">
+      <ChangeLog>3.14 Release Build 1126 &lt;P&gt;Built on Thu Feb 23 16:47:44 2012</ChangeLog>
+      <release>1126</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.5 (1220)" Number="3.15.0.1220" URL="1220/BridgeControlPanel1.5.0.1220.msi" Size="12236288">
+      <ChangeLog>3.15 Release Build 1220 &lt;P&gt;Built on Wed May 23 16:04:31 2012</ChangeLog>
+      <release>1220</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.5 (1223)" Number="3.15.0.1223" URL="1223/BridgeControlPanel1.5.0.1223.msi" Size="12235776">
+      <ChangeLog>3.15.1 Release Build 1223 &lt;P&gt;Built on Wed Jun 27 15:27:38 2012</ChangeLog>
+      <release>1223</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.6 (1322)" Number="3.16.0.1322" URL="1322/BridgeControlPanel1.6.0.1322.msi" Size="9897472">
+      <ChangeLog>3.16.0 Release Build 1223 &lt;P&gt;Built on Thu Sep 13 10:00:40 2012</ChangeLog>
+      <release>1322</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.7 (1424)" Number="3.17.0.1424" URL="1424/BridgeControlPanel1.7.0.1424.msi" Size="9363968">
+      <ChangeLog>3.17.0 Release Build 1424 &lt;P&gt;Built on Fri Dec 7 09:35:48 2012</ChangeLog>
+      <release>1424</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.8 (1536)" Number="3.18.1536" URL="1536/BridgeControlPanel1.8.0.1536.msi" Size="10054144">
+      <ChangeLog>3.18 Release Build 1536 &lt;P&gt;Built on Wed Apr 17 14:01:37 2013</ChangeLog>
+      <release>1536</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.8 (1538)" Number="3.18.1.1538" URL="1538/BridgeControlPanel1.8.0.1538.msi" Size="10054656">
+      <ChangeLog>3.18.1 Release Build 1538 &lt;P&gt;Built on Wed May 8 17:19:31 2013</ChangeLog>
+      <release>1538</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.9.0 (1655)" Number="3.19.0.1655" URL="1655/BridgeControlPanel1.9.0.1655.msi" Size="10008576">
+      <ChangeLog>3.19.0 Release Build 1655 &lt;P&gt;Built on Wed Aug 14 02:09:03 2013</ChangeLog>
+      <release>1655</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.9.0 (1702)" Number="3.19.1.1702" URL="1702/BridgeControlPanel1.9.0.1702.msi" Size="10008064">
+      <ChangeLog>3.19.1 Release Build 1702 &lt;P&gt;Built on Fri Sep 13 01:40:46 2013</ChangeLog>
+      <release>1702</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.10.0 (1823)" Number="3.20.0.1823" URL="1823/BridgeControlPanel1.10.0.1823.msi" Size="10210304">
+      <ChangeLog>3.20.0 Release Build 1823 &lt;P&gt;Built on Wed Dec 11 04:06:23 2013</ChangeLog>
+      <release>1823</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.10.0 (1831)" Number="3.20.1.1831" URL="1831/BridgeControlPanel1.10.0.1831.msi" Size="10209280">
+      <ChangeLog>3.20.1 Release Build 1831&lt;P&gt;Built on Wed Apr 16 09:49:02 2014</ChangeLog>
+      <release>1831</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.11.0 (1926)" Number="3.21.0.1926" URL="1926/BridgeControlPanel1.11.0.1926.msi" Size="11826688">
+      <ChangeLog>3.21.0 Release Build 1926&lt;P&gt;Built on Wed Jun 11 04:59:25 2014</ChangeLog>
+      <release>1926</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.12.0 (2034)" Number="3.22.0.2034" URL="2034/BridgeControlPanel1.12.0.2034.msi" Size="11888128">
+      <ChangeLog>3.22.0 Release Build 2034&lt;P&gt;Built on Mon Nov 24 07:09:39 2014</ChangeLog>
+      <release>2034</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.12.0 (2042)" Number="3.22.2.2042" URL="2042/BridgeControlPanel1.12.0.2042.msi" Size="11888128">
+      <ChangeLog>3.22.2 Release Build 2042&lt;P&gt;Built on Mon Feb 16 06:38:11 2015</ChangeLog>
+      <release>2042</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.12.0 (2043)" Number="3.22.3.2043" URL="2043/BridgeControlPanel1.12.0.2043.msi" Size="11888128">
+      <ChangeLog>3.22.3 Release Build 2043&lt;P&gt;Built on Tue Mar 24 15:00:55 2015</ChangeLog>
+      <release>2043</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.13.0 (2140)" Number="3.23.0.2140" URL="2140/BridgeControlPanel1.13.0.2140.msi" Size="11888128">
+      <ChangeLog>3.23.0 Release Build 2140 &lt;P&gt;Built on Fri May  8 23:52:27 2015</ChangeLog>
+      <release>2140</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.13.0 (2145)" Number="3.23.1.2145" URL="2145/BridgeControlPanel1.13.0.2145.msi" Size="11888640">
+      <ChangeLog>3.23.1 Release Build 2145 &lt;P&gt;Built on Mon Jul 13 16:08:04 2015</ChangeLog>
+      <release>2145</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.14.0 (2230)" Number="3.24.0.2230" URL="2230/BridgeControlPanel1.14.0.2230.msi" Size="11888640">
+      <ChangeLog>3.24.0 Release Build 2230 &lt;P&gt;Built on Tue Nov 24 10:33:51 2015</ChangeLog>
+      <release>2230</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.14.0 (2254)" Number="3.24.2.2254" URL="2254/BridgeControlPanel1.14.0.2254.msi" Size="11889152">
+      <ChangeLog>3.24.2 Release Build 2254&lt;P&gt;Built on Thu Feb 18 02:25:39 2016</ChangeLog>
+      <release>2254</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.14.0 (2265)" Number="3.24.4.2265" URL="2265/BridgeControlPanel1.14.0.2265.msi" Size="11889152">
+      <ChangeLog>3.24.4 Release Build 2265&lt;P&gt;Built on Mon May 16 07:31:31 2016</ChangeLog>
+      <release>2265</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.15.0 (2504)" Number="3.25.0.2504" URL="2504/BridgeControlPanel1.15.0.2504.msi" Size="11661824">
+      <ChangeLog>3.25.0 Release Build 2504&lt;P&gt;Built on Fri Sep  9 04:06:36 2016</ChangeLog>
+      <release>2504</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.16.0 (2791)" Number="3.26.0.2791" URL="2791/BridgeControlPanel1.16.0.2791.msi" Size="12228096">
+      <ChangeLog>3.26.0 Release Build 2791&lt;P&gt;Built on Thu May 25 01:22:31 2017</ChangeLog>
+      <release>2791</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.18.0 (3121)" Number="3.27.1.3121" URL="3121/BridgeControlPanel1.18.0.3121.msi" Size="7486464">
+      <ChangeLog>3.27.1 Release Build 3121 &lt;P&gt;Built on Wed Jan 31 01:58:02 2018</ChangeLog>
+      <release>3121</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.18.0 (3144)" Number="3.27.3.3144" URL="3144/BridgeControlPanel1.18.0.3144.msi" Size="7485952">
+      <ChangeLog>3.27.3 Release Build 3144&lt;P&gt;Built on Thu Jun 28 00:23:53 2018</ChangeLog>
+      <release>3144</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.19.0 (4154)" Number="3.28.0.4154" URL="4154/BridgeControlPanel1.19.0.4154.msi" Size="7506432">
+      <ChangeLog>3.28.0 Release Build 4154&lt;P&gt;Built on Thu Dec  6 06:15:14 2018</ChangeLog>
+      <release>4154</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.20.0 (4162)" Number="3.28.1.4162" URL="4162/BridgeControlPanel1.20.0.4162.msi" Size="7506432">
+      <ChangeLog>3.28.1 Release Build 4162 &lt;P&gt;Built on Wed Feb 13 01:44:47 2019</ChangeLog>
+      <release>4162</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.20.0 (4163)" Number="3.28.2.4163" URL="4163/BridgeControlPanel1.20.0.4163.msi" Size="7506432">
+      <ChangeLog>3.28.2 Release Build 4163 &lt;P&gt;Built on Wed Mar 27 05:41:38 2019</ChangeLog>
+      <release>4163</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.20.0 (4174)" Number="3.28.3.4174" URL="4174/BridgeControlPanel1.20.0.4174.msi" Size="7506432">
+      <ChangeLog>3.28.3 Release Build 4174 &lt;P&gt;Built on Thu Apr 25 11:32:21 2019</ChangeLog>
+      <release>4174</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.20.0 (4307)" Number="3.28.4.4307" URL="4307/BridgeControlPanel1.20.0.4307.msi" Size="7506432">
+      <ChangeLog>3.28.4 Release Build 4307 &lt;P&gt;Built on Tue Jun 18 06:51:53 2019</ChangeLog>
+      <release>4307</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.20.0 (4358)" Number="3.28.5.4358" URL="4358/BridgeControlPanel1.20.0.4358.msi" Size="7506432">
+      <ChangeLog>3.28.5 Release Build 4358 &lt;P&gt;Built on Mon Sep 23 06:13:59 2019</ChangeLog>
+      <release>4358</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.20.0 (4409)" Number="3.28.6.4409" URL="4409/BridgeControlPanel1.20.0.4409.msi" Size="7506432">
+      <ChangeLog>3.28.6 Release Build 4409 &lt;P&gt;Built on Thu Dec 19 06:22:14 2019</ChangeLog>
+      <release>4409</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.20.0 (4504)" Number="3.28.7.4504" URL="4504/BridgeControlPanel1.20.0.4504.msi" Size="7506432">
+      <ChangeLog>3.28.7 Release Build 4504 &lt;P&gt;Built on Mon Apr 6 06:49:26 2020</ChangeLog>
+      <release>4504</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.22.0 (4610)" Number="3.29.0.4610" URL="4610/BridgeControlPanel1.22.0.4610.msi" Size="7507456">
+      <ChangeLog>3.29.0 Release Build 4610 &lt;P&gt;Built on Thu Aug 20 05:33:38 2020</ChangeLog>
+      <release>4610</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.22.0 (4659)" Number="3.29.1.4659" URL="4659/BridgeControlPanel1.22.0.4659.msi" Size="7513600">
+      <ChangeLog>3.29.1 Release Build 4659 &lt;P&gt;Built on Tue Apr 13 05:10:28 2021</ChangeLog>
+      <release>4659</release>
+    </Version>
+    <Version Name="Bridge Control Panel 1.22.0 (4730)" Number="3.29.5.4730" URL="4730/BridgeControlPanel1.23.0.4730.msi" Size="6866432">
+      <ChangeLog>3.29.5 Release Build 4730 &lt;P&gt;Built on Thu Apr 13 01:44:17 2023</ChangeLog>
+      <release>4730</release>
+    </Version>
+  </Package>
+  <Package Name="Example Code" Typical="true" PackageID="4" Mandatory="false">
+    <Description>
+	Programmer COM code examples.
+    </Description>
+    <DependentOn>
+      <DepPackage Name="PSoC Programmer 3.10" />
+    </DependentOn>
+    <Version Name="Example Code (813)" Number="3.12.0.813" URL="813/ExampleCode.813.msi" Size="">
+      <ChangeLog>3.12 Release Build 813 &lt;P&gt;Built on Thu May 20 14:10:34 2010</ChangeLog>
+      <release>813</release>
+    </Version>
+    <Version Name="Example Code (827)" Number="3.12.827.0" URL="827/ExampleCode.827.msi" Size="">
+      <ChangeLog>3.12 Release Build 827 &lt;P&gt; Built on Wed Aug 04 15:41:39</ChangeLog>
+      <release>827</release>
+    </Version>
+    <Version Name="Example Code (862)" Number="3.12.2.862" URL="862/ExampleCode.862.msi" Size="">
+      <ChangeLog>3.12.2 Release Build 862 &lt;P&gt;Built on Wed Dec  8 20:51:33 2010</ChangeLog>
+      <release>862</release>
+    </Version>
+    <Version Name="Example Code (863)" Number="3.12.3.863" URL="863/ExampleCode.863.msi" Size="">
+      <ChangeLog>3.12.3 Release Build 863 &lt;P&gt;Built on Sat Jan 01 09:51:33 2011</ChangeLog>
+      <release>863</release>
+    </Version>
+    <Version Name="Example Code (866)" Number="3.12.4.866" URL="866/ExampleCode.866.msi" Size="">
+      <ChangeLog>3.12.4 Release Build 866 &lt;P&gt;Built on Fri Feb 11 12:43:04 2011</ChangeLog>
+      <release>866</release>
+    </Version>
+    <Version Name="Example Code (868)" Number="3.12.5.868" URL="868/ExampleCode.868.msi" Size="">
+      <ChangeLog>3.12.5 Release Build 868 &lt;P&gt;Built on Thu Apr 7 09:50:23 2011</ChangeLog>
+      <release>868</release>
+    </Version>
+    <Version Name="Example Code (870)" Number="3.12.6.870" URL="870/ExampleCode.870.msi" Size="">
+      <ChangeLog>3.12.6 Release Build 870 &lt;P&gt;Built on Fri May 27 17:47:25 2011</ChangeLog>
+      <release>870</release>
+    </Version>
+    <Version Name="Example Code (961)" Number="3.13.0.961" URL="961/ExampleCode.961.msi" Size="735744">
+      <ChangeLog>3.13 Release Build 961 &lt;P&gt;Built on Thu Jun 23 10:43:53 2011</ChangeLog>
+      <release>961</release>
+    </Version>
+    <Version Name="Example Code (1036)" Number="3.13.1.1036" URL="1036/ExampleCode.1036.msi" Size="664576">
+      <ChangeLog>3.13.1 Release Build 1036 &lt;P&gt;Built on Fri Sep  2 08:31:34 2011</ChangeLog>
+      <release>1036</release>
+    </Version>
+    <Version Name="Example Code (1038)" Number="3.13.2.1038" URL="1038/ExampleCode.1038.msi" Size="831488">
+      <ChangeLog>3.13.2 Release Build 1038 &lt;P&gt;Built on Wed Sep 14 10:40:35 2011</ChangeLog>
+      <release>1038</release>
+    </Version>
+    <Version Name="Example Code (1045)" Number="3.13.3.1045" URL="1045/ExampleCode.1045.msi" Size="831488">
+      <ChangeLog>3.13.3 Release Build 1045 &lt;P&gt;Built on Tue Nov 1 16:38:38 2011</ChangeLog>
+      <release>1045</release>
+    </Version>
+    <Version Name="Example Code (1048)" Number="3.13.4.1048" URL="1048/ExampleCode.1048.msi" Size="831488">
+      <ChangeLog>3.13.4 Release Build 1048 &lt;P&gt;Built on Thu Dec 1 16:42:35 2011</ChangeLog>
+      <release>1048</release>
+    </Version>
+    <Version Name="Example Code (1126)" Number="3.14.0.1126" URL="1126/ExampleCode.1126.msi" Size="708608">
+      <ChangeLog>3.14 Release Build 1126 &lt;P&gt;Built on Thu Feb 23 16:47:50 2012</ChangeLog>
+      <release>1126</release>
+    </Version>
+    <Version Name="Example Code (1220)" Number="3.15.0.1220" URL="1220/ExampleCode.1220.msi" Size="930816">
+      <ChangeLog>3.15 Release Build 1220 &lt;P&gt;Built on Wed May 23 16:04:37 2012</ChangeLog>
+      <release>1220</release>
+    </Version>
+    <Version Name="Example Code (1223)" Number="3.15.1.1223" URL="1223/ExampleCode.1223.msi" Size="930816">
+      <ChangeLog>3.15.1 Release Build 1223 &lt;P&gt;Built on Wed Jun 27 15:27:40 2012</ChangeLog>
+      <release>1223</release>
+    </Version>
+    <Version Name="Example Code (1322)" Number="3.16.0.1322" URL="1322/ExampleCode.1322.msi" Size="930816">
+      <ChangeLog>3.16.0 Release Build 1322 &lt;P&gt;Built on Thu Sep 13 10:00:42 2012</ChangeLog>
+      <release>1322</release>
+    </Version>
+    <Version Name="Example Code (1424)" Number="3.17.0.1424" URL="1424/ExampleCode.1424.msi" Size="938496">
+      <ChangeLog>3.17.0 Release Build 1424 &lt;P&gt;Built on Fri Dec 7 09:35:48 2012</ChangeLog>
+      <release>1424</release>
+    </Version>
+    <Version Name="Example Code (1536)" Number="3.18.1536" URL="1536/ExampleCode.1536.msi" Size="942080">
+      <ChangeLog>3.18 Release Build 1536 &lt;P&gt;Built on Wed Apr 17 14:01:38 2013</ChangeLog>
+      <release>1536</release>
+    </Version>
+    <Version Name="Example Code (1538)" Number="3.18.1.1538" URL="1538/ExampleCode.1538.msi" Size="942080">
+      <ChangeLog>3.18.1 Release Build 1538 &lt;P&gt;Built on Wed May 8 17:19:32 2013</ChangeLog>
+      <release>1538</release>
+    </Version>
+    <Version Name="Example Code  (1655)" Number="3.19.0.1655" URL="1655/ExampleCode.1655.msi" Size="941056">
+      <ChangeLog>3.19.0 Release Build 1655 &lt;P&gt;Built on Wed Aug 14 02:09:06 2013</ChangeLog>
+      <release>1655</release>
+    </Version>
+    <Version Name="Example Code  (1702)" Number="3.19.1.1702" URL="1702/ExampleCode.1702.msi" Size="941056">
+      <ChangeLog>3.19.1 Release Build 1702 &lt;P&gt;Built on Fri Sep 13 01:40:50 2013</ChangeLog>
+      <release>1702</release>
+    </Version>
+    <Version Name="Example Code  (1823)" Number="3.20.0.1823" URL="1823/ExampleCode.1823.msi" Size="941568">
+      <ChangeLog>3.20.0 Release Build 1823&lt;P&gt;Built on Wed Dec 11 04:06:27 2013</ChangeLog>
+      <release>1823</release>
+    </Version>
+    <Version Name="Example Code  (1831)" Number="3.20.1.1831" URL="1831/ExampleCode.1831.msi" Size="941568">
+      <ChangeLog>3.20.1 Release Build 1831&lt;P&gt;Built on Wed Apr 16 09:49:06 2014</ChangeLog>
+      <release>1831</release>
+    </Version>
+    <Version Name="Example Code  (1926)" Number="3.21.0.1926" URL="1926/ExampleCode.1926.msi" Size="956928">
+      <ChangeLog>3.21.0 Release Build 1926&lt;P&gt;Built on Wed Jun 11 04:59:28 2014</ChangeLog>
+      <release>1926</release>
+    </Version>
+    <Version Name="Example Code (2034)" Number="3.22.0.2034" URL="2034/ExampleCode.2034.msi" Size="994816">
+      <ChangeLog>3.22.0 Release Build 2034&lt;P&gt;Built on Mon Nov 24 07:09:40 2014</ChangeLog>
+      <release>2034</release>
+    </Version>
+    <Version Name="Example Code (2042)" Number="3.22.2.2042" URL="2042/ExampleCode.2042.msi" Size="994816">
+      <ChangeLog>3.22.2 Release Build 2042&lt;P&gt;Built on Mon Feb 16 06:38:12 2015</ChangeLog>
+      <release>2042</release>
+    </Version>
+    <Version Name="Example Code (2043)" Number="3.22.3.2043" URL="2043/ExampleCode.2043.msi" Size="994816">
+      <ChangeLog>3.22.3 Release Build 2043&lt;P&gt;Built on Tue Mar 24 15:00:56 2015</ChangeLog>
+      <release>2043</release>
+    </Version>
+    <Version Name="Example Code (2140)" Number="3.23.0.2140" URL="2140/ExampleCode.2140.msi" Size="997888">
+      <ChangeLog>3.23.0 Release Build 2140 &lt;P&gt;Built on Fri May  8 23:52:28 2015</ChangeLog>
+      <release>2140</release>
+    </Version>
+    <Version Name="Example Code (2145)" Number="3.23.1.2145" URL="2145/ExampleCode.2145.msi" Size="997888">
+      <ChangeLog>3.23.1 Release Build 2145 &lt;P&gt;Built on Mon Jul 13 16:08:04 2015</ChangeLog>
+      <release>2145</release>
+    </Version>
+    <Version Name="Example Code (2230)" Number="3.24.0.2230" URL="2230/ExampleCode.2230.msi" Size="850944">
+      <ChangeLog>3.24.0 Release Build 2230&lt;P&gt;Built on Tue Nov 24 10:33:52 2015</ChangeLog>
+      <release>2230</release>
+    </Version>
+    <Version Name="Example Code (2254)" Number="3.24.2.2254" URL="2254/ExampleCode.2254.msi" Size="1509376">
+      <ChangeLog>3.24.2 Release Build 2254 &lt;P&gt;Built on Thu Feb 18 02:25:40 2016</ChangeLog>
+      <release>2254</release>
+    </Version>
+    <Version Name="Example Code (2265)" Number="3.24.4.2265" URL="2265/ExampleCode.2265.msi" Size="1509376">
+      <ChangeLog>3.24.4 Release Build 2265 &lt;P&gt;Built on Mon May 16 07:31:32 2016</ChangeLog>
+      <release>2265</release>
+    </Version>
+    <Version Name="Example Code (2504)" Number="3.25.0.2504" URL="2504/ExampleCode.2504.msi" Size="1624064">
+      <ChangeLog>3.25.0 Release Build 2504&lt;P&gt;Built on Fri Sep  9 04:06:36 2016</ChangeLog>
+      <release>2504</release>
+    </Version>
+    <Version Name="Example Code (2791)" Number="3.26.0.2791" URL="2791/ExampleCode.2791.msi" Size="4640768">
+      <ChangeLog>3.26.0 Release Build 2791&lt;P&gt;Built on Thu May 25 01:22:32 2017</ChangeLog>
+      <release>2791</release>
+    </Version>
+    <Version Name="Example Code (3121)" Number="3.27.1.3121" URL="3121/ExampleCode.3121.msi" Size="1076736">
+      <ChangeLog>3.27.1 Release Build 3121&lt;P&gt;Built on Wed Jan 31 01:58:03 2018</ChangeLog>
+      <release>3121</release>
+    </Version>
+    <Version Name="Example Code (3144)" Number="3.27.3.3144" URL="3144/ExampleCode.3144.msi" Size="1076736">
+      <ChangeLog>3.27.3 Release Build 3144 &lt;P&gt;Built on Thu Jun 28 00:23:54 2018</ChangeLog>
+      <release>3144</release>
+    </Version>
+    <Version Name="Example Code (4154)" Number="3.28.0.4154" URL="4154/ExampleCode.4154.msi" Size="1178624">
+      <ChangeLog>3.28.0 Release Build 4154&lt;P&gt;Built on Thu Dec  6 06:15:15 2018</ChangeLog>
+      <release>4154</release>
+    </Version>
+    <Version Name="Example Code (4162)" Number="3.28.1.4162" URL="4162/ExampleCode.4162.msi" Size="1178624">
+      <ChangeLog>3.28.1 Release Build 4162 &lt;P&gt;Built on Wed Feb 13 01:44:47 2019</ChangeLog>
+      <release>4162</release>
+    </Version>
+    <Version Name="Example Code (4163)" Number="3.28.2.4163" URL="4163/ExampleCode.4163.msi" Size="1178624">
+      <ChangeLog>3.28.2 Release Build 4163 &lt;P&gt;Built on Wed Mar 27 05:41:38 2019</ChangeLog>
+      <release>4163</release>
+    </Version>
+    <Version Name="Example Code (4174)" Number="3.28.3.4174" URL="4174/ExampleCode.4174.msi" Size="1178624">
+      <ChangeLog>3.28.3 Release Build 4174 &lt;P&gt;Built on Thu Apr 25 11:32:21 2019</ChangeLog>
+      <release>4174</release>
+    </Version>
+    <Version Name="Example Code (4307)" Number="3.28.4.4307" URL="4307/ExampleCode.4307.msi" Size="1175040">
+      <ChangeLog>3.28.4 Release Build 4307 &lt;P&gt;Built on Tue Jun 18 06:51:53 2019</ChangeLog>
+      <release>4307</release>
+    </Version>
+    <Version Name="Example Code (4358)" Number="3.28.5.4358" URL="4358/ExampleCode.4358.msi" Size="1175040">
+      <ChangeLog>3.28.5 Release Build 4358 &lt;P&gt;Built on Mon Sep 23 06:13:59 2019</ChangeLog>
+      <release>4358</release>
+    </Version>
+    <Version Name="Example Code (4409)" Number="3.28.6.4409" URL="4409/ExampleCode.4409.msi" Size="1175040">
+      <ChangeLog>3.28.6 Release Build 4409 &lt;P&gt;Built on Thu Dec 19 06:22:14 2019</ChangeLog>
+      <release>4409</release>
+    </Version>
+    <Version Name="Example Code (4504)" Number="3.28.7.4504" URL="4504/ExampleCode.4504.msi" Size="1175040">
+      <ChangeLog>3.28.7 Release Build 4504 &lt;P&gt;Built on Mon Apr 6 06:49:26 2020</ChangeLog>
+      <release>4504</release>
+    </Version>
+    <Version Name="Example Code (4610)" Number="3.29.0.4610" URL="4610/ExampleCode.4610.msi" Size="1175040">
+      <ChangeLog>3.29.0 Release Build 4610 &lt;P&gt;Built on Thu Aug 20 05:33:38 2020</ChangeLog>
+      <release>4610</release>
+    </Version>
+    <Version Name="Example Code (4659)" Number="3.29.1.4659" URL="4659/ExampleCode.4659.msi" Size="1177088">
+      <ChangeLog>3.29.1 Release Build 4659 &lt;P&gt;Built on Tue Apr 13 05:10:28 2021</ChangeLog>
+      <release>4659</release>
+    </Version>
+    <Version Name="Example Code (4730)" Number="3.29.5.4730" URL="4730/ExampleCode.4730.msi" Size="1174528">
+      <ChangeLog>3.29.5 Release Build 4730 &lt;P&gt;Built on Thu Apr 13 01:44:17 2023</ChangeLog>
+      <release>4730</release>
+    </Version>
+  </Package>
+  <Package Name="Device Database" Typical="true" PackageID="5" Mandatory="true">
+    <Description>
+	Device Database.
+    </Description>
+    <DependentOn>
+      <DepPackage Name="PSoC Programmer 3.10" />
+    </DependentOn>
+    <Version Name="Device Database  (961)" Number="3.13.0.961" URL="961/DeviceDatabase.961.msi" Size="541184">
+      <ChangeLog>3.13 Release Build 961 &lt;P&gt;Built on Thu Jun 23 10:43:52 2011</ChangeLog>
+      <release>961</release>
+    </Version>
+    <Version Name="Device Database  (1036)" Number="3.13.1.1036" URL="1036/DeviceDatabase.1036.msi" Size="373760">
+      <ChangeLog>3.13.1 Release Build 1036 &lt;P&gt;Built on Fri Sep  2 08:31:34 2011</ChangeLog>
+      <release>1036</release>
+    </Version>
+    <Version Name="Device Database  (1038)" Number="3.13.2.1038" URL="1038/DeviceDatabase.1038.msi" Size="540672">
+      <ChangeLog>3.13.2 Release Build 1038 &lt;P&gt;Built on Wed Sep 14 10:40:35 2011</ChangeLog>
+      <release>1038</release>
+    </Version>
+    <Version Name="Device Database (1045)" Number="3.13.3.1045" URL="1045/DeviceDatabase.1045.msi" Size="541184">
+      <ChangeLog>3.13.3 Release Build 1045 &lt;P&gt;Built on Tue Nov 1 16:38:37 2011</ChangeLog>
+      <release>1045</release>
+    </Version>
+    <Version Name="Device Database (1048)" Number="3.13.4.1048" URL="1048/DeviceDatabase.1048.msi" Size="542208">
+      <ChangeLog>3.13.4 Release Build 1048 &lt;P&gt;Built on Thu Dec 1 16:42:35 2011</ChangeLog>
+      <release>1048</release>
+    </Version>
+    <Version Name="Device Database (1126)" Number="3.14.0.1126" URL="1126/DeviceDatabase.1126.msi" Size="377856">
+      <ChangeLog>3.14 Release Build 1126 &lt;P&gt;Built on Thu Feb 23 16:47:48 2012</ChangeLog>
+      <release>1126</release>
+    </Version>
+    <Version Name="Device Database (1220)" Number="3.15.0.1220" URL="1220/DeviceDatabase.1220.msi" Size="545792">
+      <ChangeLog>3.15 Release Build 1220 &lt;P&gt;Built on Wed May 23 16:04:35 2012</ChangeLog>
+      <release>1220</release>
+    </Version>
+    <Version Name="Device Database (1223)" Number="3.15.0.1223" URL="1223/DeviceDatabase.1223.msi" Size="545792">
+      <ChangeLog>3.15.1 Release Build 1223 &lt;P&gt;Built on Wed Jun 27 15:27:40 2012</ChangeLog>
+      <release>1223</release>
+    </Version>
+    <Version Name="Device Database (1322)" Number="3.16.0.1322" URL="1322/DeviceDatabase.1322.msi" Size="546816">
+      <ChangeLog>3.16.0 Release Build 1223 &lt;P&gt;Built on Thu Sep 13 10:00:42 2012</ChangeLog>
+      <release>1322</release>
+    </Version>
+    <Version Name="Device Database (1424)" Number="3.17.0.1424" URL="1424/DeviceDatabase.1424.msi" Size="547708">
+      <ChangeLog>3.17.0 Release Build 1424 &lt;P&gt;Built on Fri Dec 7 09:35:48 2012</ChangeLog>
+      <release>1424</release>
+    </Version>
+    <Version Name="Device Database (1536)" Number="3.18.1536" URL="1536/DeviceDatabase.1536.msi" Size="549376">
+      <ChangeLog>3.18 Release Build 1536 &lt;P&gt;Built on Wed Apr 17 14:01:38 2013</ChangeLog>
+      <release>1536</release>
+    </Version>
+    <Version Name="Device Database (1538)" Number="3.18.1.1538" URL="1538/DeviceDatabase.1538.msi" Size="549376">
+      <ChangeLog>3.18.1 Release Build 1538 &lt;P&gt;Built on Wed May 8 17:19:32 2013</ChangeLog>
+      <release>1538</release>
+    </Version>
+    <Version Name="Device Database (1655)" Number="3.19.0.1655" URL="1655/DeviceDatabase.1655.msi" Size="550400">
+      <ChangeLog>3.19.0 Release Build 1655&lt;P&gt;Built on Wed Aug 14 02:09:05 2013</ChangeLog>
+      <release>1655</release>
+    </Version>
+    <Version Name="Device Database (1702)" Number="3.19.1.1702" URL="1702/DeviceDatabase.1702.msi" Size="550912">
+      <ChangeLog>3.19.1 Release Build 1702 &lt;P&gt;Built on Fri Sep 13 01:40:49 2013</ChangeLog>
+      <release>1702</release>
+    </Version>
+    <Version Name="Device Database  (1823)" Number="3.20.0.1823" URL="1823/DeviceDatabase.1823.msi" Size="551424">
+      <ChangeLog>3.20.0 Release Build 1823&lt;P&gt;Built on Wed Dec 11 04:06:26 2013</ChangeLog>
+      <release>1823</release>
+    </Version>
+    <Version Name="Device Database  (1831)" Number="3.20.1.1831" URL="1831/DeviceDatabase.1831.msi" Size="551936">
+      <ChangeLog>3.20.1 Release Build 1831&lt;P&gt;Built on Wed Apr 16 09:49:05 2014</ChangeLog>
+      <release>1831</release>
+    </Version>
+    <Version Name="Device Database  (1926)" Number="3.21.0.1926" URL="1926/DeviceDatabase.1926.msi" Size="552448">
+      <ChangeLog>3.21.0 Release Build 1926 &lt;P&gt;Built on Wed Jun 11 04:59:27 2014</ChangeLog>
+      <release>1926</release>
+    </Version>
+    <Version Name="Device Database (2034)" Number="3.22.0.2034" URL="2034/DeviceDatabase.2034.msi" Size="550400">
+      <ChangeLog>3.22.0 Release Build 2034 &lt;P&gt;Built on Mon Nov 24 07:09:40 2014</ChangeLog>
+      <release>2034</release>
+    </Version>
+    <Version Name="Device Database (2042)" Number="3.22.2.2042" URL="2042/DeviceDatabase.2042.msi" Size="550400">
+      <ChangeLog>3.22.2 Release Build 2042&lt;P&gt;Built on Mon Feb 16 06:38:11 2015</ChangeLog>
+      <release>2042</release>
+    </Version>
+    <Version Name="Device Database (2043)" Number="3.22.3.2043" URL="2043/DeviceDatabase.2043.msi" Size="550400">
+      <ChangeLog>3.22.3 Release Build 2043&lt;P&gt;Built on Tue Mar 24 15:00:56 2015</ChangeLog>
+      <release>2043</release>
+    </Version>
+    <Version Name="Device Database (2140)" Number="3.23.0.2140" URL="2140/DeviceDatabase.2140.msi" Size="550912">
+      <ChangeLog>3.23.0 Release Build 2140 &lt;P&gt;Built on Fri May  8 23:52:28 2015</ChangeLog>
+      <release>2140</release>
+    </Version>
+    <Version Name="Device Database (2145)" Number="3.23.1.2145" URL="2145/DeviceDatabase.2145.msi" Size="550912">
+      <ChangeLog>3.23.1 Release Build 2145 &lt;P&gt;Built on Mon Jul 13 16:08:04 2015</ChangeLog>
+      <release>2145</release>
+    </Version>
+    <Version Name="Device Database (2230)" Number="3.24.0.2230" URL="2230/DeviceDatabase.2230.msi" Size="553472">
+      <ChangeLog>3.24.0 Release Build 2230 &lt;P&gt;Built on Tue Nov 24 10:33:51 2015</ChangeLog>
+      <release>2230</release>
+    </Version>
+    <Version Name="Device Database (2254)" Number="3.24.2.2254" URL="2254/DeviceDatabase.2254.msi" Size="553472">
+      <ChangeLog>3.24.2 Release Build 2254&lt;P&gt;Built on Thu Feb 18 02:25:40 2016</ChangeLog>
+      <release>2254</release>
+    </Version>
+    <Version Name="Device Database (2265)" Number="3.24.4.2265" URL="2265/DeviceDatabase.2265.msi" Size="553472">
+      <ChangeLog>3.24.4 Release Build 2265&lt;P&gt;Built on Mon May 16 07:31:31 2016</ChangeLog>
+      <release>2265</release>
+    </Version>
+    <Version Name="Device Database (2504)" Number="3.25.0.2504" URL="2504/DeviceDatabase.2504.msi" Size="559072">
+      <ChangeLog>3.25.0 Release Build 2504&lt;P&gt;Built on Fri Sep  9 04:06:36 2016</ChangeLog>
+      <release>2504</release>
+    </Version>
+    <Version Name="Device Database (2791)" Number="3.26.0.2791" URL="2791/DeviceDatabase.2791.msi" Size="562176">
+      <ChangeLog>3.26.0 Release Build 2791&lt;P&gt;Built on Thu May 25 01:22:31 2017</ChangeLog>
+      <release>2791</release>
+    </Version>
+    <Version Name="Device Database (3121)" Number="3.27.1.3121" URL="3121/DeviceDatabase.3121.msi" Size="596992">
+      <ChangeLog>3.27.1 Release Build 3121&lt;P&gt;Built on Wed Jan 31 01:58:03 2018</ChangeLog>
+      <release>3121</release>
+    </Version>
+    <Version Name="Device Database (3144)" Number="3.27.3.3144" URL="3144/DeviceDatabase.3144.msi" Size="597504">
+      <ChangeLog>3.27.3 Release Build 3144 &lt;P&gt;Built on Thu Jun 28 00:23:53 2018</ChangeLog>
+      <release>3144</release>
+    </Version>
+    <Version Name="Device Database (4154)" Number="3.28.0.4154" URL="4154/DeviceDatabase.4154.msi" Size="597504">
+      <ChangeLog>3.28.0 Release Build 4154 &lt;P&gt;Built on Thu Dec  6 06:15:14 2018</ChangeLog>
+      <release>4154</release>
+    </Version>
+    <Version Name="Device Database (4162)" Number="3.28.1.4162" URL="4162/DeviceDatabase.4162.msi" Size="600064">
+      <ChangeLog>3.28.1 Release Build 4162 &lt;P&gt;Built on Wed Feb 13 01:44:47 2019</ChangeLog>
+      <release>4162</release>
+    </Version>
+    <Version Name="Device Database (4163)" Number="3.28.2.4163" URL="4163/DeviceDatabase.4163.msi" Size="599040">
+      <ChangeLog>3.28.2 Release Build 4163 &lt;P&gt;Built on Wed Mar 27 05:41:38 2019</ChangeLog>
+      <release>4163</release>
+    </Version>
+    <Version Name="Device Database (4174)" Number="3.28.3.4174" URL="4174/DeviceDatabase.4174.msi" Size="599040">
+      <ChangeLog>3.28.3 Release Build 4174 &lt;P&gt;Built on Thu Apr 25 11:32:21 2019</ChangeLog>
+      <release>4174</release>
+    </Version>
+    <Version Name="Device Database (4307)" Number="3.28.4.4307" URL="4307/DeviceDatabase.4307.msi" Size="599040">
+      <ChangeLog>3.28.4 Release Build 4307 &lt;P&gt;Built on Tue Jun 18 06:51:53 2019</ChangeLog>
+      <release>4307</release>
+    </Version>
+    <Version Name="Device Database (4358)" Number="3.28.5.4358" URL="4358/DeviceDatabase.4358.msi" Size="599040">
+      <ChangeLog>3.28.5 Release Build 4358 &lt;P&gt;Built on Mon Sep 23 06:13:59 2019</ChangeLog>
+      <release>4358</release>
+    </Version>
+    <Version Name="Device Database (4409)" Number="3.28.6.4409" URL="4409/DeviceDatabase.4409.msi" Size="599040">
+      <ChangeLog>3.28.6 Release Build 4409 &lt;P&gt;Built on Thu Dec 19 06:22:14 2019</ChangeLog>
+      <release>4409</release>
+    </Version>
+    <Version Name="Device Database (4504)" Number="3.28.7.4504" URL="4504/DeviceDatabase.4504.msi" Size="599552">
+      <ChangeLog>3.28.7 Release Build 4504 &lt;P&gt;Built on Mon Apr 6 06:49:26 2020</ChangeLog>
+      <release>4504</release>
+    </Version>
+    <Version Name="Device Database (4610)" Number="3.29.0.4610" URL="4610/DeviceDatabase.4610.msi" Size="599552">
+      <ChangeLog>3.29.0 Release Build 4610 &lt;P&gt;Built on Thu Aug 20 05:33:38 2020</ChangeLog>
+      <release>4610</release>
+    </Version>
+    <Version Name="Device Database (4659)" Number="3.29.1.4659" URL="4659/DeviceDatabase.4659.msi" Size="600064">
+      <ChangeLog>3.29.1 Release Build 4659 &lt;P&gt;Built on Tue Apr 13 05:10:28 2021</ChangeLog>
+      <release>4659</release>
+    </Version>
+    <Version Name="Device Database (4730)" Number="3.29.5.4730" URL="4730/DeviceDatabase.4730.msi" Size="600576">
+      <ChangeLog>3.29.5 Release Build 4730 &lt;P&gt;Built on Thu Apr 13 01:44:17 2023</ChangeLog>
+      <release>4730</release>
+    </Version>
+  </Package>
+</Catalog>

@@ -1,0 +1,139 @@
+
+##-- ===========================
+##--
+##-- Copyright (c) 2001
+##-- Cypress Semiconductor, Inc.
+##-- An Unpublished Work -
+##-- All Rights Reserved
+##--
+##-- ===========================
+
+#
+# This is the attribute table for the control file DRC routines.  This
+# file must match the contents of CYPRESS.VHD.
+#
+
+bus_hold		boolean
+
+enum_encoding		string
+
+ff_type			enum/flipflop_type	ff_d		"Forces flip flop selection to D type"
+ff_type			enum/flipflop_type	ff_t		"Forces flip flop selection to T type"
+ff_type			enum/flipflop_type	ff_opt		"Allows software to select optimum flip flop"
+ff_type			enum/flipflop_type	ff_default	"Flip flop is assigned based on default"
+
+goal			enum/goal_type		speed
+goal			enum/goal_type		area
+goal			enum/goal_type		combinatorial
+goal			enum/goal_type		memory
+
+input_reg		enum/IO_reg_type	ioreg_auto	"Software determines the proper mapping"
+input_reg		enum/IO_reg_type	ioreg_iocell	"Force reg. to an IO cell when legal"
+input_reg		enum/IO_reg_type	ioreg_macrocell	"Force reg. to an macro-cell"
+input_reg		enum/IO_reg_type	ioreg_duplicate	"Reserved for future use"
+
+io_bank			string
+io_type			string			"STD_18"
+io_type			string			"LVCMOS2"
+io_type			string			"LVCMOS3_0"
+io_type			string			"LVCMOS3_3"
+io_type			string			"LVTTL"
+io_type			string			"LVTTL_02mA"
+io_type			string			"LVTTL_04mA"
+io_type			string			"LVTTL_06mA"
+io_type			string			"LVTTL_08mA"
+io_type			string			"LVTTL_12mA"
+io_type			string			"LVTTL_16mA"
+io_type			string			"LVTTL_24mA"
+io_type			string			"PCI"
+io_type			string			"GTL_PLUS"
+io_type			string			"SSTL2_CLASS_I"
+io_type			string			"SSTL2_CLASS_II"
+io_type			string			"SSTL3_CLASS_I"
+io_type			string			"SSTL3_CLASS_II"
+io_type			string			"HSTL_CLASS_I"
+io_type			string			"HSTL_CLASS_II"
+io_type			string			"HSTL_CLASS_III"
+io_type			string			"HSTL_CLASS_IV"
+
+lab_force		string
+
+lab_group		string
+
+low_power		string
+
+macrocell_loc		string
+
+map_to_memory		enum/Map_to_memory_type	mmap_auto	"Software follows the global defaul"
+map_to_memory		enum/Map_to_memory_type	mmap_none	"Do not map logic to memory"
+map_to_memory		enum/Map_to_memory_type	mmap_area	"Map for area even at the expense of speed"
+map_to_memory		enum/Map_to_memory_type	mmap_speed	"Map for area without sacrificing speed"
+
+no_factor		boolean
+
+no_latch		boolean
+
+node_num		integer
+
+node_cost		natural
+
+## since we must map from strings to integers, we need all the enums, in
+## order, even if they are not all semantically valid.
+oe_reg			enum/IO_reg_type	ioreg_auto
+oe_reg			enum/IO_reg_type	ioreg_iocell
+oe_reg			enum/IO_reg_type	ioreg_macrocell
+oe_reg			enum/IO_reg_type	ioreg_duplicate
+
+opt_level		integer
+
+order_code		string
+
+output_reg		enum/IO_reg_type	ioreg_auto	"Software determines the proper mapping"
+output_reg		enum/IO_reg_type	ioreg_iocell	"Force reg. to an IO cell when legal"
+output_reg		enum/IO_reg_type	ioreg_macrocell	"Force reg. to a macro-cell"
+output_reg		enum/IO_reg_type	ioreg_duplicate "Reserved for future use"
+
+part_name		string
+
+pin_avoid		string
+
+pin_numbers		string
+
+polarity		enum/polarity_select	pl_keep		"Keep polarity of signal as specified"
+polarity		enum/polarity_select	pl_opt		"Optimize polarity of signal"
+polarity		enum/polarity_select	pl_default	"Allowance of software to optomize polarity"
+
+slew_rate		enum/Slew_rate_type	fast
+slew_rate		enum/Slew_rate_type	slow
+
+state_encoding		enum/FSM_synth_type	sequential
+state_encoding		enum/FSM_synth_type	one_hot_zero
+state_encoding		enum/FSM_synth_type	one_hot_one
+state_encoding		enum/FSM_synth_type	gray
+state_encoding		enum/FSM_synth_type	user_codes
+
+sum_split		enum/Sum_split_type	balanced
+sum_split		enum/Sum_split_type	cascaded
+
+synthesis_off		boolean
+
+cy_memory_type		enum/cy_mem_types	cy_mem_auto
+cy_memory_type		enum/cy_mem_types	cy_mem_channel
+cy_memory_type		enum/cy_mem_types	cy_mem_cluster
+
+channel_mem_loc		string
+cluster_mem_loc		string
+cluster_group		string
+
+##	PSoC3 attributes
+cpu_access		boolean
+placement_force		string
+locked_route		string
+locked_mux_route	string
+locked_superroute	string
+placement_group		string
+port_location		string
+synchronization_needed	string
+clock_driver		string
+
+##[]

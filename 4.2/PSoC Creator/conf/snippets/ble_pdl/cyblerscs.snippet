@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_RSCS_RegisterAttrCallback</Title>
+			<Shortcut>Cy_BLE_RSCS_RegisterAttrCallback</Shortcut>
+			<Description>BLE RSCS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_RSCS_RegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>Cy_BLE_RSCS_CallBack</Default>
+					<ToolTip>BLE RSCS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Cy_BLE_RSCS_CallBack</Title>
+			<Shortcut>Cy_BLE_RSCS_CallBack</Shortcut>
+			<Description>BLE CallBack function for Running Speed and Cadence service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>Cy_BLE_RSCS_CallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>RSCS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>RSCS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CY_BLE_RSCS_SERVER
+        case CY_BLE_EVT_RSCSS_INDICATION_ENABLED:
+            break;
+
+        case CY_BLE_EVT_RSCSS_INDICATION_DISABLED:
+            break;
+
+        case CY_BLE_EVT_RSCSS_INDICATION_CONFIRMATION:
+            break;
+
+        case CY_BLE_EVT_RSCSS_NOTIFICATION_ENABLED:
+            break;
+
+        case CY_BLE_EVT_RSCSS_NOTIFICATION_DISABLED:
+            break;
+
+        case CY_BLE_EVT_RSCSS_WRITE_CHAR:
+            break;
+    #endif /* CY_BLE_RSCS_SERVER */
+
+    #ifdef CY_BLE_RSCS_CLIENT
+        case CY_BLE_EVT_RSCSC_INDICATION:
+            break;
+
+        case CY_BLE_EVT_RSCSC_NOTIFICATION:
+            break;
+
+        case CY_BLE_EVT_RSCSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_RSCSC_WRITE_CHAR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_RSCSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CY_BLE_EVT_RSCSC_WRITE_DESCR_RESPONSE:
+            break;
+    #endif /* CY_BLE_RSCS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

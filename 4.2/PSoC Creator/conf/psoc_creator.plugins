@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="us-ascii"?>
+
+<!--
+       For CyDesigner to recognize that a plugin should be loaded, it must be specified in the 
+       following section
+    
+       assembly = the name of the assembly that the plugin is located in (you can include path 
+       information relative to this file's location if your assembly is not in the same folder)
+       
+       classname = this should be the name for your class that implements ICyPlugin, fully qualified
+       with its namespace
+    -->
+<plugins>
+  <!-- the device catalog plugin will abort the process if it can't load the catalog off disk. -->
+  <!-- CDT 291715: Remove component survey feature from PSoC Creator 4.2 -->
+  <!-- plugin assembly="psoc_creator.exe" classname="CyDesigner.FeedbackPage.CyFeedbackPagePlugin"/-->
+  <plugin assembly="CyPrjMgmt.dll" classname="CyDesigner.Common.ProjMgmt.Customizer.CyCustomizerLoader"/>
+  <plugin assembly="cydevicedb.dll" classname="CyDesigner.Common.Db.DeviceDb.Catalog.CyAddinManager"/>
+  <plugin assembly="cydevicedb.dll" classname="CyDesigner.Common.Db.DeviceDb.Catalog.CyDcPlugin"/>
+  <plugin assembly="CyFramework.dll" classname="CyDesigner.Framework.CyDocumentationPlugin"/>
+
+  <!--<plugin assembly="cygde.dll" classname="CyDesigner.Gde.Schematic.NewProjectWizard.CyNewProjWizardTemplate"/> -->
+  <plugin assembly="psoc_creator.exe" classname="CyDesigner.StartPage.CyStartPagePlugin"/>
+ 
+  <plugin assembly="CyFramework.dll" classname="CyDesigner.Framework.CyOutputPlugin"/>
+  <plugin assembly="CyFramework.dll" classname="CyDesigner.Framework.SCCMgr.CySCCMgr"/>
+
+  <plugin assembly="cys3db.dll" classname="CyDesigner.Common.Db.CyS3Db.CyS3DbFactory"/>
+
+  <plugin assembly="CyPrjMgmt.dll" classname="CyDesigner.Common.ProjMgmt.CyPrjMgr"/>
+  <plugin assembly="cygde.dll" classname="CyDesigner.Gde.Common.CyGdePlugin"/>
+
+  <plugin assembly="CyPrjMgmt.dll" classname="CyDesigner.Common.ProjMgmt.Library.CyLanguagePlugin"/>
+  <plugin assembly="CyPrjMgmt.dll" classname="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWrkspcFactory"/>
+  <plugin assembly="CyPrjMgmt.dll" classname="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtPrjFactory"/>
+
+  <plugin assembly="CyPrjMgmt.dll" classname="CyDesigner.Common.ProjMgmt.Toolchains.CyToolchainMgr"/>
+  <plugin assembly="CyPrjMgmt.dll" classname="CyDesigner.Common.ProjMgmt.Toolchains.CyArmGccPlugin"/>
+  <plugin assembly="CyPrjMgmt.dll" classname="CyDesigner.Common.ProjMgmt.Toolchains.CyArmMdkPlugin"/>
+  <plugin assembly="CyPrjMgmt.dll" classname="CyDesigner.Common.ProjMgmt.Toolchains.CyArmIarPlugin"/>
+  <plugin assembly="CyPrjMgmt.dll" classname="CyDesigner.Common.ProjMgmt.Toolchains.CyDp8051Pk51Plugin"/>
+  <plugin assembly="CyPrjMgmt.dll" classname="CyDesigner.Common.ProjMgmt.DeviceSelector.CyDeviceSelectorPlugin"/>
+
+  <!-- Project management (including toolchains) must come before editors because 
+	- Editors need to register the new comp item dialog w/ CyPrjMgr
+	- Plugins are Closed in reverse order on exit, and advanced editor supporters make use of project
+	  management. The editor needs project management (including toolchains) to stay valid until
+	  it has closed itself.
+	  -->
+  <plugin assembly="cyeditors.dll" classname="CyDesigner.Common.Editors.CyFileEditorFactoryPlugin"/>
+
+  <plugin assembly="cytransport.dll" classname="CyDesigner.Common.Transport.CyTransportPlugin"/>
+  <plugin assembly="cydebugger.dll" classname="CyDesigner.Common.Debugger.CyDebuggerPlugin"/>
+  <plugin assembly="cypsocdebugger.exe" classname="CyDesigner.PSoC.Debugger.CyPSoCDebuggerPlugin"/>
+  <plugin assembly="cypsocdebugger.exe" classname="CyDesigner.PSoC.Debugger.CyFMDebuggerPlugin"/>
+  <plugin assembly="cyppdeviceio.dll" classname="CyDesigner.Common.Transport.PPDeviceIO.CyPPDeviceIOPlugin"/>
+  <plugin assembly="cywin32deviceio.dll" classname="CyDesigner.Common.Transport.Win32DeviceIO.Serial.CySerialTransportPlugin"/>
+
+  <plugin assembly="bootloader_host.exe" classname="CyDesigner.Common.Tools.BootLoaderHost.CyBootloaderHostPlugin"/>
+
+  <plugin assembly="cys3db.dll" classname="CyDesigner.Common.Db.CyS3Db.CyBGElaborator"/>
+  <plugin assembly="cys3db.dll" classname="CyDesigner.Common.Db.CyS3Db.CyTypeCacheFactory"/>
+
+  <plugin assembly="cydsfit.exe" classname="CyDesigner.Device.FitterPSoC.CyFitterPSoCPlugin"/>
+  <plugin assembly="cyfitter_fm.exe" classname="CyDesigner.Device.FitterFM.CyFitterFmPlugin"/>
+  <plugin assembly="cyfitlib.dll" classname="CyDesigner.Device.FitLib.DesignWideResources.CyDWRPlugin"/>
+  <plugin assembly="cydsfit.exe" classname="CyDesigner.Device.FitterPSoC.P35.DMAWizard.CyDMAWizardPlugin"/>
+  
+  <plugin assembly="cygde.dll" classname="CyDesigner.Gde.Tuner.CyTunerPlugin"/>
+
+  <plugin assembly="cyframework.dll" classname="CyDesigner.Framework.NoticeWindow.CyNoticeWindowPlugin"/>
+
+</plugins>

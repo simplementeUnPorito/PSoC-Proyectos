@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="ComponentStateRules" type="ComponentStateRulesType"/>
+
+  <xs:complexType name="ComponentStateRulesType">
+    <xs:sequence>
+      <xs:element name="Rule" type="RuleType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="Version" type="xs:int" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="RuleType">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="Pattern" type="PatternType" minOccurs="1" maxOccurs="1"/>
+        <xs:element name="IpPattern" type="IpPatternType" minOccurs="1" maxOccurs="1"/>
+      </xs:choice>
+      <xs:element name="State" type="StateType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="Severity" type="SeverityType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="Message" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PatternType">
+    <xs:sequence>
+      <xs:element name="Architecture" type="xs:string" minOccurs="0"/>
+      <xs:element name="Family" type="xs:string" minOccurs="0"/>
+      <xs:element name="Revision" type="xs:string" minOccurs="0"/>
+      <xs:element name="Device" type="xs:string" minOccurs="0"/>
+      <xs:element name="ArchMember" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IpPatternType">
+    <xs:sequence>
+      <xs:element name="IpName" type="xs:string"/>
+      <xs:element name="IpVersion" type="xs:int" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="StateType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Prototype"/>
+      <xs:enumeration value="Production"/>
+      <xs:enumeration value="Obsolete"/>
+      <xs:enumeration value="Incompatible"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SeverityType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Note"/>
+      <xs:enumeration value="Warning"/>
+      <xs:enumeration value="Error"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

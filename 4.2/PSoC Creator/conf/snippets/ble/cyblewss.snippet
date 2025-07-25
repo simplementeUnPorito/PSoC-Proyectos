@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_WssRegisterAttrCallback</Title>
+			<Shortcut>CyBle_WssRegisterAttrCallback</Shortcut>
+			<Description>BLE WSS register callback function</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_WssRegisterAttrCallback</Default>
+					<ToolTip>Function name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>callback</ID>
+					<Default>CyBle_WssCallBack</Default>
+					<ToolTip>BLE WSS CallBack function name</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[$name$( $callback$ );]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>CyBle_WssCallBack</Title>
+			<Shortcut>CyBle_WssCallBack</Shortcut>
+			<Description>BLE CallBack function for Weight Scale service</Description>
+			<Author>Cypress Semiconductor</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>name</ID>
+					<Default>CyBle_WssCallBack</Default>
+					<ToolTip>Function Name</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventCode</ID>
+					<Default>eventCode</Default>
+					<ToolTip>WSS Event Code</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>eventParam</ID>
+					<Default>eventParam</Default>
+					<ToolTip>WSS Event Parameters</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="c">
+<![CDATA[void $name$( uint32 $eventCode$, void *$eventParam$ )
+{
+    switch($eventCode$)
+    {
+    #ifdef CYBLE_WSS_SERVER
+        case CYBLE_EVT_WSSS_INDICATION_ENABLED:
+            break;
+
+        case CYBLE_EVT_WSSS_INDICATION_DISABLED:
+            break;
+
+        case CYBLE_EVT_WSSS_INDICATION_CONFIRMED:
+            break;
+    #endif /* CYBLE_WSS_SERVER */
+
+    #ifdef CYBLE_WSS_CLIENT
+        case CYBLE_EVT_WSSC_INDICATION:
+            break;
+
+        case CYBLE_EVT_WSSC_READ_CHAR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_WSSC_READ_DESCR_RESPONSE:
+            break;
+
+        case CYBLE_EVT_WSSC_WRITE_DESCR_RESPONSE:
+            break;
+    #endif /* CYBLE_WSS_CLIENT */
+    }
+}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
